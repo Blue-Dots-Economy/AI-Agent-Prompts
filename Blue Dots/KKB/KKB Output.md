@@ -67,7 +67,20 @@ If a value is not present, use "NA" for strings, [] for arrays, or 0 for counts.
     only if nearby, only at certain times), "NA" if the question was not asked 
     (e.g. no application was attempted) or the seeker gave no clear answer.
 
-15. EXAMPLE OUTPUT — Below is an example of how all the above fields should be 
+15. consent_status — On the new-caller path (new_seeker="yes"), did the caller give the consent needed to create their profile and apply?
+   Values: "Given" if the caller agreed at the consent gate and create_profile was called; "Declined" if the caller refused consent (no create_profile, no apply_job — call ended at the consent gate); "NA" for a returning caller (already consented) or if the consent gate was never reached. Default "NA".
+
+16. service_provider_pitched — Was the Need Capture service-provider offer actually 
+    spoken to the caller on this call? 
+    Values: "Yes" if the offer was made (either path), "No" if the call ended before 
+    that step was reached or the call did not qualify for it.
+
+17. service_provider_interest — How did the caller respond to that offer? 
+    Values: "Yes" for a clear acceptance, "No" for a clear refusal, "Maybe" if the 
+    answer was unclear or they gave no real answer, "NA" if the offer was never made 
+    (service_provider_pitched = "No").
+
+18. EXAMPLE OUTPUT — Below is an example of how all the above fields should be 
     aggregated and returned for a single call. Use this exact structure:
 
 {
@@ -135,6 +148,9 @@ If a value is not present, use "NA" for strings, [] for arrays, or 0 for counts.
     }
   ],
   "ready_for_interview": "Yes",
+  "consent_status": "NA",
+  "service_provider_pitched": "Yes",
+  "service_provider_interest": "Yes",
   "drop_reason": "NA",
   "final_summary": "Seeker was actively looking for work and engaged in a detailed conversation about three roles. Successfully applied to Electrician and Machine Operator positions but the third application (Solar Energy Consultant) failed due to a profile not found error."
 }
@@ -152,6 +168,9 @@ Rules:
   failed but the seeker stayed engaged, drop_reason = "NA".
 - ready_for_interview is "NA" when the interview-readiness question was never asked 
   or the seeker did not give a clear Yes/No/Conditional answer.
+- service_provider_interest is "NA" whenever service_provider_pitched is "No" — a 
+  response cannot exist for an offer that was never made. Never infer interest from 
+  anything other than the caller's answer to that specific offer.
 - Do not hallucinate company names, salaries, or contact details — only extract what 
   is actually present in the transcript or input recommendations.
 - For final_summary, always write in English regardless of the conversation language.

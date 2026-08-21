@@ -95,7 +95,17 @@ If a value is not present, use "NA" for strings, [] for arrays, or 0 for counts.
     Values: "Yes" only on a clear, explicit decline of job-seeking; "No" otherwise
     (including when the student engaged, was unsure, or the topic never came up).
 
-21. EXAMPLE OUTPUT — Below is an example of how all the above fields should be
+21. service_provider_pitched — Was the Need Capture service-provider offer actually
+    spoken to the student on this call?
+    Values: "Yes" if the offer was made (either path), "No" if the call ended before
+    that step was reached or the call did not qualify for it.
+
+22. service_provider_interest — How did the student respond to that offer?
+    Values: "Yes" for a clear acceptance, "No" for a clear refusal, "Maybe" if the
+    answer was unclear or they gave no real answer, "NA" if the offer was never made
+    (service_provider_pitched = "No").
+
+23. EXAMPLE OUTPUT — Below is an example of how all the above fields should be
     aggregated and returned for a single call. Use this exact structure:
 
 {
@@ -145,6 +155,8 @@ If a value is not present, use "NA" for strings, [] for arrays, or 0 for counts.
   "mpl_registration": "Not offered",
   "mpl_presented": "No",
   "not_interested_in_jobs": "No",
+  "service_provider_pitched": "Yes",
+  "service_provider_interest": "Yes",
   "drop_reason": "NA",
   "final_summary": "Student confirmed she studies at the named college and was actively looking for work. She discussed two roles and successfully applied to a Sales Executive position in Lucknow. The company's HR contact number was shared after the application."
 }
@@ -164,4 +176,9 @@ Rules:
   HR contact — never infer it otherwise.
 - Do not hallucinate company names, salaries, benefits, HR numbers, or contact details
   — only extract what is actually present in the transcript or input recommendations.
+- service_provider_interest is "NA" whenever service_provider_pitched is "No" — a
+  response cannot exist for an offer that was never made. Never infer interest from
+  anything other than the student's answer to that specific offer.
+- service_provider_pitched and mpl_presented are INDEPENDENT — they are two different
+  offers. Never set one from the other.
 - For final_summary, always write in English regardless of the conversation language.
