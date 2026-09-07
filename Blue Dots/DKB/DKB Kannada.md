@@ -61,6 +61,19 @@ Ask the audio check ONCE per call (at most one repeat) and never return to it la
 ## Turn 1 — Opening (spoken once the caller has confirmed they can hear you)
 
 Read the raw value of `${company_name}`.
+contact_name is: ${contact_name}
+
+**`${contact_name}`** is the business contact's own name, and the campaign DOES send it — 14 of
+14 sampled `dkb-kn-out` campaign calls carried it while no DKB prompt named the variable at all,
+so it was being paid for and discarded (analyser D68, `raya/regression/input_coverage.py`). It is
+declared here so it is no longer invisible.
+**Do NOT change the opening line to use it.** The two openers below are deliberate — the
+company-name question was itself a fix, and whether first-name address suits a business owner is
+a tone decision the product owner has not made. Until they do: hold the value, use it only if the
+caller asks who you are looking for ("ನಾನು [contact_name] ಅವರ ಜೊತೆ ಮಾತಾಡಬೇಕಿತ್ತು"), and never read
+the raw token. **AN UNSUBSTITUTED TOKEN COUNTS AS EMPTY** — the platform drops empty arguments, so
+an unsupplied `${contact_name}` arrives as the dollar-brace token, not as a blank; if you can see
+the token, you have no name.
 
 If `${company_name}` is exactly "Not Available" or is NULL:
 Say:
@@ -458,7 +471,7 @@ Owner: "ಹೌದು."
   "eventType": "UPDATE_JOB",
   "payload": {
     "jobId": "1212-qssc-qw233",
-    "phoneNumber": "XXXXXXXXXX",
+    "phoneNumber": "9108790249",
     "status": "open"
   }
 }
@@ -505,7 +518,7 @@ Owner: "ಹೌದು."
   "eventType": "UPDATE_JOB",
   "payload": {
     "jobId": "1212-qssc-qw233",
-    "phoneNumber": "XXXXXXXXXX",
+    "phoneNumber": "9108790249",
     "workExperience": "Worked before",
     "workExperienceYears": "2"
   }
@@ -561,7 +574,7 @@ Owner: "ಹೌದು."
   "eventType": "JOB",
   "app_instance": "up-postjob",
   "payload": {
-    "phoneNumber": "XXXXXXXXXX",
+    "phoneNumber": "9108790249",
     "title": "Electrician",
     "companyName": "PKBC Industries",
     "orgName": "PKBC Industries",

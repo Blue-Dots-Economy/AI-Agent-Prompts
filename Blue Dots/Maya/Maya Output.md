@@ -89,6 +89,19 @@ If a value is not present, use "NA" for strings, [] for arrays, or 0 for counts.
     or any other MPL mention?
     Values: "Yes" if MPL was brought up, "No" if it was never mentioned.
 
+19a. ready_for_interview — Did the student indicate they could attend an interview if an
+    employer shortlists them (a single question asked once before applying)?
+    Values: "Yes" if they said they can attend (including a phone interview),
+    "No" if they said they cannot, "Conditional" if it depends (only by phone,
+    only on certain days, needs notice), "NA" if the question was never asked or
+    the student gave no clear answer.
+
+19b. consent_status — On the new-caller path (no live profile, so `create_profile` runs), did the
+    student give the consent needed to create their profile and apply?
+    Values: "Given" if the student agreed at the consent gate and create_profile was called;
+    "Declined" if the student refused consent (no create_profile, no apply_job — the call ended at
+    the consent gate); "NA" for a returning student whose profile already existed.
+
 20. not_interested_in_jobs — Did the student explicitly say they are NOT looking for a
     job / not interested in jobs during this call (an unambiguous decline, not mere
     hesitation or "maybe")?
@@ -154,6 +167,8 @@ If a value is not present, use "NA" for strings, [] for arrays, or 0 for counts.
   "benefits_mentioned": "Yes",
   "mpl_registration": "Not offered",
   "mpl_presented": "No",
+  "ready_for_interview": "Yes",
+  "consent_status": "NA",
   "not_interested_in_jobs": "No",
   "service_provider_pitched": "Yes",
   "service_provider_interest": "Yes",

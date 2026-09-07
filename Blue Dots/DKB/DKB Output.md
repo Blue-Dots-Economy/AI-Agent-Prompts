@@ -45,6 +45,15 @@ Was the new job successfully posted to the platform during the call?
 Yes — bot confirmed the posting was created
 No — new job was mentioned but not posted
 
+POSTING CONSENT
+posting_consent
+Did the employer give consent to post the job to the platform (the "shall I post this?" gate that
+precedes create_job)?
+
+Given — employer agreed and the posting went ahead
+Declined — employer was asked and refused, so nothing was posted
+NA — the consent gate was never reached (no new job to post, or the call ended earlier)
+
 PHASE 4 — TALENT INSIGHTS
 talent_insights_shown
 Did the bot share seeker demand data or talent availability insights with the employer?

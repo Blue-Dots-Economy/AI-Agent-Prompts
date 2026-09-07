@@ -70,6 +70,63 @@ If a value is not present, use "NA" for strings, [] for arrays, or 0 for counts.
 15. consent_status — On the new-caller path (new_seeker="yes"), did the caller give the consent needed to create their profile and apply?
    Values: "Given" if the caller agreed at the consent gate and create_profile was called; "Declined" if the caller refused consent (no create_profile, no apply_job — call ended at the consent gate); "NA" for a returning caller (already consented) or if the consent gate was never reached. Default "NA".
 
+15a. preferred_location — Did the caller state a place they want to work, when the jobs
+    on offer did not suit them (the mismatch preference capture), or when they corrected
+    the location the call opened with? Extract the place in the caller's own terms, in
+    English/Latin script — a city, a locality, or a station/landmark if that is all they
+    gave (e.g. "Vasundhara, Ghaziabad", "Noida", "near Sahibabad station").
+    This is where they want to WORK. It is NOT their residence and must never be copied
+    from the profile's stored location, from a job's location, or from the call's input
+    location. "NA" if the caller never stated a preferred work location.
+    **The test is whether the words came out of the CALLER's mouth.** If the bot named a place
+    and the caller merely agreed ("हाँ", "सही"), that counts — they confirmed it aloud. If the
+    place appears only in the call's input variables, only in their stored profile, or only in a
+    job's details, it is "NA" no matter how obviously it looks like their location. A value that
+    equals the call's input `location` and was never spoken by the caller is the single most
+    common way this field goes wrong: check the caller's turns before filling it.
+    A station or landmark the caller offered instead of an area is a valid value — record it as
+    they said it.
+
+15c. input_location_had_jobs — Did the call's input `location` actually have any job in
+    the list the bot was given? Compare the call's input location against the `location`
+    field of the jobs offered.
+    Values: "Yes" if at least one job sat in that place or its city; "No" if the input
+    location was a real place and NOT ONE job was there (e.g. the call opened on "Delhi"
+    and every job was in Ghaziabad); "NA" if the input location was empty or a sentinel
+    ("Any", "NA", "-", a pincode, campaign metadata).
+    **Compare the INPUT location string to the job list. Do NOT follow what the bot talked
+    about.** On call d3521a89 the input was "Delhi", every job was in Ghaziabad, and the bot
+    confirmed "गाज़ियाबाद" to the caller — the correct value is "No", because the question is
+    whether the place the caller was DIALLED for had any job, not which place got discussed.
+    Reading it off the conversation hides exactly the targeting problem this field exists to
+    surface. It went wrong the other way on call 2bf465d9: the input was "Hubli", SIX of the
+    eight jobs were in Hubli, the bot happened to talk about Dharwad, and this field was
+    recorded as "No". Match the input string against every job's `location` field — a job
+    listed as "Keshwapur, Hubli" IS in Hubli — and ignore which city got discussed.
+    This is a CAMPAIGN-TARGETING signal, not a bot verdict: "No" means the caller was
+    dialled for a city we hold no inventory in, which is worth surfacing even when the
+    call otherwise went perfectly. Judge it from the input location and the job list only
+    — never from what the caller said they wanted.
+
+15d. nearest_landmark — Did the caller name a nearest bus stop, railway/metro station, or
+    well-known landmark near where they live? This is the Location step's Turn B answer.
+    Extract it in the caller's own terms, transliterated to English/Latin script
+    (e.g. "Nashik Road station", "near Sabzi Mandi", "Sahibabad station").
+    "NA" if they were never asked (because it was already known from a previous call) or
+    gave no usable answer. Never fill it from the input location, a job's location, or the
+    stored profile — only from what the caller said on THIS call.
+    **If the BOT supplied the landmark rather than the caller, this is "NA".** That has happened:
+    on call d3521a89 the bot asked for the nearest station, the caller answered "जी बताइए"
+    (a non-answer), and the bot said "साहिबाबाद स्टेशन है।" itself. Nothing was learned on that
+    call, so the correct value is "NA" — recording it as though the caller gave it launders a
+    bot fabrication into a stored caller fact.
+
+15b. preference_mismatch_reason — Why the caller rejected the jobs, when they did.
+    Values: "Location" if they turned them down because of distance/area/city;
+    "Role" if they turned them down because it was not the kind of work they want;
+    "NA" if they did not reject the jobs, or applied, or gave no reason.
+    Exactly one value — if they objected on both, use the one the bot actually acted on.
+
 16. service_provider_pitched — Was the Need Capture service-provider offer actually 
     spoken to the caller on this call? 
     Values: "Yes" if the offer was made (either path), "No" if the call ended before 
@@ -149,6 +206,10 @@ If a value is not present, use "NA" for strings, [] for arrays, or 0 for counts.
   ],
   "ready_for_interview": "Yes",
   "consent_status": "NA",
+  "preferred_location": "Vasundhara, Ghaziabad",
+  "preference_mismatch_reason": "Location",
+  "input_location_had_jobs": "No",
+  "nearest_landmark": "Sahibabad station",
   "service_provider_pitched": "Yes",
   "service_provider_interest": "Yes",
   "drop_reason": "NA",
@@ -168,6 +229,11 @@ Rules:
   failed but the seeker stayed engaged, drop_reason = "NA".
 - ready_for_interview is "NA" when the interview-readiness question was never asked 
   or the seeker did not give a clear Yes/No/Conditional answer.
+- preferred_location and preference_mismatch_reason describe the caller's STATED
+  preference only. Never infer them: if the caller did not say where they want to work,
+  preferred_location is "NA" even when the call's input location or their profile carries
+  a place. preference_mismatch_reason is "NA" whenever the caller applied to a job or never
+  rejected the options. A preferred work location is never written to the caller's profile.
 - service_provider_interest is "NA" whenever service_provider_pitched is "No" — a 
   response cannot exist for an offer that was never made. Never infer interest from 
   anything other than the caller's answer to that specific offer.

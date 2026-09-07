@@ -47,7 +47,15 @@ IMPORTANT:
 ## CONSTRAINT LAYER — What limits their choices
 - `desired_salary` — expected monthly salary range as bracket, e.g., "15-20K"
 - `desired_salary_exact` — exact amount if explicitly provided
-- `preferred_location` — where they want to work (city/area)
+- `preferred_location` — where they want to WORK (city or area), **only when the caller said it themselves**. This bot now captures a work location at several distinct points, and all of them count: the Location step's Turn A (whether they named a place or confirmed the one we read back), Turn B (the nearest bus stop / railway or metro station / landmark), and the mismatch preference capture after they rejected the jobs on distance. A station or landmark IS a usable value — record it as they said it ("साहिबाबाद स्टेशन के पास"), do not convert it into a guess at an area.
+  **Never fill this from the call's input `location` variable, from a job's location, or from where they LIVE.** Those are not statements of preference. If the caller never said where they want to work, leave it empty — an empty field is correct and useful; an invented one silently mis-ranks every future call to this person.
+- `home_location` — where the caller LIVES, when they said it: the city, and the area/locality if they gave one. This is a DIFFERENT fact from `preferred_location` and the two must never overwrite each other — a caller can live in Delhi and want work in Ghaziabad. Record only what they stated aloud, never the input variable and never a job's city.
+- `nearest_landmark` — **THE FIELD THAT STOPS THE BOT ASKING TWICE.** The nearest bus stop, railway or metro station, or well-known landmark to where the caller LIVES, exactly as they said it ("नासिक रोड स्टेशन", "सब्ज़ी मंडी के पास", "साहिबाबाद स्टेशन"). This is asked ONCE per caller, ever — the Location step's **Turn B** — and the whole point of storing it is that every later call SKIPS that turn in silence. So:
+  - **Once this field has a value, never let it go back to empty.** A later call that did not ask the question (because this field was already filled) must CARRY THE EXISTING VALUE FORWARD unchanged. Blanking it re-arms a question the caller has already answered, which is the single most irritating thing this bot can do to a repeat caller.
+  - Record only what the caller said aloud. Never fill it from the input `location`, from a job's location, or from the profile.
+  - Update it only when the caller gives a NEW or corrected landmark themselves.
+  - It is a landmark, not a city: it never overwrites `home_location` or `preferred_location`, and it is never sent to a tool as `location`.
+- `location_capture_outcome` — how the location conversation ended on the last call, one of: `Stated` (they named a place) / `Confirmed` (they agreed to the one we read back) / `Open` (they said anywhere is fine) / `Refused` (they declined to give one) / `Unclear` (we could not make it out). This tells the next call whether to confirm, ask afresh, or not push again — a caller recorded as `Refused` or `Unclear` should not be put through the finer-detail turn a second time.
 - `commute_flexibility` — one of: `Hyperlocal (<2km)` / `Local (<10km)` / `City-wide` / `Anywhere`
 - `shift_preference` — one of: `Any` / `Day` / `Night` / `Part-time`
 - `availability` — one of: `Immediate` / `Within 2 weeks` / `1 month+`
@@ -126,6 +134,9 @@ IMPORTANT:
   "desired_salary": "",
   "desired_salary_exact": "",
   "preferred_location": "",
+  "home_location": "",
+  "nearest_landmark": "",
+  "location_capture_outcome": "",
   "commute_flexibility": "",
   "shift_preference": "",
   "availability": "",

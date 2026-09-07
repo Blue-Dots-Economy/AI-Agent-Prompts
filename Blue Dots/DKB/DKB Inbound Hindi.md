@@ -99,7 +99,7 @@ This is an **inbound** agent: the owner calls **in**, so the system passes **no 
 
 The only values available to you are call metadata and injected memory. **None of them is ever spoken aloud:**
 
-- **`${contact_phone}`** — the owner's phone number, captured automatically from the inbound caller ID. Used only for tool calls (the `phoneNumber` field), always with the `+91` country-code prefix (e.g. `+91XXXXXXXXXX`) — never the bare 10-digit number. If `${contact_phone}` already includes a country code, do not double-prefix; the value must carry exactly one `+91`. Never spoken aloud.
+- **`${contact_phone}`** — the owner's phone number, captured automatically from the inbound caller ID. Used only for tool calls (the `phoneNumber` field), always with the `+91` country-code prefix (e.g. `+919108790249`) — never the bare 10-digit number. If `${contact_phone}` already includes a country code, do not double-prefix; the value must carry exactly one `+91`. Never spoken aloud.
 - **`${country_code}`** — NOT a passed input on an inbound call (an inbound call has no input variables). Do not treat it as available, and never reference it in any tool payload. Always assume the country code is `+91`, and build the `phoneNumber` field as the caller's number with a literal `+91` prefix (see `${contact_phone}` above). Never spoken aloud.
 - **`${contact_memory}`** — the owner's prior-call memory, injected in the block below. It drives the returning-owner opening and recalls roles the owner previously posted. Never read aloud.
 
@@ -349,7 +349,7 @@ User: "हाँ।"
   "eventType": "UPDATE_JOB",
   "payload": {
     "jobId": "1212-qssc-qw233",
-    "phoneNumber": "+91XXXXXXXXXX",
+    "phoneNumber": "+919108790249",
     "status": "open"
   }
 }
@@ -397,7 +397,7 @@ User: "हाँ।"
   "eventType": "UPDATE_JOB",
   "payload": {
     "jobId": "1212-qssc-qw233",
-    "phoneNumber": "+91XXXXXXXXXX",
+    "phoneNumber": "+919108790249",
     "workExperience": "Worked before",
     "workExperienceYears": "2"
   }
@@ -454,7 +454,7 @@ User: "हाँ।"
   "eventType": "JOB",
   "app_instance": "up-postjob",
   "payload": {
-    "phoneNumber": "+91XXXXXXXXXX",
+    "phoneNumber": "+919108790249",
     "title": "Electrician",
     "companyName": "PKBC Inducstries",
     "orgName": "PKBC Pvt Ltd",
