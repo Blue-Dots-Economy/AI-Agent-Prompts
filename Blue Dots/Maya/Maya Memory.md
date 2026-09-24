@@ -67,8 +67,18 @@ IMPORTANT:
 - `urgency_modifier` — one of: `Urgent` / `Non-urgent`
 - `active_use_case` — one of: `UC-1 Job Search` / `UC-2 Apply` / `UC-3 Profile Update` / `UC-4 Follow-Up` / `UC-5 Deep-Dive`
 - `last_action` — one of: `Applied` / `Browsed` / `Updated Profile` / `None` (drives the opening line on the next call)
-- `last_options_presented` — array of strings with timestamps embedded (e.g., `["2026-06-22: Sales Executive, ABC Corp, Lucknow, 18K"]`)
+- `last_options_presented` — **a COUNT and a date, never the jobs themselves.** Write it as
+  `["2026-06-22: 8 options shown"]`. **Do NOT store role, company, location or salary here.**
+  Nothing reads its contents; it exists only so the next call can tell a previous conversation
+  happened. Storing the actual jobs made them available to the next call as current inventory. The
+  example that used to sit here named a role and a company, and on `a4f378b9` the bot offered
+  "हेल्पर, एबीसी लॉजिस्टिक्स" — a company that exists in no prompt, no fixture and no tool result.
 - `jobs_applied` — array of strings with timestamps embedded
+  **APPEND an entry whenever the transcript shows a SUCCESSFUL `apply_job` tool result — that
+  result IS the clear, direct evidence, and this is the one field driven by a tool outcome rather
+  than by something the caller said.** Carry forward every entry already present. This field is
+  load-bearing: the conversation prompt's duplicate pre-check reads it, and across KKB and Maya it
+  was non-empty on only 2 of 76 calls, so that check could never fire.
 - `applications_this_session` — count of successful applies in the latest call
 - `hr_contact_shared` — `Yes` / `No` — whether an HR contact number was shared this journey
 - `drop_off_reason` — string if applicable from prior session

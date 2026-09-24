@@ -28,7 +28,9 @@ IMPORTANT:
 ## IDENTITY LAYER — Who they are
 - `business_id`: Phone number as primary key
 - `owner_name` (optional)
-- `business_name` — free text or MSME registry match
+- `business_name` — free text or MSME registry match. This one is genuinely durable — an owner's
+  business does not change between calls, so remembering it is correct and it is fine to greet them
+  by it when no `company_name` argument arrives.
 - `location_district` — district only (no full address)
 - `location_pin_zone` — pin zone only (no full address)
 - `language_preference` — one of: `Hindi` / `Kannada` / `Marathi` / `Telugu` / `English` / `other`
@@ -48,8 +50,12 @@ IMPORTANT:
 - `hiring_frequency` — one of: `First time` / `Occasional (<2/year)` / `Regular (monthly)` / `Bulk (seasonal)`
 
 ## CONSTRAINT LAYER — What limits their choices
-- `budget_per_hire` — monthly salary range as bracket, e.g., "15-20K"
-- `budget_per_hire_exact` — exact amount if explicitly provided
+- `budget_per_hire` — monthly salary range as bracket, **always written with the date it came
+  from**, e.g. `"15-20K (from the 2026-09-08 call)"`. The date is not optional. This is a
+  HISTORICAL figure about a PREVIOUS posting, and the next call must be able to see that at a
+  glance: on `965f9d06` and `dfaf30eb` the `salary` argument was `30000` and the bot spoke a
+  remembered figure instead, as though it were this posting's salary.
+- `budget_per_hire_exact` — exact amount if explicitly provided, **with the date it came from**
 - `urgency` — one of: `Immediate (<7 days)` / `Short-term (1-4 weeks)` / `Planned (1-3 months)`
 - `role_count_needed` — one of: `1` / `2-5` / `6-20` / `20+`
 - `role_count_needed_exact` — exact count if explicitly provided
@@ -71,7 +77,14 @@ IMPORTANT:
 - `active_routing_mode` — one of: `Exploratory` / `Transactional` / `Decision-Support` / `Follow-Up`
 - `urgency_modifier` — one of: `Urgent` / `Non-urgent`
 - `active_use_case` — one of: `UC-1 Post Job` / `UC-2 Shortlist` / `UC-3 Market Truth` / `UC-4 Check Apps` / `UC-5 Update Role` / `UC-6 Salary Bench` / `UC-7 No Apps Diagnosis` / `UC-8 Compare Candidates`
-- `roles_posted` — array of strings with timestamps embedded (e.g., `["2026-04-22: Fitter, Nashik, 18K"]`)
+- `roles_posted` — **a COUNT and a date, never the postings themselves.** Write it as
+  `["2026-04-22: 1 role posted"]`. **Do NOT store the role, the location or the salary here.**
+  Nothing reads its contents; it exists only so the next call can tell a previous posting happened.
+  Storing the actual posting made it available to the next call as though it were THIS call's
+  posting: six calls in a row spoke a role and a salary from an earlier call while the arguments
+  carried different values — `714ebfc0`, `cc1b0ecc`, `965f9d06`, `dfaf30eb`, `90bd2e80`,
+  `71c66134`. The same field shape caused the same bug on KKB (`last_options_presented`), where
+  this change is verified fixed on `7bf46d06`.
 - `applications_received` — count and source breakdown
 - `hires_made` — count and outcome tracking
 - `drop_off_reason` — string if applicable from prior session

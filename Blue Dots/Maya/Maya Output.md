@@ -56,6 +56,17 @@ If a value is not present, use "NA" for strings, [] for arrays, or 0 for counts.
     Array of objects.
     Each object: { job_id, role, company_name, company_location, salary_offered,
                    qualification_required, failure_reason }
+13b. unbacked_apply_claim — **A RECONCILIATION FLAG.** "Yes" when the agent TOLD the caller their
+    application had gone through but NO successful apply_job result appears in the transcript for
+    that job; otherwise "No". A hold phrase, a stage direction, or the agent describing the tool
+    call does NOT count as a result.
+
+    When this is "Yes" the caller hung up believing they applied and they have not — that is a
+    person to call back, and this flag is what makes them findable instead of silent. It occurred
+    on roughly 1 in 11 real calls that claimed an apply and is NOT fixable from the conversation
+    prompt (four mechanisms tried, each falsified against a live call — see
+    `ESCALATION-litwiz.md` §1). Set it independently of jobs_applied and jobs_failed_to_apply.
+
 
 14. hr_contact_shared — Did the agent share an HR contact number with the student
     (only happens after a successful apply, and only if the job had one)?
@@ -162,6 +173,7 @@ If a value is not present, use "NA" for strings, [] for arrays, or 0 for counts.
       "qualification_required": "Graduate"
     }
   ],
+  "unbacked_apply_claim": "No",
   "jobs_failed_to_apply": [],
   "hr_contact_shared": "Yes",
   "benefits_mentioned": "Yes",

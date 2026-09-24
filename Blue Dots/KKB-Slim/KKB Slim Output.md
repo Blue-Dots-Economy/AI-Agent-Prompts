@@ -48,25 +48,6 @@ If a value is not present, use "NA" for strings, [] for arrays, or 0 for counts.
     Each object: { job_id, role, company_name, company_location, salary_offered, 
                    qualification_required, failure_reason }
 
-11b. unbacked_apply_claim — **A RECONCILIATION FLAG, and the most important field in this
-    prompt when it fires.** Set to "Yes" when the agent TOLD the caller their application had
-    gone through but NO successful apply_job result appears anywhere in the transcript for that
-    job. Otherwise "No".
-
-    Read it off the transcript literally: the agent said a success line (e.g. "अप्लाई हो गया है",
-    "ಅಪ್ಲೈ ಆಗಿದೆ", or any wording asserting the application exists) and there is no apply_job tool
-    result showing success. A hold phrase, a stage direction, or the agent describing the tool call
-    does NOT count as a result.
-
-    When this is "Yes" the caller has hung up believing they applied and they have NOT. That is a
-    person who needs calling back, so the flag exists to make them findable rather than silent.
-    It occurred on roughly 1 in 11 real calls that claimed an apply, and it is NOT fixable from the
-    conversation prompt — four mechanisms were tried and each failed against a live call
-    (`ESCALATION-litwiz.md` §1). Until the runtime owns that sentence, this field is the mitigation.
-
-    Set it independently of jobs_applied and jobs_failed_to_apply: a call can have an empty
-    jobs_applied AND unbacked_apply_claim "Yes", and that combination is exactly the case to surface.
-
 12. drop_reason — If the seeker dropped off or disengaged from the call before 
     natural completion, what was the behavioral reason? 
     This captures SEEKER behavior, not technical failures. 
@@ -128,17 +109,40 @@ If a value is not present, use "NA" for strings, [] for arrays, or 0 for counts.
     — never from what the caller said they wanted.
 
 15d. nearest_landmark — Did the caller name a nearest bus stop, railway/metro station, or
-    well-known landmark near where they live? This is the Location step's Turn B answer.
+    well-known landmark near where they live? Normally the Location step's answer — BUT if later
+    in the call they say they have moved or live somewhere else and name a stop or landmark near the
+    NEW place, that later one REPLACES it. Always the landmark for where they live NOW.
     Extract it in the caller's own terms, transliterated to English/Latin script
     (e.g. "Nashik Road station", "near Sabzi Mandi", "Sahibabad station").
     "NA" if they were never asked (because it was already known from a previous call) or
     gave no usable answer. Never fill it from the input location, a job's location, or the
     stored profile — only from what the caller said on THIS call.
+    **Their FINAL answer, exactly as for home_area.** If, later in the call, they say they have
+    moved or live somewhere else and name a stop or landmark near the NEW place, record THAT one —
+    not the one they gave first. The two fields must describe the same place: on call c0e479e9 the
+    caller moved from Muradnagar to Modinagar mid-call, home_area correctly became "Modinagar", and
+    this field kept "Muradnagar bus stand" — a landmark in one town paired with an area in another.
+    If they say they moved but name no new landmark, this is "NA": the old landmark no longer
+    describes where they live.
     **If the BOT supplied the landmark rather than the caller, this is "NA".** That has happened:
     on call d3521a89 the bot asked for the nearest station, the caller answered "जी बताइए"
     (a non-answer), and the bot said "साहिबाबाद स्टेशन है।" itself. Nothing was learned on that
     call, so the correct value is "NA" — recording it as though the caller gave it launders a
     bot fabrication into a stored caller fact.
+
+15e. pin_code — The caller's 6-digit postal PIN code, as settled at the Location step's Turn C.
+    Record it when the caller CONFIRMED the pin we already held, or gave one themselves — six
+    digits, digits only (e.g. "110098"). "NA" if the pin was never settled: they did not know it,
+    refused, were never asked, or the turn was skipped.
+    **To check the length, write the confirmed pin as digit words, one per digit, and count the
+    WORDS** — not the number. Six → record those six digits. Any other count → "NA". Never add, drop or
+    change a digit to make it six: on call 2ad96965 the caller agreed to a five-digit read-back and it
+    was recorded as "110024", with a digit invented.
+    **Only what the caller confirmed or said out loud counts.** A pin sitting in the input location
+    that the caller never confirmed is "NA" — the point of this field is that a human agreed to it.
+    Never fill it from a job's location, the stored profile, or your own knowledge of the city, and
+    never repair a value: if what was captured is not exactly six digits, this is "NA". A guessed or
+    completed pin would look identical to a confirmed one and is worse than an empty field.
 
 15b. preference_mismatch_reason — Why the caller rejected the jobs, when they did.
     Values: "Location" if they turned them down because of distance/area/city;
@@ -146,17 +150,77 @@ If a value is not present, use "NA" for strings, [] for arrays, or 0 for counts.
     "NA" if they did not reject the jobs, or applied, or gave no reason.
     Exactly one value — if they objected on both, use the one the bot actually acted on.
 
-16. service_provider_pitched — Was the Need Capture service-provider offer actually 
-    spoken to the caller on this call? 
-    Values: "Yes" if the offer was made (either path), "No" if the call ended before 
-    that step was reached or the call did not qualify for it.
+15f. home_area — The area, locality or town the caller LIVES in, as settled on THIS call, in
+    English/Latin script (e.g. "Muradnagar", "Raj Nagar Extension", "Vaishali"). Their FINAL answer:
+    if they corrected it at the Location step, or later said they had moved or live somewhere else,
+    record the LATEST place they gave. Record it when the caller confirmed the area read back to
+    them, or named one themselves. "NA" if it was never settled. Only what the caller confirmed or
+    said out loud counts — never fill it from a job's location, and never with a city or state
+    alone when they named something more specific. This is where they LIVE, not where they want to
+    work: that is preferred_location.
 
-17. service_provider_interest — How did the caller respond to that offer? 
-    Values: "Yes" for a clear acceptance, "No" for a clear refusal, "Maybe" if the 
-    answer was unclear or they gave no real answer, "NA" if the offer was never made 
-    (service_provider_pitched = "No").
+16. services_pitched — Was a support-service offer actually spoken to the caller on this call
+    (section S, wherever it fired — early because they were not looking for work, after a no-match,
+    after a successful apply, or at the closing step)?
+    Values: "Yes" if an offer was spoken, "No" if none was.
+    NOTE: this replaces the old service_provider_pitched. The offer now NAMES a real organisation
+    instead of pitching "some service providers", so an offer with no organisation named is a defect
+    and should still be recorded as "Yes" (it was spoken) — service_offered will show it as "NA",
+    which is how the report surfaces it.
 
-18. EXAMPLE OUTPUT — Below is an example of how all the above fields should be 
+17. service_interest — How did the caller respond to that offer?
+    Values: "Yes" for a clear acceptance, "No" for a clear refusal, "Maybe" if the answer was
+    unclear or they gave no real answer, "NA" if no offer was made.
+
+18. service_offered — WHICH service was offered, by name: the organisationName exactly as
+    get_services returned it (e.g. "TRRAIN Trust", "Aastha Skill Development Centre (MoLE
+    Certified)", "Model Career Centre (MCC) Ghaziabad – Govt of India", "HHH Foundation",
+    "Yuva Kaushal Vikas Kendra (MoLE Certified)"). "NA" if no offer was made, or if an offer was
+    spoken without naming an organisation. **Never a name the tool did not return** — an invented
+    organisation here is the same class of error as an invented job.
+
+19. service_need_matched — What need was the offer matched to?
+    Values: "Training" (skilling / vocational / wants to learn a trade or get a certificate),
+    "Counselling" (does not know what suits them, interview nerves, career advice),
+    "Placement" (wants help actually getting placed), "Financial" (fees, schemes, financial aid),
+    "Travel" (transport or accommodation), "Other", "NA" if no offer was made.
+
+20. jobs_interest — At the introduction, did the caller say they are looking for work?
+    Values: "Yes" (they want work, named a role, or asked what we have), "No" (a clear refusal —
+    they are not looking for a job right now), "Unclear" (no real answer; the bot correctly treated
+    it as a yes and continued). This is the top-of-funnel number: "No" callers should have gone
+    straight to services and should show jobs_fetched = "No".
+
+21. jobs_fetched — Did a job tool actually run this call?
+    Values: "Recommended" if get_recommended_jobs ran (personalised, anchored on their profile),
+    "Search" if get_jobs ran (query-based), "Both" if both ran, "No" if neither did.
+    **Read this from the tool calls, not from the conversation.**
+
+22. jobs_offered_count — How many DISTINCT jobs were actually named aloud to the caller across the
+    whole call, as an integer (0 if none). Count jobs spoken, not rows returned by the tool — most
+    returned rows are dropped as unusable before anything is said.
+
+23. job_roles_offered — The role names actually spoken aloud, as a comma-separated list, copied from
+    what was said (e.g. "Data Entry Operator, Computer Operator"). "NA" if none were named.
+    **A role of "na", "Any" or anything containing "|" appearing here is a BUG** — those rows must be
+    dropped before presentation, so their presence in this field means the junk filter failed.
+
+24. job_no_match — Did the caller ask for a kind of work we could not offer?
+    Values: "Yes" if, after cleaning the tool result, nothing relevant survived and the caller was
+    told so; "No" if at least one relevant job was offered; "NA" if jobs were never discussed.
+
+25. asked_job_location — Did the caller ask WHERE a job was?
+    Values: "Yes" / "No". If "Yes", the bot must have said it does not have the exact location —
+    it is never allowed to state or guess a job's city, because the API returns it masked. Any call
+    where this is "Yes" is worth reading to confirm no city was invented.
+
+NOTE ON CALL DIRECTION — do not try to output it. The platform does not inject a direction variable
+and the model cannot know whether we dialled the caller or they dialled us. Direction is derived from
+the call record instead: an inbound call carries caller_no / in_did, an outbound one carries
+to_number / out_did. Any inbound-vs-outbound metric is computed there, not here.
+
+
+26. EXAMPLE OUTPUT — Below is an example of how all the above fields should be 
     aggregated and returned for a single call. Use this exact structure:
 
 {
@@ -212,7 +276,6 @@ If a value is not present, use "NA" for strings, [] for arrays, or 0 for counts.
       "qualification_required": "10th pass"
     }
   ],
-  "unbacked_apply_claim": "No",
   "jobs_failed_to_apply": [
     {
       "job_id": "9098465107",
@@ -230,8 +293,18 @@ If a value is not present, use "NA" for strings, [] for arrays, or 0 for counts.
   "preference_mismatch_reason": "Location",
   "input_location_had_jobs": "No",
   "nearest_landmark": "Sahibabad station",
-  "service_provider_pitched": "Yes",
-  "service_provider_interest": "Yes",
+  "pin_code": "110098",
+  "home_area": "Sahibabad",
+  "services_pitched": "Yes",
+  "service_interest": "Yes",
+  "service_offered": "TRRAIN Trust",
+  "service_need_matched": "Placement",
+  "jobs_interest": "Yes",
+  "jobs_fetched": "Recommended",
+  "jobs_offered_count": 2,
+  "job_roles_offered": "Data Entry Operator, Computer Operator",
+  "job_no_match": "No",
+  "asked_job_location": "No",
   "drop_reason": "NA",
   "final_summary": "Seeker was actively looking for work and engaged in a detailed conversation about three roles. Successfully applied to Electrician and Machine Operator positions but the third application (Solar Energy Consultant) failed due to a profile not found error."
 }

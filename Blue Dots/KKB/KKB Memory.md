@@ -74,8 +74,27 @@ IMPORTANT:
 - `urgency_modifier` — one of: `Urgent` / `Non-urgent`
 - `active_use_case` — one of: `UC-1 Job Search` / `UC-2 Apply` / `UC-3 Profile Update` / `UC-4 Follow-Up` / `UC-5 Deep-Dive`
 - `last_action` — one of: `Applied` / `Browsed` / `Updated Profile` / `None` (drives the opening line on the next call)
-- `last_options_presented` — array of strings with timestamps embedded (e.g., `["2026-06-22: Electrician, Pune, 18K"]`)
-- `jobs_applied` — array of strings with timestamps embedded (e.g., `["2026-06-22: Electrician, Sigmatek, Ghaziabad"]`)
+- `last_options_presented` — **a COUNT and a date, never the jobs themselves.** Write it as
+  `["2026-06-22: 8 options shown"]`. **Do NOT store role, company, location or salary here.**
+  This field exists only so the next call can tell that a previous conversation happened; nothing
+  reads its contents. Storing the actual jobs made them available to the next call as if they were
+  current inventory: on `45e2cb3b`, `293c92c2`, `11ce47ce` and `764cba1d` the bot was given ONE job
+  in `${recommendations}` and offered four, the extra three being jobs presented on earlier calls.
+  The same leak put a previous caller's business name into a DKB greeting (`bd60c6b0`, `2ea06509`)
+  and a previous call's salary into a DKB posting line (`965f9d06`).
+- `jobs_applied` — array of strings with timestamps embedded (e.g.,
+  `["2026-06-22: Electrician, Sigmatek, Ghaziabad"]`). **APPEND an entry whenever the transcript
+  shows a SUCCESSFUL `apply_job` tool result — that result IS the clear, direct evidence, and this
+  is the one field driven by a tool outcome rather than by something the caller said.** Carry
+  forward every entry already present; never replace the array with only this call's applies.
+
+  **This field is load-bearing and it is currently almost always empty — 2 of 76 calls.** The
+  conversation prompt's duplicate pre-check reads it to decide whether the caller has already
+  applied, and with an empty array that check can never fire, so the agent applies again, gets
+  `ACTION_LIMIT_REACHED`, and has to recognise the error name instead — which it does on only 12%
+  of calls. The two calls where it IS populated are both inbound agents, and inbound is also where
+  the already-applied line works. Recording a successful apply here is what makes the reliable path
+  work at all.
 - `applications_this_session` — count of successful applies in the latest call
 - `drop_off_reason` — string if applicable from prior session
 
