@@ -1,0 +1,47 @@
+.DS_Store
+*.log
+
+# Prompt version snapshots — local rollback safety net (see scripts/prompt-version.sh).
+# Ignore the snapshot bodies but keep the per-agent HISTORY.md logs + README tracked.
+versions/*/*/
+
+# Raya deploy secrets — never commit the base URL/token (see raya/README.md).
+# The tracked twin is raya/.env.example (keys only, no values).
+.env
+raya/.env
+
+# Google service-account key (Sheets API) — never commit.
+secrets/
+*service-account*.json
+gsheets-sa.json
+
+# Scratch / temp working files
+scratchpad/
+scratchpad_*
+
+# Tool-config snapshots contain live API keys in headers — never commit
+raya/snapshots/
+# E2E tool-config snapshots (.tools.*.json) ALSO embed live x-api-key/BPP keys — never commit.
+# (.md instruction snapshots in the same dir are keyless and stay tracked.)
+raya/signals-expansion/e2e/snapshots/*.json
+control-center/control.db-wal
+control-center/control.db-shm
+
+# tester persona backups (transient)
+raya/personas/_backups/
+
+# Bot Control Center — local runtime artifacts (job logs may echo transcripts/secrets)
+control-center/runs/
+control-center/control.db
+control-center/backend/.venv/
+control-center/frontend/node_modules/
+control-center/frontend/dist/
+control-center/**/__pycache__/
+
+# regression email build artifact
+digest.html
+raya/location-writeback-state.json
+
+# /demo — live-run outputs and presenter state (regenerated every run)
+demo/out/
+demo/.state.json

@@ -1,0 +1,2 @@
+reg-hi-1 USABLE 148s 7 30a66433-cea0-4b92-a500-ea211c15e388
+reg-hi-2 USABLE 174s 9 d4e4a6c8-77ae-4d3d-9dd7-231c092a2ba2

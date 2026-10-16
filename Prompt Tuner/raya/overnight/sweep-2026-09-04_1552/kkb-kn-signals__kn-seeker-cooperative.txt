@@ -1,0 +1,47 @@
+[kkb-kn-signals-kn-seeker-cooperative] POST /api/call -> 200 {"message": "Call initiated successfully", "uuid": "b9629043-c316-455f-a527-65588f14d81e"}
+[kkb-kn-signals-kn-seeker-cooperative] poll 0: outcome='Pending' dur=0 turns=0
+[kkb-kn-signals-kn-seeker-cooperative] poll 1: outcome='Pending' dur=0 turns=0
+[kkb-kn-signals-kn-seeker-cooperative] poll 2: outcome='Pending' dur=0 turns=0
+[kkb-kn-signals-kn-seeker-cooperative] poll 3: outcome='Pending' dur=0 turns=0
+[kkb-kn-signals-kn-seeker-cooperative] poll 4: outcome='Pending' dur=0 turns=0
+[kkb-kn-signals-kn-seeker-cooperative] poll 5: outcome='Pending' dur=0 turns=0
+[kkb-kn-signals-kn-seeker-cooperative] poll 6: outcome='Pending' dur=0 turns=0
+[kkb-kn-signals-kn-seeker-cooperative] poll 7: outcome='Pending' dur=0 turns=0
+[kkb-kn-signals-kn-seeker-cooperative] poll 8: outcome='Pending' dur=0 turns=0
+[kkb-kn-signals-kn-seeker-cooperative] poll 9: outcome='Pending' dur=0 turns=0
+[kkb-kn-signals-kn-seeker-cooperative] poll 10: outcome='Completed' dur=116 turns=20
+
+============================================================================
+[kkb-kn-signals-kn-seeker-cooperative] BOT b9629043-c316-455f-a527-65588f14d81e outcome=Completed dur=116
+call_output: null
+
+TRANSCRIPT:
+[user] hello
+[assistant] ಹಲೋ, ನನ್ನ ಧ್ವನಿ ಕೇಳಿಸ್ತಾ ಇದೆಯಾ? 
+[user]  ಹಾ, ಕೇಳಿಸ್ತಿದೆ. ಹೇಳಿ ಏನಾಯ್ತು?
+[assistant] ನಮಸ್ಕಾರ. ನಾನು ಮಾಯಾ. ನಗರ ಆಡಳಿತದ 'ಕೆಲಸದ ಮಾತು' ಉಪಕ್ರಮಕ್ಕೆ ಸ್ವಾಗತ. ನಿಮ್ಮ ಏರಿಯಾದಲ್ಲಿ ಕೆಲವು ಒಳ್ಳೆಯ ಜಾಬ್‌ಗಳ ಮಾಹಿತಿ ಕೊಡೋಕೆ ಕಾಲ್ ಮಾಡ್ತಾ ಇದ್ದೇನೆ. ಈ ಮಾತುಕತೆ ರೆಕಾರ್ಡ್ ಆಗಬಹುದು. ನೀವು ಈಗ ಕೆಲಸ ಹುಡುಕ್ತಾ ಇದ್ದೀರಾ? *(Silent tool call: get_profile)* 
+[user]  ಹೌದು, ಕೆಲಸ ಹುಡುಕ್ತಾ ಇದ್ದೀನಿ.
+[assistant] ಸುವರ್ಣ ಅವರೇ, ನೀವು ಈಗ ಕಸ್ಟಮರ್ ಸರ್ವಿಸ್ ಎಕ್ಸಿಕ್ಯೂಟಿವ್ ಕೆಲಸ ಮಾಡ್ತಾ ಇದೀರಿ ಅಲ್ವಾ — ನಿಮಗೆ ಇನ್ನೂ ಕಸ್ಟಮರ್ ಸರ್ವಿಸ್ ಎಕ್ಸಿಕ್ಯೂಟಿವ್ ಥರದ ಜಾಬ್ ಬೇಕಾ? 
+[user]  ಹೌದು, ಅದೇ ತರದ ಕೆಲಸ ಬೇಕು.
+[assistant] ನಮ್ಮ ಹತ್ರ ನಿಮ್ಮ ಜಾಬ್ ಲೊಕೇಶನ್ ಹುಬ್ಬಳ್ಳಿ ಅಂತ ಇದೆ, ಮತ್ತೆ ಈಗ ಜಾಬ್‌ಗಳು ಹುಬ್ಬಳ್ಳಿ ಮತ್ತು ಧಾರವಾಡದಲ್ಲಿ ಇವೆ — ಇದು ಸರಿನಾ? 
+[user]  ಹಾ, ಸರಿ. ಹುಬ್ಬಳ್ಳಿಯಲ್ಲಿ ಇದ್ದರೆ ಪರವಾಗಿಲ್ಲ.
+[assistant] ಸರಿ. ನಿಮಗೆ ಜಾಬ್‌ಗಳಿವೆ — ಒಂದು: ಕಸ್ಟಮರ್ ಸಪೋರ್ಟ್ ಅಸೋಸಿಯೇಟ್, ಸದರ್ಲ್ಯಾಂಡ್ ಗ್ಲೋಬಲ್ ಸರ್ವಿಸಸ್, ಅಕ್ಷಯ್ ಪಾರ್ಕ್, ಹುಬ್ಬಳ್ಳಿ, ಸ್ಯಾಲರಿ ಹದಿಮೂರು ಸಾವಿರದಿಂದ ಹದಿನೆಂಟು ಸಾವಿರ.  ಯಾವುದಾದರೂ ಪ್ರಶ್ನೆ ಇದ್ಯಾ? ಅಥವಾ ಇದರ ಬಗ್ಗೆ ಇನ್ನಷ್ಟು ತಿಳಿಯಬೇಕಾ? 
+[user]  ಸರಿ, ಕೇಳಿಸ್ತು. ಸ್ಯಾಲರಿ ಬಗ್ಗೆ ಐಡಿಯಾ ಬಂತು. ಬೇರೆ ಏನು ಪ್ರಶ್ನೆ ಇಲ್ಲ. ಅಪ್ಲೈ ಮಾಡಿ.
+[assistant] ಅಪ್ಲೈ ಮಾಡಿದ್ರೆ ನಿಮ್ಮ ಮಾಹಿತಿ ಕಂಪನಿ ಜೊತೆ ಶೇರ್ ಆಗುತ್ತೆ. ಈ ಜಾಬ್‌ಗೆ ಅಪ್ಲೈ ಮಾಡ್ಲಾ? 
+[user]  ಹಾ, ಶೇರ್ ಮಾಡಿ ಪರವಾಗಿಲ್ಲ. ಅಪ್ಲೈ ಮಾಡಿ.
+[assistant->TOOL] apply_job({"duplicate_check": "not-applied-before", "hold_message": "ಒಂದು ನಿಮಿಷ.", "profile_id": "ffce36d8-d89b-454c-a78a-830bfd77ff10", "acting_as_user_id": "ffce36d8-d89b-454c-a78a-830bfd77ff10", "job_id": "ae02da9c-d1c2-4107-aeaa-a393a7559e7e"})
+[tool] [Error: apply_job request failed (HTTP 422).]
+
+__RAYA_TOOL_DEBUG__
+422 Client Error: Unprocessable Entity for url: https://dharwad-signals.bluedotseconomy.org/api/v1/action/perform
+status_code=422
+url=https://dharwad-signals.bluedotseconomy.org/api/v1/action/perform
+kind=http_error
+response_body_excerpt={"results":[{"index":0,"status":"error","error":"USER_NOT_FOUND","message":"acting_as_user_id does not resolve to any user."}],"summary":{"total":1,"succeeded":0,"failed":1}}
+[assistant] ಒಂದು ನಿಮಿಷ. ಈ ಜಾಬ್‌ಗೆ ಅಪ್ಲೈ ಇನ್ನೂ ಮುಂದೆ ಹೋಗಿಲ್ಲ, technical issue ಇದೆ. ನಿಮ್ಮ ಆಸಕ್ತಿ ನಾವು ನೋಟ್ ಮಾಡ್ಕೊಂಡಿದೀವಿ. ಬೇರೆ ಜಾಬ್‌ಗಳನ್ನ ಹೇಳಲಾ? 
+[user]  ಹಾ ಆಯ್ತು. ಇಲ್ಲೇ ಇಡ್ತೀನಿ.
+[assistant] ಸರಿ. ಇವತ್ತು ನಾವು ಕಸ್ಟಮರ್ ಸಪೋರ್ಟ್ ಅಸೋಸಿಯೇಟ್ ಜಾಬ್‌ಗಳನ್ನು ನೋಡಿದೆವು. ಅಗತ್ಯ ಬಂದಾಗ ನಮ್ಮ ಟೀಮ್ ನಿಮಗೆ ಮತ್ತೆ ಕಾಲ್ ಮಾಡುತ್ತೆ. Goodbye 
+[user]  ಓ, ಹೌದಾ? ಸರಿ, ಏನಾದ್ರೂ ತೊಂದರೆ ಇದ್ಯಾ? ನಾನು ಏನು ಮಾಡಬೇಕು ಅಂತ ಹೇಳ್ತೀರಾ?
+[assistant] ಇವತ್ತು ಈ ಅಪ್ಲೈ ಪೂರ್ತಿ ಆಗ್ತಾ ಇಲ್ಲ — ನಾವು ಇದನ್ನ ನೋಡಿ ನಿಮಗೆ ವಾಪಸ್ ತಿಳಿಸ್ತೀವಿ. ನೀವು ಈಗ ಏನು ಮಾಡೋ ಅಗತ್ಯ ಇಲ್ಲ. ನಮ್ಮ ಟೀಮ್ ನಿಮಗೆ ಮತ್ತೆ ಕಾಲ್ ಮಾಡುತ್ತೆ. Goodbye 
+
+[kkb-kn-signals-kn-seeker-cooperative] TESTER leg e455d1e8: outcome=Completed dur=0 turns=20 call_output=null

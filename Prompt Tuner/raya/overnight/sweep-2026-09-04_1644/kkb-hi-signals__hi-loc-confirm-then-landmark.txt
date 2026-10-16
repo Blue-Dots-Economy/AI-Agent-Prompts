@@ -1,0 +1,28 @@
+[kkb-hi-signals-hi-loc-confirm-then-landmark] POST /api/call -> 200 {"message": "Call initiated successfully", "uuid": "f8ab149e-5145-47b7-8d72-14ac6f0d51a6"}
+[kkb-hi-signals-hi-loc-confirm-then-landmark] poll 0: outcome='Pending' dur=0 turns=0
+[kkb-hi-signals-hi-loc-confirm-then-landmark] poll 1: outcome='Pending' dur=0 turns=0
+[kkb-hi-signals-hi-loc-confirm-then-landmark] poll 2: outcome='Pending' dur=0 turns=0
+[kkb-hi-signals-hi-loc-confirm-then-landmark] poll 3: outcome='Pending' dur=0 turns=0
+[kkb-hi-signals-hi-loc-confirm-then-landmark] poll 4: outcome='Pending' dur=0 turns=0
+[kkb-hi-signals-hi-loc-confirm-then-landmark] poll 5: outcome='Pending' dur=0 turns=0
+[kkb-hi-signals-hi-loc-confirm-then-landmark] poll 6: outcome='Pending' dur=0 turns=0
+[kkb-hi-signals-hi-loc-confirm-then-landmark] poll 7: outcome='Pending' dur=0 turns=0
+[kkb-hi-signals-hi-loc-confirm-then-landmark] poll 8: outcome='Completed' dur=77 turns=10
+
+============================================================================
+[kkb-hi-signals-hi-loc-confirm-then-landmark] BOT f8ab149e-5145-47b7-8d72-14ac6f0d51a6 outcome=Completed dur=77
+call_output: null
+
+TRANSCRIPT:
+[user] hello
+[assistant] हैलो, मेरी आवाज़ आ रही है? 
+[user]  हा जी आ रही है
+[assistant] नमस्ते। शहर प्रशासन की 'काम की बात' पहल में आपका स्वागत है। आपके इलाके में कुछ अच्छी जॉब्स की जानकारी देने के लिए कॉल कर रही हूँ। यह बातचीत रिकॉर्ड की जा सकती है। क्या आप अभी काम ढूंढ रहे हैं? 
+[user]  साफ़ा रही है बोलिए हाँ जी काम की ज़रूरत है
+[assistant->TOOL] get_profile({"hold_message": "एक मिनट।", "phone_number": "917946350285"})
+[tool] {'user_id': 'a6c122eb-634e-4955-9ae9-f36306b31c7a', 'user_consent': {'terms_accepted': True, 'privacy_accepted': True, 'has_age': True}, 'items': [{'item_id': '588a907f-bc3b-4bad-9695-d6300a3dbd6d', 'item_network': 'blue_dot', 'item_domain': 'seeker', 'item_type': 'profile_1.0', 'lifecycle_status': 'live', 'profile_consent_accepted': True, 'item_state': {'age': 22, 'name': 'Aryan', 'phone': '917946350285', 'gender': 'Male', 'location': 'Sahibabad, Ghaziabad, India', 'educationCategory': 'College', 'collegeQualification': 'B.Com', 'nameOfJobRolesInterestedIn': 'Any'}, 'item_locations': [{'lat':
+[assistant] एक मिनट। 
+[user]  जरूरत है मुझे काम चाहिए हा जी काम की जरूरत है आप बताइए क्या काम है हा जी काम की जरूरत है आप बताइए क्या काम है हा जी काम की जरूरत है आप बताइए क्या काम है सॉरी आई एमबल टू हेल्प यू एट द मोमेंट गुड बाय
+[assistant] अभी आपके लिए मुझे जॉब्स नहीं मिल रहीं — एक बार फिर से देखकर मैं आपको वापस कॉल करती हूँ। Goodbye 
+
+[kkb-hi-signals-hi-loc-confirm-then-landmark] TESTER leg 78dfa839: outcome=Completed dur=74 turns=16 call_output=null

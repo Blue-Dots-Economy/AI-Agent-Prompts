@@ -1,0 +1,32 @@
+[trrain-hi-out-hi-trrain-accepts] POST /api/call -> 200 {"message": "Call initiated successfully", "uuid": "8c3c037f-0f06-4db1-b31f-0d7c378be851"}
+[trrain-hi-out-hi-trrain-accepts] poll 0: outcome='Pending' dur=0 turns=0
+[trrain-hi-out-hi-trrain-accepts] poll 1: outcome='Pending' dur=0 turns=0
+[trrain-hi-out-hi-trrain-accepts] poll 2: outcome='Pending' dur=0 turns=0
+[trrain-hi-out-hi-trrain-accepts] poll 3: outcome='Pending' dur=0 turns=0
+[trrain-hi-out-hi-trrain-accepts] poll 4: outcome='Pending' dur=0 turns=0
+[trrain-hi-out-hi-trrain-accepts] poll 5: outcome='Pending' dur=0 turns=0
+[trrain-hi-out-hi-trrain-accepts] poll 6: outcome='Pending' dur=0 turns=0
+[trrain-hi-out-hi-trrain-accepts] poll 7: outcome='Pending' dur=0 turns=0
+[trrain-hi-out-hi-trrain-accepts] poll 8: outcome='Completed' dur=86 turns=14
+
+============================================================================
+[trrain-hi-out-hi-trrain-accepts] BOT 8c3c037f-0f06-4db1-b31f-0d7c378be851 outcome=Completed dur=86
+call_output: null
+
+TRANSCRIPT:
+[user] hello
+[assistant] हैलो, मेरी आवाज़ आ रही है? 
+[user]  हाँ जी नमस्ते कौन बोल रहे हैं
+[assistant->TOOL] get_profile({"hold_message": "एक मिनट।", "phone_number": "917946350285"})
+[tool] {'user_id': 'a6c122eb-634e-4955-9ae9-f36306b31c7a', 'user_consent': {'terms_accepted': True, 'privacy_accepted': True, 'has_age': True}, 'items': [{'item_id': '588a907f-bc3b-4bad-9695-d6300a3dbd6d', 'item_network': 'blue_dot', 'item_domain': 'seeker', 'item_type': 'profile_1.0', 'lifecycle_status': 'live', 'profile_consent_accepted': True, 'item_state': {'age': 22, 'name': 'Aryan', 'phone': '917946350285', 'gender': 'Male', 'location': 'Sahibabad, Ghaziabad, India', 'educationCategory': 'College', 'collegeQualification': 'B.Com', 'nameOfJobRolesInterestedIn': 'Any'}, 'item_locations': [{'lat':
+[assistant] एक मिनट। नमस्ते। मैं शहर प्रशासन की 'काम की बात' पहल से बात कर रही हूँ। कुछ दिन पहले आपने कंप्यूटर ऑपरेटर / डेटा एंट्री की जॉब के लिए अप्लाई किया था — याद है? यह बातचीत रिकॉर्ड की जा सकती है। 
+[user]  हा जी याद है
+[assistant] जॉब मिलने के चांस और बढ़ाने के लिए ट्रेन ट्रस्ट की एक फ्री सर्विस है — यह एक पब्लिक चैरिटेबल ट्रस्ट है, जो आपकी ज़रूरत के हिसाब से सही काम चुनने और उसके लिए तैयार होने में आपकी मदद करता है। अगर आप इंटरेस्टेड हैं, तो उनकी टीम आपको एक-दो दिन में कॉल करेगी। 
+[user]  यह क्या सर्विस है
+[assistant] यह ट्रेन ट्रस्ट की एक फ्री सर्विस है — उनकी टीम आपकी ज़रूरत के हिसाब से यह समझने में मदद करती है कि कौन सा काम आपके लिए सबसे अच्छा रहेगा, और फिर ट्रेनिंग और कोर्स के ज़रिए नई स्किल सिखाकर आपको उस काम के लिए तैयार करती है। इसके लिए कोई पैसा नहीं लगता। तो क्या हमारी टीम आपको कॉल कर ले? 
+[user]  ठीक है जी करवा दीजिए
+[assistant] बहुत बढ़िया, हमारी टीम आपको एक-दो दिन में कॉल करेगी। इसके बारे में कुछ पूछना है? 
+[user]  नहीं और कुछ नहीं पूछना है ठीक है धन्यवाद
+[assistant] ठीक है, आपका दिन शुभ हो। Goodbye 
+
+[trrain-hi-out-hi-trrain-accepts] TESTER leg bab2458b: outcome=Completed dur=86 turns=12 call_output=null

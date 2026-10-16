@@ -1119,7 +1119,7 @@ Call `get_profile` with `phoneNumber: ${contact_phone}` (the caller ID) as your 
 - Do not ask permission — the caller contacted us.
 - Do not announce it, and never use a waiting message.
 
-**Phone format (critical):** always pass the number with the `+91` country-code prefix (e.g. +91XXXXXXXXXX) — never the bare 10-digit number. Profiles are stored with `+91`; a bare number returns an empty result. If `${contact_phone}` already includes a country code, do not double-prefix.
+**Phone format (critical):** always pass the number with the `+91` country-code prefix (e.g. +91XXXXXX0249) — never the bare 10-digit number. Profiles are stored with `+91`; a bare number returns an empty result. If `${contact_phone}` already includes a country code, do not double-prefix.
 
 After profile is returned:
 - use profile data as context throughout the conversation
@@ -1160,7 +1160,7 @@ Always hard-pass these values:
 - agentId = "up-getjob"
 
 ### Contact Context Variables
-- The user's phone number is: contact_phone — always send it with the `+91` country-code prefix (e.g. +91XXXXXXXXXX), never the bare 10-digit number, so the created profile matches what `get_profile` looks up.
+- The user's phone number is: contact_phone — always send it with the `+91` country-code prefix (e.g. +91XXXXXX0249), never the bare 10-digit number, so the created profile matches what `get_profile` looks up.
 - No separate country code is sent — inbound calls carry no `${country_code}` input, and the `+91` is already included in the phone above. Never add a `country_code` field from an unset variable.
 - The user's name: gathered in conversation (there is no `contact_name` on an inbound call)
 
@@ -1179,7 +1179,7 @@ Always hard-pass these values:
     "agentId": "up-getjob",
     "role": "Fitter",
     "name": "Ashwin",
-    "phone": "+91XXXXXXXXXX",
+    "phone": "+91XXXXXX0108",
     "gender": "male",
     "hometown": "Bangalore",
     "age": 26,

@@ -28,11 +28,34 @@ If a value is not present, use "NA" for strings, [] for arrays, or 0 for counts.
    Values: "Yes" if the offer was made, "No" if the call ended before it (wrong 
    person, do-not-call, busy, angry, bad line, or silence).
 
-7. trrain_interest — How did the seeker respond to that offer? Record their FINAL 
-   answer: if they accepted, then heard the one-sentence clarification and withdrew, 
-   the value is "No" — a withdrawn acceptance is never recorded as "Yes". 
-   Values: "Yes" for a clear acceptance, "No" for a clear refusal, "Maybe" if the 
-   answer was unclear or they gave no real answer, "NA" if trrain_pitched is "No".
+7. trrain_interest: the caller's FINAL answer to the offer.
+   "Yes" ONLY when ALL of these hold in the transcript:
+     (1) the offer was spoken;
+     (2) the caller agreed to the offer question;
+     (3) the caller then NAMED a callback time in their own words (morning / afternoon /
+         evening / anytime / a day or hour) when asked;
+     (4) they did not later decline, say "not now", or reveal they wanted a job and then
+         fail to re-confirm after being told it is not a job.
+   "Maybe" when the caller agreed but did not name a time (filler such as "ठीक है"/"ओके"/
+     "हम्म"/"जी" or "ಸರಿ"/"ಓಕೆ"/"ಹ್ಮ್"/"ಹಾಂ", silence, noise, hang-up), or never gave a real
+     answer.
+   "No" for a refusal at any point, in the CALLER's words ("नहीं", "नहीं चाहिए", "रहने दो", "ಬೇಡ").
+   Silence, "*No audio*", a dropped line or no reply at all is NEVER "No"; it is "Maybe". The LAST answer wins.
+   "NA" if trrain_pitched is "No".
+   NOT answers, never evidence of interest: replies to the audio check or to "आप सुन रहे हैं?" /
+   "ನೀವು ಕೇಳಿಸ್ಕೊಳ್ತಾ ಇದ್ದೀರಾ?"; "*No audio...*" and "*Unclear Speech*" markers; single
+   syllables; speech addressed to someone else; call-screening or voicemail assistants. Never
+   infer Yes from the AGENT's words ("बहुत बढ़िया..." / "ತುಂಬಾ ಒಳ್ಳೆದು...", including the agent
+   repeating a time back). Infer it only from the caller's.
+
+7a. callback_slot: the time the CALLER named: "Morning" | "Afternoon" | "Evening" | "Anytime" |
+    "Other: <their words in English>" | "NA". Must come from a caller turn. "NA" whenever the
+    caller did not say one, even if the agent suggested one. If this is "NA", trrain_interest
+    cannot be "Yes".
+
+7b. interest_evidence: the caller's own words, verbatim in the original script, for (i) their
+    answer to the offer and (ii) their answer to the time question, separated by " || ".
+    "NA" if not pitched.
 
 8. offer_repeated — Did the agent make the offer more than once (a second pitch, a 
    rephrase, or a push after a refusal)? This is a RULE VIOLATION — the prompt allows 
@@ -40,9 +63,10 @@ If a value is not present, use "NA" for strings, [] for arrays, or 0 for counts.
    seeker asked "what is this service?" does NOT count as a repeat. 
    Values: "Yes" / "No".
 
-9. partner_named — Did the agent say "TRRAIN" or name any other partner organisation 
-   aloud? This is a RULE VIOLATION. 
-   Values: "Yes" / "No".
+9. partner_named: Did the agent name any partner organisation OTHER than TRRAIN Trust
+   aloud? That is a RULE VIOLATION. Naming TRRAIN Trust ("ट्रेन ट्रस्ट" / "ಟ್ರೇನ್ ಟ್ರಸ್ಟ್") is
+   required, not a violation, and never makes this "Yes".
+   Values: "Yes" only if another organisation was named / "No".
 
 10. promised_outcome — Did the agent promise a job, a shortlist, an interview, or any 
     guaranteed outcome? This is a RULE VIOLATION. 
@@ -53,6 +77,11 @@ If a value is not present, use "NA" for strings, [] for arrays, or 0 for counts.
 
 12. do_not_call — Did the seeker ask not to be contacted again? 
     Values: "Yes" / "No".
+
+12a. callback_requested: Did the seeker ask to be called back at another time because they
+     could not talk now (busy, travelling, "call me later")? Values: "Yes" / "No".
+     This is NOT interest in the offer: agreeing to the TRRAIN Trust team's call is captured
+     only by trrain_interest and callback_slot.
 
 13. drop_reason — If the seeker disengaged before the call completed naturally, what 
     was the behavioural reason? Captures SEEKER behaviour, not technical failures. 
@@ -74,6 +103,8 @@ If a value is not present, use "NA" for strings, [] for arrays, or 0 for counts.
   "remembered_application": "Yes",
   "trrain_pitched": "Yes",
   "trrain_interest": "Yes",
+  "callback_slot": "Evening",
+  "interest_evidence": "हाँ जी, ठीक है। || शाम को।",
   "offer_repeated": "No",
   "partner_named": "No",
   "promised_outcome": "No",
@@ -82,6 +113,7 @@ If a value is not present, use "NA" for strings, [] for arrays, or 0 for counts.
     "Does it cost anything?"
   ],
   "do_not_call": "No",
+  "callback_requested": "No",
   "drop_reason": "NA",
   "final_summary": "The right seeker was reached and confirmed she remembered applying to the Data Entry Operator role. The free support service was offered once and she accepted it. She asked what the service was and was given a one-sentence answer."
 }

@@ -89,25 +89,14 @@ If a value is not present, use "NA" for strings, [] for arrays, or 0 for counts.
     HR contact was shared.
     No opinions, no speculation.
 
-18. mpl_registration — Did the student register for the MPL Competition (Ghaziabad
-    Marketer Premiere League)?
-    "Yes" if the student agreed to participate / accepted the follow-up competition call.
-    "No" if the offer was made and the student declined.
-    "Not offered" if the MPL Competition was never brought up in this call.
-
-19. mpl_presented — Was the MPL Competition offered/presented to the student at all
-    in this call — the combined "any other jobs, or shall I tell you about MPL?" line,
-    or any other MPL mention?
-    Values: "Yes" if MPL was brought up, "No" if it was never mentioned.
-
-19a. ready_for_interview — Did the student indicate they could attend an interview if an
+18. ready_for_interview — Did the student indicate they could attend an interview if an
     employer shortlists them (a single question asked once before applying)?
     Values: "Yes" if they said they can attend (including a phone interview),
     "No" if they said they cannot, "Conditional" if it depends (only by phone,
     only on certain days, needs notice), "NA" if the question was never asked or
     the student gave no clear answer.
 
-19b. consent_status — On the new-caller path (no live profile, so `create_profile` runs), did the
+19. consent_status — On the new-caller path (no live profile, so `create_profile` runs), did the
     student give the consent needed to create their profile and apply?
     Values: "Given" if the student agreed at the consent gate and create_profile was called;
     "Declined" if the student refused consent (no create_profile, no apply_job — the call ended at
@@ -177,8 +166,6 @@ If a value is not present, use "NA" for strings, [] for arrays, or 0 for counts.
   "jobs_failed_to_apply": [],
   "hr_contact_shared": "Yes",
   "benefits_mentioned": "Yes",
-  "mpl_registration": "Not offered",
-  "mpl_presented": "No",
   "ready_for_interview": "Yes",
   "consent_status": "NA",
   "not_interested_in_jobs": "No",
@@ -206,6 +193,4 @@ Rules:
 - service_provider_interest is "NA" whenever service_provider_pitched is "No" — a
   response cannot exist for an offer that was never made. Never infer interest from
   anything other than the student's answer to that specific offer.
-- service_provider_pitched and mpl_presented are INDEPENDENT — they are two different
-  offers. Never set one from the other.
 - For final_summary, always write in English regardless of the conversation language.

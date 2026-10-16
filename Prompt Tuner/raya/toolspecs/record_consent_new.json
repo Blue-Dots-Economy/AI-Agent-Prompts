@@ -1,0 +1,66 @@
+{
+ "_note": "2026-10-12: saves a NEW caller's consent (no seeker item yet) with name + age; creates the user with user_terms/user_privacy true and a draft seeker item (verified on gzb test numbers 918888888962/3). record_consent needs an existing item_id and fails without one. Same endpoint/headers as record_consent.",
+ "name": "record_consent_new",
+ "description": "Save a NEW caller's spoken consent (terms of use, privacy policy, holding their details) the moment they say yes, when get_profile returned NO seeker item. Creates their record with the consent and a draft seeker profile. Needs the caller's name and an age they said aloud (integer, 18 or over). Never use it when get_profile returned a seeker item (use record_consent with that item_id). Returns the participant: keep the seeker item's item_id and the top-level user_id; later complete that item with update_profile and apply with it, never create_profile. An error is not a refusal: carry on with the call.",
+ "clone_api_from": "record_consent",
+ "method": "POST",
+ "parameters": {
+  "type": "object",
+  "required": [
+   "name",
+   "age",
+   "phone",
+   "terms_check"
+  ],
+  "properties": {
+   "name": {
+    "type": "string",
+    "description": "The caller's name: a usable ${contact_name}, or the name they said aloud this call. English / Latin script."
+   },
+   "age": {
+    "type": "integer",
+    "description": "The age in years the caller SAID ALOUD this call in answer to the age question. Send as a NUMBER, not a string. Never an estimate, never an example value, never guessed: if they have not said it, ask and wait, and do not call this tool."
+   },
+   "phone": {
+    "type": "string",
+    "description": "The caller's number in the SAME form you sent to get_profile: 12 digits beginning with 91, digits only, no plus sign - e.g. 919876543210. Build it by FORMAT, not by adding: if ${contact_phone} is already 12 digits starting with 91 (outbound calls), send it UNCHANGED and never add another 91; if it is 10 digits (inbound calls), put 91 in front. A number starting 9191 is always wrong - the backend finds users by phone, so a doubled prefix silently creates a separate phantom user."
+   },
+   "terms_check": {
+    "enum": [
+     "disclosure-read-and-agreed-this-call",
+     "not-read"
+    ],
+    "type": "string",
+    "description": "REQUIRED — answer this before you call the tool. Did you speak the FULL five-element account-and-terms disclosure in THIS call (the account created on Blue Dots from their name and phone, the three purposes, the one-year term, managed by Ekstep Foundation, full terms readable in the app) AND did the caller then agree to THAT question? Only then is the value 'disclosure-read-and-agreed-this-call'. Otherwise the value is 'not-read' — and if it is 'not-read' you must NOT call this tool at all, because there is no consent to record. A caller agreeing to APPLY to a job is NOT agreement to the terms: the apply question shares their details with one employer, this records acceptance of the platform's terms and privacy policy. Recording a consent the caller was never asked for is a fabricated record and is worse than recording nothing."
+   }
+  }
+ },
+ "payload_template": {
+  "age": "{{age}}",
+  "name": "{{name}}",
+  "domain": "seeker",
+  "channel": "voice",
+  "network": "blue_dot",
+  "item_type": "profile_1.0",
+  "compliance": [
+   {
+    "key": "user_terms",
+    "value": true
+   },
+   {
+    "key": "user_privacy",
+    "value": true
+   },
+   {
+    "key": "profile_creation",
+    "value": true
+   }
+  ],
+  "item_state": {
+   "age": "{{age}}",
+   "name": "{{name}}",
+   "phone": "{{phone}}"
+  },
+  "phone_number": "+{{phone}}"
+ }
+}

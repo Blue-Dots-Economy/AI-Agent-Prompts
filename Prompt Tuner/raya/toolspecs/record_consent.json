@@ -1,0 +1,63 @@
+{
+  "_note": "record_consent — writes the caller's SPOKEN consent (terms of use, privacy policy, holding their details) onto an EXISTING live profile. Same Signals participant endpoint as update_profile (POST with an item_id = update/merge), plus the `compliance` array that create_profile uses. Deliberately a SEPARATE tool from update_profile: update_profile's template is fixed, so putting compliance in it would assert a consent on every gender/location write, whether or not the caller was ever asked. url + auth headers are cloned from update_profile on the same agent, so this file carries no secret. Verified 2026-09-09: an update POST carrying `compliance` returns 200 and the item_state merge keeps every other field.",
+  "name": "record_consent",
+  "description": "Record the caller's spoken consent (terms of use, privacy policy, holding their details) on their EXISTING profile. Call ONCE, silently, right after the caller says YES to the consent question, and ONLY when get_profile showed a consent flag false (user_consent.terms_accepted / privacy_accepted, or the item's profile_consent_accepted). Works on the seeker item whether live or DRAFT: against a draft it records the consent and turns that item LIVE, so the caller is applyable with no second profile. Use it instead of create_profile for an existing-but-unconsented caller - create_profile would mint a duplicate live profile and leave the old one behind. NEVER call it before they agree or after they decline: it asserts a consent they gave out loud. NEVER call it when get_profile came back empty - that caller has no item to record against and create_profile handles them. Changes no other field; applies to nothing.",
+  "clone_api_from": "update_profile",
+  "method": "POST",
+  "parameters": {
+    "type": "object",
+    "required": [
+      "profile_id",
+      "name",
+      "age",
+      "phone"
+    ],
+    "properties": {
+      "profile_id": {
+        "type": "string",
+        "description": "The caller's seeker profile item_id (a UUID) from get_profile - the item whose item_type is \"profile_1.0\" and item_domain is \"seeker\". Use the live one if there is one, otherwise the draft you are reusing (a draft is the main case: this call turns it live). Never empty."
+      },
+      "name": {
+        "type": "string",
+        "description": "The caller's name as already stored on the profile (the API requires it on every write). English / Latin script."
+      },
+      "age": {
+        "type": "integer",
+        "description": "The caller's age as already stored on the profile (the API requires it on every write). Send as a NUMBER, not a string."
+      },
+      "phone": {
+        "type": "string",
+        "description": "The caller's 12-digit number = 91 + the 10-digit mobile (e.g. \"91XXXXXX0249\"), the SAME value used for get_profile. Digits only, no +."
+      }
+    }
+  },
+  "payload_template": {
+    "age": "{{age}}",
+    "name": "{{name}}",
+    "domain": "seeker",
+    "channel": "voice",
+    "item_id": "{{profile_id}}",
+    "network": "blue_dot",
+    "item_type": "profile_1.0",
+    "compliance": [
+      {
+        "key": "user_terms",
+        "value": true
+      },
+      {
+        "key": "user_privacy",
+        "value": true
+      },
+      {
+        "key": "profile_creation",
+        "value": true
+      }
+    ],
+    "item_state": {
+      "age": "{{age}}",
+      "name": "{{name}}",
+      "phone": "{{phone}}"
+    },
+    "phone_number": "+{{phone}}"
+  }
+}

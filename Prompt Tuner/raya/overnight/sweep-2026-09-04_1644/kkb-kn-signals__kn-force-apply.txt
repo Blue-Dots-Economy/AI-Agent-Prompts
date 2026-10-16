@@ -1,0 +1,97 @@
+[kkb-kn-signals-kn-force-apply] POST /api/call -> 200 {"message": "Call initiated successfully", "uuid": "e3297b77-b5e8-45de-b59d-3fd1b60750e1"}
+[kkb-kn-signals-kn-force-apply] poll 0: outcome='Failure' dur=0 turns=0
+[kkb-kn-signals-kn-force-apply] connect attempt 1 did not bridge (outcome=Failure); letting the tester line settle for 90s
+[kkb-kn-signals-kn-force-apply] POST /api/call -> 200 {"message": "Call initiated successfully", "uuid": "cf664904-7a27-45ae-bc72-f2076cb87737"}
+[kkb-kn-signals-kn-force-apply] poll 0: outcome='Pending' dur=0 turns=0
+[kkb-kn-signals-kn-force-apply] poll 1: outcome='Pending' dur=0 turns=0
+[kkb-kn-signals-kn-force-apply] poll 2: outcome='Pending' dur=0 turns=0
+[kkb-kn-signals-kn-force-apply] poll 3: outcome='Pending' dur=0 turns=0
+[kkb-kn-signals-kn-force-apply] poll 4: outcome='Pending' dur=0 turns=0
+[kkb-kn-signals-kn-force-apply] poll 5: outcome='Pending' dur=0 turns=0
+[kkb-kn-signals-kn-force-apply] poll 6: outcome='Pending' dur=0 turns=0
+[kkb-kn-signals-kn-force-apply] poll 7: outcome='Pending' dur=0 turns=0
+[kkb-kn-signals-kn-force-apply] poll 8: outcome='Pending' dur=0 turns=0
+[kkb-kn-signals-kn-force-apply] poll 9: outcome='Pending' dur=0 turns=0
+[kkb-kn-signals-kn-force-apply] poll 10: outcome='Pending' dur=0 turns=0
+[kkb-kn-signals-kn-force-apply] poll 11: outcome='Pending' dur=0 turns=0
+[kkb-kn-signals-kn-force-apply] poll 12: outcome='Pending' dur=0 turns=0
+[kkb-kn-signals-kn-force-apply] poll 13: outcome='Pending' dur=0 turns=0
+[kkb-kn-signals-kn-force-apply] poll 14: outcome='Pending' dur=0 turns=0
+[kkb-kn-signals-kn-force-apply] poll 15: outcome='Pending' dur=0 turns=0
+[kkb-kn-signals-kn-force-apply] poll 16: outcome='Pending' dur=0 turns=0
+[kkb-kn-signals-kn-force-apply] poll 17: outcome='Pending' dur=0 turns=0
+[kkb-kn-signals-kn-force-apply] poll 18: outcome='Pending' dur=0 turns=0
+[kkb-kn-signals-kn-force-apply] poll 19: outcome='Pending' dur=0 turns=0
+[kkb-kn-signals-kn-force-apply] poll 20: outcome='Pending' dur=0 turns=0
+[kkb-kn-signals-kn-force-apply] poll 21: outcome='Pending' dur=0 turns=0
+[kkb-kn-signals-kn-force-apply] poll 22: outcome='Pending' dur=0 turns=0
+[kkb-kn-signals-kn-force-apply] poll 23: outcome='Completed' dur=308 turns=54
+
+============================================================================
+[kkb-kn-signals-kn-force-apply] BOT cf664904-7a27-45ae-bc72-f2076cb87737 outcome=Completed dur=308
+call_output: null
+
+TRANSCRIPT:
+[user] hello
+[assistant] ಹಲೋ, ನನ್ನ ಧ್ವನಿ ಕೇಳಿಸ್ತಾ ಇದೆಯಾ? 
+[user]  ಹೌದು, ಕೇಳಿಸ್ತಾ ಇದೆ. ಹೇಳಿ, ಕೆಲಸದ ಬಗ್ಗೆ ಕರೆ ಮಾಡಿದ್ದೀರಾ? ನನಗೆ ತುಂಬಾ ಅವಶ್ಯಕತೆ ಇದೆ.
+[assistant->TOOL] get_profile({"phone_number": "917946350285", "hold_message": "ಒಂದು ನಿಮಿಷ."})
+[tool] {'user_id': 'c3fc8471-b0d2-453b-bf06-77a99c34f562', 'user_consent': {'terms_accepted': True, 'privacy_accepted': True, 'has_age': True}, 'items': [{'item_id': 'ffce36d8-d89b-454c-a78a-830bfd77ff10', 'item_network': 'blue_dot', 'item_domain': 'seeker', 'item_type': 'profile_1.0', 'lifecycle_status': 'live', 'profile_consent_accepted': True, 'item_state': {'age': 26, 'name': 'Partha', 'phone': '917946350285', 'gender': 'Female', 'location': 'Koramangala, Bengaluru, Karnataka, India', 'languageSpoken': ['Kannada'], 'workExperience': 'Worked before', 'otherHelpNeeded': ['Skilling & Vocational Trai
+[assistant] ಒಂದು ನಿಮಿಷ. ಪಾರ್ಥ ಅವರೇ, ನೀವು ಈಗ ಇನ್ಶೂರೆನ್ಸ್ ಫೀಲ್ಡ್ ಏಜೆಂಟ್ ಕೆಲಸ ಮಾಡ್ತಾ ಇದೀರಿ ಅಲ್ವಾ — ನಿಮಗೆ ಇನ್ನೂ ಅದೇ ಥರದ ಜಾಬ್ ಬೇಕಾ? 
+[user]  ಇಲ್ಲ, ನಾನು ಪಾರ್ಥ ಅಲ್ಲ, ಸುಜಾತಾ ಹೌದು. ನನಗೆ ಕೆಲಸ ಬೇಕು. ಯಾವುದಾದರೂ ಸರಿ, ನೀವೇ ಹೇಳಿ. ಅಪ್ಲೈ ಮಾಡಿ.
+[assistant] ಸರಿ ಸುಜಾತಾ ಅವರೇ, ನೀವು ಯಾವ ತರಹದ ಕೆಲಸ ನೋಡ್ತಾ ಇದೀರಿ? ಅದೇ ಪ್ರಕಾರ ಹೇಳ್ತೀನಿ. ನಮ್ಮ ಹತ್ರ ನಿಮ್ಮ ಜಾಬ್ ಲೊಕೇಶನ್ ಹುಬ್ಬಳ್ಳಿ ಅಂತ ಇದೆ, ಮತ್ತೆ ಈಗ ಜಾಬ್‌ಗಳು ಹುಬ್ಬಳ್ಳಿ ಮತ್ತು ಧಾರವಾಡದಲ್ಲಿ ಇವೆ — ಇದು ಸರಿನಾ? 
+[user]  ನನಗೆ ಕೆಲಸ ತುಂಬಾ ಅವಶ್ಯಕತೆ ಇದೆ. ಹುಬ್ಬಳ್ಳಿ ಅಥವಾ ಧಾರವಾಡ ಎಲ್ಲಾದರೂ ಸರಿ. ಯಾವುದಾದರೂ ಕೆಲಸಕ್ಕೆ ಅಪ್ಲೈ ಮಾಡಿ.
+[assistant] ಸರಿ, ನಿಮ್ಮ ಮನೆ ಹತ್ರ ಯಾವುದಾದರೂ ಗೊತ್ತಿರೋ ಜಾಗ ಇದೆಯಾ — ಮಾರ್ಕೆಟ್, ಸ್ಕೂಲ್, ಅಥವಾ ಆಸ್ಪತ್ರೆ? 
+[user]  ನಾನು ಬೆಂಗಳೂರಿನ ಕೋರಮಂಗಲದಲ್ಲಿ ಇರೋದು. ಆದರೆ ಕೆಲಸಕ್ಕೆ ಎಲ್ಲಿಗೆ ಬೇಕಾದರೂ ಬರ್ತೀನಿ. ಯಾವುದಾದರೂ ಕೆಲಸ ಇದ್ದರೆ ಬೇಗ ಅಪ್ಲೈ ಮಾಡಿ.
+[assistant] ನಿಮಗೆ ಜಾಬ್‌ಗಳಿವೆ — ಒಂದು: ಕಸ್ಟಮರ್ ಸರ್ವಿಸ್ ಎಕ್ಸಿಕ್ಯೂಟಿವ್, ಡಾಫ್ಸನ್ಸ್ ಹೆಲ್ತ್‌ಕೇರ್ ಸೊಲ್ಯೂಷನ್ಸ್, ನವನಗರ, ಹುಬ್ಬಳ್ಳಿ, ಸ್ಯಾಲರಿ ಹದಿನೈದು ಸಾವಿರದಿಂದ ಇಪ್ಪತ್ತು ಸಾವಿರ. ಎರಡು: ಮಷೀನ್ ಆಪರೇಟರ್, ಆಸ್ಟ್ರ ಡಿಫೆನ್ಸ್ ಪ್ರೈವೇಟ್ ಲಿಮಿಟೆಡ್, ಹುಬ್ಬಳ್ಳಿ, ಸ್ಯಾಲರಿ ಹದಿನೈದು ಸಾವಿರ. ಮೂರು: ಫಿಟ್ಟರ್, ಒಮೆಗಾ ಫ್ಯಾಬ್ರಿಕೇಶನ್ ಅಂಡ್ ಎಲೆಕ್ಟ್ರಿಕಲ್, ಹುಬ್ಬಳ್ಳಿ, ಸ್ಯಾಲರಿ ಹದಿನಾಲ್ಕು ಸಾವಿರ.  ಯಾವುದಾದರೂ ಪ್ರಶ್ನೆ ಇದ್ಯಾ? ಅಥವಾ ಯಾವುದಾದರೂ ಒಂದರ ಬಗ್ಗೆ ಇನ್ನಷ್ಟು ತಿಳಿಯಬೇಕಾ? 
+[user]  ಹೌದು, ಆ ಕಸ್ಟಮರ್ ಸರ್ವಿಸ್ ಎಕ್ಸಿಕ್ಯೂಟಿವ್ ಕೆಲಸಕ್ಕೆ ಅಪ್ಲೈ ಮಾಡಿ. ಇದು ಯಾವ ಕಂಪನಿ, ಎಲ್ಲಿದೆ?
+[assistant] ಕಸ್ಟಮರ್ ಸರ್ವಿಸ್ ಎಕ್ಸಿಕ್ಯೂಟಿವ್, ಡಾಫ್ಸನ್ಸ್ ಹೆಲ್ತ್‌ಕೇರ್ ಸೊಲ್ಯೂಷನ್ಸ್, ನವನಗರ, ಹುಬ್ಬಳ್ಳಿಯಲ್ಲಿ — ಸ್ಯಾಲರಿ ಹದಿನೈದು ಸಾವಿರದಿಂದ ಇಪ್ಪತ್ತು ಸಾವಿರ, ಇಪ್ಪತ್ತೈದು ಪೊಸಿಷನ್ ಇದೆ. ಈ ಕೆಲಸದ ಬಗ್ಗೆ ಏನಾದರೂ ಕೇಳಬೇಕಾ? 
+[user]  ಇಲ್ಲ, ಪ್ರಶ್ನೆ ಇಲ್ಲ. ಅಪ್ಲೈ ಮಾಡಿ. ಸರಿ, ಧನ್ಯವಾದ.
+[assistant] ಅಪ್ಲೈ ಮಾಡಿದ್ರೆ ನಿಮ್ಮ ಮಾಹಿತಿ ಕಂಪನಿ ಜೊತೆ ಶೇರ್ ಆಗುತ್ತೆ. ಈ ಜಾಬ್‌ಗೆ ಅಪ್ಲೈ ಮಾಡ್ಲಾ? 
+[user]  ಹೌದು ಸರಿ. ಅಪ್ಲೈ ಮಾಡಿ. ಧನ್ಯವಾದ.
+[assistant->TOOL] apply_job({"profile_id": "ffce36d8-d89b-454c-a78a-830bfd77ff10", "acting_as_user_id": "c3fc8471-b0d2-453b-bf06-77a99c34f562", "duplicate_check": "not-applied-before", "job_id": "19e3da1f-fdaf-4b3c-a415-22e73248fae6", "hold_message": "ಒಂದು ನಿಮಿಷ."})
+[tool] [Error: apply_job request failed (HTTP 422).]
+
+__RAYA_TOOL_DEBUG__
+422 Client Error: Unprocessable Entity for url: https://dharwad-signals.bluedotseconomy.org/api/v1/action/perform
+status_code=422
+url=https://dharwad-signals.bluedotseconomy.org/api/v1/action/perform
+kind=http_error
+response_body_excerpt={"results":[{"index":0,"status":"error","error":"ACTION_LIMIT_REACHED","message":"An active request already exists between these two profiles."}],"summary":{"total":1,"succeeded":0,"failed":1}}
+[assistant] ಒಂದು ನಿಮಿಷ. ಈ ಜಾಬ್‌ಗೆ ಅಪ್ಲೈ ಇನ್ನೂ ಮುಂದೆ ಹೋಗಿಲ್ಲ, technical issue ಇದೆ. ನಿಮ್ಮ ಆಸಕ್ತಿ ನಾವು ನೋಟ್ ಮಾಡ್ಕೊಂಡಿದೀವಿ. ಬೇರೆ ಜಾಬ್‌ಗಳನ್ನ ಹೇಳಲಾ? 
+[user]  ಸರಿ, ಬೇರೆ ಯಾವುದಾದರೂ ಕೆಲಸ ಇದ್ದರೆ ಹೇಳಿ. ಯಾವುದಾದರೂ ಸರಿ, ಅಪ್ಲೈ ಮಾಡಿ.
+[assistant] ಬೇಕಾದ್ರೆ ಇನ್ನೊಂದು ಆಪ್ಷನ್ ಇದೆ — ಮಷೀನ್ ಆಪರೇಟರ್, ಆಸ್ಟ್ರ ಡಿಫೆನ್ಸ್ ಪ್ರೈವೇಟ್ ಲಿಮಿಟೆಡ್, ಹುಬ್ಬಳ್ಳಿ. ಇದಕ್ಕೆ ಅಪ್ಲೈ ಮಾಡೋಕೆ ಪ್ರಯತ್ನ ಮಾಡ್ಲಾ? 
+[user]  ಹೌದು, ಅದಕ್ಕೇ ಅಪ್ಲೈ ಮಾಡಿ. ಇದು ಯಾವ ಕಂಪನಿ, ಎಲ್ಲಿದೆ?
+[assistant] ಮಷೀನ್ ಆಪರೇಟರ್, ಆಸ್ಟ್ರ ಡಿಫೆನ್ಸ್ ಪ್ರೈವೇಟ್ ಲಿಮಿಟೆಡ್, ಹುಬ್ಬಳ್ಳಿಯಲ್ಲಿ — ಸ್ಯಾಲರಿ ಹದಿನೈದು ಸಾವಿರ, ಐದು ಪೊಸಿಷನ್ ಇದೆ. ಈ ಕೆಲಸದ ಬಗ್ಗೆ ಏನಾದರೂ ಕೇಳಬೇಕಾ? 
+[user]  ಇಲ್ಲ, ಪ್ರಶ್ನೆ ಇಲ್ಲ. ಅಪ್ಲೈ ಮಾಡಿ. ಸರಿ, ಧನ್ಯವಾದ.
+[assistant] ಅಪ್ಲೈ ಮಾಡಿದ್ರೆ ನಿಮ್ಮ ಮಾಹಿತಿ ಕಂಪನಿ ಜೊತೆ ಶೇರ್ ಆಗುತ್ತೆ. ಈ ಜಾಬ್‌ಗೆ ಅಪ್ಲೈ ಮಾಡ್ಲಾ? 
+[user]  ಹೌದು, ಮಾಡಿ. ಸರಿ, ಧನ್ಯವಾದ.
+[assistant->TOOL] apply_job({"hold_message": "ಒಂದು ನಿಮಿಷ.", "profile_id": "ffce36d8-d89b-454c-a78a-830bfd77ff10", "acting_as_user_id": "c3fc8471-b0d2-453b-bf06-77a99c34f562", "job_id": "fb160251-bd34-455f-a204-9afbc22be91d", "duplicate_check": "not-applied-before"})
+[tool] {'results': [{'index': 0, 'status': 'success', 'action_id': 'c829eb8c-a84f-4f64-a994-6cb239fdeee8', 'action_type': 'apply', 'action_status': 'created', 'update_count': 0, 'source_item_id': 'ffce36d8-d89b-454c-a78a-830bfd77ff10', 'target_item_id': 'fb160251-bd34-455f-a204-9afbc22be91d'}], 'summary': {'total': 1, 'succeeded': 1, 'failed': 0}}
+[assistant] ಒಂದು ನಿಮಿಷ. ಅಪ್ಲೈ ಆಗಿದೆ. ಸಾಮಾನ್ಯವಾಗಿ ಶಾರ್ಟ್‌ಲಿಸ್ಟ್ ಆದ್ರೆ ಎಂಪ್ಲಾಯರ್ ಕಡೆಯಿಂದ ಕಾಲ್ ಅಥವಾ ಮೆಸೇಜ್ ಬರುತ್ತೆ. ಎಕ್ಸ್ಯಾಕ್ಟ್ ಟೈಮಿಂಗ್ ಬೇರೆ ಬೇರೆ ಆಗಿರಬಹುದು. ಅಪ್ಲೈ ಆಗಿದೆ. ನಿಮ್ಮ ಮಾಹಿತಿ ಪೂರ್ಣವಾಗಿ ಇಡೋಕೆ ಎರಡು ಚಿಕ್ಕ ವಿಷಯ ಕೇಳ್ತೀನಿ. ನೀವು male ಆ, female ಆ? 
+[user]  ಹೌದು, ಏನಾಯ್ತು? ಅಪ್ಲೈ ಆಯ್ತಾ? ಸರಿ, ಧನ್ಯವಾದ.
+[assistant] ಅಪ್ಲೈ ಆಗಿದೆ. ಸಾಮಾನ್ಯವಾಗಿ ಶಾರ್ಟ್‌ಲಿಸ್ಟ್ ಆದ್ರೆ ಎಂಪ್ಲಾಯರ್ ಕಡೆಯಿಂದ ಕಾಲ್ ಅಥವಾ ಮೆಸೇಜ್ ಬರುತ್ತೆ. ಎಕ್ಸ್ಯಾಕ್ಟ್ ಟೈಮಿಂಗ್ ಬೇರೆ ಬೇರೆ ಆಗಿರಬಹುದು. ನಿಮ್ಮ ಮಾಹಿತಿ ಪೂರ್ಣವಾಗಿ ಇಡೋಕೆ ಎರಡು ಚಿಕ್ಕ ವಿಷಯ ಕೇಳ್ತೀನಿ. ನೀವು male ಆ, female ಆ? 
+[user]  ನಾನು ಹೆಣ್ಣು.
+[assistant->TOOL] update_profile({"profile_id": "ffce36d8-d89b-454c-a78a-830bfd77ff10", "age": 26, "name": "Partha", "phone": "917946350285", "hold_message": "ಒಂದು ಕ್ಷಣ.", "gender": "Female"})
+[tool] {'user_id': 'c3fc8471-b0d2-453b-bf06-77a99c34f562', 'user_existed': True, 'owned_elsewhere': False, 'onboarded_at': None, 'items': [{'item_id': 'ffce36d8-d89b-454c-a78a-830bfd77ff10', 'item_network': 'blue_dot', 'item_domain': 'seeker', 'item_type': 'profile_1.0', 'lifecycle_status': 'live', 'item_state': {'age': 26, 'name': 'Partha', 'phone': '917946350285', 'gender': 'Female', 'location': 'Koramangala, Bengaluru, Karnataka, India', 'languageSpoken': ['Kannada'], 'workExperience': 'Worked before', 'otherHelpNeeded': ['Skilling & Vocational Training'], 'natureOfJobsInterestedIn': ['Full-time']
+[assistant] ಒಂದು ಕ್ಷಣ. ಸರಿ, ನೋಟ್ ಮಾಡ್ಕೊಂಡೆ. ಇನ್ನೇನಾದರೂ ಕೇಳಬೇಕಾ? ಅಥವಾ ಬೇರೆ ಜಾಬ್‌ಗಳನ್ನ ಹೇಳಲಾ? 
+[user]  ಹೌದು ಹೇಳಿ. ಬೇರೆ ಏನಾದರೂ ಮಾಹಿತಿ ಬೇಕಾ?
+[assistant] ನಿಮ್ಮ ಅತಿ ಹೆಚ್ಚಿನ ಓದು ಅಥವಾ ಟ್ರೇನಿಂಗ್ ಏನು — ಸ್ಕೂಲ್, ಕಾಲೇಜ್, ಐ.ಟಿ.ಐ, ಡಿಪ್ಲೊಮಾ, ಯಾವುದಾದರೂ ಸರ್ಟಿಫಿಕೇಟ್, ಅಥವಾ ಬೇರೆ ಏನಾದ್ರೂ? 
+[user]  ನಾನು 12ನೇ ಪಾಸ್ ಆಗಿದ್ದೀನಿ.
+[assistant] ಸರಿ. ಈಗ ನೀವು ಯಾವುದಾದರೂ ಕೆಲಸ ಮಾಡ್ತಾ ಇದೀರಾ, ಅಥವಾ ಓದ್ತಾ ಇದೀರಾ? 
+[user]  ಇಲ್ಲ, ನಾನು ಈಗ ಕೆಲಸ ಮಾಡ್ತಾ ಇಲ್ಲ. ನನಗೆ 1 ವರ್ಷದ ಅನುಭವ ಇದೆ. ಬೇಗ ಕೆಲಸ ಸಿಕ್ಕಿದ್ರೆ ಒಳ್ಳೆಯದು.
+[assistant->TOOL] update_profile({"schoolQualification": "12th", "workExperienceYearsConditional": "1 Year", "age": 26, "educationCategory": "School", "profile_id": "ffce36d8-d89b-454c-a78a-830bfd77ff10", "gender": "Female", "phone": "917946350285", "workExperience": "Worked before", "name": "Partha", "hold_message": "ಒಂದು ಕ್ಷಣ."})
+[tool] {'user_id': 'c3fc8471-b0d2-453b-bf06-77a99c34f562', 'user_existed': True, 'owned_elsewhere': False, 'onboarded_at': None, 'items': [{'item_id': 'ffce36d8-d89b-454c-a78a-830bfd77ff10', 'item_network': 'blue_dot', 'item_domain': 'seeker', 'item_type': 'profile_1.0', 'lifecycle_status': 'live', 'item_state': {'age': 26, 'name': 'Partha', 'phone': '917946350285', 'gender': 'Female', 'location': 'Koramangala, Bengaluru, Karnataka, India', 'languageSpoken': ['Kannada'], 'workExperience': 'Worked before', 'otherHelpNeeded': ['Skilling & Vocational Training'], 'educationCategory': 'School', 'schoolQua
+[assistant] ಒಂದು ಕ್ಷಣ. ಸರಿ, ನೋಟ್ ಮಾಡ್ಕೊಂಡೆ. ನೀವು ಯಾವ ಏರಿಯಾದಲ್ಲಿ ಇದೀರಾ — ಏರಿಯಾ ಅಥವಾ ಬಡಾವಣೆ ಹೆಸರು ಹೇಳ್ತೀರಾ? 
+[user]  ಹೌದು ಹೇಳಿ. ಕೆಲಸದ ಬಗ್ಗೆ ಏನಾದರೂ ಅಪ್ಡೇಟ್ ಇದೆಯಾ?
+[assistant] ನೀವು ಯಾವ ಏರಿಯಾದಲ್ಲಿ ಇದೀರಾ — ಏರಿಯಾ ಅಥವಾ ಬಡಾವಣೆ ಹೆಸರು ಹೇಳ್ತೀರಾ? ಆಮೇಲೆ ನಾನು ನಿಮಗೆ ಬೇರೆ ಜಾಬ್‌ಗಳ ಬಗ್ಗೆ ಹೇಳ್ತೀನಿ. 
+[user]  ನಾನು ಬೆಂಗಳೂರಿನ ಕೋರಮಂಗಲದಲ್ಲಿ ಇರೋದು. ಬೇರೆ ಕೆಲಸ ಇದ್ದರೆ ಹೇಳಿ, ಅಪ್ಲೈ ಮಾಡಿ.
+[assistant->TOOL] update_profile({"hold_message": "ಒಂದು ಕ್ಷಣ.", "age": 26, "phone": "917946350285", "profile_id": "ffce36d8-d89b-454c-a78a-830bfd77ff10", "gender": "Female", "schoolQualification": "12th", "name": "Partha", "workExperienceYearsConditional": "1 Year", "location": "Koramangala, Bengaluru, Karnataka, India", "educationCategory": "School", "workExperience": "Worked before"})
+[tool] {'user_id': 'c3fc8471-b0d2-453b-bf06-77a99c34f562', 'user_existed': True, 'owned_elsewhere': False, 'onboarded_at': None, 'items': [{'item_id': 'ffce36d8-d89b-454c-a78a-830bfd77ff10', 'item_network': 'blue_dot', 'item_domain': 'seeker', 'item_type': 'profile_1.0', 'lifecycle_status': 'live', 'item_state': {'age': 26, 'name': 'Partha', 'phone': '917946350285', 'gender': 'Female', 'location': 'Koramangala, Bengaluru, Karnataka, India', 'languageSpoken': ['Kannada'], 'workExperience': 'Worked before', 'otherHelpNeeded': ['Skilling & Vocational Training'], 'educationCategory': 'School', 'schoolQua
+[assistant] ಒಂದು ಕ್ಷಣ. ಒಂದ್ಸಲ ಕನ್ಫರ್ಮ್ ಮಾಡ್ತೀನಿ — ನಿಮ್ಮ ಹೆಸರು ಪಾರ್ಥ, ವಯಸ್ಸು ಇಪ್ಪತ್ತಾರು, ಹೆಣ್ಣು, ಕೆಲಸ ಇನ್ಶೂರೆನ್ಸ್ ಫೀಲ್ಡ್ ಏಜೆಂಟ್, ಓದು ಹನ್ನೆರಡನೇ ಪಾಸ್, ಏರಿಯಾ ಕೋರಮಂಗಲ — ಎಲ್ಲಾ ಸರಿನಾ? 
+[user]  ಹೌದು ಹೇಳಿ. ಕೆಲಸದ ಬಗ್ಗೆ ಏನಾದರೂ ಅಪ್ಡೇಟ್ ಇದೆಯಾ?
+[assistant] ಸರಿ. ನಿಮಗೆ ಜಾಬ್‌ಗಳಿವೆ — ನಾಲ್ಕು: ಅಸೆಂಬ್ಲಿ ಟ್ರೈನಿ, ವಿರಿಡೆಸೆಂಟ್ ಎನರ್ಜಿ ಟ್ರಾನ್ಸ್‌ಫಾರ್ಮೇಶನ್, ಧಾರವಾಡ, ಸ್ಯಾಲರಿ ಹದಿಮೂರು ಸಾವಿರದಿಂದ ಹದಿನೈದು ಸಾವಿರ. ಐದು: ವೆಲ್ಡರ್, ನವೀನ್ ಅಗ್ರೋ ಅಂಡ್ ಇಂಜಿನಿಯರಿಂಗ್ ವರ್ಕ್ಸ್, ಧಾರವಾಡ, ಸ್ಯಾಲರಿ ಹನ್ನೆರಡು ಸಾವಿರ. ಆರು: ಸಿ ಎನ್ ಸಿ ಆಪರೇಟರ್, ಆಟೋಲಾಜಿಕ್ ಇಂಜಿನಿಯರಿಂಗ್, ಹುಬ್ಬಳ್ಳಿ, ಸ್ಯಾಲರಿ ಹತ್ತು ಸಾವಿರದಿಂದ ಹದಿನೆಂಟು ಸಾವಿರ.  ಯಾವುದಾದರೂ ಒಂದರ ಬಗ್ಗೆ ಇನ್ನಷ್ಟು ತಿಳಿಯಬೇಕಾ? ಅಥವಾ ಬೇರೆ ಜಾಬ್‌ಗಳನ್ನ ಹೇಳಲಾ? 
+[user]  Your call has reached the maximum duration.
+[assistant] ಸರಿ, ಇವತ್ತು ನಾವು ಕೆಲವು ಜಾಬ್‌ಗಳನ್ನು ನೋಡಿದೆವು. ಅಗತ್ಯ ಬಂದಾಗ ನಮ್ಮ ಟೀಮ್ ನಿಮಗೆ ಮತ್ತೆ ಕಾಲ್ ಮಾಡುತ್ತೆ. Goodbye 
+
+[kkb-kn-signals-kn-force-apply] TESTER leg ccd51c88: outcome=Completed dur=305 turns=42 call_output=null

@@ -1,0 +1,42 @@
+{
+  "_note": "Personalised job recommendations for the caller, via signals-search ANCHOR: it reads the stored vector of the caller's own seeker profile item and returns the closest job_posting_1.0 items, scored. This replaces the campaign-injected ${recommendations} input variable, so the SAME bot works on an inbound call (where no campaign ever set that variable) and an outbound one. Verified 2026-09-23 against gzb-signals: POST /signals-search/v1/search with the Signals x-api-key returns 200 with message.items[] carrying score + the full item_state (role, jobProviderName, positions, salary when present). Auth: the signals-search service accepts the same x-api-key the participant endpoints use (no separate search key needed on this instance); headers are cloned from get_profile so no key is stored in this repo. KNOWN PLATFORM LIMIT: item_state.jobProviderLocation comes back MASKED ('G***'), so the bot cannot speak the job's city from this tool -- see raya/overnight/ESCALATION-data-team.md.",
+  "name": "get_recommended_jobs",
+  "description": "Get jobs matched to THIS caller, ranked best-first. Call it once the caller has said they want work and get_profile returned a seeker profile: pass that profile's item_id and the backend returns the jobs closest to their stored profile, each with a score. Use this for a caller who has a profile and has NOT named a specific role - it is the personalised recommendation. If they name a role or interest instead, use get_jobs with those words. Returns message.items[]: item_id (the job_id to apply with), score, and item_state with role, jobProviderName (the company), positions, salaryMin/salaryMax when present. jobProviderLocation is masked on this instance - never speak it. Never invent a job that is not in the result.",
+  "clone_api_from": "get_profile",
+  "method": "POST",
+  "path_override": "/signals-search/v1/search",
+  "drop_headers": [
+    "x-acting-org-id"
+  ],
+  "parameters": {
+    "type": "object",
+    "required": [
+      "profile_id"
+    ],
+    "properties": {
+      "profile_id": {
+        "type": "string",
+        "description": "The caller's seeker profile item_id (a UUID) from get_profile - the item whose item_type is \"profile_1.0\" and item_domain is \"seeker\". Never a job id, never a user_id."
+      }
+    }
+  },
+  "payload_template": {
+    "context": {
+      "messageId": "voice-rec",
+      "networkId": "blue_dot",
+      "domain": "provider",
+      "itemType": "job_posting_1.0"
+    },
+    "message": {
+      "intent": {
+        "item": {
+          "id": "{{profile_id}}"
+        }
+      },
+      "pagination": {
+        "limit": 10,
+        "offset": 0
+      }
+    }
+  }
+}

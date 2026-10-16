@@ -1,0 +1,8 @@
+san-kkb-hi USABLE 94s 6 d70aa00a-0eef-470c-b95e-2f79b09c6b4a
+san-kkb-kn USABLE 185s 10 0a5ec09d-cc6d-4e61-b0c4-2b13099803cc
+san-kkb-hi-in USABLE 82s 5 a04a60ca-ea21-4f4d-9d11-069aa67baa25
+san-kkb-kn-in USABLE 143s 7 c2d251d4-ca09-477e-bc89-feeac23c585e
+san-dkb-hi USABLE 180s 11 5596030a-7b21-4a70-9afc-5234b39c9376
+san-dkb-kn USABLE 186s 11 8f9a5ebb-93b7-4b68-93e2-1cfaed3a4a97
+san-maya-hi USABLE 291s 12 53b408f8-7d95-424a-8196-9c8e73a4a09d
+san-maya-hi-in USABLE 325s 13 603775c5-cf2a-411e-b4ba-5a8292ca3f59

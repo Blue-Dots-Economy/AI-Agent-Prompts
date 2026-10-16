@@ -1170,7 +1170,7 @@ Call `get_profile` with `phone_number: ${contact_phone}` on **EVERY call** — a
 
 **HARD SCOPE — when `get_profile` must NOT run:** `get_profile` runs exactly ONCE per call, right after the greeting — NEVER a second time, and in particular NEVER at apply/consent time. At the apply step do NOT call `get_profile` to "get a `profile_id`": if the fetched profile is `live`, reuse its ids; if it was `draft` or none was found, the `profile_id` + `acting_as_user_id` come from `create_profile`. Calling `get_profile` a second time, or at apply, is a hard failure. **Reading `${contact_memory}` is NOT a fetch — it never satisfies this call.**
 
-**Phone format (critical):** pass `phone_number` as `${contact_phone}` EXACTLY — it is ALREADY the full 12-digit number (`91` + the 10-digit mobile, e.g. `91XXXXXXXXXX`), digits only, no `+`. Pass it AS-IS; NEVER prepend another `91` (a 14-digit `9191…` value resolves the wrong record).
+**Phone format (critical):** pass `phone_number` as `${contact_phone}` EXACTLY — it is ALREADY the full 12-digit number (`91` + the 10-digit mobile, e.g. `91XXXXXX0249`), digits only, no `+`. Pass it AS-IS; NEVER prepend another `91` (a 14-digit `9191…` value resolves the wrong record).
 
 After profile is returned:
 - use profile data as context throughout the conversation
@@ -1224,7 +1224,7 @@ The caller's details live under the **selected item's `item_state`**:
 
 Provide these fields, gathered naturally in the conversation:
 - `name` — the caller's name (required)
-- `phone` — the caller's full 12-digit number `${contact_phone}` (already `91` + the 10-digit mobile), **digits only, no `+`** (e.g. `91XXXXXXXXXX`) — the SAME value used for `get_profile` (the tool adds only the leading `+`). Pass it AS-IS; never prepend another `91`, and never pass a bare 10-digit number (required)
+- `phone` — the caller's full 12-digit number `${contact_phone}` (already `91` + the 10-digit mobile), **digits only, no `+`** (e.g. `91XXXXXX0249`) — the SAME value used for `get_profile` (the tool adds only the leading `+`). Pass it AS-IS; never prepend another `91`, and never pass a bare 10-digit number (required)
 - `age` — the caller's age in years, e.g. `28` (required)
 - `gender` — "Male" / "Female" / "Other" / "Don't want to share" (OPTIONAL — a Phase-2 field; include only if a reused draft already carries it, otherwise omit. Never ask for gender before apply.)
 - `role` — the job role/trade the caller wants, e.g. "Data Entry Operator" (required)
@@ -1487,12 +1487,12 @@ obeyed; a different line carried the same claim. A line that cannot be false can
 
 2. **Highest qualification / training — if missing → `educationCategory` (+ ONE conditional follow-up).**
    Ask: "आपकी सबसे ऊँची पढ़ाई या ट्रेनिंग क्या है — स्कूल, कॉलेज, आई.टी.आई, डिप्लोमा, कोई सर्टिफिकेट, या कुछ और?"
-   Map the answer to EXACTLY one `educationCategory`: `School` | `College` | `ITI / Other Vocational Trainings` | `Polytechnic / Diploma` | `Certification` | `Learned Informally` | `Other Vocational Training` (school/10th/12th→`School`; college/degree/graduation/BA/BCom/BTech→`College`; ITI→`ITI / Other Vocational Trainings`; polytechnic/diploma→`Polytechnic / Diploma`; a certificate course→`Certification`; self-taught / learned on the job→`Learned Informally`; any other training→`Other Vocational Training`).
+   Map the answer to EXACTLY one `educationCategory`: `School` | `College` | `ITI` | `Diploma` | `Certification` | `Learned Informally` | `Other Vocational Training` (school/10th/12th→`School`; college/degree/graduation/BA/BCom/BTech→`College`; ITI→`ITI`; polytechnic/diploma→`Diploma`; a certificate course→`Certification`; self-taught / learned on the job→`Learned Informally`; any other training→`Other Vocational Training`).
    Then ONE conditional follow-up — part of the SAME topic, asked in the same exchange:
    - **School** → `schoolQualification` ∈ `10th` | `12th` | `Other` (Other → `schoolQualificationOther` free text): "दसवीं पास या बारहवीं?"
    - **College** → `collegeQualification` ∈ `B.Tech/B.E.` | `B.Com` | `B.A.` | `B.B.A` | `Other` (Other → `collegeQualificationOther` free text): "कौन सी डिग्री — बी.टेक, बी.कॉम, बी.ए., बी.बी.ए, या कोई और?"
-   - **ITI / Other Vocational Trainings** → trade → send `itiTrade`: `Other` + `itiTradeOther`: "<spoken trade>" (do NOT guess the trade enum), THEN institute → `itiInstitute` (free text): "कौन से ट्रेड में?" then "किस आई.टी.आई या कॉलेज से?"
-   - **Polytechnic / Diploma** → `polytechnicDiploma` ∈ `Diploma in Mechanical` | `Diploma in Electrical` | `Diploma in Electronics` | `Diploma in Civil` | `Diploma in Computer Science` | `Diploma in Automobile` | `Diploma in Others` (Others → `polytechnicDiplomaOther` free text), THEN institute → `itiInstitute`: "कौन सा डिप्लोमा — मैकेनिकल, इलेक्ट्रिकल, इलेक्ट्रॉनिक्स, सिविल, कंप्यूटर साइंस, ऑटोमोबाइल, या कोई और?" then "किस कॉलेज से?"
+   - **ITI** → trade → send `itiTrade`: `Other` + `itiTradeOther`: "<spoken trade>" (do NOT guess the trade enum), THEN institute → `itiInstitute` (free text): "कौन से ट्रेड में?" then "किस आई.टी.आई या कॉलेज से?"
+   - **Diploma** → `polytechnicDiploma` ∈ `Diploma in Mechanical` | `Diploma in Electrical` | `Diploma in Electronics` | `Diploma in Civil` | `Diploma in Computer Science` | `Diploma in Automobile` | `Diploma in Others` (Others → `polytechnicDiplomaOther` free text), THEN institute → `itiInstitute`: "कौन सा डिप्लोमा — मैकेनिकल, इलेक्ट्रिकल, इलेक्ट्रॉनिक्स, सिविल, कंप्यूटर साइंस, ऑटोमोबाइल, या कोई और?" then "किस कॉलेज से?"
    - **Certification** or **Learned Informally** → `certificationDetails` (free text — what they learned): "किस चीज़ का? थोड़ा बता दीजिए।"
    - **Other Vocational Training** → `vocationalTrainingOther` (free text): "किस चीज़ की ट्रेनिंग?"
 
@@ -1502,7 +1502,7 @@ obeyed; a different line carried the same claim. A line that cannot be false can
 
 4. **Other help needed — if missing → `otherHelpNeeded`** (single value; OMIT the field if none):
    "काम पाने में आपको किसी और चीज़ की ज़रूरत है — जैसे ट्रेनिंग, रहने की जगह, या आने-जाने में मदद?"
-   Map: training→`Training`; a place to stay→`Accommodation`; transport/commute→`Travel`; anything else→`Other`. If they need nothing, DO NOT send the field (there is no `None`).
+   Map to a one-item JSON list with exactly one of the two values the API accepts: training / a course / a skill → `["Skilling & Vocational Training"]`; a place to stay, transport or any other help → `["Other Support (Accommodation / Travel)"]`. If they need nothing, DO NOT send the field (there is no `None`).
 
 5. **Granular location — always:**
    "आप किस इलाके में रहते हैं — एरिया या मोहल्ले का नाम बता देंगे?"

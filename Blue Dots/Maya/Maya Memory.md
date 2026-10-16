@@ -83,10 +83,6 @@ IMPORTANT:
 - `hr_contact_shared` — `Yes` / `No` — whether an HR contact number was shared this journey
 - `drop_off_reason` — string if applicable from prior session
 
-## MPL LAYER — Ghaziabad Marketer Premiere League (persists across calls)
-- `mpl_presented` — `Yes` / `No` — whether the MPL Competition has ever been presented (offered) to the seeker in any call. Sticky: once `Yes`, keep `Yes`.
-- `mpl_registered` — `Yes` / `No` — whether the seeker has registered interest in MPL (agreed to take part). Sticky: once `Yes`, keep `Yes`. When `Yes`, the agent must NOT offer MPL again in future calls.
-
 ---
 
 # Update rules
@@ -94,7 +90,6 @@ IMPORTANT:
 - If the conversation is ambiguous, conflicting, hypothetical, or uncertain, keep the old value.
 - If the student corrects themselves, prefer the most recent explicit statement.
 - Do not invent details. Do not infer missing info.
-- `mpl_presented` / `mpl_registered` are STICKY: once either is `Yes` in the existing memory, keep it `Yes` (never downgrade to `No`/blank). Set `mpl_presented` = `Yes` if the latest conversation offered/mentioned the MPL Competition; set `mpl_registered` = `Yes` if the seeker agreed to take part.
 - Keep wording concise and consistent (trim whitespace, avoid long paragraphs).
 - Output must be valid JSON only: no markdown, no commentary, no extra text outside JSON.
 - Do not add extra keys beyond the schema below.
@@ -165,9 +160,6 @@ IMPORTANT:
   "applications_this_session": "",
   "hr_contact_shared": "",
   "drop_off_reason": "",
-
-  "mpl_presented": "",
-  "mpl_registered": "",
 
   "recent_changes": [
     {

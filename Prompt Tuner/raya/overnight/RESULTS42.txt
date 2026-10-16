@@ -1,0 +1,5 @@
+thin-knin-a USABLE 96s 6 4ed09650-3723-4f7d-b305-d5eefd5d54ab
+thin-maya-a USABLE 242s 25 d913bff6-ad54-42b0-95d2-ca2178f005e7
+thin-mayain USABLE 178s 11 7b81a27a-2a5b-4df6-b5ed-7d293dd8b582
+thin-knin-b USABLE 308s 19 452874bb-244b-4dab-8722-a37e07eb6986
+thin-maya-b USABLE 181s 11 287e6f61-86e5-4015-aacc-0b8cd10f0be6

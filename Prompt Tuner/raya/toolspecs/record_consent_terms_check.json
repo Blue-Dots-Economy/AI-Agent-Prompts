@@ -1,0 +1,10 @@
+{
+  "_note": "Required assertion parameter for record_consent, modelled on apply_job's duplicate_check (the mechanism that took ACTION_LIMIT_REACHED handling from broken to 9/9). Added 2026-09-23 after live call 9df94781 on Maya Inbound: the five-element disclosure was never spoken, the caller was asked only 'shall I apply for this job', and record_consent fired anyway — writing terms + privacy + profile consent as true for someone who had never heard the terms. A fabricated consent record is the worst failure this feature can produce, and prose could not prevent it because the model was reading 'the caller agreed' off the apply question. A REQUIRED enum is read at the moment of use and leaves the assertion in tool_calls[].arguments, so a regression detector can compare what the model ASSERTED against what the transcript actually contains.",
+  "name": "terms_check",
+  "required": true,
+  "schema": {
+    "type": "string",
+    "enum": ["disclosure-read-and-agreed-this-call", "not-read"],
+    "description": "REQUIRED — answer this before you call the tool. Did you speak the FULL five-element account-and-terms disclosure in THIS call (the account created on Blue Dots from their name and phone, the three purposes, the one-year term, managed by Ekstep Foundation, full terms readable in the app) AND did the caller then agree to THAT question? Only then is the value 'disclosure-read-and-agreed-this-call'. Otherwise the value is 'not-read' — and if it is 'not-read' you must NOT call this tool at all, because there is no consent to record. A caller agreeing to APPLY to a job is NOT agreement to the terms: the apply question shares their details with one employer, this records acceptance of the platform's terms and privacy policy. Recording a consent the caller was never asked for is a fabricated record and is worse than recording nothing."
+  }
+}

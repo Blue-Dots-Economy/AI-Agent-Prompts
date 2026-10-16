@@ -1,0 +1,28 @@
+{
+  "_note": "API shape for Raya Voice AI (LitWiz Labs). Configured from the Raya REST docs. No secrets here — base URL + token live in raya/.env. '{id}' is replaced with a target's raya_agent_id (the agent uuid). Auth is 'X-API-Key: <token>' (no scheme prefix). Update is a PATCH with a PARTIAL body: only prompt_field is sent, all other agent settings are untouched. Fields ending in *_field / *_path accept a dotted JSON path; '' = response root.",
+  "auth": {
+    "header": "X-API-Key",
+    "scheme": "",
+    "token_env": "RAYA_API_TOKEN"
+  },
+  "request": {
+    "timeout_s": 30,
+    "read_retries": 2,
+    "max_prompt_bytes": null
+  },
+  "profiles": {
+    "conversation": {
+      "list":   { "method": "GET",   "path": "/api/agent?limit=100&sort=desc" },
+      "get":    { "method": "GET",   "path": "/api/agent/{id}" },
+      "update": { "method": "PATCH", "path": "/api/agent/{id}" },
+      "update_mode": "patch",
+      "prompt_field": "instructions",
+      "list_items_path": "agents",
+      "item_id_field": "id",
+      "item_name_field": "name",
+      "get_item_path": ""
+    },
+    "output": { "inherits": "conversation", "prompt_field": "output_instructions" },
+    "memory": { "inherits": "conversation", "prompt_field": "memory_instructions", "extra_body": { "memory_enabled": true } }
+  }
+}

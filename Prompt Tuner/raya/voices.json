@@ -1,0 +1,22 @@
+{
+  "_note": "Raya language_id + voice_id per account and language. There is no API that lists them: each pair is read off an agent that already runs that language (python3 scripts/raya_testcall.py whoami <uuid>), with the source agent and date recorded. IDs differ per account, so re-check after any account change. scripts/raya_testcall.py `lang` reads this file (account 'ekstep' unless the RAYA_ACCOUNT environment variable names another). A language with no pair here cannot be tested yet: ask LitWiz for the pair instead of testing on another language's voice.",
+  "accounts": {
+    "ekstep": {
+      "hi": {
+        "language_id": "38695ff2-ee6f-4a1c-837b-27ab241377f7",
+        "voice_id": "413cbfba-8270-4291-96cd-1a38a9d68fa7",
+        "source": "tester agent's Hindi voice"
+      },
+      "kn": {
+        "language_id": "ac4d6be6-3da2-4936-a841-0b23c7323446",
+        "voice_id": "c343cabe-629e-48f6-998d-7fa4d6d3c20a",
+        "source": "KN Signals bot"
+      },
+      "mr": {
+        "language_id": "9046a14a-e2f6-46df-95e8-3a9883ca40f7",
+        "voice_id": "daf1d34b-e65c-4553-88fe-54d66c10b912",
+        "source": "Kaam Ki Baat (Persona Based - Marathi) (Group 2) cb470bc3, read 2026-09-28"
+      }
+    }
+  }
+}

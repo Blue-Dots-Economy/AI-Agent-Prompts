@@ -1,0 +1,6 @@
+# Bot Control Center backend — deps.
+# cryptography is already used by scripts/gsheets.py (service-account JWT signing).
+fastapi>=0.115
+uvicorn[standard]>=0.30
+cryptography>=42
+# stdlib covers the rest: sqlite3, subprocess, json, urllib, asyncio.

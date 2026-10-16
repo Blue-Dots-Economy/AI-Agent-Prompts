@@ -1,0 +1,62 @@
+[kkb-kn-in-signals-kn-seeker-cooperative] POST /api/call -> 200 {"message": "Call initiated successfully", "uuid": "2d0c771b-1bdf-4856-b42a-459751d45509"}
+[kkb-kn-in-signals-kn-seeker-cooperative] poll 0: outcome='Pending' dur=0 turns=0
+[kkb-kn-in-signals-kn-seeker-cooperative] poll 1: outcome='Failure' dur=0 turns=0
+[kkb-kn-in-signals-kn-seeker-cooperative] connect attempt 1 did not bridge (outcome=Failure); letting the tester line settle for 90s
+[kkb-kn-in-signals-kn-seeker-cooperative] POST /api/call -> 200 {"message": "Call initiated successfully", "uuid": "34a460f0-b3fb-4df3-9a51-ec6784d4ff86"}
+[kkb-kn-in-signals-kn-seeker-cooperative] poll 0: outcome='Pending' dur=0 turns=0
+[kkb-kn-in-signals-kn-seeker-cooperative] poll 1: outcome='Pending' dur=0 turns=0
+[kkb-kn-in-signals-kn-seeker-cooperative] poll 2: outcome='Pending' dur=0 turns=0
+[kkb-kn-in-signals-kn-seeker-cooperative] poll 3: outcome='Pending' dur=0 turns=0
+[kkb-kn-in-signals-kn-seeker-cooperative] poll 4: outcome='Pending' dur=0 turns=0
+[kkb-kn-in-signals-kn-seeker-cooperative] poll 5: outcome='Pending' dur=0 turns=0
+[kkb-kn-in-signals-kn-seeker-cooperative] poll 6: outcome='Pending' dur=0 turns=0
+[kkb-kn-in-signals-kn-seeker-cooperative] poll 7: outcome='Pending' dur=0 turns=0
+[kkb-kn-in-signals-kn-seeker-cooperative] poll 8: outcome='Pending' dur=0 turns=0
+[kkb-kn-in-signals-kn-seeker-cooperative] poll 9: outcome='Pending' dur=0 turns=0
+[kkb-kn-in-signals-kn-seeker-cooperative] poll 10: outcome='Pending' dur=0 turns=0
+[kkb-kn-in-signals-kn-seeker-cooperative] poll 11: outcome='Pending' dur=0 turns=0
+[kkb-kn-in-signals-kn-seeker-cooperative] poll 12: outcome='Pending' dur=0 turns=0
+[kkb-kn-in-signals-kn-seeker-cooperative] poll 13: outcome='Pending' dur=0 turns=0
+[kkb-kn-in-signals-kn-seeker-cooperative] poll 14: outcome='Pending' dur=0 turns=0
+[kkb-kn-in-signals-kn-seeker-cooperative] poll 15: outcome='Pending' dur=0 turns=0
+[kkb-kn-in-signals-kn-seeker-cooperative] poll 16: outcome='Pending' dur=0 turns=0
+[kkb-kn-in-signals-kn-seeker-cooperative] poll 17: outcome='Completed' dur=211 turns=24
+
+============================================================================
+[kkb-kn-in-signals-kn-seeker-cooperative] BOT 34a460f0-b3fb-4df3-9a51-ec6784d4ff86 outcome=Completed dur=211
+call_output: null
+
+TRANSCRIPT:
+[user] hello
+[assistant] ನಮಸ್ಕಾರ. ನಾನು ಮಾಯಾ. ನಗರ ಆಡಳಿತದ ಕೆಲಸದ ಮಾತಿಗೆ ಸ್ವಾಗತ. ಈ ಮಾತುಕತೆ ರೆಕಾರ್ಡ್ ಆಗಬಹುದು. ಹೇಳಿ, ನೀವು ಯಾವ ಥರದ ಕೆಲಸ ಹುಡುಕ್ತಾ ಇದೀರಾ? 
+[user]  ನಮಸ್ಕಾರ, ಹೌದು ನಾನು ಕೆಲಸ ಹುಡುಕ್ತಾ ಇದ್ದೀನಿ. ಸದ್ಯಕ್ಕೆ ಯಾವುದಾದರೂ ಒಳ್ಳೆ ಕೆಲಸ ಸಿಕ್ಕಿದ್ರೆ ಚೆನ್ನಾಗಿರುತ್ತೆ.
+[assistant->TOOL] get_profile({"phone_number": "917946350285", "hold_message": "ಒಂದು ನಿಮಿಷ."})
+[tool] {'user_id': 'c3fc8471-b0d2-453b-bf06-77a99c34f562', 'user_consent': {'terms_accepted': True, 'privacy_accepted': True, 'has_age': True}, 'items': [{'item_id': 'ffce36d8-d89b-454c-a78a-830bfd77ff10', 'item_network': 'blue_dot', 'item_domain': 'seeker', 'item_type': 'profile_1.0', 'lifecycle_status': 'live', 'profile_consent_accepted': True, 'item_state': {'age': 26, 'name': 'Partha', 'phone': '917946350285', 'gender': 'Female', 'location': 'Koramangala, Bengaluru, Karnataka, India', 'languageSpoken': ['Kannada'], 'workExperience': 'Worked before', 'otherHelpNeeded': ['Skilling & Vocational Trai
+[assistant] ಒಂದು ನಿಮಿಷ. ಪಾರ್ಥ ಅವರೇ, ನೀವು ಇನ್ಶೂರೆನ್ಸ್ ಫೀಲ್ಡ್ ಏಜೆಂಟ್ ಕೆಲಸ ನೋಡ್ತಾ ಇದ್ದೀರಿ ಅಲ್ವಾ — ಇದೇ ಥರದ ಕೆಲಸ ಮುಂದುವರಿಸೋಣವಾ, ಅಥವಾ ಬೇರೆ ಏನಾದರೂ ನೋಡೋಣವೇ? 
+[user]  ಹೌದು, ಅದೇ ತರದ ಇನ್ಶೂರೆನ್ಸ್ ಫೀಲ್ಡ್ ಏಜೆಂಟ್ ಕೆಲಸನೇ ಬೇಕು. ಅದೇ ಫೀಲ್ಡ್ ಅಲ್ಲಿ ಮುಂದುವರಿಸೋಣ.
+[assistant] ಸರಿ ಪಾರ್ಥ ಅವರೇ, ಇನ್ಶೂರೆನ್ಸ್ ಫೀಲ್ಡ್ ಏಜೆಂಟ್ ಜಾಬ್‌ಗಳನ್ನು ನೋಡೋಣ. ನೀವು ಕೊರಮಂಗಲದ ಸುತ್ತಮುತ್ತ ಹುಡುಕೋಣವಾ? 
+[user]  ಹೌದು, ಕೋರಮಂಗಲದ ಸುತ್ತಮುತ್ತ ಇದ್ರೆ ತುಂಬಾ ಅನುಕೂಲ ಆಗುತ್ತೆ. ಅಲ್ಲಿ ನೋಡೋಣ.
+[assistant] ನಿಮಗೆ ಈ ಜಾಬ್ ಇದೆ — ಇನ್ಶೂರೆನ್ಸ್ ಫೀಲ್ಡ್ ಏಜೆಂಟ್, ಟಾಟಾ ಎಐಜಿ ಜನರಲ್ ಇನ್ಶೂರೆನ್ಸ್, ದೇಶಪಾಂಡೆ ನಗರ, ಸ್ಯಾಲರಿ ಹನ್ನೆರಡು ಸಾವಿರದಿಂದ ಹದಿನಾರು ಸಾವಿರ. ಇದರ ಬಗ್ಗೆ ಮಾತಾಡೋಣವಾ? 
+[user]  ಹಾ, ಸರಿ. ಇದರ ಬಗ್ಗೆ ಮಾತಾಡೋಣ. ಕೆಲಸದ ಬಗ್ಗೆ ಇನ್ನೊಂದು ಸಲ ಹೇಳಿ.
+[assistant] ಇನ್ಶೂರೆನ್ಸ್ ಫೀಲ್ಡ್ ಏಜೆಂಟ್, ಟಾಟಾ ಎಐಜಿ ಜನರಲ್ ಇನ್ಶೂರೆನ್ಸ್, ದೇಶಪಾಂಡೆ ನಗರದಲ್ಲಿ — ಸ್ಯಾಲರಿ ಹನ್ನೆರಡು ಸಾವಿರದಿಂದ ಹದಿನಾರು ಸಾವಿರ, ಹದಿನೈದು ಪೊಸಿಷನ್ ಇದೆ. ಕ್ವಾಲಿಫಿಕೇಷನ್: ಹನ್ನೆರಡನೇ ಕ್ಲಾಸ್ ಪಾಸ್. ಈ ಕೆಲಸದ ಬಗ್ಗೆ ಏನಾದರೂ ಕೇಳಬೇಕಾ? 
+[user]  ಇಲ್ಲ, ಅದೆಲ್ಲಾ ಸರಿ ಇದೆ. ಕೆಲಸಕ್ಕೆ ಅಪ್ಲೈ ಮಾಡಿ. ನನ್ನ ಡೀಟೇಲ್ಸ್ ಕಂಪನಿಗೆ ಶೇರ್ ಮಾಡೋದಕ್ಕೆ ಪರವಾಗಿಲ್ಲ, ಮಾಡಿ.
+[assistant->TOOL] apply_job({"acting_as_user_id": "c3fc8471-b0d2-453b-bf06-77a99c34f562", "job_id": "70414b1c-e11c-4d10-91f5-348d0a88476b", "hold_message": "ಒಂದು ನಿಮಿಷ.", "duplicate_check": "not-applied-before", "profile_id": "ffce36d8-d89b-454c-a78a-830bfd77ff10"})
+[tool] [Error: apply_job request failed (HTTP 422).]
+
+__RAYA_TOOL_DEBUG__
+422 Client Error: Unprocessable Entity for url: https://dharwad-signals.bluedotseconomy.org/api/v1/action/perform
+status_code=422
+url=https://dharwad-signals.bluedotseconomy.org/api/v1/action/perform
+kind=http_error
+response_body_excerpt={"results":[{"index":0,"status":"error","error":"ACTION_LIMIT_REACHED","message":"An active request already exists between these two profiles."}],"summary":{"total":1,"succeeded":0,"failed":1}}
+[assistant] ಒಂದು ನಿಮಿಷ. ಈ ಜಾಬ್‌ಗೆ ನಿಮ್ಮ ಅಪ್ಲಿಕೇಶನ್ ಈಗಾಗಲೇ ಇದೆ — ಮತ್ತೆ ಅಪ್ಲೈ ಮಾಡುವ ಅಗತ್ಯವಿಲ್ಲ. ಬೇರೆ ಜಾಬ್‌ಗಳನ್ನ ಹೇಳಲಾ? 
+[user]  ಆಯ್ತು. ಹಾಗಾದ್ರೆ ಬೇರೆ ಯಾವುದಾದರೂ ಜಾಬ್ ಇದ್ರೆ ಹೇಳಿ.
+[assistant] ನಮ್ಮ ಬಳಿ ಇನ್ಶೂರೆನ್ಸ್ ಫೀಲ್ಡ್ ಏಜೆಂಟ್ ಹೊರತುಪಡಿಸಿ, ಇತರೆ ಈ ಕೆಳಗಿನ ಜಾಬ್‌ಗಳು ಲಭ್ಯವಿವೆ:  ಒಂದು: ವೊಕೇಷನಲ್ ಟ್ರೈನರ್ – ಗಾರ್ಮೆಂಟ್ & ಟೈಲರಿಂಗ್, ಸಮರ್ಥ್ ಸ್ಕಿಲ್ ಫೌಂಡೇಶನ್ (ಎನ್.ಜಿ.ಒ), ಅಕ್ಕಿಪೇಟೆ, ಸ್ಯಾಲರಿ ಹನ್ನೆರಡು ಸಾವಿರದಿಂದ ಹದಿನಾರು ಸಾವಿರ. ಎರಡು: ಸಿ.ಎನ್.ಸಿ ಮೆಷಿನ್ ಆಪರೇಟರ್, ಹುಬ್ಬಳ್ಳಿ ಸಿ.ಎನ್.ಸಿ ಇಂಜಿನಿಯರಿಂಗ್ ವರ್ಕ್ಸ್, ತಾರಿಹಾಳ್ ಇಂಡಸ್ಟ್ರಿಯಲ್ ಏರಿಯಾ, ಸ್ಯಾಲರಿ ಹದಿನಾರು ಸಾವಿರದಿಂದ ಇಪ್ಪತ್ತನಾಲ್ಕು ಸಾವಿರ. ಮೂರು: ಟೂ ವೀಲರ್ ಮೆಕ್ಯಾನಿಕ್, ಹುಬ್ಬಳ್ಳಿ ಮೋಟಾರ್ಸ್ (ಟಿ.ವಿ.ಎಸ್ ಡೀಲರ್), ಕುಸುಗಲ್ ರೋಡ್, ಸ್ಯಾಲರಿ ಹದಿಮೂರು ಸಾವಿರದಿಂದ ಹದಿನೆಂಟು ಸಾವಿರ.  ಯಾವುದಾದರೂ ಒಂದರ ಬಗ್ಗೆ ಇನ್ನಷ್ಟು ತಿಳಿಯಬೇಕಾ? 
+[user]  ಇಲ್ಲ, ನನಗೆ ಇನ್ಶೂರೆನ್ಸ್ ಫೀಲ್ಡ್ ಏಜೆಂಟ್ ಕೆಲಸನೇ ಇಷ್ಟ ಆಗಿರೋದು. ಬೇರೆ ಯಾವುದಾದರೂ ಇನ್ಶೂರೆನ್ಸ್ ಕಂಪನಿಯಲ್ಲಿ ಆ ತರದ ಕೆಲಸ ಇದ್ರೆ ಹೇಳಿ. ಇಲ್ಲ ಅಂದ್ರೆ ಪರವಾಗಿಲ್ಲ. ಧನ್ಯವಾದಗಳು.
+[assistant] ಈಗ ಈ ಥರದ ಜಾಬ್ ನಮ್ಮ ಬಳಿ ಲಭ್ಯ ಇಲ್ಲ. ಇಂಥ ಜಾಬ್ ಬಂದ ತಕ್ಷಣ, ನೀವು ಮತ್ತೆ ಮಾತಾಡಬಹುದು. ಜಾಬ್ ಸಿಗುವ ಚಾನ್ಸ್ ಇನ್ನೂ ಹೆಚ್ಚಿಸೋಕೆ ನಮ್ಮ ಹತ್ರ ಕೆಲವು ಸರ್ವಿಸ್ ಪ್ರೊವೈಡರ್‌ಗಳಿದ್ದಾರೆ, ಅವರು ನಿಮಗೆ ಸಹಾಯ ಮಾಡಬಹುದು. ನೀವು ಇಂಟರೆಸ್ಟೆಡ್ ಇದ್ದೀರಾ? 
+[user]  ಹಾ ಸರಿ, ಇಂಟರೆಸ್ಟೆಡ್ ಇದ್ದೀನಿ. ಅವರು ಹೇಗೆ ಸಹಾಯ ಮಾಡ್ತಾರೆ ಅಂತ ಹೇಳಿ.
+[assistant] ಇದು ಒಂದು ಫ್ರೀ ಸರ್ವಿಸ್ — ಅವರ ಟೀಮ್ ನಿಮ್ಮ ಜೊತೆ ಮಾತಾಡಿ ಯಾವ ಕೆಲಸ ನಿಮಗೆ ಸರಿ ಹೊಂದುತ್ತೆ ಅಂತ ಅರ್ಥ ಮಾಡ್ಕೊಳ್ತಾರೆ, ಬೇಕಾದ್ರೆ ಟ್ರೇನಿಂಗ್ ಮತ್ತು ಕೋರ್ಸ್ ಮೂಲಕ ಹೊಸ ಸ್ಕಿಲ್ ಕೂಡ ಕಲಿಸ್ತಾರೆ. ಇದಕ್ಕೆ ದುಡ್ಡು ಏನೂ ಕೊಡಬೇಕಾಗಿಲ್ಲ. ನಾನು ಮುಂದೆ ಕಳಿಸಲಾ? 
+[user]  ಹಾ, ಖಂಡಿತ ಕಳಿಸಿ. ನನಗೆ ಸಹಾಯ ಆದ್ರೆ ತುಂಬಾ ಒಳ್ಳೆಯದು. ಧನ್ಯವಾದಗಳು.
+[assistant] ತುಂಬಾ ಒಳ್ಳೆದು, ನಮ್ಮ ಟೀಮ್ ಒಂದು-ಎರಡು ದಿನದಲ್ಲಿ ನಿಮ್ಮನ್ನ ಸಂಪರ್ಕ ಮಾಡುತ್ತೆ. ಇವತ್ತು ನಾವು ಇನ್ಶೂರೆನ್ಸ್ ಫೀಲ್ಡ್ ಏಜೆಂಟ್ ಜಾಬ್‌ಗಳ ಬಗ್ಗೆ ಮಾತಾಡಿದೆವು. ಮತ್ತೆ ನೋಡಬೇಕಾದ್ರೆ ಮಾತಾಡಿ. Goodbye 
+
+[kkb-kn-in-signals-kn-seeker-cooperative] TESTER leg 7cbb4b3c: outcome=Completed dur=212 turns=22 call_output=null

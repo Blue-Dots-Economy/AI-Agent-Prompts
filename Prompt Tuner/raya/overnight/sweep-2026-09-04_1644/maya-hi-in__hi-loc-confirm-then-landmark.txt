@@ -1,0 +1,111 @@
+[maya-hi-in-hi-loc-confirm-then-landmark] POST /api/call -> 200 {"message": "Call initiated successfully", "uuid": "0963b35a-8cfc-4cd3-9719-dcc968887e30"}
+[maya-hi-in-hi-loc-confirm-then-landmark] poll 0: outcome='Pending' dur=0 turns=0
+[maya-hi-in-hi-loc-confirm-then-landmark] poll 1: outcome='Pending' dur=0 turns=0
+[maya-hi-in-hi-loc-confirm-then-landmark] poll 2: outcome='Pending' dur=0 turns=0
+[maya-hi-in-hi-loc-confirm-then-landmark] poll 3: outcome='Pending' dur=0 turns=0
+[maya-hi-in-hi-loc-confirm-then-landmark] poll 4: outcome='Pending' dur=0 turns=0
+[maya-hi-in-hi-loc-confirm-then-landmark] poll 5: outcome='Pending' dur=0 turns=0
+[maya-hi-in-hi-loc-confirm-then-landmark] poll 6: outcome='Pending' dur=0 turns=0
+[maya-hi-in-hi-loc-confirm-then-landmark] poll 7: outcome='Pending' dur=0 turns=0
+[maya-hi-in-hi-loc-confirm-then-landmark] poll 8: outcome='Pending' dur=0 turns=0
+[maya-hi-in-hi-loc-confirm-then-landmark] poll 9: outcome='Pending' dur=0 turns=0
+[maya-hi-in-hi-loc-confirm-then-landmark] poll 10: outcome='Pending' dur=0 turns=0
+[maya-hi-in-hi-loc-confirm-then-landmark] poll 11: outcome='Pending' dur=0 turns=0
+[maya-hi-in-hi-loc-confirm-then-landmark] poll 12: outcome='Pending' dur=0 turns=0
+[maya-hi-in-hi-loc-confirm-then-landmark] poll 13: outcome='Pending' dur=0 turns=0
+[maya-hi-in-hi-loc-confirm-then-landmark] poll 14: outcome='Pending' dur=0 turns=0
+[maya-hi-in-hi-loc-confirm-then-landmark] poll 15: outcome='Pending' dur=0 turns=0
+[maya-hi-in-hi-loc-confirm-then-landmark] poll 16: outcome='Pending' dur=0 turns=0
+[maya-hi-in-hi-loc-confirm-then-landmark] poll 17: outcome='Pending' dur=0 turns=0
+[maya-hi-in-hi-loc-confirm-then-landmark] poll 18: outcome='Pending' dur=0 turns=0
+[maya-hi-in-hi-loc-confirm-then-landmark] poll 19: outcome='Pending' dur=0 turns=0
+[maya-hi-in-hi-loc-confirm-then-landmark] poll 20: outcome='Pending' dur=0 turns=0
+[maya-hi-in-hi-loc-confirm-then-landmark] poll 21: outcome='Pending' dur=0 turns=0
+[maya-hi-in-hi-loc-confirm-then-landmark] poll 22: outcome='Pending' dur=0 turns=0
+[maya-hi-in-hi-loc-confirm-then-landmark] poll 23: outcome='Completed' dur=309 turns=78
+
+============================================================================
+[maya-hi-in-hi-loc-confirm-then-landmark] BOT 0963b35a-8cfc-4cd3-9719-dcc968887e30 outcome=Completed dur=309
+call_output: null
+
+TRANSCRIPT:
+[user] hello
+[assistant] नमस्ते। माया की रोज़गार सेवा में आपका स्वागत है। यह बातचीत रिकॉर्ड की जा सकती है। बताइए, आप किस तरह का काम ढूंढ रहे हैं? 
+[user]  हाँ जी, काम की ज़रूरत है। कुछ भी चलेगा, आप बताइए।
+[assistant] एक मिनट 
+[user]  हाँ जी, काम की ज़रूरत है। कुछ भी चलेगा, आप बताइए। जी, ठीक है।
+[assistant] एक मिनट 
+[user]  जी, ठीक है।
+[assistant] एक मिनट 
+[user]  जी, ठीक है।
+[assistant] एक मिनट 
+[user]  जी, ठीक है।
+[assistant] एक मिनट 
+[user]  जी, ठीक है।
+[assistant] एक मिनट 
+[user]  जी, ठीक है।
+[assistant] एक मिनट 
+[user]  जी, ठीक है।
+[assistant] एक मिनट 
+[user]  जी, ठीक है।
+[assistant] एक मिनट 
+[user]  जी, ठीक है।
+[assistant] एक मिनट। 
+[user]  जी, ठीक है।
+[assistant] एक मिनट 
+[user]  जी, ठीक है।
+[assistant] एक मिनट 
+[user]  जी, ठीक है।
+[assistant] एक मिनट 
+[user]  जी, ठीक है।
+[assistant] एक मिनट 
+[user]  जी, ठीक है।
+[assistant] एक मिनट 
+[user]  जी, ठीक है।
+[assistant] एक मिनट 
+[user]  जी, ठीक है।
+[assistant] एक मिनट 
+[user]  जी, ठीक है।
+[assistant] एक मिनट 
+[user]  जी, ठीक है।
+[assistant] एक मिनट 
+[user]  जी, ठीक है। जी, ठीक है।
+[assistant] एक मिनट 
+[user]  जी, ठीक है।
+[assistant] एक मिनट। 
+[user]  जी, बोलिए।
+[assistant] एक मिनट 
+[user]  जी, ठीक है।
+[assistant] एक मिनट 
+[user]  जी, ठीक है।
+[assistant] मुझे समझ नहीं आ रहा—मैं जॉब्स बताती हूँ, क्या आप उसी के लिए कह रहे हैं? 
+[user]  हाँ जी, काम की ज़रूरत है। आप जॉब्स बताइए।
+[assistant] एक मिनट 
+[user]  हाँ जी, काम की ज़रूरत है। आप जॉब्स बताइए। जी, ठीक है।
+[assistant] एक मिनट 
+[user]  जी, ठीक है।
+[assistant] एक मिनट 
+[user]  जी, ठीक है।
+[assistant] एक मिनट 
+[user]  जी, ठीक है।
+[assistant] एक मिनट 
+[user]  जी, ठीक है।
+[assistant] एक मिनट 
+[user]  जी, ठीक है। जी, ठीक है।
+[assistant] एक मिनट 
+[user]  जी, ठीक है।
+[assistant] एक मिनट 
+[user]  जी, ठीक है।
+[assistant] एक मिनट 
+[user]  जी, ठीक है।
+[assistant] एक मिनट 
+[user]  जी, ठीक है। जी, ठीक है।
+[assistant] एक मिनट 
+[user]  जी, ठीक है।
+[assistant] एक मिनट 
+[user]  जी, ठीक है। जी, ठीक है।
+[assistant] एक मिनट 
+[user]  योर कॉलर रीच्ड द मैक्सिमम ड्यूरेशन। गुडबाय।
+[assistant] मुझे लगता है कॉल कनेक्शन में देरी/कट हो गया था। आप फिर से कॉल कर दीजिए—मैं जॉब्स बताती हूँ। Goodbye 
+
+[maya-hi-in-hi-loc-confirm-then-landmark] TESTER leg 706a76ae: outcome=Completed dur=306 turns=78 call_output=null

@@ -1,0 +1,48 @@
+# KKB-Slim — snapshot history
+
+- **2026-09-09_191202** — `pre-consent-flag-gate` — before the get_profile consent-flag gate (terms/privacy/profile-creation) + record_consent tool _(1 files)_
+- **2026-09-10_204625** — `pre-deploy-kkb-kn-signals-slim-2026-09-10_204625` — auto snapshot before Raya deploy of KKB-Slim/KKB Slim Kannada Signals.md _(2 files)_
+- **2026-09-10_205903** — `pre-deploy-kkb-kn-signals-slim-2026-09-10_205903` — auto snapshot before Raya deploy of KKB-Slim/KKB Slim Kannada Signals.md _(2 files)_
+- **2026-09-10_210853** — `pre-deploy-kkb-kn-signals-slim-2026-09-10_210853` — auto snapshot before Raya deploy of KKB-Slim/KKB Slim Kannada Signals.md _(2 files)_
+- **2026-09-10_215524** — `pre-deploy-kkb-kn-signals-slim-2026-09-10_215524` — auto snapshot before Raya deploy of KKB-Slim/KKB Slim Kannada Signals.md _(2 files)_
+- **2026-09-10_223554** — `pre-deploy-kkb-kn-signals-slim-2026-09-10_223554` — auto snapshot before Raya deploy of KKB-Slim/KKB Slim Kannada Signals.md _(2 files)_
+- **2026-09-10_230524** — `pre-deploy-kkb-kn-signals-slim-2026-09-10_230524` — auto snapshot before Raya deploy of KKB-Slim/KKB Slim Kannada Signals.md _(2 files)_
+- **2026-09-22_205700** — `pre-compliance-rename` — before switching the consent read from user_consent{} to compliance[] (API renamed the field) _(2 files)_
+- **2026-09-22_205728** — `pre-deploy-kkb-kn-signals-slim-2026-09-22_205728` — auto snapshot before Raya deploy of KKB-Slim/KKB Slim Kannada Signals.md _(2 files)_
+- **2026-09-23_013336** — `pre-deploy-kkb-kn-signals-slim-2026-09-23_013336` — auto snapshot before Raya deploy of KKB-Slim/KKB Slim Kannada Signals.md _(2 files)_
+- **2026-09-23_014159** — `pre-deploy-kkb-kn-signals-slim-2026-09-23_014159` — auto snapshot before Raya deploy of KKB-Slim/KKB Slim Kannada Signals.md _(2 files)_
+- **2026-09-23_103618** — `pre-turnc-skip-test` — Turn C skip test satisfied by locality-level ${location}; landmark asked 6/16 _(3 files)_
+- **2026-09-23_103735** — `pre-deploy-kkb-kn-signals-slim-2026-09-23_103735` — auto snapshot before Raya deploy of KKB-Slim/KKB Slim Kannada Signals.md _(3 files)_
+- **2026-09-23_112501** — `pre-services-turn-split` — step 13 positional rule permits merging the offer into a statement _(3 files)_
+- **2026-09-23_112547** — `pre-deploy-kkb-kn-signals-slim-2026-09-23_112547` — auto snapshot before Raya deploy of KKB-Slim/KKB Slim Kannada Signals.md _(3 files)_
+- **2026-09-23_132846** — `pre-location-write` — location captured in Turns A-C never reaches the backend (0/10) _(3 files)_
+- **2026-09-23_133423** — `pre-restore-2026-09-23_133423` — auto-saved before restoring 'pre-location-write' _(3 files)_
+- **2026-09-23_133701** — `pre-phone-normalise` — tool schema said prepend 91, prompt said never; each right in one direction _(3 files)_
+- **2026-09-23_134504** — `pre-save-location` — dedicated save_location tool; 0/10 locations ever reached the backend _(3 files)_
+- **2026-09-23_140700** — `pre-confirm-routes-to-location` — confirm branch never named the location turn; 1/3 skipped on v3 _(3 files)_
+- **2026-09-23_141835** — `pre-save-at-step13` — save_location bundled with the fetch dropped the location block from 4/4 to ~2/7 _(3 files)_
+- **2026-09-23_151835** — `pre-remove-save-location` — post-call writer 6/6 on target; in-call save 2/8 _(3 files)_
+- **2026-09-23_153129** — `pre-latest-location-wins` — bot ignored a mid-call move and read back the old area _(3 files)_
+- **2026-09-23_192323** — `pre-six-digit-pin` — 5-digit pin read back as valid (04365ced); wrong-length pins were accepted on retry _(3 files)_
+- **2026-09-23_192406** — `pre-deploy-kkb-kn-signals-slim-2026-09-23_192406` — auto snapshot before Raya deploy of KKB-Slim/KKB Slim Kannada Signals.md _(3 files)_
+- **2026-09-23_194654** — `pre-split-then-count` — count-the-digits failed 0/2 on 5-digit input: models misjudge a number's length _(3 files)_
+- **2026-09-23_194714** — `pre-deploy-kkb-kn-signals-slim-2026-09-23_194714` — auto snapshot before Raya deploy of KKB-Slim/KKB Slim Kannada Signals.md _(3 files)_
+- **2026-09-23_200120** — `pre-demonstrate-ask-path` — ask branch 0/41: never demonstrated; bot copied demo PIN 110045 when input had none _(3 files)_
+- **2026-09-23_200157** — `pre-deploy-kkb-kn-signals-slim-2026-09-23_200157` — auto snapshot before Raya deploy of KKB-Slim/KKB Slim Kannada Signals.md _(3 files)_
+- **2026-09-23_201831** — `pre-decouple-example-pins` — Muradnagar welded to 110045 in examples; no-pin input 1/2 fabricated it _(3 files)_
+- **2026-09-23_202022** — `pre-deploy-kkb-kn-signals-slim-2026-09-23_202022` — auto snapshot before Raya deploy of KKB-Slim/KKB Slim Kannada Signals.md _(3 files)_
+- **2026-10-05_130226** — `pre-newcaller-consent-fix` — — _(3 files)_
+- **2026-10-05_193901** — `pre-deploy-kkb-kn-signals-slim-2026-10-05_193901` — auto snapshot before Raya deploy of KKB-Slim/KKB Slim Kannada Signals.md _(3 files)_
+- **2026-10-12_081528** — `pre-oct12-consent-recs` — — _(3 files)_
+- **2026-10-12_081820** — `pre-deploy-kkb-kn-signals-slim-2026-10-12_081820` — auto snapshot before Raya deploy of KKB-Slim/KKB Slim Kannada Signals.md _(3 files)_
+- **2026-10-12_084345** — `pre-deploy-kkb-kn-signals-slim-2026-10-12_084345` — auto snapshot before Raya deploy of KKB-Slim/KKB Slim Kannada Signals.md _(3 files)_
+- **2026-10-12_094741** — `pre-pin-loop-fix` — PIN loop: guard re-evaluated ${location} after caller answered _(3 files)_
+- **2026-10-12_094748** — `pre-deploy-kkb-kn-signals-slim-2026-10-12_094747` — auto snapshot before Raya deploy of KKB-Slim/KKB Slim Kannada Signals.md _(3 files)_
+- **2026-10-13_122046** — `pre-oct13-tracker` — before Oct 13 tracker fixes _(3 files)_
+- **2026-10-13_124605** — `pre-deploy-kkb-kn-signals-slim-2026-10-13_124605` — auto snapshot before Raya deploy of KKB-Slim/KKB Slim Kannada Signals.md _(3 files)_
+- **2026-10-13_132019** — `pre-oct13-age-first` — before age-before-consent _(3 files)_
+- **2026-10-13_132031** — `pre-deploy-kkb-kn-signals-slim-2026-10-13_132031` — auto snapshot before Raya deploy of KKB-Slim/KKB Slim Kannada Signals.md _(3 files)_
+- **2026-10-13_133617** — `pre-deploy-kkb-kn-signals-slim-2026-10-13_133617` — auto snapshot before Raya deploy of KKB-Slim/KKB Slim Kannada Signals.md _(3 files)_
+- **2026-10-13_133954** — `pre-deploy-kkb-kn-signals-slim-2026-10-13_133954` — auto snapshot before Raya deploy of KKB-Slim/KKB Slim Kannada Signals.md _(3 files)_
+- **2026-10-13_134450** — `pre-deploy-kkb-kn-signals-slim-2026-10-13_134450` — auto snapshot before Raya deploy of KKB-Slim/KKB Slim Kannada Signals.md _(3 files)_
+- **2026-10-13_135341** — `pre-deploy-kkb-kn-signals-slim-2026-10-13_135341` — auto snapshot before Raya deploy of KKB-Slim/KKB Slim Kannada Signals.md _(3 files)_

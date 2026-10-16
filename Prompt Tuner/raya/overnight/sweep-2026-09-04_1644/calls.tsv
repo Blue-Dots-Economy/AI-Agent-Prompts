@@ -1,0 +1,32 @@
+maya-hi-signals	hi	hi-student-cooperative	gzb-validated-12	CALL	d57b9ff6-e37c-4ff6-8953-0544210db22f	Maya opener branch B: no college_name supplied -> name NO institution, never read the token (718aa8ab)
+maya-hi-signals	hi	hi-force-apply	maya-college-gzb	CALL	24293fbe-5b8f-4e86-8681-a2f3dc9c8a4d	Maya opener branch A: college_name supplied -> speak the college, not the token
+maya-hi-in-signals	hi	hi-loc-confirm-then-landmark	inbound-probe	CALL	ed9435d5-c493-4c26-9a2a-551eb36b34fb	Maya inbound: confirm the profile location (closed-set fix, 0baf8765)
+trrain-kn-out	kn	kn-trrain-accept-then-asks	trrain-kn	CALL	d4e42fca-7431-4ff6-be94-f2e83f733d9e	TRRAIN Kannada: names TRRAIN Trust, ported from Hindi tonight
+kkb-hi-signals	hi	hi-asks-for-all-jobs	morejobs-22	CALL	4982c225-390e-4731-9c66-15fa14417db8	the job_recommendations alias fix: 22 jobs must NOT produce the no-jobs line (8d3453b1)
+kkb-kn-signals	kn	kn-asks-for-all-jobs	morejobs-kn	NO-BRIDGE	88590e46-d8b0-4a10-86b5-906dfc6335bd	same on Kannada
+maya-hi-out	hi	hi-force-apply	maya-college-gzb	CALL	78ef362f-9da0-4795-a977-5eca424e2ecb	Maya legacy outbound: opener branch A
+kkb-hi-signals	hi	hi-force-apply	already-applied-muradnagar	CALL	8b0e6866-dfec-4d89-8910-73dde6cd2c98	apply on a job already applied to -> row1/row2 wording
+kkb-hi-signals	hi	hi-loc-confirm-then-landmark	loc-reconfirm-gzb	CALL	f8ab149e-5145-47b7-8d72-14ac6f0d51a6	supplied location is confirmed, not re-asked
+kkb-kn-signals	kn	kn-force-apply	dharwad-validated-12	CALL	e3297b77-b5e8-45de-b59d-3fd1b60750e1	Kannada apply path end to end
+kkb-kn-signals	kn	kn-seeker-cooperative	kn-signals-repro	NO-BRIDGE	4a2c13d4-a866-4640-a644-1b7ae70af781	Kannada location + free-service detail on request
+kkb-hi-in-signals	hi	hi-loc-confirm-then-landmark	inbound-probe	CALL	f56ecb1a-aada-44a9-a867-88ea8c3bd915	inbound: confirm the profile location (Case B)
+kkb-hi-in-signals	hi	hi-force-apply	inbound-probe	CALL	1c3b4fe7-05e2-4f78-8eb3-ba62a30875f1	inbound: consent before apply, no fabricated success
+kkb-kn-in-signals	kn	kn-seeker-cooperative	inbound-probe	NO-BRIDGE	b81be86b-5f6f-4e58-8943-0ae1668f0db6	Kannada inbound: location + acting_as_user_id
+kkb-kn-in-signals	kn	kn-force-apply	inbound-probe	CALL	71a6c237-f771-4389-934c-d6996f4e6e27	Kannada inbound: apply path
+maya-hi-in-signals	hi	hi-force-apply	inbound-probe	CALL	67951fd3-9cfb-47b8-b3fd-4eeb64dd5a05	Maya inbound: apply + MPL
+dkb-hi-signals	hi	hi-employer-cooperative	dkb-new-provider	CALL	128507d5-1dac-4160-9186-decfb36ce734	DKB new provider: no expiry claim, nothing invented
+dkb-hi-signals	hi	hi-employer-probe	dkb-new-provider	CALL	8f2f0a98-7419-4101-8616-08147e15de11	DKB: identity probing, never government
+dkb-kn-signals	kn	kn-employer-cooperative	dkb-kn-new-provider	CALL	4a6321ad-c78c-4a49-81d5-341007361761	DKB Kannada new provider
+trrain-hi-out	hi	hi-trrain-accepts	trrain-hi	CALL	8c3c037f-0f06-4db1-b31f-0d7c378be851	TRRAIN Hindi on Signals get_profile
+trrain-hi-out	hi	hi-trrain-wrong-person	trrain-hi	CALL	0ef41eb0-eb51-4965-8ce4-c8ff2090082a	TRRAIN Hindi: no offer to the wrong person
+kkb-hi-out	hi	hi-force-apply	gzb-validated-12	CALL	8e2021e3-5985-4ed7-91d3-d6635b86751e	legacy Hindi outbound still healthy
+kkb-kn-out	kn	kn-force-apply	dharwad-validated-12	CALL	1b7fb500-a953-4389-bd6d-ea325aac8603	legacy Kannada outbound still healthy
+kkb-hi-in	hi	hi-loc-confirm-then-landmark	inbound-probe	CALL	35de19e7-275e-4d89-af55-212642060ca5	legacy Hindi inbound location
+kkb-kn-in	kn	kn-seeker-cooperative	inbound-probe	CALL	bb889884-d2a9-4529-a9be-61a80a5e20f2	legacy Kannada inbound
+maya-hi-in	hi	hi-loc-confirm-then-landmark	inbound-probe	CALL	0963b35a-8cfc-4cd3-9719-dcc968887e30	Maya legacy inbound location
+dkb-hi-out	hi	hi-employer-cooperative	dkb-new-provider	CALL	4b2d7dca-3f3e-4776-9f76-0681aa3ff5a0	DKB legacy Hindi
+dkb-kn-out	kn	kn-employer-cooperative	dkb-kn-new-provider	CALL	4998f3ed-4356-4db8-a531-89431decdf0d	DKB legacy Kannada
+maya-hi-signals	hi	hi-student-cooperative	gzb-validated-12	CALL	f330d05a-0572-4008-8998-bbca64c77bb0	Maya opener branch B: no college_name supplied -> name NO institution, never read the token (718aa8ab)
+maya-hi-signals	hi	hi-force-apply	maya-college-gzb	CALL	58f0445c-9974-4361-8d68-37abdeea53e1	Maya opener branch A: college_name supplied -> speak the college, not the token
+maya-hi-in-signals	hi	hi-loc-confirm-then-landmark	inbound-probe	CALL	e6da3e32-2bed-440b-a60d-e7f152ae7cc3	Maya inbound: confirm the profile location (closed-set fix, 0baf8765)
+trrain-kn-out	kn	kn-trrain-accept-then-asks	trrain-kn	NO-BRIDGE	35e501f5-b08b-4514-8da4-dbce46e76889	TRRAIN Kannada: names TRRAIN Trust, ported from Hindi tonight

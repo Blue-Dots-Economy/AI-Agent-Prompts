@@ -1,0 +1,94 @@
+[kkb-hi-in-signals-hi-loc-confirm-then-landmark] POST /api/call -> 200 {"message": "Call initiated successfully", "uuid": "72112c10-d11c-4e2f-bb26-b5ec1513b768"}
+[kkb-hi-in-signals-hi-loc-confirm-then-landmark] poll 0: outcome='Pending' dur=0 turns=0
+[kkb-hi-in-signals-hi-loc-confirm-then-landmark] poll 1: outcome='Pending' dur=0 turns=0
+[kkb-hi-in-signals-hi-loc-confirm-then-landmark] poll 2: outcome='Pending' dur=0 turns=0
+[kkb-hi-in-signals-hi-loc-confirm-then-landmark] poll 3: outcome='Pending' dur=0 turns=0
+[kkb-hi-in-signals-hi-loc-confirm-then-landmark] poll 4: outcome='Pending' dur=0 turns=0
+[kkb-hi-in-signals-hi-loc-confirm-then-landmark] poll 5: outcome='Pending' dur=0 turns=0
+[kkb-hi-in-signals-hi-loc-confirm-then-landmark] poll 6: outcome='Pending' dur=0 turns=0
+[kkb-hi-in-signals-hi-loc-confirm-then-landmark] poll 7: outcome='Pending' dur=0 turns=0
+[kkb-hi-in-signals-hi-loc-confirm-then-landmark] poll 8: outcome='Pending' dur=0 turns=0
+[kkb-hi-in-signals-hi-loc-confirm-then-landmark] poll 9: outcome='Pending' dur=0 turns=0
+[kkb-hi-in-signals-hi-loc-confirm-then-landmark] poll 10: outcome='Pending' dur=0 turns=0
+[kkb-hi-in-signals-hi-loc-confirm-then-landmark] poll 11: outcome='Pending' dur=0 turns=0
+[kkb-hi-in-signals-hi-loc-confirm-then-landmark] poll 12: outcome='Pending' dur=0 turns=0
+[kkb-hi-in-signals-hi-loc-confirm-then-landmark] poll 13: outcome='Pending' dur=0 turns=0
+[kkb-hi-in-signals-hi-loc-confirm-then-landmark] poll 14: outcome='Pending' dur=0 turns=0
+[kkb-hi-in-signals-hi-loc-confirm-then-landmark] poll 15: outcome='Pending' dur=0 turns=0
+[kkb-hi-in-signals-hi-loc-confirm-then-landmark] poll 16: outcome='Pending' dur=0 turns=0
+[kkb-hi-in-signals-hi-loc-confirm-then-landmark] poll 17: outcome='Pending' dur=0 turns=0
+[kkb-hi-in-signals-hi-loc-confirm-then-landmark] poll 18: outcome='Completed' dur=231 turns=38
+
+============================================================================
+[kkb-hi-in-signals-hi-loc-confirm-then-landmark] BOT 72112c10-d11c-4e2f-bb26-b5ec1513b768 outcome=Completed dur=231
+call_output: null
+
+TRANSCRIPT:
+[user] hello
+[assistant] नमस्ते। शहर प्रशासन की काम की बात में आपका स्वागत है। यह बातचीत रिकॉर्ड की जा सकती है। बताइए, आप किस तरह का काम ढूंढ रहे हैं? 
+[user]  हाँ, जी, काम की ज़रूरत है। कुछ भी चलेगा, आप बताइए।
+[assistant->TOOL] get_profile({"phone_number": "917946350285", "hold_message": "एक मिनट।"})
+[tool] {'user_id': 'a6c122eb-634e-4955-9ae9-f36306b31c7a', 'user_consent': {'terms_accepted': True, 'privacy_accepted': True, 'has_age': True}, 'items': [{'item_id': '588a907f-bc3b-4bad-9695-d6300a3dbd6d', 'item_network': 'blue_dot', 'item_domain': 'seeker', 'item_type': 'profile_1.0', 'lifecycle_status': 'live', 'profile_consent_accepted': True, 'item_state': {'age': 22, 'name': 'Aryan', 'phone': '917946350285', 'gender': 'Male', 'location': 'Sahibabad, Ghaziabad, India', 'educationCategory': 'College', 'collegeQualification': 'B.Com', 'nameOfJobRolesInterestedIn': 'Any'}, 'item_locations': [{'lat':
+[assistant] एक मिनट। आर्यन जी, हमारे पास कई तरह की जॉब्स हैं — जैसे डेटा एंट्री, कस्टमर सपोर्ट, ईवी चार्जिंग टेक्नीशियन, और एसी टेक्नीशियन का काम। आप किस तरह का काम देख रहे हैं — या कोई भी चलेगा? 
+[user]  जी, ठीक है।
+[assistant] ठीक है। आप गाज़ियाबाद के आसपास ही देखें? 
+[user]  जी, बताइए। हाँ, जी, सही है।
+[assistant] आपके लिए जॉब्स हैं — पहला: एच.आर. एडमिन एग्जीक्यूटिव, सारथी स्टाफिंग सॉल्यूशंस, वसुंधरा सेक्टर १०, सैलरी १४ हज़ार से २० हज़ार। दूसरा: कंप्यूटर ऑपरेटर / डेटा एंट्री, एन.आई.आई.टी लिमिटेड, राज नगर डिस्ट्रिक्ट सेंटर, सैलरी १२ हज़ार से १६ हज़ार। तीसरा: वोकेशनल ट्रेनर – टेलरिंग, उद्योगिनी, गोविंदपुरम, सैलरी १२ हज़ार से १६ हज़ार। किसी एक के बारे में और जानना चाहेंगे? 
+[user]  पहले वाली जॉब में अप्लाई कर दीजिए।
+[assistant] एच.आर. एडमिन एग्जीक्यूटिव, सारथी स्टाफिंग सॉल्यूशंस में, वसुंधरा सेक्टर १० — सैलरी १४ हज़ार से २० हज़ार, ३ पोज़िशन हैं। Qualification: बारहवीं पास। अप्लाई करने पर आपकी personal details company के साथ share होंगी। इस जॉब के लिए अप्लाई कर दूँ? 
+[user]  हाँ, जी, कर दीजिए।
+[assistant->TOOL] apply_job({"duplicate_check": "not-applied-before", "hold_message": "एक सेकंड।", "acting_as_user_id": "a6c122eb-634e-4955-9ae9-f36306b31c7a", "job_id": "9766a30e-e4b9-4b28-a943-394972f1a985", "profile_id": "588a907f-bc3b-4bad-9695-d6300a3dbd6d"})
+[tool] [Error: apply_job request failed (HTTP 422).]
+
+__RAYA_TOOL_DEBUG__
+422 Client Error: Unprocessable Entity for url: https://gzb-signals.bluedotseconomy.org/api/v1/action/perform
+status_code=422
+url=https://gzb-signals.bluedotseconomy.org/api/v1/action/perform
+kind=http_error
+response_body_excerpt={"results":[{"index":0,"status":"error","error":"ACTION_LIMIT_REACHED","message":"An active request already exists between these two profiles."}],"summary":{"total":1,"succeeded":0,"failed":1}}
+[assistant] एक सेकंड। इस जॉब के लिए आपकी एप्लीकेशन पहले से लगी हुई है — दोबारा अप्लाई करने की ज़रूरत नहीं। क्या मैं आपको दूसरी जॉब्स बताऊँ? 
+[user]  जी, ठीक है, दूसरी जॉब्स बता दीजिए।
+[assistant] आपके लिए और जॉब्स हैं — चौथा: प्रोडक्शन वर्कर, लावा इंटरनेशनल लिमिटेड, सूरजपुर इंडस्ट्रियल एरिया, सैलरी १० हज़ार से १४ हज़ार। क्या मैं इसमें अप्लाई करने की कोशिश करूँ? 
+[user]  हाँ, जी, कर दीजिए।
+[assistant->TOOL] apply_job({"duplicate_check": "not-applied-before", "hold_message": "एक सेकंड।", "job_id": "41ed5fd5-fc28-43d1-9ba9-314f235e8f07", "profile_id": "588a907f-bc3b-4bad-9695-d6300a3dbd6d", "acting_as_user_id": "a6c122eb-634e-4955-9ae9-f36306b31c7a"})
+[tool] [Error: apply_job request failed (HTTP 422).]
+
+__RAYA_TOOL_DEBUG__
+422 Client Error: Unprocessable Entity for url: https://gzb-signals.bluedotseconomy.org/api/v1/action/perform
+status_code=422
+url=https://gzb-signals.bluedotseconomy.org/api/v1/action/perform
+kind=http_error
+response_body_excerpt={"results":[{"index":0,"status":"error","error":"ACTION_LIMIT_REACHED","message":"An active request already exists between these two profiles."}],"summary":{"total":1,"succeeded":0,"failed":1}}
+[assistant] एक सेकंड। इस नौकरी के लिए अप्लाई अभी आगे नहीं बढ़ा है, technical issue है। हमने आपकी रुचि नोट कर ली है। क्या मैं आपको दूसरी जॉब्स बताऊँ? 
+[user]  जी, ठीक है, बता दीजिए।
+[assistant] आपके लिए और जॉब्स हैं — पाँचवाँ: कंप्यूटर ऑपरेटर / डेटा एंट्री, एन.आई.आई.टी लिमिटेड, राज नगर डिस्ट्रिक्ट सेंटर, सैलरी १२ हज़ार से १६ हज़ार। क्या मैं इसमें अप्लाई करने की कोशिश करूँ? 
+[user]  हाँ, जी, कर दीजिए।
+[assistant->TOOL] apply_job({"job_id": "d55db597-2f72-4d44-b347-5d60270b7dd2", "duplicate_check": "not-applied-before", "hold_message": "एक सेकंड।", "acting_as_user_id": "a6c122eb-634e-4955-9ae9-f36306b31c7a", "profile_id": "588a907f-bc3b-4bad-9695-d6300a3dbd6d"})
+[tool] [Error: apply_job request failed (HTTP 422).]
+
+__RAYA_TOOL_DEBUG__
+422 Client Error: Unprocessable Entity for url: https://gzb-signals.bluedotseconomy.org/api/v1/action/perform
+status_code=422
+url=https://gzb-signals.bluedotseconomy.org/api/v1/action/perform
+kind=http_error
+response_body_excerpt={"results":[{"index":0,"status":"error","error":"ACTION_LIMIT_REACHED","message":"An active request already exists between these two profiles."}],"summary":{"total":1,"succeeded":0,"failed":1}}
+[assistant] एक सेकंड। इस नौकरी के लिए अप्लाई अभी आगे नहीं बढ़ा है, technical issue है। हमने आपकी रुचि नोट कर ली है। क्या मैं आपको दूसरी जॉब्स बताऊँ? 
+[user]  जी, ठीक है, बता दीजिए।
+[assistant] आपके लिए और जॉब्स हैं — छठा: वोकेशनल ट्रेनर – टेलरिंग, उद्योगिनी, गोविंदपुरम, सैलरी १२ हज़ार से १६ हज़ार। क्या मैं इसमें अप्लाई करने की कोशिश करूँ? 
+[user]  हाँ, जी, कर दीजिए।
+[assistant->TOOL] apply_job({"acting_as_user_id": "a6c122eb-634e-4955-9ae9-f36306b31c7a", "profile_id": "588a907f-bc3b-4bad-9695-d6300a3dbd6d", "hold_message": "एक सेकंड।", "job_id": "d479bfbc-308d-4655-8ba1-19d94f3b37d0", "duplicate_check": "not-applied-before"})
+[tool] [Error: apply_job request failed (HTTP 422).]
+
+__RAYA_TOOL_DEBUG__
+422 Client Error: Unprocessable Entity for url: https://gzb-signals.bluedotseconomy.org/api/v1/action/perform
+status_code=422
+url=https://gzb-signals.bluedotseconomy.org/api/v1/action/perform
+kind=http_error
+response_body_excerpt={"results":[{"index":0,"status":"error","error":"ACTION_LIMIT_REACHED","message":"An active request already exists between these two profiles."}],"summary":{"total":1,"succeeded":0,"failed":1}}
+[assistant] एक सेकंड। एक सेकंड। इस नौकरी के लिए अप्लाई अभी आगे नहीं बढ़ा है, technical issue है। हमने आपकी रुचि नोट कर ली है। क्या मैं आपको दूसरी जॉब्स बताऊँ? 
+[user]  जी, ठीक है, बता दीजिए।
+[assistant] आपकी दिलचस्पी हमने note कर ली है। जैसे ही इसमें कुछ आगे बढ़ता है, हम आपको इसी नंबर पर बता देंगे। जॉब मिलने के चांस और बढ़ाने के लिए हमारे पास कुछ सर्विस प्रोवाइडर हैं जो आपकी मदद कर सकते हैं। क्या आप इंटरेस्टेड हैं? 
+[user]  हाँ, जी, ठीक है।
+[assistant] बहुत बढ़िया, हमारी टीम आपसे एक-दो दिन में संपर्क करेगी। आपकी दिलचस्पी हमने note कर ली है। जैसे ही इसमें कुछ आगे बढ़ता है, हम आपको इसी नंबर पर बता देंगे। जब भी फिर से देखना हो, बात कीजिए। Goodbye 
+
+[kkb-hi-in-signals-hi-loc-confirm-then-landmark] TESTER leg 4fd6102e: outcome=Completed dur=232 turns=32 call_output=null

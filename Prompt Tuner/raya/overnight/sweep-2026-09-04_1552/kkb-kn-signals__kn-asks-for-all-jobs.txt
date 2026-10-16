@@ -1,0 +1,47 @@
+[kkb-kn-signals-kn-asks-for-all-jobs] POST /api/call -> 200 {"message": "Call initiated successfully", "uuid": "0e204ad1-5b79-4a21-9d4c-c16314ba8004"}
+[kkb-kn-signals-kn-asks-for-all-jobs] poll 0: outcome='Pending' dur=0 turns=0
+[kkb-kn-signals-kn-asks-for-all-jobs] poll 1: outcome='Pending' dur=0 turns=0
+[kkb-kn-signals-kn-asks-for-all-jobs] poll 2: outcome='Pending' dur=0 turns=0
+[kkb-kn-signals-kn-asks-for-all-jobs] poll 3: outcome='Pending' dur=0 turns=0
+[kkb-kn-signals-kn-asks-for-all-jobs] poll 4: outcome='Pending' dur=0 turns=0
+[kkb-kn-signals-kn-asks-for-all-jobs] poll 5: outcome='Pending' dur=0 turns=0
+[kkb-kn-signals-kn-asks-for-all-jobs] poll 6: outcome='Pending' dur=0 turns=0
+[kkb-kn-signals-kn-asks-for-all-jobs] poll 7: outcome='Pending' dur=0 turns=0
+[kkb-kn-signals-kn-asks-for-all-jobs] poll 8: outcome='Pending' dur=0 turns=0
+[kkb-kn-signals-kn-asks-for-all-jobs] poll 9: outcome='Pending' dur=0 turns=0
+[kkb-kn-signals-kn-asks-for-all-jobs] poll 10: outcome='Pending' dur=0 turns=0
+[kkb-kn-signals-kn-asks-for-all-jobs] poll 11: outcome='Pending' dur=0 turns=0
+[kkb-kn-signals-kn-asks-for-all-jobs] poll 12: outcome='Pending' dur=0 turns=0
+[kkb-kn-signals-kn-asks-for-all-jobs] poll 13: outcome='Pending' dur=0 turns=0
+[kkb-kn-signals-kn-asks-for-all-jobs] poll 14: outcome='Pending' dur=0 turns=0
+[kkb-kn-signals-kn-asks-for-all-jobs] poll 15: outcome='Pending' dur=0 turns=0
+[kkb-kn-signals-kn-asks-for-all-jobs] poll 16: outcome='Completed' dur=199 turns=20
+
+============================================================================
+[kkb-kn-signals-kn-asks-for-all-jobs] BOT 0e204ad1-5b79-4a21-9d4c-c16314ba8004 outcome=Completed dur=199
+call_output: null
+
+TRANSCRIPT:
+[user] hello
+[assistant] ಹಲೋ, ನನ್ನ ಧ್ವನಿ ಕೇಳಿಸ್ತಾ ಇದೆಯಾ? 
+[user]  ಹೌದು, ಕೇಳಿಸ್ತಿದೆ.
+[assistant->TOOL] get_profile({"phone_number": "917946350285", "hold_message": "ಒಂದು ನಿಮಿಷ."})
+[assistant] ನಮಸ್ಕಾರ. ನಾನು ಮಾಯಾ. ನಗರ ಆಡಳಿತದ 'ಕೆಲಸದ ಮಾತು' ಉಪಕ್ರಮಕ್ಕೆ ಸ್ವಾಗತ. ನಿಮ್ಮ ಏರಿಯಾದಲ್ಲಿ ಕೆಲವು ಒಳ್ಳೆಯ ಜಾಬ್‌ಗಳ ಮಾಹಿತಿ ಕೊಡೋಕೆ ಕಾಲ್ ಮಾಡ್ತಾ ಇದ್ದೇನೆ. ಈ ಮಾತುಕತೆ ರೆಕಾರ್ಡ್ ಆಗಬಹುದು. ನೀವು ಈಗ ಕೆಲಸ ಹುಡುಕ್ತಾ ಇದ್ದೀರಾ?   
+[tool] {'user_id': 'c3fc8471-b0d2-453b-bf06-77a99c34f562', 'user_consent': {'terms_accepted': True, 'privacy_accepted': True, 'has_age': True}, 'items': [{'item_id': 'ffce36d8-d89b-454c-a78a-830bfd77ff10', 'item_network': 'blue_dot', 'item_domain': 'seeker', 'item_type': 'profile_1.0', 'lifecycle_status': 'live', 'profile_consent_accepted': True, 'item_state': {'age': 26, 'name': 'Partha', 'phone': '917946350285', 'gender': 'Female', 'location': 'Koramangala, Bengaluru, Karnataka, India', 'languageSpoken': ['Kannada'], 'workExperience': 'Worked before', 'otherHelpNeeded': ['Skilling & Vocational Trai
+[assistant] ನಮಸ್ಕಾರ. ನಾನು ಮಾಯಾ. ನಗರ ಆಡಳಿತದ 'ಕೆಲಸದ ಮಾತು' ಉಪಕ್ರಮಕ್ಕೆ ಸ್ವಾಗತ. ನಿಮ್ಮ ಏರಿಯಾದಲ್ಲಿ ಕೆಲವು ಒಳ್ಳೆಯ ಜಾಬ್‌ಗಳ ಮಾಹಿತಿ ಕೊಡೋಕೆ ಕಾಲ್ ಮಾಡ್ತಾ ಇದ್ದೇನೆ. ಈ ಮಾತುಕತೆ ರೆಕಾರ್ಡ್ ಆಗಬಹುದು. ನೀವು ಈಗ ಕೆಲಸ ಹುಡುಕ್ತಾ ಇದ್ದೀರಾ? ಒಂದು ನಿಮಿಷ. ಪಾರ್ಥ ಅವರೇ, ನೀವು ಈಗ ಇನ್ಶೂರೆನ್ಸ್ ಫೀಲ್ಡ್ ಏಜೆಂಟ್ ಕೆಲಸ ಮಾಡ್ತಾ ಇದೀರಿ ಅಲ್ವಾ — ನಿಮಗೆ ಇನ್ನೂ ಅದೇ ಥರದ ಜಾಬ್ ಬೇಕಾ? 
+[user]  ಹೌದು, ಅದೇ.
+[assistant] ನಮ್ಮ ಹತ್ರ ನಿಮ್ಮ ಜಾಬ್ ಲೊಕೇಶನ್ ಹುಬ್ಬಳ್ಳಿ ಅಂತ ಇದೆ, ಮತ್ತೆ ಈಗ ಜಾಬ್‌ಗಳು ಹುಬ್ಬಳ್ಳಿ ಮತ್ತು ಧಾರವಾಡದಲ್ಲಿ ಇವೆ — ಇದು ಸರಿನಾ? 
+[user]  ಹೌದು, ಸರಿ ಇದೆ.
+[assistant] ಸರಿ. ನಿಮಗೆ ಜಾಬ್‌ಗಳಿವೆ —  ಒಂದು: ಕಸ್ಟಮರ್ ಸಪೋರ್ಟ್ ಅಸೋಸಿಯೇಟ್, ಸದರ್ಲ್ಯಾಂಡ್ ಗ್ಲೋಬಲ್ ಸರ್ವಿಸಸ್, ಅಕ್ಷಯ್ ಪಾರ್ಕ್, ಹುಬ್ಬಳ್ಳಿ, ಸ್ಯಾಲರಿ ಹದಿಮೂರು ಸಾವಿರದಿಂದ ಹದಿನೆಂಟು ಸಾವಿರ.  ಎರಡು: ರಿಟೇಲ್ ಫ್ಲೋರ್ ಅಸೋಸಿಯೇಟ್, ರಿಲಯನ್ಸ್ ಸ್ಮಾರ್ಟ್ ಬಜಾರ್, ವಿದ್ಯಾನಗರ, ಹುಬ್ಬಳ್ಳಿ, ಸ್ಯಾಲರಿ ಹತ್ತು ಸಾವಿರದಿಂದ ಹದಿಮೂರು ಸಾವಿರ.  ಮೂರು: ಹಾಸ್ಪಿಟಲ್ ಹೌಸ್‌ಕೀಪಿಂಗ್ ಸ್ಟಾಫ್, ನಾರಾಯಣ ಮಲ್ಟಿಸ್ಪೆಷಾಲಿಟಿ ಕ್ಲಿನಿಕ್, ವಿದ್ಯಾನಗರ, ಹುಬ್ಬಳ್ಳಿ, ಸ್ಯಾಲರಿ ಹನ್ನೊಂದು ಸಾವಿರದಿಂದ ಹದಿನಾಲ್ಕು ಸಾವಿರ.  ಯಾವುದಾದರೂ ಪ್ರಶ್ನೆ ಇದ್ಯಾ? ಅಥವಾ ಯಾವುದಾದರೂ ಒಂದರ ಬಗ್ಗೆ ಇನ್ನಷ್ಟು ತಿಳಿಯಬೇಕಾ? 
+[user]  ಬೇರೆ ಯಾವ ಜಾಬ್‌ಗಳಿವೆ? ಎಲ್ಲಾ ಹೇಳಿ.
+[assistant] ನಿಮಗೆ ಇನ್ನು ಕೆಲವು ಜಾಬ್‌ಗಳಿವೆ —  ನಾಲ್ಕು: ಅಪ್ರೆಂಟಿಸ್ ಎಲೆಕ್ಟ್ರೀಷಿಯನ್, ಕಿರ್ಲೋಸ್ಕರ್ ಎಲೆಕ್ಟ್ರಿಕ್ ಕೋ. ಲಿಮಿಟೆಡ್, ಕೆ.ಎಸ್.ಎಸ್.ಐ.ಡಿ.ಸಿ ಇಂಡಸ್ಟ್ರಿಯಲ್ ಏರಿಯಾ, ಹುಬ್ಬಳ್ಳಿ, ಸ್ಯಾಲರಿ ಎಂಟು ಸಾವಿರದಿಂದ ಹತ್ತು ಸಾವಿರ ಸ್ಟೈಪೆಂಡ್. ಐದು: ಡೇಟಾ ಎಂಟ್ರಿ ಆಪರೇಟರ್, ಕರ್ನಾಟಕ ಬ್ಯಾಂಕ್ ಲಿಮಿಟೆಡ್, ಹೆಡ್ ಆಫೀಸ್, ಪಿ.ಬಿ ರೋಡ್, ಧಾರವಾಡ, ಸ್ಯಾಲರಿ ಹದಿನಾಲ್ಕು ಸಾವಿರದಿಂದ ಹದಿನೆಂಟು ಸಾವಿರ.  ಆರು: ವೆಲ್ಡರ್, ಹುಬ್ಬಳ್ಳಿ ಸ್ಟೀಲ್ ಫ್ಯಾಬ್ರಿಕೇಟರ್ಸ್, ಕೆ.ಎಸ್.ಎಸ್.ಐ.ಡಿ.ಸಿ ಇಂಡಸ್ಟ್ರಿಯಲ್ ಏರಿಯಾ, ತಾರಿಹಾಳ, ಹುಬ್ಬಳ್ಳಿ, ಸ್ಯಾಲರಿ ಹದಿನಾಲ್ಕು ಸಾವಿರದಿಂದ ಇಪ್ಪತ್ತು ಸಾವಿರ.  ಏಳು: ಸ್ಯೂಯಿಂಗ್ ಮಷೀನ್ ಆಪರೇಟರ್, ಶ್ರೀ ಕೃಷ್ಣ ಗಾರ್ಮೆಂಟ್ಸ್, ಕೇಶ್ವಾಪುರ, ಹುಬ್ಬಳ್ಳಿ, ಸ್ಯಾಲರಿ ಹತ್ತು ಸಾವಿರದಿಂದ ಹದಿನಾಲ್ಕು ಸಾವಿರ.  
+[user]  ಇನ್ನೇನಿದೆ? ಎಲ್ಲಾ ಕೇಳಬೇಕು.
+[assistant] ನಾನು ನಿಮಗೆ ಲಭ್ಯವಿರುವ ಎಲ್ಲಾ ಜಾಬ್‌ಗಳ ಬಗ್ಗೆ ಹೇಳಿದ್ದೀನಿ. ಇವುಗಳಲ್ಲಿ ಯಾವುದಾದರೂ ನಿಮಗೆ ಇಷ್ಟ ಆಯ್ತಾ? ಅಥವಾ ಯಾವ ತರಹದ ಕೆಲಸ ನೋಡ್ತಾ ಇದೀರಿ? ಅದೇ ಪ್ರಕಾರ ನೋಡ್ತೀನಿ. 
+[user]  ಈಗ ಬೇಡ, ಮೊದಲು ಎಲ್ಲಾ ಜಾಬ್ ಹೇಳಿ.
+[assistant] ನಾನು ನಿಮಗೆ ಲಭ್ಯವಿರುವ ಎಲ್ಲಾ ಜಾಬ್‌ಗಳ ವಿವರಗಳನ್ನು ಈಗಾಗಲೇ ನೀಡಿದ್ದೇನೆ. ನೀವು ಕೇಳಿದ ಎಲ್ಲಾ ಜಾಬ್‌ಗಳನ್ನು ನಾನು ಪಟ್ಟಿ ಮಾಡಿದ್ದೇನೆ. ಈಗ ನೀವು ಯಾವುದಾದರೂ ಜಾಬ್‌ಗೆ ಅಪ್ಲೈ ಮಾಡಲು ಬಯಸುತ್ತೀರಾ? ಅಥವಾ ಬೇರೆ ಯಾವುದಾದರೂ ಕೆಲಸದ ಬಗ್ಗೆ ಮಾಹಿತಿ ಬೇಕಾ? 
+[user]  ಇನ್ನೂ ಪೂರ್ತಿ ಲಿಸ್ಟ್ ಹೇಳಿ.
+[assistant] ನಾನು ನಿಮಗೆ ಲಭ್ಯವಿರುವ ಎಲ್ಲಾ ಜಾಬ್‌ಗಳ ವಿವರಗಳನ್ನು ಈಗಾಗಲೇ ನೀಡಿದ್ದೇನೆ. ನೀವು ಕೇಳಿದ ಎಲ್ಲಾ ಜಾಬ್‌ಗಳನ್ನು ನಾನು ಪಟ್ಟಿ ಮಾಡಿದ್ದೇನೆ. ಈಗ ನೀವು ಯಾವುದಾದರೂ ಜಾಬ್‌ಗೆ ಅಪ್ಲೈ ಮಾಡಲು ಬಯಸುತ್ತೀರಾ? ಅಥವಾ ಬೇರೆ ಯಾವುದಾದರೂ ಕೆಲಸದ ಬಗ್ಗೆ ಮಾಹಿತಿ ಬೇಕಾ? 
+[user]  ಸರಿ, ಧನ್ಯವಾದ.
+[assistant] ಸರಿ. ಇವತ್ತು ನಾವು ಹಲವು ಜಾಬ್‌ಗಳನ್ನು ನೋಡಿದೆವು. ಅಗತ್ಯ ಬಂದಾಗ ನಮ್ಮ ಟೀಮ್ ನಿಮಗೆ ಮತ್ತೆ ಕಾಲ್ ಮಾಡುತ್ತೆ. Goodbye 
+
+[kkb-kn-signals-kn-asks-for-all-jobs] TESTER leg d02f9a3b: outcome=Completed dur=199 turns=20 call_output=null

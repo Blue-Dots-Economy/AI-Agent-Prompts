@@ -1,0 +1,106 @@
+# DKB — snapshot history
+
+- **2026-07-15_184710** — `baseline-2026-07-15` — pre-batch baseline (untouched outbound) _(4 files)_
+- **2026-07-16_101318** — `pre-inbound-build` — before DKB employer-inbound build _(4 files)_
+- **2026-07-16_162807** — `pre-bugfix-batch2` — remove country_code input assumption on DKB inbound; always +91 _(6 files)_
+- **2026-07-16_163850** — `post-bugfix-batch2` — inbound country_code +91 _(6 files)_
+- **2026-07-20_103544** — `pre-deploy-dkb-hi-out-2026-07-20_103544` — auto snapshot before Raya deploy of DKB/DKB Hindi.md _(6 files)_
+- **2026-07-20_103544** — `pre-deploy-dkb-kn-out-2026-07-20_103544` — auto snapshot before Raya deploy of DKB/DKB Kannada.md _(6 files)_
+- **2026-07-22_132940** — `pre-freshers-distinct` — row66: freshers question skipped because qualification question absorbs experience; decouple + make distinct _(6 files)_
+- **2026-07-22_133021** — `pre-deploy-dkb-hi-out-2026-07-22_133021` — auto snapshot before Raya deploy of DKB/DKB Hindi.md _(6 files)_
+- **2026-07-22_133021** — `pre-deploy-dkb-kn-out-2026-07-22_133021` — auto snapshot before Raya deploy of DKB/DKB Kannada.md _(6 files)_
+- **2026-07-30_024108** — `pre-deploy-dkb-hi-out-2026-07-30_024108` — auto snapshot before Raya deploy of DKB/DKB Hindi.md _(6 files)_
+- **2026-07-30_024109** — `pre-deploy-dkb-kn-out-2026-07-30_024109` — auto snapshot before Raya deploy of DKB/DKB Kannada.md _(6 files)_
+- **2026-08-10_132553** — `pre-audiocheck` — before fleet audio-check rollout _(8 files)_
+- **2026-08-10_133907** — `pre-deploy-dkb-hi-signals-2026-08-10_133907` — auto snapshot before Raya deploy of DKB/DKB Hindi Signals.md _(8 files)_
+- **2026-08-10_133908** — `pre-deploy-dkb-kn-signals-2026-08-10_133908` — auto snapshot before Raya deploy of DKB/DKB Kannada Signals.md _(8 files)_
+- **2026-08-10_133908** — `pre-deploy-dkb-hi-out-2026-08-10_133908` — auto snapshot before Raya deploy of DKB/DKB Hindi.md _(8 files)_
+- **2026-08-10_133909** — `pre-deploy-dkb-kn-out-2026-08-10_133909` — auto snapshot before Raya deploy of DKB/DKB Kannada.md _(8 files)_
+- **2026-09-03_025215** — `pre-deploy-dkb-hi-signals-2026-09-03_025214` — auto snapshot before Raya deploy of DKB/DKB Hindi Signals.md _(8 files)_
+- **2026-09-03_025501** — `pre-deploy-dkb-kn-signals-2026-09-03_025501` — auto snapshot before Raya deploy of DKB/DKB Kannada Signals.md _(8 files)_
+- **2026-09-03_033706** — `pre-deploy-dkb-hi-signals-2026-09-03_033706` — auto snapshot before Raya deploy of DKB/DKB Hindi Signals.md _(8 files)_
+- **2026-09-03_033707** — `pre-deploy-dkb-kn-signals-2026-09-03_033707` — auto snapshot before Raya deploy of DKB/DKB Kannada Signals.md _(8 files)_
+- **2026-09-03_041519** — `pre-deploy-dkb-kn-signals-2026-09-03_041519` — auto snapshot before Raya deploy of DKB/DKB Kannada Signals.md _(8 files)_
+- **2026-09-03_051854** — `pre-deploy-dkb-hi-signals-2026-09-03_051853` — auto snapshot before Raya deploy of DKB/DKB Hindi Signals.md _(8 files)_
+- **2026-09-03_052719** — `pre-deploy-dkb-hi-signals-2026-09-03_052719` — auto snapshot before Raya deploy of DKB/DKB Hindi Signals.md _(8 files)_
+- **2026-09-03_052720** — `pre-deploy-dkb-kn-signals-2026-09-03_052720` — auto snapshot before Raya deploy of DKB/DKB Kannada Signals.md _(8 files)_
+- **2026-09-03_061136** — `pre-deploy-dkb-hi-signals-2026-09-03_061136` — auto snapshot before Raya deploy of DKB/DKB Hindi Signals.md _(8 files)_
+- **2026-09-03_061137** — `pre-deploy-dkb-kn-signals-2026-09-03_061137` — auto snapshot before Raya deploy of DKB/DKB Kannada Signals.md _(8 files)_
+- **2026-09-03_132825** — `pre-deploy-dkb-hi-signals-2026-09-03_132825` — auto snapshot before Raya deploy of DKB/DKB Hindi Signals.md _(8 files)_
+- **2026-09-04_230309** — `pre-declare-contact-name` — contact_name is sent on campaign traffic and named nowhere (D68) _(8 files)_
+- **2026-09-04_230310** — `pre-deploy-dkb-hi-out-2026-09-04_230310` — auto snapshot before Raya deploy of DKB/DKB Hindi.md _(8 files)_
+- **2026-09-04_230335** — `pre-deploy-dkb-kn-out-2026-09-04_230335` — auto snapshot before Raya deploy of DKB/DKB Kannada.md _(8 files)_
+- **2026-09-07_160416** — `pre-remove-govt-legacy` — legacy DKB prompts still script 'गवर्नमेंट एम्प्लॉयमेंट प्रोग्राम' (tracker rows 4/56 landed on Signals only) _(8 files)_
+- **2026-09-07_160510** — `pre-deploy-dkb-hi-out-2026-09-07_160510` — auto snapshot before Raya deploy of DKB/DKB Hindi.md _(8 files)_
+- **2026-09-07_160512** — `pre-deploy-dkb-kn-out-2026-09-07_160512` — auto snapshot before Raya deploy of DKB/DKB Kannada.md _(8 files)_
+- **2026-09-08_120835** — `pre-placeholder-business-name` — Not Available spoken as the business name on 564e1d45 / be4ab8c3 _(8 files)_
+- **2026-09-08_121648** — `pre-deploy-dkb-hi-out-2026-09-08_121648` — auto snapshot before Raya deploy of DKB/DKB Hindi.md _(8 files)_
+- **2026-09-08_121649** — `pre-deploy-dkb-kn-out-2026-09-08_121649` — auto snapshot before Raya deploy of DKB/DKB Kannada.md _(8 files)_
+- **2026-09-08_121650** — `pre-deploy-dkb-hi-signals-2026-09-08_121650` — auto snapshot before Raya deploy of DKB/DKB Hindi Signals.md _(8 files)_
+- **2026-09-08_121652** — `pre-deploy-dkb-kn-signals-2026-09-08_121652` — auto snapshot before Raya deploy of DKB/DKB Kannada Signals.md _(8 files)_
+- **2026-09-08_201235** — `pre-bracket-slots` — 13 calls spoke [company_name] / [job_role] / [UUID from create_profile] aloud _(8 files)_
+- **2026-09-08_201415** — `pre-deploy-dkb-hi-out-2026-09-08_201415` — auto snapshot before Raya deploy of DKB/DKB Hindi.md _(8 files)_
+- **2026-09-08_201418** — `pre-deploy-dkb-kn-out-2026-09-08_201418` — auto snapshot before Raya deploy of DKB/DKB Kannada.md _(8 files)_
+- **2026-09-08_201426** — `pre-deploy-dkb-hi-signals-2026-09-08_201426` — auto snapshot before Raya deploy of DKB/DKB Hindi Signals.md _(8 files)_
+- **2026-09-08_201436** — `pre-deploy-dkb-kn-signals-2026-09-08_201436` — auto snapshot before Raya deploy of DKB/DKB Kannada Signals.md _(8 files)_
+- **2026-09-08_204429** — `pre-deploy-dkb-hi-out-2026-09-08_204429` — auto snapshot before Raya deploy of DKB/DKB Hindi.md _(8 files)_
+- **2026-09-08_204434** — `pre-deploy-dkb-kn-out-2026-09-08_204434` — auto snapshot before Raya deploy of DKB/DKB Kannada.md _(8 files)_
+- **2026-09-08_204437** — `pre-deploy-dkb-hi-signals-2026-09-08_204437` — auto snapshot before Raya deploy of DKB/DKB Hindi Signals.md _(8 files)_
+- **2026-09-08_204441** — `pre-deploy-dkb-kn-signals-2026-09-08_204441` — auto snapshot before Raya deploy of DKB/DKB Kannada Signals.md _(8 files)_
+- **2026-09-08_213916** — `pre-deploy-dkb-hi-out-2026-09-08_213916` — auto snapshot before Raya deploy of DKB/DKB Hindi.md _(8 files)_
+- **2026-09-08_213921** — `pre-deploy-dkb-kn-out-2026-09-08_213921` — auto snapshot before Raya deploy of DKB/DKB Kannada.md _(8 files)_
+- **2026-09-08_213923** — `pre-deploy-dkb-hi-signals-2026-09-08_213923` — auto snapshot before Raya deploy of DKB/DKB Hindi Signals.md _(8 files)_
+- **2026-09-08_213925** — `pre-deploy-dkb-kn-signals-2026-09-08_213925` — auto snapshot before Raya deploy of DKB/DKB Kannada Signals.md _(8 files)_
+- **2026-09-08_214701** — `pre-deploy-dkb-hi-out-2026-09-08_214701` — auto snapshot before Raya deploy of DKB/DKB Hindi.md _(8 files)_
+- **2026-09-08_214706** — `pre-deploy-dkb-kn-out-2026-09-08_214706` — auto snapshot before Raya deploy of DKB/DKB Kannada.md _(8 files)_
+- **2026-09-08_214710** — `pre-deploy-dkb-hi-signals-2026-09-08_214710` — auto snapshot before Raya deploy of DKB/DKB Hindi Signals.md _(8 files)_
+- **2026-09-08_214728** — `pre-deploy-dkb-kn-signals-2026-09-08_214728` — auto snapshot before Raya deploy of DKB/DKB Kannada Signals.md _(8 files)_
+- **2026-09-09_011411** — `pre-deploy-dkb-hi-signals-2026-09-09_011411` — auto snapshot before Raya deploy of DKB/DKB Hindi Signals.md _(8 files)_
+- **2026-09-09_011414** — `pre-deploy-dkb-kn-signals-2026-09-09_011414` — auto snapshot before Raya deploy of DKB/DKB Kannada Signals.md _(8 files)_
+- **2026-09-09_011417** — `pre-deploy-dkb-hi-out-2026-09-09_011417` — auto snapshot before Raya deploy of DKB/DKB Hindi.md _(8 files)_
+- **2026-09-09_011420** — `pre-deploy-dkb-kn-out-2026-09-09_011420` — auto snapshot before Raya deploy of DKB/DKB Kannada.md _(8 files)_
+- **2026-09-09_012242** — `pre-deploy-dkb-kn-signals-2026-09-09_012242` — auto snapshot before Raya deploy of DKB/DKB Kannada Signals.md _(8 files)_
+- **2026-09-09_012245** — `pre-deploy-dkb-kn-out-2026-09-09_012245` — auto snapshot before Raya deploy of DKB/DKB Kannada.md _(8 files)_
+- **2026-09-09_012338** — `pre-deploy-dkb-hi-signals-2026-09-09_012338` — auto snapshot before Raya deploy of DKB/DKB Hindi Signals.md _(8 files)_
+- **2026-09-09_012341** — `pre-deploy-dkb-kn-signals-2026-09-09_012341` — auto snapshot before Raya deploy of DKB/DKB Kannada Signals.md _(8 files)_
+- **2026-09-09_012343** — `pre-deploy-dkb-hi-out-2026-09-09_012343` — auto snapshot before Raya deploy of DKB/DKB Hindi.md _(8 files)_
+- **2026-09-09_012346** — `pre-deploy-dkb-kn-out-2026-09-09_012346` — auto snapshot before Raya deploy of DKB/DKB Kannada.md _(8 files)_
+- **2026-09-09_012615** — `pre-deploy-dkb-hi-signals-2026-09-09_012615` — auto snapshot before Raya deploy of DKB/DKB Hindi Signals.md _(8 files)_
+- **2026-09-09_012618** — `pre-deploy-dkb-kn-signals-2026-09-09_012618` — auto snapshot before Raya deploy of DKB/DKB Kannada Signals.md _(8 files)_
+- **2026-09-09_012621** — `pre-deploy-dkb-hi-out-2026-09-09_012621` — auto snapshot before Raya deploy of DKB/DKB Hindi.md _(8 files)_
+- **2026-09-09_012624** — `pre-deploy-dkb-kn-out-2026-09-09_012624` — auto snapshot before Raya deploy of DKB/DKB Kannada.md _(8 files)_
+- **2026-09-09_025837** — `pre-deploy-dkb-hi-signals-2026-09-09_025837` — auto snapshot before Raya deploy of DKB/DKB Hindi Signals.md _(8 files)_
+- **2026-09-09_025839** — `pre-deploy-dkb-kn-signals-2026-09-09_025839` — auto snapshot before Raya deploy of DKB/DKB Kannada Signals.md _(8 files)_
+- **2026-09-09_025840** — `pre-deploy-dkb-hi-out-2026-09-09_025840` — auto snapshot before Raya deploy of DKB/DKB Hindi.md _(8 files)_
+- **2026-09-09_025842** — `pre-deploy-dkb-kn-out-2026-09-09_025842` — auto snapshot before Raya deploy of DKB/DKB Kannada.md _(8 files)_
+- **2026-09-09_030005** — `pre-deploy-dkb-hi-signals-2026-09-09_030005` — auto snapshot before Raya deploy of DKB/DKB Hindi Signals.md _(8 files)_
+- **2026-09-09_030007** — `pre-deploy-dkb-hi-out-2026-09-09_030007` — auto snapshot before Raya deploy of DKB/DKB Hindi.md _(8 files)_
+- **2026-09-09_030008** — `pre-deploy-dkb-kn-signals-2026-09-09_030008` — auto snapshot before Raya deploy of DKB/DKB Kannada Signals.md _(8 files)_
+- **2026-09-09_030010** — `pre-deploy-dkb-kn-out-2026-09-09_030010` — auto snapshot before Raya deploy of DKB/DKB Kannada.md _(8 files)_
+- **2026-09-09_030039** — `pre-deploy-dkb-kn-signals-2026-09-09_030039` — auto snapshot before Raya deploy of DKB/DKB Kannada Signals.md _(8 files)_
+- **2026-09-09_030040** — `pre-deploy-dkb-kn-out-2026-09-09_030040` — auto snapshot before Raya deploy of DKB/DKB Kannada.md _(8 files)_
+- **2026-09-09_030055** — `pre-deploy-dkb-hi-signals-2026-09-09_030055` — auto snapshot before Raya deploy of DKB/DKB Hindi Signals.md _(8 files)_
+- **2026-09-09_030056** — `pre-deploy-dkb-hi-out-2026-09-09_030056` — auto snapshot before Raya deploy of DKB/DKB Hindi.md _(8 files)_
+- **2026-09-09_030711** — `pre-deploy-dkb-kn-signals-2026-09-09_030711` — auto snapshot before Raya deploy of DKB/DKB Kannada Signals.md _(8 files)_
+- **2026-09-09_030712** — `pre-deploy-dkb-kn-out-2026-09-09_030712` — auto snapshot before Raya deploy of DKB/DKB Kannada.md _(8 files)_
+- **2026-09-09_033529** — `pre-deploy-dkb-hi-signals-2026-09-09_033529` — auto snapshot before Raya deploy of DKB/DKB Hindi Signals.md _(8 files)_
+- **2026-09-09_033530** — `pre-deploy-dkb-kn-signals-2026-09-09_033530` — auto snapshot before Raya deploy of DKB/DKB Kannada Signals.md _(8 files)_
+- **2026-09-09_033532** — `pre-deploy-dkb-hi-out-2026-09-09_033532` — auto snapshot before Raya deploy of DKB/DKB Hindi.md _(8 files)_
+- **2026-09-09_033534** — `pre-deploy-dkb-kn-out-2026-09-09_033533` — auto snapshot before Raya deploy of DKB/DKB Kannada.md _(8 files)_
+- **2026-09-09_034654** — `pre-deploy-dkb-hi-signals-2026-09-09_034654` — auto snapshot before Raya deploy of DKB/DKB Hindi Signals.md _(8 files)_
+- **2026-09-09_034656** — `pre-deploy-dkb-kn-signals-2026-09-09_034656` — auto snapshot before Raya deploy of DKB/DKB Kannada Signals.md _(8 files)_
+- **2026-09-09_034658** — `pre-deploy-dkb-hi-out-2026-09-09_034658` — auto snapshot before Raya deploy of DKB/DKB Hindi.md _(8 files)_
+- **2026-09-09_034700** — `pre-deploy-dkb-kn-out-2026-09-09_034700` — auto snapshot before Raya deploy of DKB/DKB Kannada.md _(8 files)_
+- **2026-09-09_055239** — `pre-deploy-dkb-hi-signals-2026-09-09_055239` — auto snapshot before Raya deploy of DKB/DKB Hindi Signals.md _(8 files)_
+- **2026-09-09_055240** — `pre-deploy-dkb-kn-signals-2026-09-09_055240` — auto snapshot before Raya deploy of DKB/DKB Kannada Signals.md _(8 files)_
+- **2026-09-09_055242** — `pre-deploy-dkb-hi-out-2026-09-09_055242` — auto snapshot before Raya deploy of DKB/DKB Hindi.md _(8 files)_
+- **2026-09-09_055244** — `pre-deploy-dkb-kn-out-2026-09-09_055244` — auto snapshot before Raya deploy of DKB/DKB Kannada.md _(8 files)_
+- **2026-09-09_060448** — `pre-deploy-dkb-hi-signals-2026-09-09_060448` — auto snapshot before Raya deploy of DKB/DKB Hindi Signals.md _(8 files)_
+- **2026-09-09_060451** — `pre-deploy-dkb-hi-out-2026-09-09_060451` — auto snapshot before Raya deploy of DKB/DKB Hindi.md _(8 files)_
+- **2026-09-09_060513** — `pre-deploy-dkb-hi-signals-2026-09-09_060513` — auto snapshot before Raya deploy of DKB/DKB Hindi Signals.md _(8 files)_
+- **2026-09-09_060515** — `pre-deploy-dkb-kn-signals-2026-09-09_060515` — auto snapshot before Raya deploy of DKB/DKB Kannada Signals.md _(8 files)_
+- **2026-09-09_060516** — `pre-deploy-dkb-hi-out-2026-09-09_060516` — auto snapshot before Raya deploy of DKB/DKB Hindi.md _(8 files)_
+- **2026-09-09_060518** — `pre-deploy-dkb-kn-out-2026-09-09_060518` — auto snapshot before Raya deploy of DKB/DKB Kannada.md _(8 files)_
+- **2026-10-13_122653** — `pre-oct13-tracker` — before r130/r131/r133 _(8 files)_
+- **2026-10-13_124205** — `pre-deploy-dkb-hi-signals-2026-10-13_124205` — auto snapshot before Raya deploy of DKB/DKB Hindi Signals.md _(8 files)_
+- **2026-10-13_124208** — `pre-deploy-dkb-kn-signals-2026-10-13_124208` — auto snapshot before Raya deploy of DKB/DKB Kannada Signals.md _(8 files)_

@@ -1,0 +1,8 @@
+{
+ "college_name": "VTU",
+ "contact_name": "परीक्षण",
+ "country_code": 91,
+ "contact_memory": "No Old Memory, Mandatory get_profile for the user",
+ "recommendations": "[\n {\n  \"job_id\": \"9766a30e-e4b9-4b28-a943-394972f1a985\",\n  \"role\": \"HR Admin Executive\",\n  \"company\": \"Saarthi Staffing Solutions\",\n  \"location\": \"V***\",\n  \"salary\": \"14000-20000\",\n  \"vacancy\": 3,\n  \"qualification\": \"College\"\n },\n {\n  \"job_id\": \"41ed5fd5-fc28-43d1-9ba9-314f235e8f07\",\n  \"role\": \"Production Worker\",\n  \"company\": \"Lava International Ltd\",\n  \"location\": \"S***\",\n  \"salary\": \"10000-14000\",\n  \"vacancy\": 35,\n  \"qualification\": \"School\"\n },\n {\n  \"job_id\": \"d55db597-2f72-4d44-b347-5d60270b7dd2\",\n  \"role\": \"Computer Operator / Data Entry\",\n  \"company\": \"NIIT Ltd\",\n  \"location\": \"R***\",\n  \"salary\": \"12000-16000\",\n  \"vacancy\": 10,\n  \"qualification\": \"ITI\"\n }\n]",
+ "contact_phone": "918888888780"
+}

@@ -1,0 +1,15 @@
+target	bot_uuid	persona	fixture	call	outcome	dur	turns
+kkb-hi-signals	115b38a5	hi-loc-then-apply	sweep/kkb-hi-signals.json	5f37fd2f	Completed	169	26
+kkb-kn-signals	33037201	kn-seeker-cooperative	sweep/kkb-kn-signals.json	41a2c19d	Completed	306	38
+kkb-hi-out	da612923	hi-seeker-cooperative-existing	sweep/kkb-hi-out.json	c8cdd8ed	Completed	191	26
+kkb-kn-out	87ab9108	kn-seeker-cooperative	sweep/kkb-kn-out.json	e4e81fe2	Completed	200	22
+maya-hi-signals	904f333f	hi-student-cooperative	sweep/maya-hi-signals.json	49ad7123	Completed	264	24
+maya-hi-out	47fdffe6	hi-student-cooperative	sweep/maya-hi-out.json	20107b99	Completed	306	32
+dkb-hi-signals	fabda71d	hi-employer-cooperative	sweep/dkb-hi-signals.json	58b61485	Completed	85	24
+dkb-kn-signals	847a85e2	kn-employer-cooperative	sweep/dkb-kn-signals.json	3e9590d2	Completed	223	28
+dkb-hi-out	57814ac8	hi-employer-cooperative	sweep/dkb-hi-out.json	714ebfc0	Completed	184	28
+dkb-kn-out	d1a1614f	kn-employer-cooperative	sweep/dkb-kn-out.json	ac2cc06b	Completed	271	36
+trrain-hi-out	cf39a59a	hi-trrain-accepts	sweep/trrain-hi-out.json	87e32baf	Completed	85	12
+trrain-kn-out	dfeda883	kn-trrain-accept-then-asks	sweep/trrain-kn-out.json	none	none	0	0
+trrain-kn-out	dfeda883	kn-trrain-accept-then-asks	sweep/trrain-kn-out.json	none	none	0	0
+kkb-hi-signals-slim	140d13ca	hi-loc-then-apply	sweep/kkb-hi-signals.json	615730d6	Completed	184	24

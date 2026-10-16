@@ -1,0 +1,52 @@
+[dkb-kn-signals-kn-employer-cooperative] POST /api/call -> 200 {"message": "Call initiated successfully", "uuid": "4a6321ad-c78c-4a49-81d5-341007361761"}
+[dkb-kn-signals-kn-employer-cooperative] poll 0: outcome='Pending' dur=0 turns=0
+[dkb-kn-signals-kn-employer-cooperative] poll 1: outcome='Pending' dur=0 turns=0
+[dkb-kn-signals-kn-employer-cooperative] poll 2: outcome='Pending' dur=0 turns=0
+[dkb-kn-signals-kn-employer-cooperative] poll 3: outcome='Pending' dur=0 turns=0
+[dkb-kn-signals-kn-employer-cooperative] poll 4: outcome='Pending' dur=0 turns=0
+[dkb-kn-signals-kn-employer-cooperative] poll 5: outcome='Pending' dur=0 turns=0
+[dkb-kn-signals-kn-employer-cooperative] poll 6: outcome='Pending' dur=0 turns=0
+[dkb-kn-signals-kn-employer-cooperative] poll 7: outcome='Pending' dur=0 turns=0
+[dkb-kn-signals-kn-employer-cooperative] poll 8: outcome='Pending' dur=0 turns=0
+[dkb-kn-signals-kn-employer-cooperative] poll 9: outcome='Pending' dur=0 turns=0
+[dkb-kn-signals-kn-employer-cooperative] poll 10: outcome='Pending' dur=0 turns=0
+[dkb-kn-signals-kn-employer-cooperative] poll 11: outcome='Pending' dur=0 turns=0
+[dkb-kn-signals-kn-employer-cooperative] poll 12: outcome='Pending' dur=0 turns=0
+[dkb-kn-signals-kn-employer-cooperative] poll 13: outcome='Pending' dur=0 turns=0
+[dkb-kn-signals-kn-employer-cooperative] poll 14: outcome='Completed' dur=175 turns=28
+
+============================================================================
+[dkb-kn-signals-kn-employer-cooperative] BOT 4a6321ad-c78c-4a49-81d5-341007361761 outcome=Completed dur=175
+call_output: null
+
+TRANSCRIPT:
+[user] hello
+[assistant] ಹಲೋ, ನನ್ನ ಧ್ವನಿ ಕೇಳಿಸ್ತಾ ಇದೆಯಾ? 
+[user]  ಹಲೋ, ಹೇಳಿ. ಯಾರು ಮಾತಾಡ್ತಾ ಇರೋದು? ಹಾ, ಕೇಳಿಸ್ತಾ ಇದೆ. ಹೇಳಿ, ಯಾರು ಮಾತಾಡ್ತಾ ಇರೋದು? ಏನಾದ್ರೂ ಕೆಲಸ ಇತ್ತಾ?
+[assistant] ಹ್ಯಾಲೋ! ನೀವು Shree Balaji Traders ನಿಂದ ಮಾತಾಡ್ತಾ ಇದ್ದೀರಾ? 
+[user]  ಹೌದು, ನಾನೇ ಮಾತಾಡ್ತಾ ಇರೋದು. ಹೇಳಿ, ಏನಾಯ್ತು?
+[assistant] ನಮಸ್ಕಾರ.. ನಾನು ನಗರ ಆಡಳಿತದ ಎಂಪ್ಲಾಯ್ಮೆಂಟ್ ಉಪಕ್ರಮದ ಕಡೆಯಿಂದ ಕಾಲ್ ಮಾಡ್ತಾ ಇದ್ದೇನೆ. ನಾನು ಎಂಪ್ಲಾಯರ್ಸ್ ಗೆ ಸರಿಯಾದ ಕ್ಯಾಂಡಿಡೇಟ್ಸ್ ಹುಡುಕಲು ಹೆಲ್ಪ್ ಮಾಡ್ತೇನೆ — ನನ್ನ ಹತ್ರ ಹದಿನಾರು ಸಾವಿರಕ್ಕಿಂತ ಜಾಸ್ತಿ ಆಕ್ಟಿವ್ ಜಾಬ್ ಸೀಕರ್ಸ್ ಇದ್ದಾರೆ, ಮತ್ತು ಈ ಸರ್ವಿಸ್ ಸಂಪೂರ್ಣ ಫ್ರೀ ಆಗಿದೆ. ನಿಮ್ಮ ಹತ್ರ ಎರಡು ನಿಮಿಷ ಇದೆಯಾ? 
+[user]  ಹಾ, ಹೇಳಿ, 2 ನಿಮಿಷ ಇದೆ. ಏನಾದ್ರೂ ಕೆಲಸ ಇದ್ದರೆ ಬೇಗ ಹೇಳಿ.
+[assistant] ನಾನು ಒಂದು AI ಅಸಿಸ್ಟೆಂಟ್ ಆಗಿದ್ದೇನೆ — ಈ ಮಾತುಕತೆ ರೆಕಾರ್ಡ್ ಆಗಬಹುದು. ನಾನು ನಗರ ಆಡಳಿತದ ಎಂಪ್ಲಾಯ್ಮೆಂಟ್ ಉಪಕ್ರಮದ ಜೊತೆ ಬ್ಲೂ ಡಾಟ್ ನಲ್ಲಿ ನಿಮ್ಮ ಜಾಬ್ ಪೋಸ್ಟಿಂಗ್ಸ್ ಲಿಸ್ಟ್ ಮಾಡಲು ಹೆಲ್ಪ್ ಮಾಡ್ತಾ ಇದ್ದೇನೆ. ನಿಮ್ಮ ಹತ್ರ ಈಗ ಯಾವುದಾದರೂ vacancy ಇದೆಯಾ? 
+[user]  ಹಾ, ಇದೆ. ನಮ್ಮ ಆಫೀಸ್‌ಗೆ ಹೆಲ್ಪರ್ ಬೇಕಾಗಿದ್ದಾರೆ. 2 ಹುದ್ದೆ ಖಾಲಿ ಇದೆ.
+[assistant] ಸರಿ, ಹೆಲ್ಪರ್ ಹುದ್ದೆಗೆ ಇಬ್ಬರು ಬೇಕಾಗಿದ್ದಾರೆ. ಈ ಕೆಲಸ ಯಾವ ಸಿಟಿಯಲ್ಲಿ ಇದೆ? 
+[user]  ನಮ್ಮ ಆಫೀಸ್ ವಿದ್ಯಾನಗರದಲ್ಲಿದೆ. ಹತ್ತಿರದ ಯಾರಾದ್ರೂ ಇದ್ದರೆ ಕಳಿಸಿ, ನಮಗೆ ಅನುಕೂಲ ಆಗುತ್ತೆ.
+[assistant] ಸರಿ, ವಿದ್ಯಾನಗರದಲ್ಲಿ ಕೆಲಸ ಇದೆ. ಈ ಹುದ್ದೆಗೆ ಸಂಬಳ ಎಷ್ಟು ಕೊಡಬೇಕು ಅಂತ ಯೋಚಿಸ್ತಾ ಇದ್ದೀರಿ? 
+[user]  ತಿಂಗಳಿಗೆ 12,000 ರೂಪಾಯಿ ಕೊಡ್ತೀವಿ.
+[assistant] ಸರಿ, ತಿಂಗಳಿಗೆ 12,000 ರೂಪಾಯಿ ಸಂಬಳ. ಈ ಹುದ್ದೆಗೆ ಯಾವುದಾದರೂ ಮಿನಿಮಮ್ ಕ್ವಾಲಿಫಿಕೇಶನ್ ಬೇಕಾ — ಓದು ಅಥವಾ ಸರ್ಟಿಫಿಕೇಟ್ ತರಹ? 
+[user]  ಏನು ಸ್ಪೆಷಲ್ ಬೇಡ. 10ನೇ ಪಾಸ್ ಆದ್ರೆ ಸಾಕು.
+[assistant] ಸರಿ, 10ನೇ ತರಗತಿ ಪಾಸ್ ಆಗಿರಬೇಕು. ನೀವು ಫ್ರೆಷರ್ಸ್ ಗೆ ತಯಾರಿದ್ದೀರಾ, ಅಥವಾ ಎಕ್ಸ್‌ಪೀರಿಯನ್ಸ್ ಇರೋ ಕ್ಯಾಂಡಿಡೇಟ್ಸ್ ಮಾತ್ರ ಬೇಕಾ? 
+[user]  ಫ್ರೆಶರ್ ಆದ್ರೂ ಸರಿ, ಕೆಲಸ ಕಲಿಯೋ ಆಸಕ್ತಿ ಇರಬೇಕು. ಅನುಭವ ಇದ್ದರೆ ಇನ್ನೂ ಒಳ್ಳೇದು, ಅಷ್ಟೇ.
+[assistant] ಸರಿ, ಫ್ರೆಷರ್ಸ್ ಅಥವಾ ಅನುಭವ ಇರುವವರು ಯಾರಾದರೂ ಬರಬಹುದು. ಕೆಲಸದ ಸಮಯ ಎಷ್ಟರಿಂದ ಎಷ್ಟು ತನಕ? 
+[user]  ಬೆಳಿಗ್ಗೆ 9 ರಿಂದ ಸಂಜೆ 6 ಗಂಟೆ ತನಕ ಕೆಲಸ ಇರುತ್ತೆ.
+[assistant] ಸರಿ. ಮತ್ತು ಸಂಬಳ ಬಿಟ್ಟು ಬೇರೆ ಯಾವುದಾದರೂ ಸೌಲಭ್ಯ — ಪಿ ಎಫ್, ಊಟ, ಅಥವಾ ಬರೋದು-ಹೋಗೋದು ವ್ಯವಸ್ಥೆ ತರಹ? 
+[user]  ವಿಶೇಷ ಏನಿಲ್ಲ, ಸಮಯಕ್ಕೆ ಸರಿಯಾಗಿ ಸಂಬಳ ಕೊಡ್ತೀವಿ ಅಷ್ಟೇ. ಬೇರೆ ಸೌಲಭ್ಯಗಳೇನೂ ಇಲ್ಲ.
+[assistant] ಸರಿ. ನಾನು ಇದನ್ನ post ಮಾಡಲಾ? 
+[user]  ಹಾ, ಸರಿ, ಪೋಸ್ಟ್ ಮಾಡಿ.
+[assistant->TOOL] create_job({"title": "Helper", "positions": 2, "jobProviderLocation": "Vidyanagar", "phoneNumber": "917946350285", "role": "Helper", "companyName": "Shree Balaji Traders", "natureOfJob": "Full-time", "hold_message": "."})
+[tool] {'user_id': '26cc2435-e810-402d-9f1f-6595a1ef2471', 'user_existed': False, 'owned_elsewhere': False, 'onboarded_at': '2026-09-04T18:15:13.371Z', 'items': [{'item_id': '50ddb030-146e-4a54-a2da-6c17c6eaa521', 'item_network': 'blue_dot', 'item_domain': 'provider', 'item_type': 'job_posting_1.0', 'lifecycle_status': 'draft', 'item_state': {'role': 'Helper', 'positions': 2, 'natureOfJob': 'Full-time', 'jobProviderLocation': 'Vidyanagar'}, 'item_locations': [{'lat': 17.405267493929333, 'lng': 78.5122802475042}], 'created_at': '2026-09-04T18:15:13.595Z', 'updated_at': '2026-09-04T18:15:13.595Z'}], 'c
+[assistant] ಆಯ್ತು. ಇನ್ನು ಯಾವುದಾದರೂ ಹೊಸ posting ಇದೆಯಾ? 
+[user]  ಇಲ್ಲ, ಸದ್ಯಕ್ಕೆ ಒಂದೇ ಅಷ್ಟೇ ಸಾಕು.
+[assistant] ಧನ್ಯವಾದ. ಮುಂದೆ ಯಾವುದಾದರೂ ಹೊಸ job ಅಥವಾ update ಇದ್ದರೆ, ನಮ್ಮ ಟೀಮ್ ನಿಮ್ಮ ಜೊತೆ ಮತ್ತೆ ಮಾತಾಡುತ್ತೆ. Goodbye 
+
+[dkb-kn-signals-kn-employer-cooperative] TESTER leg 5c90a0fc: outcome=Completed dur=175 turns=28 call_output=null

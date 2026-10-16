@@ -1,0 +1,91 @@
+{
+  "_note": "Per-language data read by scripts/speech_split.py and scripts/language_checks.py. One source of truth: the /translate-prompt skill and its reference/plain-speech.md point here instead of repeating it. Every entry outside Hindi is a SEED written by the tuner, not by a native speaker: review=\"needs-native\" means a named speaker must confirm it before the language is called verified. 'formal' maps a bookish word to the word people actually say on the phone (a hit is a WARNING with the suggestion, never an automatic edit). 'denylist' holds the common insulting words for disabilities: the bot must never say them, and they belong in the agent's speech-recognition vocabulary so callers who use them are understood. 'min_terms' is the minimum coverage every language's everyday-word table must have (from the Purple Dots language-testing sheet).",
+  "min_terms": ["training", "pension", "certificate", "documents", "eligibility", "scholarship", "support centre", "assessment", "device"],
+  "languages": {
+    "hi": {
+      "name": "Hindi", "aliases": ["Hindi", "Hinglish", "हिंदी", "हिन्दी"], "script": "Devanagari", "range": ["0900", "097F"],
+      "review": "call-verified",
+      "gender": "Verbs mark gender in the first, second and third person, in the past, progressive and future (करती हूँ / करता हूँ; आप आए / आईं). The bot's own lines use its voice gender everywhere. Lines to the caller use the respectful plural (आप ... करते हैं / रहे हैं), which is the accepted neutral form, until the caller's gender is known.",
+      "question": "क्या at the start or a rising final particle, written with ?",
+      "question_markers": ["क्या", "?"],
+      "formal": {"प्रशिक्षण": "ट्रेनिंग", "निवृत्ति वेतन": "पेंशन", "प्रमाणपत्र": "सर्टिफिकेट", "दस्तावेज़": "कागज़ / डॉक्यूमेंट", "पात्रता": "आपको मिल सकता है", "छात्रवृत्ति": "स्कॉलरशिप", "सहायता केंद्र": "सेंटर", "मूल्यांकन": "जाँच", "उपकरण": "मशीन / सामान", "आवेदन": "अप्लाई", "नियोजन": "जॉब", "वेतन": "सैलरी", "साक्षात्कार": "इंटरव्यू", "सेवा प्रदाता": "सेंटर / संस्था", "कृपया": "(drop it, or जी)", "शून्य": "ज़ीरो"},
+      "min_terms_everyday": {"training": "ट्रेनिंग", "pension": "पेंशन", "certificate": "सर्टिफिकेट", "documents": "कागज़", "eligibility": "आपको मिल सकता है", "scholarship": "स्कॉलरशिप", "support centre": "सेंटर", "assessment": "जाँच (never 'price' or 'कीमत')", "device": "मशीन"},
+      "denylist": ["अंधा", "बहरा", "गूंगा", "गूँगा", "लंगड़ा", "पागल", "अपाहिज", "लूला"],
+      "hindi_markers": []
+    },
+    "mr": {
+      "name": "Marathi", "aliases": ["Marathi", "मराठी"], "script": "Devanagari", "range": ["0900", "097F"],
+      "review": "needs-native",
+      "gender": "First-person verbs mark the speaker's gender (करते / करतो, बोलते / बोलतो): the bot uses its voice gender. Lines to the caller use तुम्ही with plural verbs (तुम्ही आलात, तुम्ही सांगाल), which do not reveal the caller's gender. Third-person past marks gender (तो आला / ती आली): use the child's or caller's own word, or a plural, until it is known.",
+      "question": "the particle का at the end (आहे का?) or a question word, written with ?",
+      "question_markers": ["का?", "का ?", "काय", "?"],
+      "formal": {"प्रशिक्षण": "ट्रेनिंग", "निवृत्तिवेतन": "पेन्शन", "प्रमाणपत्र": "सर्टिफिकेट / दाखला", "कागदपत्रे": "कागदं", "पात्रता": "तुम्हाला मिळू शकतं", "शिष्यवृत्ती": "स्कॉलरशिप", "सहाय्य केंद्र": "मदत केंद्र / सेंटर", "सहाय्य": "मदत", "मूल्यमापन": "तपासणी", "उपकरण": "साधन / मशीन", "संगणक": "कॉम्प्युटर", "ध्वनिमुद्रित": "रेकॉर्ड", "विद्यालय": "शाळा", "कृपया": "(drop it)", "शून्य": "झिरो"},
+      "min_terms_everyday": {"training": "ट्रेनिंग", "pension": "पेन्शन", "certificate": "दाखला / सर्टिफिकेट", "documents": "कागदं", "eligibility": "तुम्हाला मिळू शकतं", "scholarship": "स्कॉलरशिप", "support centre": "मदत केंद्र", "assessment": "तपासणी", "device": "साधन / मशीन"},
+      "denylist": ["आंधळा", "आंधळी", "बहिरा", "बहिरी", "मुका", "मुकी", "लंगडा", "लंगडी", "वेडा", "वेडी", "अपंग"],
+      "hindi_markers": ["है", "हैं", "नहीं", "क्या", "आप ", "मैं ", "रहा", "रही", "गया", "गई", "चाहिए", "करिए", "बताइए", "कीजिए", "हूँ", "बात कर"]
+    },
+    "kn": {
+      "name": "Kannada", "aliases": ["Kannada", "Kanglish", "ಕನ್ನಡ"], "script": "Kannada", "range": ["0C80", "0CFF"],
+      "review": "call-verified (register); needs-native (word lists)",
+      "gender": "First- and second-person verbs carry no gender (ನಾನು ಮಾಡ್ತೀನಿ, ನೀವು ಮಾಡ್ತೀರಾ). Only the third person singular marks it (ಅವನು ಬಂದ / ಅವಳು ಬಂದಳು): use ಅವರು (respectful plural) for any third person whose gender is unknown. A Hindi example that teaches masculine vs feminine verb forms has no Kannada equivalent: replace it with the ಅವರು rule, do not translate it into two identical lines.",
+      "question": "the suffix -ಆ on the verb (ಇದೆಯಾ? ಬೇಕಾ?) or a question word, written with ?",
+      "question_markers": ["ಾ?", "ಆ?", "ಏನು", "ಯಾವ", "?"],
+      "formal": {"ಪ್ರಮಾಣಪತ್ರ": "ಸರ್ಟಿಫಿಕೇಟ್", "ವಿದ್ಯಾರ್ಥಿವೇತನ": "ಸ್ಕಾಲರ್‌ಶಿಪ್", "ಸಹಾಯ ಕೇಂದ್ರ": "ಸೆಂಟರ್", "ಮೌಲ್ಯಮಾಪನ": "ಚೆಕಪ್", "ಉಪಕರಣ": "ಮಷೀನ್ / ಸಾಧನ", "ಅರ್ಜಿ": "ಅಪ್ಲೈ", "ಉದ್ಯೋಗಾವಕಾಶ": "ಜಾಬ್", "ವೇತನ": "ಸಂಬಳ / ಸ್ಯಾಲರಿ", "ದಯವಿಟ್ಟು": "(drop it)", "ಶೂನ್ಯ": "ಸೊನ್ನೆ / ಝೀರೋ"},
+      "min_terms_everyday": {"training": "ಟ್ರೇನಿಂಗ್", "pension": "ಪೆನ್ಷನ್ / ಪಿಂಚಣಿ", "certificate": "ಸರ್ಟಿಫಿಕೇಟ್", "documents": "ಡಾಕ್ಯುಮೆಂಟ್ಸ್ / ದಾಖಲೆ", "eligibility": "ನಿಮಗೆ ಸಿಗುತ್ತೆ", "scholarship": "ಸ್ಕಾಲರ್‌ಶಿಪ್", "support centre": "ಸೆಂಟರ್", "assessment": "ಚೆಕಪ್", "device": "ಮಷೀನ್"},
+      "denylist": ["ಕುರುಡ", "ಕುರುಡಿ", "ಕಿವುಡ", "ಕಿವುಡಿ", "ಮೂಕ", "ಮೂಕಿ", "ಕುಂಟ", "ಕುಂಟಿ", "ಹುಚ್ಚ", "ಹುಚ್ಚಿ"],
+      "hindi_markers": []
+    },
+    "te": {
+      "name": "Telugu", "aliases": ["Telugu", "తెలుగు"], "script": "Telugu", "range": ["0C00", "0C7F"],
+      "review": "needs-native",
+      "gender": "First- and second-person verbs carry no gender (నేను చేస్తాను, మీరు చేస్తారు). The third person singular separates masculine from everything else (అతను వచ్చాడు / ఆమె వచ్చింది): use the respectful plural (వారు / ఆయన-ఆవిడ only once known). Never translate a Hindi gendered-verb example into two identical lines.",
+      "question": "the suffix -ఆ (ఉందా? కావాలా?) or a question word, written with ?",
+      "question_markers": ["ా?", "ఆ?", "ఏమి", "ఏం", "?"],
+      "formal": {"శిక్షణ": "ట్రైనింగ్", "ధృవీకరణ పత్రం": "సర్టిఫికెట్", "ధ్రువీకరణ పత్రం": "సర్టిఫికెట్", "దరఖాస్తు": "అప్లై", "అర్హత": "మీకు వస్తుంది", "ఉపకార వేతనం": "స్కాలర్‌షిప్", "సహాయ కేంద్రం": "సెంటర్", "మూల్యాంకనం": "చెకప్", "పరికరం": "మెషిన్", "దయచేసి": "(drop it, or అండి)", "శూన్యం": "జీరో"},
+      "min_terms_everyday": {"training": "ట్రైనింగ్", "pension": "పెన్షన్", "certificate": "సర్టిఫికెట్", "documents": "డాక్యుమెంట్స్ / కాగితాలు", "eligibility": "మీకు వస్తుంది", "scholarship": "స్కాలర్‌షిప్", "support centre": "సెంటర్", "assessment": "చెకప్", "device": "మెషిన్"},
+      "denylist": ["గుడ్డి", "గుడ్డివాడు", "చెవిటి", "చెవిటివాడు", "మూగ", "మూగవాడు", "కుంటి", "కుంటివాడు", "పిచ్చి", "పిచ్చివాడు"],
+      "hindi_markers": []
+    },
+    "or": {
+      "name": "Odia", "aliases": ["Odia", "Oriya", "ଓଡ଼ିଆ"], "script": "Odia", "range": ["0B00", "0B7F"],
+      "review": "needs-native",
+      "gender": "Odia verbs carry no grammatical gender in any person. Do not invent a gender rule; replace any Hindi gendered-verb example with a one-line note that Odia has none.",
+      "question": "the particle କି (ଅଛି କି?) or a question word, written with ?. Odia shares the Hindi sentence-ending mark (।): it is NOT Hindi residue.",
+      "question_markers": ["କି", "କଣ", "?"],
+      "formal": {"ପ୍ରଶିକ୍ଷଣ": "ଟ୍ରେନିଂ", "ପ୍ରମାଣପତ୍ର": "ସାର୍ଟିଫିକେଟ", "ଦସ୍ତାବିଜ": "କାଗଜପତ୍ର", "ଯୋଗ୍ୟତା": "ଆପଣ ପାଇପାରିବେ", "ଛାତ୍ରବୃତ୍ତି": "ସ୍କଲାରସିପ", "ସହାୟତା କେନ୍ଦ୍ର": "ସେଣ୍ଟର", "ମୂଲ୍ୟାଙ୍କନ": "ଯାଞ୍ଚ", "ଉପକରଣ": "ମେସିନ", "ଦୟାକରି": "(drop it)", "ଶୂନ୍ୟ": "ଜିରୋ"},
+      "min_terms_everyday": {"training": "ଟ୍ରେନିଂ", "pension": "ପେନସନ / ଭତ୍ତା", "certificate": "ସାର୍ଟିଫିକେଟ", "documents": "କାଗଜପତ୍ର", "eligibility": "ଆପଣ ପାଇପାରିବେ", "scholarship": "ସ୍କଲାରସିପ", "support centre": "ସେଣ୍ଟର", "assessment": "ଯାଞ୍ଚ", "device": "ମେସିନ"},
+      "denylist": ["ଅନ୍ଧ", "କାଲ", "ମୁକ", "ଛୋଟା", "ପାଗଳ"],
+      "hindi_markers": []
+    },
+    "as": {
+      "name": "Assamese", "aliases": ["Assamese", "অসমীয়া"], "script": "Assamese (Bengali script with ৰ and ৱ)", "range": ["0980", "09FF"],
+      "review": "needs-native",
+      "gender": "Assamese verbs carry no grammatical gender in any person. Replace any Hindi gendered-verb example with a one-line note that Assamese has none.",
+      "question": "the particle নে / নেকি (আছে নে?) or a question word, written with ?. Assamese shares the sentence-ending mark (।) with Hindi: it is NOT Hindi residue.",
+      "question_markers": ["নে", "নেকি", "কি", "?"],
+      "formal": {"প্ৰশিক্ষণ": "ট্ৰেইনিং", "প্ৰমাণপত্ৰ": "চাৰ্টিফিকেট", "নথিপত্ৰ": "কাগজ-পত্ৰ", "যোগ্যতা": "আপুনি পাব পাৰে", "বৃত্তি": "জলপানি", "সহায় কেন্দ্ৰ": "চেণ্টাৰ", "মূল্যায়ন": "পৰীক্ষা", "সঁজুলি": "মেচিন", "অনুগ্ৰহ কৰি": "(drop it)", "শূন্য": "জিৰো"},
+      "min_terms_everyday": {"training": "ট্ৰেইনিং", "pension": "পেঞ্চন", "certificate": "চাৰ্টিফিকেট", "documents": "কাগজ-পত্ৰ", "eligibility": "আপুনি পাব পাৰে", "scholarship": "জলপানি", "support centre": "চেণ্টাৰ", "assessment": "পৰীক্ষা", "device": "মেচিন"},
+      "denylist": ["কণা", "কলা", "বোবা", "খোৰা", "বলিয়া"],
+      "hindi_markers": []
+    },
+    "ta": {"name": "Tamil", "aliases": ["Tamil", "தமிழ்"], "script": "Tamil", "range": ["0B80", "0BFF"], "review": "needs-native",
+      "gender": "First- and second-person verbs carry no gender; the third person singular marks masculine vs feminine (அவன் / அவள்): use the respectful அவங்க / அவர் until known.",
+      "question": "the suffix -ஆ (இருக்கா?) or a question word, written with ?", "question_markers": ["ா?", "என்ன", "?"],
+      "formal": {"விண்ணப்பம்": "அப்ளை", "கூறுங்கள்": "சொல்லுங்க"}, "min_terms_everyday": {}, "denylist": [], "hindi_markers": []},
+    "ml": {"name": "Malayalam", "aliases": ["Malayalam", "മലയാളം"], "script": "Malayalam", "range": ["0D00", "0D7F"], "review": "needs-native",
+      "gender": "Malayalam verbs do not change for person or gender at all.", "question": "the suffix -ഓ (ഉണ്ടോ?), written with ?", "question_markers": ["ോ?", "എന്ത്", "?"],
+      "formal": {}, "min_terms_everyday": {}, "denylist": [], "hindi_markers": []},
+    "bn": {"name": "Bengali", "aliases": ["Bengali", "Bangla", "বাংলা"], "script": "Bengali", "range": ["0980", "09FF"], "review": "needs-native",
+      "gender": "Bengali verbs carry no grammatical gender.", "question": "কি / কী or a question word, written with ?", "question_markers": ["কি", "কী", "?"],
+      "formal": {}, "min_terms_everyday": {}, "denylist": [], "hindi_markers": []},
+    "gu": {"name": "Gujarati", "aliases": ["Gujarati", "ગુજરાતી"], "script": "Gujarati", "range": ["0A80", "0AFF"], "review": "needs-native",
+      "gender": "Past and perfect verbs and many adjectives mark three genders; follow the Hindi approach (respectful plural to the caller).", "question": "શું or a final ને, written with ?", "question_markers": ["શું", "?"],
+      "formal": {}, "min_terms_everyday": {}, "denylist": [], "hindi_markers": []},
+    "pa": {"name": "Punjabi", "aliases": ["Punjabi", "ਪੰਜਾਬੀ"], "script": "Gurmukhi", "range": ["0A00", "0A7F"], "review": "needs-native",
+      "gender": "Like Hindi: verbs mark gender in most tenses; use the respectful plural to the caller.", "question": "ਕੀ at the start, written with ?", "question_markers": ["ਕੀ", "?"],
+      "formal": {}, "min_terms_everyday": {}, "denylist": [], "hindi_markers": []},
+    "ur": {"name": "Urdu", "aliases": ["Urdu", "اردو"], "script": "Perso-Arabic (Nastaliq)", "range": ["0600", "06FF"], "review": "needs-native",
+      "gender": "Like Hindi: verbs mark gender in most tenses; use the respectful plural to the caller.", "question": "کیا at the start, written with ؟", "question_markers": ["کیا", "؟", "?"],
+      "formal": {}, "min_terms_everyday": {}, "denylist": [], "hindi_markers": []}
+  }
+}

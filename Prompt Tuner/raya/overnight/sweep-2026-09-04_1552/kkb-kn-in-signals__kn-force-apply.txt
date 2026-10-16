@@ -1,0 +1,17 @@
+[kkb-kn-in-signals-kn-force-apply] POST /api/call -> 200 {"message": "Call initiated successfully", "uuid": "aaca940a-e7e5-4877-8689-294f10983bff"}
+[kkb-kn-in-signals-kn-force-apply] poll 0: outcome='Failure' dur=0 turns=0
+[kkb-kn-in-signals-kn-force-apply] connect attempt 1 did not bridge (outcome=Failure); letting the tester line settle for 90s
+[kkb-kn-in-signals-kn-force-apply] POST /api/call -> 200 {"message": "Call initiated successfully", "uuid": "32f6b04c-5726-4298-ac1b-48e088992265"}
+[kkb-kn-in-signals-kn-force-apply] poll 0: outcome='Pending' dur=0 turns=0
+[kkb-kn-in-signals-kn-force-apply] poll 1: outcome='Failure' dur=0 turns=0
+[kkb-kn-in-signals-kn-force-apply] connect attempt 2 did not bridge (outcome=Failure); letting the tester line settle for 90s
+[kkb-kn-in-signals-kn-force-apply] POST /api/call -> 200 {"message": "Call initiated successfully", "uuid": "82958eca-c4f5-4d3f-a9f9-acea26b03e71"}
+[kkb-kn-in-signals-kn-force-apply] poll 0: outcome='Pending' dur=0 turns=0
+[kkb-kn-in-signals-kn-force-apply] poll 1: outcome='Failure' dur=0 turns=0
+[kkb-kn-in-signals-kn-force-apply] connect attempt 3 did not bridge (outcome=Failure); letting the tester line settle for 90s
+[kkb-kn-in-signals-kn-force-apply] POST /api/call -> 200 {"message": "Call initiated successfully", "uuid": "1fcf71e4-cae8-4ee9-aefd-14dec876f31d"}
+[kkb-kn-in-signals-kn-force-apply] poll 0: outcome='Pending' dur=0 turns=0
+[kkb-kn-in-signals-kn-force-apply] poll 1: outcome='Failure' dur=0 turns=0
+[kkb-kn-in-signals-kn-force-apply] connect attempt 4 did not bridge (outcome=Failure); letting the tester line settle for 90s
+
+[kkb-kn-in-signals-kn-force-apply] NEVER BRIDGED after 4 attempts (flaky telephony).

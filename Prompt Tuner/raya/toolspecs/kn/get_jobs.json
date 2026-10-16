@@ -1,0 +1,40 @@
+{
+ "_note": "Kannada twin of raya/toolspecs/get_jobs.json (2026-10-05): identical except the translate-from-language wording and examples. Applied to kkb-kn-signals-slim with clone_api_from get_profile, so it hits dharwad-signals with that agent's own key.",
+ "name": "get_jobs",
+ "description": "Find jobs by what the caller said they want. Pass their role or interest as English words (e.g. \"data entry operator\", \"electrician\", \"security guard\", \"tailoring\") - translate what they said in Kannada into English before sending, and send the WORK they want, not a place. Use this when the caller names a role, asks for something different from what their profile says, or has no profile. For a caller with a profile who has not named a role, use get_recommended_jobs instead. Returns message.items[]: item_id (the job_id to apply with), score, and item_state with role, jobProviderName (the company), positions, salaryMin/salaryMax when present. jobProviderLocation is masked on this instance - never speak it. An empty items[] means we genuinely have nothing in that role: say so plainly and never invent one.",
+ "clone_api_from": "get_profile",
+ "method": "POST",
+ "path_override": "/signals-search/v1/search",
+ "drop_headers": [
+  "x-acting-org-id"
+ ],
+ "parameters": {
+  "type": "object",
+  "required": [
+   "query"
+  ],
+  "properties": {
+   "query": {
+    "type": "string",
+    "description": "The role or kind of work the caller wants, in ENGLISH words. Translate their Kannada into English first (\"ಡೇಟಾ ಎಂಟ್ರಿ\" -> \"data entry operator\", \"ಕರೆಂಟ್ ಕೆಲಸ\" -> \"electrician\", \"ಮೆಕ್ಯಾನಿಕ್\" -> \"mechanic\"). Words only - no place names, no salary, no punctuation."
+   }
+  }
+ },
+ "payload_template": {
+  "context": {
+   "messageId": "voice-jobs",
+   "networkId": "blue_dot",
+   "domain": "provider",
+   "itemType": "job_posting_1.0"
+  },
+  "message": {
+   "intent": {
+    "textSearch": "{{query}}"
+   },
+   "pagination": {
+    "limit": 10,
+    "offset": 0
+   }
+  }
+ }
+}

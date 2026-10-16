@@ -537,7 +537,7 @@ User: "हाँ।"
   "eventType": "UPDATE_JOB",
   "payload": {
     "jobId": "1212-qssc-qw233",
-    "phoneNumber": "XXXXXXXXXX",
+    "phoneNumber": "XXXXXX0249",
     "status": "open"
   }
 }
@@ -584,7 +584,7 @@ User: "हाँ।"
   "eventType": "UPDATE_JOB",
   "payload": {
     "jobId": "${job_id}",
-    "phoneNumber": "+91XXXXXXXXXX",
+    "phoneNumber": "+91XXXXXX0249",
     "workExperience": "Worked before",
     "workExperienceYears": "2"
   }
@@ -640,7 +640,7 @@ User: "हाँ।"
   "eventType": "JOB",
   "app_instance": "up-postjob",
   "payload": {
-    "phoneNumber": "+91XXXXXXXXXX",
+    "phoneNumber": "+91XXXXXX0249",
     "title": "Electrician",
     "companyName": "PKBC Inducstries",
     "orgName": "PKBC Pvt Ltd",

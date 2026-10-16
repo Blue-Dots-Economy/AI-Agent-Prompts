@@ -526,7 +526,7 @@ Owner: "ಹೌದು."
   "eventType": "UPDATE_JOB",
   "payload": {
     "jobId": "1212-qssc-qw233",
-    "phoneNumber": "XXXXXXXXXX",
+    "phoneNumber": "XXXXXX0249",
     "status": "open"
   }
 }
@@ -573,7 +573,7 @@ Owner: "ಹೌದು."
   "eventType": "UPDATE_JOB",
   "payload": {
     "jobId": "1212-qssc-qw233",
-    "phoneNumber": "XXXXXXXXXX",
+    "phoneNumber": "XXXXXX0249",
     "workExperience": "Worked before",
     "workExperienceYears": "2"
   }
@@ -629,7 +629,7 @@ Owner: "ಹೌದು."
   "eventType": "JOB",
   "app_instance": "up-postjob",
   "payload": {
-    "phoneNumber": "XXXXXXXXXX",
+    "phoneNumber": "XXXXXX0249",
     "title": "Electrician",
     "companyName": "PKBC Industries",
     "orgName": "PKBC Industries",

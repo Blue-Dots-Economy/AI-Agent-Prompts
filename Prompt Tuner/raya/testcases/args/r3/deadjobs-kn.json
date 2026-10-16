@@ -1,0 +1,6 @@
+{
+ "contact_name": "Arjun",
+ "country_code": 91,
+ "location": "Hubballi",
+ "recommendations": "[{\"job_id\": \"11111111-2222-4333-8444-555555555551\", \"role\": \"Data Entry Operator\", \"company\": \"Hubli Infotech\", \"location\": \"Keshwapur, Hubli\", \"salary\": \"14000-18000\", \"vacancy\": \"2\", \"qualification\": \"PUC\"}, {\"job_id\": \"11111111-2222-4333-8444-555555555552\", \"role\": \"Store Keeper\", \"company\": \"Dharwad Traders\", \"location\": \"PB Road, Dharwad\", \"salary\": \"12000-15000\", \"vacancy\": \"1\", \"qualification\": \"School\"}, {\"job_id\": \"11111111-2222-4333-8444-555555555553\", \"role\": \"Welder\", \"company\": \"Tarihal Fabricators\", \"location\": \"Tarihal, Hubli\", \"salary\": \"15000-20000\", \"vacancy\": \"3\", \"qualification\": \"ITI\"}]"
+}

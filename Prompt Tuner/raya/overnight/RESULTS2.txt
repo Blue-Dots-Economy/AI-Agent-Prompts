@@ -1,0 +1,4 @@
+kn-signals-r2 USABLE 135s 8 4b453ebe-7920-4f3b-8420-b16b0c95affa
+dkb-hi-r2 USABLE 153s 13 68de2002-f67e-435f-9645-d6f64cb1f6b8
+trrain-kn-r2 USABLE 74s 5 755b73ea-d2c2-4dd6-b9cc-5af91cac40d2
+kn-signals-r3 NO-CALL - - -

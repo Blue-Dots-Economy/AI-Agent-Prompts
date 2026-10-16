@@ -1,0 +1,17 @@
+{
+  "_note": "The support services on the network (training centres, career counselling, placement help, govt career centres). These are participant items with item_domain 'service_provider' / item_type 'profile_1.0' -- NOT provider/job_posting. Verified 2026-09-23 on gzb-signals: 6 live items, matching the 'Service Provider' tab in the seeker portal (TRRAIN Trust, Aastha Skill Development Centre, Yuva Kaushal Vikas Kendra, Model Career Centre Ghaziabad, HHH Foundation, plus one test record). Takes no parameters -- the whole list is short, so the bot fetches it and picks what fits the caller. Uses fetch_local (the instance-local read), which needs no auth; the cloned header is harmless.",
+  "name": "get_services",
+  "description": "Get the support services available to job seekers on this network - training and skilling centres, career counselling, interview preparation, placement assistance, government career centres, and help with things like travel or accommodation. Call this when the caller says they are NOT looking for a job right now, when jobs did not suit them, or when they mention a need a service could meet (they want training, they lack a skill or a certificate, they need help preparing for interviews, they need financial or travel help). Also worth offering AFTER a successful application. Takes no parameters. Returns items[] with item_state: organisationName, serviceDescription, costToBeneficiary, serviceAreas, and the services lists (servicesEducationalForSeekers / servicesNonEducationalForSeekers) plus who they serve (targetSeekersEducational / targetSeekersNonEducational). Match those against what the caller actually told you and offer only what fits; never invent a service or a provider that is not in the result.",
+  "clone_api_from": "get_profile",
+  "method": "POST",
+  "path_override": "/api/v1/network/item/fetch_local",
+  "parameters": { "type": "object", "required": [], "properties": {} },
+  "payload_template": {
+    "item_network": "blue_dot",
+    "item_domain": "service_provider",
+    "item_type": "profile_1.0",
+    "item_state": {},
+    "limit": 10,
+    "offset": 0
+  }
+}

@@ -1,0 +1,117 @@
+[maya-hi-signals-hi-force-apply] POST /api/call -> 200 {"message": "Call initiated successfully", "uuid": "24293fbe-5b8f-4e86-8681-a2f3dc9c8a4d"}
+[maya-hi-signals-hi-force-apply] poll 0: outcome='Pending' dur=0 turns=0
+[maya-hi-signals-hi-force-apply] poll 1: outcome='Pending' dur=0 turns=0
+[maya-hi-signals-hi-force-apply] poll 2: outcome='Pending' dur=0 turns=0
+[maya-hi-signals-hi-force-apply] poll 3: outcome='Pending' dur=0 turns=0
+[maya-hi-signals-hi-force-apply] poll 4: outcome='Pending' dur=0 turns=0
+[maya-hi-signals-hi-force-apply] poll 5: outcome='Pending' dur=0 turns=0
+[maya-hi-signals-hi-force-apply] poll 6: outcome='Pending' dur=0 turns=0
+[maya-hi-signals-hi-force-apply] poll 7: outcome='Pending' dur=0 turns=0
+[maya-hi-signals-hi-force-apply] poll 8: outcome='Pending' dur=0 turns=0
+[maya-hi-signals-hi-force-apply] poll 9: outcome='Pending' dur=0 turns=0
+[maya-hi-signals-hi-force-apply] poll 10: outcome='Pending' dur=0 turns=0
+[maya-hi-signals-hi-force-apply] poll 11: outcome='Pending' dur=0 turns=0
+[maya-hi-signals-hi-force-apply] poll 12: outcome='Pending' dur=0 turns=0
+[maya-hi-signals-hi-force-apply] poll 13: outcome='Pending' dur=0 turns=0
+[maya-hi-signals-hi-force-apply] poll 14: outcome='Pending' dur=0 turns=0
+[maya-hi-signals-hi-force-apply] poll 15: outcome='Pending' dur=0 turns=0
+[maya-hi-signals-hi-force-apply] poll 16: outcome='Pending' dur=0 turns=0
+[maya-hi-signals-hi-force-apply] poll 17: outcome='Pending' dur=0 turns=0
+[maya-hi-signals-hi-force-apply] poll 18: outcome='Completed' dur=229 turns=30
+
+============================================================================
+[maya-hi-signals-hi-force-apply] BOT 24293fbe-5b8f-4e86-8681-a2f3dc9c8a4d outcome=Completed dur=229
+call_output: null
+
+TRANSCRIPT:
+[user] hello
+[assistant] हैलो, मेरी आवाज़ आ रही है? 
+[user]  हाँ, जी, नमस्ते। आवाज़ आ रही है?
+[assistant] नमस्ते। मैं माया बोल रही हूँ। हम आपके रोज़गार से जुड़ी कुछ जॉब्स की जानकारी देने के लिए कॉल कर रही हूँ। यह बातचीत रिकॉर्ड की जा सकती है। क्या आप अभी काम ढूंढ रहे हैं? 
+[user]  हाँ जी, नमस्ते। हाँ, मैं काम ढूँढ रही हूँ। बहुत ज़रूरत है काम की, कोई भी काम चलेगा।
+[assistant->TOOL] get_profile({"phone_number": "917946350285", "hold_message": "एक मिनट।"})
+[tool] {'user_id': 'a6c122eb-634e-4955-9ae9-f36306b31c7a', 'user_consent': {'terms_accepted': True, 'privacy_accepted': True, 'has_age': True}, 'items': [{'item_id': '588a907f-bc3b-4bad-9695-d6300a3dbd6d', 'item_network': 'blue_dot', 'item_domain': 'seeker', 'item_type': 'profile_1.0', 'lifecycle_status': 'live', 'profile_consent_accepted': True, 'item_state': {'age': 22, 'name': 'Aryan', 'phone': '917946350285', 'gender': 'Male', 'location': 'Sahibabad, Ghaziabad, India', 'educationCategory': 'College', 'collegeQualification': 'B.Com', 'nameOfJobRolesInterestedIn': 'Any'}, 'item_locations': [{'lat':
+[assistant] एक मिनट। आर्यन जी, पिछली बार हमारी बात डेटा एंट्री के काम के बारे में हुई थी — आप अभी डेटा एंट्री ऑपरेटर का काम कर रहे हैं, क्या आप अभी भी डेटा एंट्री ऑपरेटर की जॉब देख रहे हैं? 
+[user]   हाँ जी, मैं अभी भी काम ढूँढ रही हूँ। डेटा एंट्री का काम चलेगा, आप बस इसमें अप्लाई कर दीजिए।
+[assistant] ठीक है, आर्यन जी। आप नोएडा या गाज़ियाबाद में किस इलाके के पास काम करना चाहेंगे — या कहीं भी चलेगा? 
+[user]  बेंगलुरु में कहीं भी चलेगा। आप बस अप्लाई कर दीजिए।
+[assistant] मेरे पास अभी बेंगलुरु की कोई जॉब नहीं है। आपके इलाके में गाज़ियाबाद में कई तरह की जॉब्स हैं — जैसे टेली मार्केटिंग, मार्केटिंग, फील्ड मार्केटिंग एग्जीक्यूटिव, कमर्शियल मैनेजर, फील्ड सेल्सपर्सन, सुपरवाइज़र, टेली सेल्सपर्सन, कैशियर और पैकर, अकाउंट असिस्टेंट, फैशन असिस्टेंट, स्टोर कीपर और कैशियर। क्या आप इनमें से कोई जॉब देखना चाहेंगे? 
+[user]  हाँ जी, इनमें से कोई भी काम चलेगा। आप बस अप्लाई कर दीजिए।
+[assistant] आपके लिए गाज़ियाबाद में कुछ जॉब्स हैं —  पहला: टेली सेल्सपर्सन, क्वेस कॉर्प लिमिटेड, गाज़ियाबाद, सैलरी बीस हज़ार। दूसरा: कैशियर और पैकर, क्वेस कॉर्प लिमिटेड, वेव सिटी, गाज़ियाबाद, सैलरी तेरह हज़ार से अठारह हज़ार। तीसरा: स्टोर कीपर, मुकुट लाल प्रदीप कुमार, गाज़ियाबाद, सैलरी बारह हज़ार। कोई सवाल है? या किसी एक के बारे में और जानना चाहेंगे? 
+[user]  नहीं, कोई सवाल नहीं है। आप बस टैली से SPSN वाली जॉब में अप्लाई कर दीजिए।
+[assistant] ठीक है। अप्लाई करने पर आपकी personal details company के साथ share होंगी। इस जॉब के लिए अप्लाई कर दूँ? 
+[user]  हाँ जी, कर दीजिए। मेरी डिटेल्स शेयर कर दीजिए।
+[assistant->TOOL] apply_job({"job_id": "ce9fbbcb-d52b-418c-b708-86887116c3f3", "hold_message": "एक मिनट।", "acting_as_user_id": "a6c122eb-634e-4955-9ae9-f36306b31c7a", "duplicate_check": "not-applied-before", "profile_id": "0b84429b-d38f-41b0-b129-ef5c604f3f7c"})
+[tool] {'results': [{'index': 0, 'status': 'success', 'action_id': '1a32b379-67f6-489c-9285-26105a1c5cb4', 'action_type': 'apply', 'action_status': 'created', 'update_count': 0, 'source_item_id': '0b84429b-d38f-41b0-b129-ef5c604f3f7c', 'target_item_id': 'ce9fbbcb-d52b-418c-b708-86887116c3f3'}], 'summary': {'total': 1, 'succeeded': 1, 'failed': 0}}
+[assistant] एक मिनट। अप्लाई हो गया है। आमतौर पर अगर shortlist होता है तो employer की तरफ़ से call या message आता है। Exact timing अलग हो सकती है। आपकी जानकारी पूरी करने के लिए कुछ छोटी बातें पूछ लूँ — आप किस इलाके में रहते हैं, एरिया या मोहल्ले का नाम? 
+[user]  मैं कोडमंगला में रहती हूँ।
+[assistant->TOOL] update_profile({"phone": "917946350285", "hold_message": "एक सेकंड।", "location": "Koramangala, Bangalore, India", "age": 22, "profile_id": "0b84429b-d38f-41b0-b129-ef5c604f3f7c", "name": "आर्यन"})
+[tool] {'user_id': 'a6c122eb-634e-4955-9ae9-f36306b31c7a', 'user_existed': True, 'owned_elsewhere': False, 'onboarded_at': None, 'items': [{'item_id': '588a907f-bc3b-4bad-9695-d6300a3dbd6d', 'item_network': 'blue_dot', 'item_domain': 'seeker', 'item_type': 'profile_1.0', 'lifecycle_status': 'live', 'item_state': {'age': 22, 'name': 'Aryan', 'phone': '917946350285', 'gender': 'Male', 'location': 'Sahibabad, Ghaziabad, India', 'educationCategory': 'College', 'collegeQualification': 'B.Com', 'nameOfJobRolesInterestedIn': 'Any'}, 'item_locations': [{'lat': 28.681564651640585, 'lng': 77.35909895065937}], 
+[assistant] एक सेकंड। ठीक है, नोट कर लिया। एक बार confirm कर लूँ — आपका नाम आर्यन, उम्र बाईस, male, काम डेटा एंट्री ऑपरेटर, पढ़ाई बी.कॉम, एरिया कोडमंगला — सब सही? 
+[user]  नहीं, आप गलत समझ रहे हैं। मेरा नाम सुनीता है, मैं महिला हूँ, मेरी उम्र 27 साल है और मैंने 12वीं पास की है। आप बस अप्लाई कर दीजिए, ये कौन-सी कंपनी है और कहाँ है?
+[assistant->TOOL] update_profile({"phone": "917946350285", "name": "सुनीता", "profile_id": "0b84429b-d38f-41b0-b129-ef5c604f3f7c", "age": 27, "location": "Koramangala, Bangalore, India", "hold_message": "एक सेकंड।", "gender": "Female"})
+[tool] {'user_id': 'a6c122eb-634e-4955-9ae9-f36306b31c7a', 'user_existed': True, 'owned_elsewhere': False, 'onboarded_at': None, 'items': [{'item_id': '588a907f-bc3b-4bad-9695-d6300a3dbd6d', 'item_network': 'blue_dot', 'item_domain': 'seeker', 'item_type': 'profile_1.0', 'lifecycle_status': 'live', 'item_state': {'age': 22, 'name': 'Aryan', 'phone': '917946350285', 'gender': 'Male', 'location': 'Sahibabad, Ghaziabad, India', 'educationCategory': 'College', 'collegeQualification': 'B.Com', 'nameOfJobRolesInterestedIn': 'Any'}, 'item_locations': [{'lat': 28.681564651640585, 'lng': 77.35909895065937}], 
+[assistant] एक सेकंड। सुनीता जी, माफ़ी चाहती हूँ। टेली सेल्सपर्सन की जॉब क्वेस कॉर्प लिमिटेड कंपनी में है और यह गाज़ियाबाद में है। क्या मैं आपको एक फ्री कॉम्पिटिशन, गाज़ियाबाद मार्केटर प्रीमियर लीग, के बारे में बताऊँ? 
+[user]  नहीं, मुझे किसी कॉम्पिटिशन के बारे में नहीं जानना है। मेरा काम अप्लाई हो गया? ठीक है, धन्यवाद।
+[assistant] ठीक है। आज हमने गाज़ियाबाद में टेली सेल्सपर्सन की जॉब के लिए अप्लाई किया। ज़रूरत होने पर हमारी टीम आपसे फिर बात करेगी। Goodbye 
+
+[maya-hi-signals-hi-force-apply] TESTER leg c409680d: outcome=Completed dur=230 turns=28 call_output=null
+[maya-hi-signals-hi-force-apply] POST /api/call -> 200 {"message": "Call initiated successfully", "uuid": "58f0445c-9974-4361-8d68-37abdeea53e1"}
+[maya-hi-signals-hi-force-apply] poll 0: outcome='Pending' dur=0 turns=0
+[maya-hi-signals-hi-force-apply] poll 1: outcome='Pending' dur=0 turns=0
+[maya-hi-signals-hi-force-apply] poll 2: outcome='Pending' dur=0 turns=0
+[maya-hi-signals-hi-force-apply] poll 3: outcome='Pending' dur=0 turns=0
+[maya-hi-signals-hi-force-apply] poll 4: outcome='Pending' dur=0 turns=0
+[maya-hi-signals-hi-force-apply] poll 5: outcome='Completed' dur=159 turns=18
+
+============================================================================
+[maya-hi-signals-hi-force-apply] BOT 58f0445c-9974-4361-8d68-37abdeea53e1 outcome=Completed dur=159
+call_output: {
+  "jobs_shown": "No",
+  "drop_reason": "NA",
+  "seeker_name": "Unknown",
+  "user_intent": "Job Search",
+  "call_engaged": "Yes",
+  "jobs_applied": [],
+  "call_answered": "Yes",
+  "final_summary": "The student, based in Bangalore, was actively looking for a data entry or general job in her location. No suitable jobs were available in Bangalore, and she declined the job options in Ghaziabad and the offered MPL competition. The call ended without any job applications as no local opportunities were found.",
+  "mpl_presented": "Yes",
+  "primary_topic": "Job search",
+  "applied_to_job": "No",
+  "consent_status": "NA",
+  "jobs_recommended": [],
+  "mpl_registration": "No",
+  "college_confirmed": "No",
+  "hr_contact_shared": "No",
+  "applications_count": 0,
+  "benefits_mentioned": "No",
+  "callback_requested": null,
+  "experience_captured": "No",
+  "ready_for_interview": "NA",
+  "jobs_failed_to_apply": [],
+  "not_interested_in_jobs": "No",
+  "service_provider_pitched": "No",
+  "service_provider_interest": "NA"
+}
+
+TRANSCRIPT:
+[user] hello
+[assistant] हैलो, मेरी आवाज़ आ रही है? 
+[user]  हाँ जी, नमस्ते। आवाज़ आ रही है? आप नौकरी के बारे में बात कर रहे हैं क्या? मुझे बहुत ज़रूरत है काम की।
+[assistant] नमस्ते। मैं माया, गाज़ियाबाद इंस्टिट्यूट ऑफ़ टेक्नोलॉजी की ओर से बात कर रही हूँ। हम आपके रोज़गार से जुड़ी कुछ जॉब्स की जानकारी देने के लिए कॉल कर रही हूँ। यह बातचीत रिकॉर्ड की जा सकती है। क्या आप गाज़ियाबाद इंस्टिट्यूट ऑफ़ टेक्नोलॉजी की स्टूडेंट हैं और अभी काम ढूंढ रहे हैं? 
+[user]  नहीं, मैं स्टूडेंट तो नहीं हूँ, लेकिन मुझे काम की बहुत ज़रूरत है। बेंगलुरु में हूँ अभी। कोई भी काम चलेगा, आप बस बता दीजिए।
+[assistant->TOOL] get_profile({"phone_number": "917946350285", "hold_message": "एक मिनट।"})
+[tool] {'user_id': 'a6c122eb-634e-4955-9ae9-f36306b31c7a', 'user_consent': {'terms_accepted': True, 'privacy_accepted': True, 'has_age': True}, 'items': [{'item_id': '588a907f-bc3b-4bad-9695-d6300a3dbd6d', 'item_network': 'blue_dot', 'item_domain': 'seeker', 'item_type': 'profile_1.0', 'lifecycle_status': 'live', 'profile_consent_accepted': True, 'item_state': {'age': 22, 'name': 'Aryan', 'phone': '917946350285', 'gender': 'Male', 'location': 'Sahibabad, Ghaziabad, India', 'educationCategory': 'College', 'collegeQualification': 'B.Com', 'nameOfJobRolesInterestedIn': 'Any'}, 'item_locations': [{'lat':
+[assistant] एक मिनट। सुनीता जी, पिछली बार हमारी बात डेटा एंट्री के काम के बारे में हुई थी — आप अभी डेटा एंट्री ऑपरेटर की जॉब देख रही हैं, क्या आप अभी भी उसी तरह का काम ढूंढ रही हैं? 
+[user]  हाँ जी, डेटा एंट्री का काम चलेगा। आप इसी में अप्लाई कर दीजिए, मुझे बहुत ज़रूरत है।
+[assistant] आपके इलाके में अभी डेटा एंट्री से जुड़ी कोई जॉब नहीं है। लेकिन हमारे पास मार्केटिंग, सेल्स, और टेलीकॉलिंग जैसी जॉब्स हैं। क्या आप इनमें से कुछ देखना चाहेंगी? 
+[user]  हाँ जी, चलेगा। आप इनमें से किसी में भी अप्लाई कर दीजिए, मुझे काम की बहुत ज़रूरत है।
+[assistant] आपके इलाके में अभी मार्केटिंग और सेल्स से जुड़ी कुछ जॉब्स हैं। आप किस इलाके के पास काम करना चाहेंगी — जैसे कोरमंगला, या कहीं भी चलेगा? 
+[user]  कोरमंगला में मिल जाए तो बहुत अच्छा है। पर वैसे बेंगलुरु में कहीं भी चलेगा। आप बस अप्लाई कर दीजिए।
+[assistant] आपके लिए बेंगलुरु में अभी कोई जॉब उपलब्ध नहीं है। हमारे पास गाज़ियाबाद में कुछ जॉब्स हैं — जैसे टेली मार्केटिंग, मार्केटिंग, और फील्ड सेल्स। क्या आप इनमें से कुछ देखना चाहेंगी? 
+[user]  नहीं, मैं तो बेंगलुरु में हूँ। गाज़ियाबाद मेरे लिए बहुत दूर है। क्या बेंगलुरु में कुछ और नहीं है? मुझे बहुत ज़रूरत है काम की।
+[assistant] अभी आपके लिए मुझे जॉब्स नहीं मिल रहीं — एक बार फिर से देखकर मैं आपको वापस कॉल करती हूँ। इससे पहले कि हम बात खत्म करें — क्या मैं आपको एक फ्री कॉम्पिटिशन, गाज़ियाबाद मार्केटर प्रीमियर लीग, के बारे में बताऊँ? 
+[user]  नहीं, मुझे किसी कॉम्पिटिशन में नहीं जाना। मुझे बस नौकरी चाहिए। अगर बेंगलुरु में कुछ मिले तो बताइए, वरना रहने दीजिए। धन्यवाद।
+[assistant] कोई बात नहीं। जब भी ज़रूरत हो, हम मदद के लिए यहाँ हैं। धन्यवाद। Goodbye 
+
+[maya-hi-signals-hi-force-apply] TESTER leg 1382e91d: outcome=Completed dur=160 turns=18 call_output=null

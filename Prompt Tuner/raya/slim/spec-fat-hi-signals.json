@@ -1,0 +1,1024 @@
+{
+ "path": "KKB/KKB Placeholder Hindi Signals.md",
+ "chars": 219519,
+ "spoken_lines": {
+  "हमारे पास आपकी जॉब की लोकेशन [] है — क्या यह सही है": 1,
+  "आपकी जानकारी मिल गई": 7,
+  "प्रोफाइल": 7,
+  "सेक्टर पाँच": 1,
+  "अभी आपके लिए मुझे जॉब्स नहीं मिल रहीं": 1,
+  "अभी आपके लिए मुझे जॉब्स नहीं मिल रहीं — एक बार फिर से देखकर मैं आपको वापस कॉल करती हूँ": 3,
+  "[] की जॉब अभी नहीं है — लेकिन [], [] जैसी जॉब्स हैं। इनमें से कुछ देखना चाहेंगे": 2,
+  "[] के लिए … जॉब्स उपलब्ध नहीं हैं": 2,
+  "अभी बेंगलुरु के लिए डेटा एंट्री या कंप्यूटर ऑपरेटर की जॉब्स उपलब्ध नहीं हैं": 2,
+  "आपके लिए relevant jobs अभी नहीं दिख रहीं, हम जल्द ही सही options ढूंढकर आपको बताएंगे": 2,
+  "किस तरह का काम देख रहे हैं? मैं उसी हिसाब से देखती हूँ": 2,
+  "किस तरह का काम देख रहे हैं? मैं उसी हिसाब से बताती हूँ": 2,
+  "ताकि अगली बार आपके लिए सही जॉब्स ढूंढ सकूँ, एक बात बता दीजिए — आपको किस जगह के आसपास काम चाहिए": 2,
+  "[] में किस तरफ़ — एरिया या मोहल्ले का नाम बता दीजिए": 2,
+  "कहीं भी": 6,
+  "ताकि अगली बार आपके लिए सही जॉब्स ढूंढ सकूँ, एक बात बता दीजिए — आपको किस तरह का काम चाहिए": 2,
+  "ठीक है, समझ गई": 2,
+  "कुछ नहीं मिला": 2,
+  "कोई तय समय नहीं बता सकती, लेकिन जैसे ही आपके इलाके में कुछ आता है, हम इसी नंबर पर बताएँगे": 2,
+  "दो दिन में": 2,
+  "पक्का": 2,
+  "कैप्चर": 2,
+  "सिस्टम": 2,
+  "रिकॉर्ड": 3,
+  "इन्वेंटरी": 2,
+  "हैलो, मेरी आवाज़ आ रही है": 2,
+  "कौन बोल रहा है": 1,
+  "आवाज़ नहीं आ रही": 2,
+  "क्या": 1,
+  "हैलो हैलो": 1,
+  "हैलो? क्या अब मेरी आवाज़ आ रही है": 1,
+  "लगता है लाइन ठीक नहीं है, मैं बाद में कॉल करती हूँ। Goodbye": 1,
+  "एक मिनट": 6,
+  "नमस्ते। शहर प्रशासन की 'काम की बात' पहल में आपका स्वागत है। आपके इलाके में कुछ अच्छी जॉब्स की जानकारी देने के लिए कॉल कर रही हूँ। यह बातचीत रिकॉर्ड की जा सकती है। क्या आप अभी काम ढूंढ रहे हैं": 1,
+  "शहर प्रशासन की काम की बात पहल": 1,
+  "गवर्नमेंट": 1,
+  "यह बातचीत रिकॉर्ड की जा सकती है": 1,
+  "क्या आप अभी काम ढूंढ रहे हैं": 1,
+  "आपकी जानकारी देख रही हूँ": 4,
+  "आपकी प्रोफ़ाइल देख रही हूँ": 1,
+  "किस तरह का काम": 1,
+  "[] जी, पिछली बार हमारी बात [] के बारे में हुई थी — आप अभी [] का काम कर रहे हैं, क्या आप अभी भी [] की जॉब देख रहे हैं": 1,
+  "डेटा एंट्री के काम": 1,
+  "एक जॉब में अप्लाई करने": 1,
+  "मेमोरी": 1,
+  "पिछली बार": 1,
+  "कुछ दिन पहले": 1,
+  "[] जी, …": 2,
+  "प्रोफ़ाइल मिल गई": 3,
+  "आप अभी [] का काम कर रहे हैं — क्या आप अभी भी [] की जॉब देख रहे हैं": 1,
+  "नहीं": 4,
+  "मुझे मार्केटिंग की जॉब्स देखनी है": 1,
+  "ठीक है, मार्केटिंग की जॉब्स देखती हूँ": 1,
+  "आपके इलाके में अभी मार्केटिंग और सेल्स से जुड़ी कई जॉब्स हैं": 1,
+  "आपके लिए मार्केटिंग से जुड़ी कोई जॉब अभी उपलब्ध नहीं है": 1,
+  "क्या मैं इसे [] कर दूँ": 1,
+  "आप अभी बी०टेक०(ई०सी०एस) का काम कर रहे हैं": 1,
+  "आप Any का काम देख रहे हैं": 1,
+  "आपके इलाके में कई तरह की जॉब्स हैं — जैसे फिटर और मशीन ऑपरेटर के काम, ड्राइवर, और हेल्पर। आप किस तरह का काम देख रहे हैं — या कोई भी चलेगा": 1,
+  "कोई भी": 5,
+  "साथ ही": 1,
+  "ಕೊರಮಂಗಲ": 2,
+  "आपके इलाके में कुछ अच्छी जॉब्स हैं": 1,
+  "आपके लिए कुछ जॉब्स हैं": 1,
+  "हमारे पास आपकी जॉब की लोकेशन [] है, और अभी जॉब्स [] में हैं — क्या यह ठीक रहेगा": 1,
+  "मुराद नगर, ११००४५ है": 1,
+  "…लोकेशन **Sarjapur, 110045** है": 1,
+  "पटेल नगर": 1,
+  "… जॉब्स [] और [] में हैं": 1,
+  "…लोकेशन दिल्ली है, और अभी जॉब्स गाज़ियाबाद में हैं — क्या यह ठीक रहेगा": 1,
+  "दिल्ली": 1,
+  "आपके लिए [] में कुछ जॉब्स हैं। आप [] में किसी खास इलाके में काम देख रहे हैं, या कहीं भी चलेगा": 1,
+  "आपके लिए कुछ जॉब्स हैं — [], [] जैसी जगहों पर। किस इलाके या शहर के पास काम करना चाहेंगे, या कहीं भी चलेगा": 1,
+  "गाज़ियाबाद": 1,
+  "सही है": 1,
+  "ठीक है": 6,
+  "चलेगा": 1,
+  "कहीं और भी चलेगा": 1,
+  "आखिरी सवाल, फिर सीधे जॉब्स पर आती हूँ — आपके घर के सबसे नज़दीक कौन सा बस स्टॉप, रेलवे या मेट्रो स्टेशन है": 1,
+  "आपके घर के पास कोई जानी-पहचानी जगह है — जैसे कोई बाज़ार, स्कूल, या अस्पताल": 1,
+  "पता नहीं": 3,
+  "साहिबाबाद स्टेशन है": 1,
+  "जी बताइए": 1,
+  "कहीं भी चलेगा": 2,
+  "आपकी लोकेशन समझ नहीं आई": 1,
+  "माफ़ कीजिए, नाम ठीक से समझ नहीं पाई — ज़रा धीरे से एक बार फिर बता दीजिए": 1,
+  "आखिरी सवाल, फिर सीधे जॉब्स पर आती हूँ": 1,
+  "बस एक बात और, ताकि मैं आपके घर के पास की जॉब्स ढूंढ सकूँ": 1,
+  "कोई बात नहीं — फिलहाल जो जॉब्स हैं, वो बता देती हूँ": 1,
+  "आप … देख रहे हैं / चाहेंगे": 1,
+  "आपके लिए जॉब्स हैं — पहला: [], [], [], सैलरी []. दूसरा: [], [], [], सैलरी []. तीसरा: [], [], [], सैलरी []. कोई सवाल है? या किसी एक के बारे में और जानना चाहेंगे": 1,
+  "आपके लिए जॉब्स हैं — पहला: [], [], [], सैलरी []. दूसरा: [], [], [], सैलरी []. किसी एक के बारे में और जानना चाहेंगे": 1,
+  "आपके लिए यह जॉब है — [], [], [], सैलरी []. इसके बारे में और बात करें": 1,
+  "कुछ और": 1,
+  "ये दूर हैं": 1,
+  "ये नहीं": 1,
+  "[], [] में, [] — सैलरी [], [] पोज़िशन हैं। क्वालिफिकेशन: []। इस जॉब के बारे में कुछ पूछना है": 1,
+  "ठीक है। अप्लाई करने पर आपकी personal details company के साथ share होंगी। इस जॉब के लिए अप्लाई कर दूँ": 1,
+  "कुछ नहीं": 1,
+  "कोई सवाल नहीं": 1,
+  "नहीं करना": 1,
+  "अप्लाई मत करो": 1,
+  "अभी नहीं": 1,
+  "बाद में": 1,
+  "आपकी उम्र कितनी है — लगभग बताइए": 1,
+  "आपने [] साल कहा, सही": 1,
+  "इस तरह के काम का अनुभव है, या नई शुरुआत": 1,
+  "आपका घर [] में है — सही": 1,
+  "ठीक है, कोई बात नहीं। अभी इस जॉब में अप्लाई आगे नहीं बढ़ा पाऊँगी": 1,
+  "कोई बात नहीं": 1,
+  "हाँ अप्लाई कर दो": 3,
+  "अप्लाई करने के लिए बस आपका नाम बता दीजिए": 1,
+  "इस तरह के काम का अनुभव है, या नई शुरुआत है": 1,
+  "अप्लाई करने के लिए आपकी जानकारी सेव करनी होगी और कंपनी के साथ शेयर करनी होगी — क्या इसके लिए आपकी सहमति है": 1,
+  "आपकी जानकारी": 1,
+  "कोई बात नहीं, समझ गई। आपकी सहमति के बिना अप्लाई नहीं कर सकते। समय देने के लिए धन्यवाद। Goodbye": 1,
+  "ठीक है। एक और option है — …": 1,
+  "और कौन सी जॉब है": 1,
+  "और कोई जॉब है क्या": 1,
+  "और ऑप्शंस हैं क्या": 1,
+  "हमारे पास जो जॉब्स थीं, वो मैंने बता दीं": 1,
+  "सारी जॉब्स बता दीजिए": 1,
+  "और क्या-क्या है": 1,
+  "ಎಲ್ಲಾ ಹೇಳಿ": 1,
+  "ಇರೋ ಜಾಬ್‌ಗಳನ್ನ ಹೇಳಿ": 1,
+  "जो भी जॉब्स हैं वो बता दीजिए": 1,
+  "और कौन सी जॉब्स हैं": 1,
+  "ಬೇರೆ ಏನಿದೆ": 1,
+  "ग्लोबल केमिकल्स": 1,
+  "मुराद नगर": 1,
+  "मुराद नगर, गाज़ियाबाद": 1,
+  "घर से काम": 1,
+  "सेक्टर बासठ": 1,
+  "दो से तीन": 1,
+  "३५० से ४००": 1,
+  "तीन सौ पचास से चार सौ": 1,
+  "₹१३,०००–₹१७,०००": 1,
+  "तेरह हज़ार से सत्रह हज़ार": 1,
+  "₹५००/day": 1,
+  "पाँच सौ रुपये दिन का": 2,
+  "२९/०१/२०२६": 1,
+  "उनतीस जनवरी दो हज़ार छब्बीस": 1,
+  "३ PM": 1,
+  "दोपहर तीन बजे": 1,
+  "एक एक शून्य शून्य चार पाँच": 1,
+  "एक लाख दस हज़ार पैंतालीस": 1,
+  "नौ, आठ, सात, छह, पाँच, चार, तीन, दो, एक, शून्य": 1,
+  "ए डॉट बी ऐट जीमेल डॉट कॉम": 1,
+  "पी एम के वी वाय": 1,
+  "एन सी वी टी": 1,
+  "जी एस टी": 1,
+  "स्लैश": 1,
+  "सेल्स या मार्केटिंग": 1,
+  "कस्टमर सपोर्ट/बीपीओ": 1,
+  "कस्टमर सपोर्ट या बीपीओ": 1,
+  "बैक ऑफिस एग्जीक्यूटिव या असिस्टेंट": 1,
+  "किसी एक के बारे में और जानना चाहेंगे": 2,
+  "पहला": 1,
+  "फेज़ टू": 1,
+  "एक वन": 1,
+  "थ्री": 2,
+  "पाँच": 1,
+  "फाइव": 1,
+  "सिक्स": 1,
+  "सेवन": 1,
+  "नाइन": 1,
+  "पहला वाला": 1,
+  "दूसरा": 1,
+  "दूसरा वाला": 1,
+  "तीसरा": 1,
+  "तीसरा वाला": 2,
+  "हज़ार": 1,
+  "आपने इलेक्ट्रीशियन का काम कहा, सही है": 1,
+  "आप दो साल का experience बोल रहे हैं, सही समझी": 1,
+  "आप तीसरे option की बात कर रहे हैं, सही है": 1,
+  "आपने पुणे कहा, सही समझी": 1,
+  "तीसरा option, सही है": 1,
+  "मुझे यह थोड़ा unclear लगा। आप तीसरे option की बात कर रहे हैं, या कुछ और": 1,
+  "आप अपना काम बता रहे हैं, या किसी option की बात कर रहे हैं": 1,
+  "सिंगर": 1,
+  "आपने 'सिंगर' कहा, सही समझी": 1,
+  "इस वक्त": 1,
+  "लगभग": 1,
+  "आमतौर पर": 1,
+  "बेस्ट ऑपर्च्युनिटी": 1,
+  "गारंटीड जॉब": 1,
+  "हाई पेइंग": 1,
+  "लाइफ चेंजिंग": 1,
+  "डोंट वरी": 2,
+  "सब ठीक हो जाएगा": 2,
+  "आपको करना चाहिए": 1,
+  "सौ प्रतिशत": 1,
+  "पक्का मिलेगा": 1,
+  "यह miss मत कीजिए": 1,
+  "इसमें सैलरी थोड़ी कम है, लेकिन घर के पास है": 1,
+  "यह थोड़ा दूर है, पर पोज़िशन ज़्यादा हैं": 1,
+  "क्या मैं आपकी तरफ़ से अप्लाई कर दूँ": 1,
+  "अप्लाई करना चाहते हैं": 1,
+  "अभी decide कीजिए": 1,
+  "यह मौका चला जाएगा": 1,
+  "जानकारी": 1,
+  "क्या आपकी कुछ बेसिक जानकारी देख सकती हूँ": 1,
+  "अप्लाई हो गया है। आपकी जानकारी पूरी रखने के लिए दो छोटी बातें पूछ लूँ": 1,
+  "मेरे पास अभी आपकी प्रोफाइल की जानकारी नहीं है": 1,
+  "क्या मैं आपकी प्रोफाइल fetch कर सकती हूँ": 1,
+  "मैं आपकी प्रोफाइल देख रही हूँ": 1,
+  "प्रोफाइल तैयार कर रही हूँ": 1,
+  "प्रोफाइल बना रही हूँ": 1,
+  "मैं आपकी प्रोफाइल नहीं पा रही हूँ": 1,
+  "प्रोफाइल नहीं मिली": 1,
+  "आपकी जानकारी नहीं मिली": 1,
+  "आपकी प्रोफाइल देख रही हूँ": 2,
+  "बताइए, आप किस तरह का काम ढूंढ रहे हैं, और किस शहर या इलाके में": 1,
+  "मैं देख रही हूँ": 1,
+  "थोड़ी देर": 1,
+  "आपकी जानकारी बना रही हूँ": 1,
+  "पार्थ": 1,
+  "ಪಾರ್ಥ": 1,
+  "कोरमंगला": 1,
+  "ಕೋರಮಂಗಲ": 1,
+  "इस जॉब के लिए आपकी एप्लीकेशन पहले से लगी हुई है — दोबारा अप्लाई करने की ज़रूरत नहीं। क्या मैं आपको दूसरी जॉब्स बताऊँ": 3,
+  "अप्लाई करने पर आपकी personal details company के साथ share होंगी। इस जॉब के लिए अप्लाई कर दूँ": 1,
+  "पहले वाले में अप्लाई कर दीजिए": 1,
+  "अप्लाई": 1,
+  "ठीक है, आपकी तरफ़ से अप्लाई कर देती हूँ": 1,
+  "अब मैं अप्लाई कर रही हूँ": 1,
+  "आपका आवेदन जमा कर रही हूँ / भेज रही हूँ / process कर रही हूँ": 1,
+  "अप्लाई हो गया है": 1,
+  "एक सेकंड": 2,
+  "ठीक है, नोट कर लिया": 1,
+  "मैंने उम्र अपडेट कर दी है": 1,
+  "नोट कर लिया": 1,
+  "सेव कर दिया": 1,
+  "अप्लाई हो गया है। आमतौर पर अगर shortlist होता है तो employer की तरफ़ से call या message आता है। Exact timing अलग हो सकती है": 1,
+  "बहुत बढ़िया, हमारी टीम…": 1,
+  "अप्लाई पूरा नहीं हो पाया": 2,
+  "बहुत बढ़िया, हमारी टीम आपसे एक-दो दिन में संपर्क करेगी": 1,
+  "जॉब मिलने के चांस और बढ़ाने के लिए हमारे पास कुछ सर्विस प्रोवाइडर हैं जो आपकी मदद कर सकते हैं। क्या आप इंटरेस्टेड हैं": 3,
+  "कोई और जॉब देखनी है": 1,
+  "पक्का call आएगा": 2,
+  "selection हो जाएगा": 1,
+  "अप्लाई हो गया है। आपकी जानकारी पूरी करने के लिए कुछ छोटी बातें पूछ लूँ": 1,
+  "आप male हैं या female": 1,
+  "मैं पुरुष हूँ": 1,
+  "आदमी हूँ": 1,
+  "मैं महिला हूँ": 1,
+  "लड़की हूँ": 1,
+  "आपकी सबसे ऊँची पढ़ाई या ट्रेनिंग क्या है — स्कूल, कॉलेज, आई.टी.आई, डिप्लोमा, कोई सर्टिफिकेट, या कुछ और": 1,
+  "दसवीं पास या बारहवीं": 1,
+  "कौन सी डिग्री — बी.टेक, बी.कॉम, बी.ए., बी.बी.ए, या कोई और": 1,
+  "कौन से ट्रेड में": 1,
+  "किस आई.टी.आई या कॉलेज से": 1,
+  "कौन सा डिप्लोमा — मैकेनिकल, इलेक्ट्रिकल, इलेक्ट्रॉनिक्स, सिविल, कंप्यूटर साइंस, ऑटोमोबाइल, या कोई और": 1,
+  "किस कॉलेज से": 1,
+  "किस चीज़ का? थोड़ा बता दीजिए": 1,
+  "किस चीज़ की ट्रेनिंग": 1,
+  "आपके पास कितने साल का काम का experience है": 1,
+  "आपका पिछला या अभी का काम क्या रहा है": 1,
+  "काम पाने में आपको किसी और चीज़ की ज़रूरत है — जैसे ट्रेनिंग, रहने की जगह, या आने-जाने में मदद": 1,
+  "आप किस इलाके में रहते हैं — एरिया या मोहल्ले का नाम बता देंगे": 1,
+  "एक बार confirm कर लूँ — आपका नाम [], उम्र [], [], काम [], पढ़ाई [], एरिया [] — सब सही": 1,
+  "सब सही": 1,
+  "कुछ और पूछना है": 3,
+  "क्या आप कोई और जॉब देखना चाहेंगे": 1,
+  "इस नौकरी के लिए अप्लाई अभी आगे नहीं बढ़ा है, technical issue है। हमने आपकी रुचि नोट कर ली है। क्या मैं आपको दूसरी जॉब्स बताऊँ": 1,
+  "क्या मैं आपको दूसरी जॉब्स बताऊँ": 3,
+  "मैं अप्लाई कर देती हूँ": 1,
+  "हो सकता है आपकी एप्लीकेशन पहले से लगी हो": 1,
+  "ठीक है। एक और option है — [], [], []। इसमें अप्लाई करने की कोशिश करूँ": 2,
+  "आपकी दिलचस्पी हमने note कर ली है। जैसे ही यह apply-issue ठीक होता है, हम आपको इसी नंबर पर वापस call करेंगे": 1,
+  "एक घंटे में": 1,
+  "वापस call करेंगे": 1,
+  "माफ़ी": 1,
+  "आप बाद में call कीजिए": 1,
+  "आज यह अप्लाई पूरा नहीं हो पा रहा — हम इसे देखकर आपको वापस बताएँगे": 1,
+  "मैंने report कर दिया है": 1,
+  "पिछली बार आपने [] के लिए apply किया था — उसका कुछ update आया": 1,
+  "कोई बात नहीं, सोचिए": 1,
+  "मैं थोड़ा और साफ़ करके बताऊँ": 1,
+  "समझ में आता है": 1,
+  "हाँ, यह निराश करने वाला लग सकता है": 1,
+  "यह आसान नहीं रहा होगा": 1,
+  "आप strong हैं": 1,
+  "घबराइए मत": 1,
+  "Positive सोचिए": 1,
+  "ठीक है। मैं यह बात आपके बेटे के हिसाब से समझ रही हूँ": 1,
+  "Options ठीक लग रहे हैं, फिर भी decision रुक रहा है — क्या कोई बाहरी वजह है": 1,
+  "बिल्कुल। अब हमारी तरफ़ से call नहीं आएगा": 1,
+  "यह सुनकर बुरा लगा। क्या difference था, थोड़ा बताइए": 1,
+  "जी, मैं एक AI असिस्टेंट हूँ — आपकी मदद के लिए": 1,
+  "कृपया प्रतीक्षा करें": 1,
+  "ज़रा इंतज़ार करें": 1,
+  "मैं समझती हूँ, डिसाइड करना मुश्किल हो सकता है। मेरा सुझाव है कि हम आपको एक सर्विस प्रोवाइडर से जोड़ दें, जो आपके करियर के फैसले में मदद कर सके। क्या मैं आगे भेज दूँ": 1,
+  "भेज दीजिए": 1,
+  "बिल्कुल": 1,
+  "बहुत बढ़िया, हमारी टीम आपसे एक-दो दिन में संपर्क करेगी। []": 1,
+  "आपकी दिलचस्पी हमने note कर ली है। जैसे ही इसमें कुछ आगे बढ़ता है, हम आपको इसी नंबर पर बता देंगे": 1,
+  "नहीं चाहिए": 1,
+  "ज़रूरत नहीं": 1,
+  "कोई बात नहीं, धन्यवाद": 1,
+  "देखते हैं": 1,
+  "ठीक है, हमारी टीम आपसे संपर्क कर लेगी": 1,
+  "क्या आपको सर्टिफिकेट चाहिए": 1,
+  "क्या आप कुछ नया सीखना चाहते हैं": 1,
+  "यह एक फ्री सर्विस है — उनकी टीम आपसे बात करके समझती है कि कौन सा काम आपके लिए सही रहेगा, और ज़रूरत हो तो ट्रेनिंग और कोर्स के ज़रिए नई स्किल भी सिखाती है। इसके लिए कोई पैसा नहीं लगता": 1,
+  "मैं समझती हूँ, डिसाइड करना मुश्किल हो सकता है": 1,
+  "ठीक है। आज हमने [] की जॉब्स देखीं। ज़रूरत होने पर हमारी टीम आपसे फिर संपर्क करेगी। Goodbye": 1,
+  "नासिक रोड स्टेशन": 1,
+  "सुरेश": 1,
+  "वेल्डर": 1
+ },
+ "input_variables": [
+  "college_name",
+  "contact_memory",
+  "contact_name",
+  "contact_phone",
+  "country_code",
+  "location",
+  "recommendations"
+ ],
+ "tools": [
+  "apply_job",
+  "create_profile",
+  "get_jobs",
+  "get_profile",
+  "update_profile"
+ ],
+ "identifiers": {
+  "location": 32,
+  "profile_id": 32,
+  "job_id": 19,
+  "metadata": 1,
+  "whoIAm": 1,
+  "whatIHave": 1,
+  "role": 21,
+  "af627b9d": 1,
+  "a52f384c": 3,
+  "c260fb90": 2,
+  "hold_message": 6,
+  "item_type": 1,
+  "item_domain": 1,
+  "seeker": 2,
+  "SOURCE_ITEM_NOT_FOUND": 1,
+  "live": 20,
+  "draft": 34,
+  "last_conversation_summary": 1,
+  "overall_conversation_summary": 1,
+  "jobs_applied": 6,
+  "last_options_presented": 1,
+  "last_action": 1,
+  "session_count": 1,
+  "items": 8,
+  "location_capture_outcome": 1,
+  "Confirmed": 1,
+  "Stated": 1,
+  "Ghaziabad": 3,
+  "Hubli": 1,
+  "a899617e": 3,
+  "e67ab9cd": 1,
+  "ef055109": 1,
+  "preferred_location": 3,
+  "nearest_landmark": 9,
+  "home_location": 1,
+  "item_locations": 1,
+  "c472f2c8": 2,
+  "salary": 1,
+  "company": 1,
+  "age": 4,
+  "workExperience": 7,
+  "nameOfJobRolesInterestedIn": 2,
+  "item_state": 9,
+  "name": 3,
+  "ready_for_interview": 2,
+  "user_consent": 3,
+  "dcf73898": 1,
+  "acting_as_user_id": 10,
+  "PROFILE_NOT_LIVE": 3,
+  "consent_status": 1,
+  "e40850b5": 1,
+  "Sarjapur": 1,
+  "b6353cfb": 1,
+  "phone_number": 1,
+  "lifecycle_status": 6,
+  "phone": 3,
+  "gender": 4,
+  "agentId": 1,
+  "INVALID_ITEM_STATE": 1,
+  "natureOfJobsInterestedIn": 1,
+  "duplicate_check": 2,
+  "af52d37c": 1,
+  "febe0441": 1,
+  "a111ed52": 3,
+  "service_provider_pitched": 4,
+  "educationCategory": 4,
+  "otherHelpNeeded": 4,
+  "Male": 1,
+  "Female": 1,
+  "Other": 5,
+  "School": 2,
+  "College": 2,
+  "Certification": 2,
+  "schoolQualification": 1,
+  "schoolQualificationOther": 1,
+  "collegeQualification": 1,
+  "collegeQualificationOther": 1,
+  "itiTrade": 1,
+  "itiTradeOther": 1,
+  "itiInstitute": 3,
+  "polytechnicDiploma": 1,
+  "polytechnicDiplomaOther": 1,
+  "certificationDetails": 1,
+  "vocationalTrainingOther": 1,
+  "workExperienceYearsConditional": 1,
+  "nameOfLastRoleHeld": 1,
+  "Training": 1,
+  "Accommodation": 1,
+  "Travel": 1,
+  "None": 1,
+  "ACTION_LIMIT_REACHED": 4,
+  "c5a10922": 1,
+  "service_provider_interest": 4,
+  "dde929a9": 1,
+  "a5a68701": 1,
+  "e654b215": 1
+ },
+ "sections": [
+  [
+   1,
+   "Introduction"
+  ],
+  [
+   1,
+   "Core Role"
+  ],
+  [
+   1,
+   "Input Variables"
+  ],
+  [
+   2,
+   "Contact Variables"
+  ],
+  [
+   2,
+   "Job Recommendations Variable"
+  ],
+  [
+   1,
+   "Never Speak Tool Payloads Aloud (Critical — No Exceptions)"
+  ],
+  [
+   1,
+   "Hallucination Guard (Critical — No Exceptions)"
+  ],
+  [
+   2,
+   "Default Presentation Rule"
+  ],
+  [
+   2,
+   "Variable Presence Rules"
+  ],
+  [
+   1,
+   "No-Match Fallback"
+  ],
+  [
+   3,
+   "Preference capture on a mismatch (location, or kind of work)"
+  ],
+  [
+   1,
+   "User Universe"
+  ],
+  [
+   1,
+   "Conversation Principle"
+  ],
+  [
+   1,
+   "Call Introduction Rules (Mandatory — said once at the beginning)"
+  ],
+  [
+   2,
+   "Turn 1 — Audio check (the FIRST thing you say on every call)"
+  ],
+  [
+   2,
+   "Opening Rule (fixed — one neutral greeting, then fetch)"
+  ],
+  [
+   3,
+   "Contact context"
+  ],
+  [
+   2,
+   "Introduction Script (Turn 2 — said only once, right after the caller confirms they can hear you)"
+  ],
+  [
+   2,
+   "Which get_profile item is the caller's profile"
+  ],
+  [
+   2,
+   "Profile Handling after introduction (get_profile-driven — always fetch SILENTLY, branch on the result)"
+  ],
+  [
+   3,
+   "Fetch the profile SILENTLY (EVERY call — MANDATORY, before any job talk)"
+  ],
+  [
+   3,
+   "If get_profile returned a usable profile (returning caller)"
+  ],
+  [
+   3,
+   "If get_profile returned nothing / empty (new caller)"
+  ],
+  [
+   1,
+   "Job Presentation Flow"
+  ],
+  [
+   2,
+   "Pre-check (Before anything else)"
+  ],
+  [
+   2,
+   "Step 1 — Lead-in and orient (one turn), then present jobs"
+  ],
+  [
+   3,
+   "Case A — you already know the target role (confirmed from the profile on \"no\", or stated on \"yes\")"
+  ],
+  [
+   3,
+   "Case B — you do NOT know the target role yet (fresher, caller unsure, or the profile had no role)"
+  ],
+  [
+   3,
+   "Location step — confirm the location, enrich it ONCE, then present"
+  ],
+  [
+   4,
+   "Turn A — CONFIRM the location (every call, its own turn, then WAIT)"
+  ],
+  [
+   4,
+   "Turn B — ONE finer-detail question, the FIRST time only"
+  ],
+  [
+   4,
+   "Hard rules for the whole location step"
+  ],
+  [
+   3,
+   "Location fillers — clauses on existing turns, never their own turns"
+  ],
+  [
+   2,
+   "Step 2 — Present available jobs"
+  ],
+  [
+   3,
+   "Job list discipline — never state a count, never renumber"
+  ],
+  [
+   3,
+   "Spoken format (mandatory):"
+  ],
+  [
+   3,
+   "Rules:"
+  ],
+  [
+   3,
+   "A location or job-type complaint ends a SET, not the call"
+  ],
+  [
+   3,
+   "If the location was never captured — present the jobs anyway"
+  ],
+  [
+   2,
+   "Step 3 — Deep dive (only after user selects one job)"
+  ],
+  [
+   3,
+   "Spoken format:"
+  ],
+  [
+   3,
+   "Rules:"
+  ],
+  [
+   2,
+   "Step 3.5 — Phase 1: Minimum Required Fields (validate + fill before apply)"
+  ],
+  [
+   2,
+   "Consent gate (new-caller path — required before `create_profile`)"
+  ],
+  [
+   2,
+   "Step 4 — Application"
+  ],
+  [
+   1,
+   "No-Match Fallback"
+  ],
+  [
+   3,
+   "Preference capture on a mismatch (location, or kind of work)"
+  ],
+  [
+   1,
+   "Language and Script Rules (Very Important for TTS)"
+  ],
+  [
+   2,
+   "Language"
+  ],
+  [
+   2,
+   "Script Output Rule"
+  ],
+  [
+   2,
+   "English-origin words are allowed only in Devanagari transliteration"
+  ],
+  [
+   2,
+   "Named entities"
+  ],
+  [
+   2,
+   "Canonical Location Spellings"
+  ],
+  [
+   1,
+   "TTS Normalization Rules"
+  ],
+  [
+   2,
+   "Numbers"
+  ],
+  [
+   2,
+   "Money ranges"
+  ],
+  [
+   2,
+   "Dates"
+  ],
+  [
+   2,
+   "Time"
+  ],
+  [
+   2,
+   "Phone number"
+  ],
+  [
+   2,
+   "PIN / postal codes — digit by digit, NEVER as a quantity"
+  ],
+  [
+   2,
+   "Email"
+  ],
+  [
+   2,
+   "Abbreviations"
+  ],
+  [
+   2,
+   "Slash ( / ) symbol"
+  ],
+  [
+   1,
+   "Speech Recognition, Numbers, and Phonetic Confirmation"
+  ],
+  [
+   2,
+   "Core Rule"
+  ],
+  [
+   2,
+   "Use Conversation Context First"
+  ],
+  [
+   2,
+   "Number Normalization"
+  ],
+  [
+   2,
+   "Confirmation Rule for Phonetically Similar Answers"
+  ],
+  [
+   2,
+   "Do Not Confirm Unnecessarily"
+  ],
+  [
+   2,
+   "Ambiguity Handling"
+  ],
+  [
+   2,
+   "Role and Location Safety"
+  ],
+  [
+   2,
+   "State Safety Check"
+  ],
+  [
+   1,
+   "Style Rules"
+  ],
+  [
+   2,
+   "Speak like this"
+  ],
+  [
+   2,
+   "Use these markers naturally"
+  ],
+  [
+   2,
+   "Never sound like this"
+  ],
+  [
+   1,
+   "Prohibited Language (Strict)"
+  ],
+  [
+   1,
+   "Conversation State Model"
+  ],
+  [
+   2,
+   "State 1 — Fog"
+  ],
+  [
+   2,
+   "State 2 — Orientation"
+  ],
+  [
+   2,
+   "State 3 — Evaluation"
+  ],
+  [
+   2,
+   "State 4 — Commitment"
+  ],
+  [
+   2,
+   "State 5 — Follow-through"
+  ],
+  [
+   1,
+   "What You Must Always Preserve"
+  ],
+  [
+   2,
+   "Truth over persuasion"
+  ],
+  [
+   2,
+   "Clarity over completeness"
+  ],
+  [
+   2,
+   "Agency over pressure"
+  ],
+  [
+   2,
+   "Dignity over conversion"
+  ],
+  [
+   2,
+   "Trade-off over simplification"
+  ],
+  [
+   1,
+   "Trade-off Rule"
+  ],
+  [
+   1,
+   "Action and Consent Rule (Mandatory)"
+  ],
+  [
+   2,
+   "Profile Wording Rules (CRITICAL — never speak \"profile\" aloud)"
+  ],
+  [
+   3,
+   "Spoken lines to use"
+  ],
+  [
+   3,
+   "Hard bans (do NOT say any of these)"
+  ],
+  [
+   3,
+   "On empty fetch / failed lookup"
+  ],
+  [
+   3,
+   "Tool-call silence rule"
+  ],
+  [
+   1,
+   "get_profile Tool Call Rules"
+  ],
+  [
+   2,
+   "Reading the get_profile response"
+  ],
+  [
+   1,
+   "create_profile Tool Call Rules"
+  ],
+  [
+   2,
+   "Use create_profile when:"
+  ],
+  [
+   2,
+   "Payload"
+  ],
+  [
+   3,
+   "Reading the create_profile response"
+  ],
+  [
+   1,
+   "apply_job Tool Call Rules"
+  ],
+  [
+   2,
+   "job_id Rules"
+  ],
+  [
+   2,
+   "Payload construction"
+  ],
+  [
+   2,
+   "Already applied — check BEFORE you call the tool"
+  ],
+  [
+   2,
+   "Data-sharing line — MANDATORY immediately before every `apply_job`"
+  ],
+  [
+   2,
+   "Conversational bridge before apply"
+  ],
+  [
+   1,
+   "update_profile Tool Call Rules"
+  ],
+  [
+   2,
+   "When to call — persist each field as it is gathered, in EITHER phase"
+  ],
+  [
+   2,
+   "profile_id"
+  ],
+  [
+   2,
+   "Payload"
+  ],
+  [
+   2,
+   "Hold message — say \"noting it down\" only ONCE"
+  ],
+  [
+   1,
+   "Apply Success Handling"
+  ],
+  [
+   1,
+   "Post-Application Info Gathering (only after a successful apply)"
+  ],
+  [
+   2,
+   "What to ask (Phase 2 — only the MISSING additional fields)"
+  ],
+  [
+   2,
+   "Rules"
+  ],
+  [
+   1,
+   "Apply Failure Handling"
+  ],
+  [
+   2,
+   "A parenthetical is never speech, and describing a tool call is not calling it"
+  ],
+  [
+   2,
+   "Next-step rules (pick exactly one path)"
+  ],
+  [
+   2,
+   "Hard bans on failure turn"
+  ],
+  [
+   2,
+   "Post-failure logging"
+  ],
+  [
+   1,
+   "Post-Application State Handling"
+  ],
+  [
+   1,
+   "Silence Handling"
+  ],
+  [
+   1,
+   "Emotional Handling"
+  ],
+  [
+   2,
+   "Allowed"
+  ],
+  [
+   2,
+   "Not allowed"
+  ],
+  [
+   1,
+   "Special Journey Patterns"
+  ],
+  [
+   2,
+   "Proxy caller"
+  ],
+  [
+   2,
+   "Repeated indecision"
+  ],
+  [
+   2,
+   "Do-not-call request"
+  ],
+  [
+   2,
+   "Complaint or mismatch"
+  ],
+  [
+   2,
+   "Are you a real person / AI?"
+  ],
+  [
+   1,
+   "Tool Call General Instructions"
+  ],
+  [
+   1,
+   "Need Capture (ONE offer, immediately before Graceful Exit)"
+  ],
+  [
+   2,
+   "When to fire"
+  ],
+  [
+   2,
+   "Choose ONE path"
+  ],
+  [
+   2,
+   "Reading the answer"
+  ],
+  [
+   2,
+   "Rules"
+  ],
+  [
+   1,
+   "Graceful Exit"
+  ],
+  [
+   1,
+   "Dignity Safety Check (Run Before Every Response)"
+  ],
+  [
+   1,
+   "Sample Conversational Patterns (Reference Only)"
+  ],
+  [
+   2,
+   "Example 1 — New caller (no live profile): silent fetch (empty) → gather → consent → create → apply"
+  ],
+  [
+   2,
+   "Example 2 — Returning caller, LIVE profile: silent fetch → apply directly (no consent, no create)"
+  ],
+  [
+   2,
+   "Example 3 — User dissatisfied with first three, fallback jobs used"
+  ],
+  [
+   2,
+   "Example 4 — Proxy caller"
+  ],
+  [
+   2,
+   "Example 5 — Emotionally distressed user, no pressure applied, post-apply info gathered"
+  ],
+  [
+   2,
+   "Example 6 — Do-not-call request"
+  ]
+ ]
+}

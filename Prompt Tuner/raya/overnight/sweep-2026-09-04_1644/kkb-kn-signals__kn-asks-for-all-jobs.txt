@@ -1,0 +1,17 @@
+[kkb-kn-signals-kn-asks-for-all-jobs] POST /api/call -> 200 {"message": "Call initiated successfully", "uuid": "88590e46-d8b0-4a10-86b5-906dfc6335bd"}
+[kkb-kn-signals-kn-asks-for-all-jobs] poll 0: outcome='Failure' dur=0 turns=0
+[kkb-kn-signals-kn-asks-for-all-jobs] connect attempt 1 did not bridge (outcome=Failure); letting the tester line settle for 90s
+[kkb-kn-signals-kn-asks-for-all-jobs] POST /api/call -> 200 {"message": "Call initiated successfully", "uuid": "c1fac8bd-0494-4162-9678-03a7270811b8"}
+[kkb-kn-signals-kn-asks-for-all-jobs] poll 0: outcome='Pending' dur=0 turns=0
+[kkb-kn-signals-kn-asks-for-all-jobs] poll 1: outcome='Failure' dur=0 turns=0
+[kkb-kn-signals-kn-asks-for-all-jobs] connect attempt 2 did not bridge (outcome=Failure); letting the tester line settle for 90s
+[kkb-kn-signals-kn-asks-for-all-jobs] POST /api/call -> 200 {"message": "Call initiated successfully", "uuid": "92fa9e2b-5594-4035-b26e-63bc54267837"}
+[kkb-kn-signals-kn-asks-for-all-jobs] poll 0: outcome='Pending' dur=0 turns=0
+[kkb-kn-signals-kn-asks-for-all-jobs] poll 1: outcome='Failure' dur=0 turns=0
+[kkb-kn-signals-kn-asks-for-all-jobs] connect attempt 3 did not bridge (outcome=Failure); letting the tester line settle for 90s
+[kkb-kn-signals-kn-asks-for-all-jobs] POST /api/call -> 200 {"message": "Call initiated successfully", "uuid": "1a5fe0d1-9863-4958-887e-81e306c78541"}
+[kkb-kn-signals-kn-asks-for-all-jobs] poll 0: outcome='Pending' dur=0 turns=0
+[kkb-kn-signals-kn-asks-for-all-jobs] poll 1: outcome='Failure' dur=0 turns=0
+[kkb-kn-signals-kn-asks-for-all-jobs] connect attempt 4 did not bridge (outcome=Failure); letting the tester line settle for 90s
+
+[kkb-kn-signals-kn-asks-for-all-jobs] NEVER BRIDGED after 4 attempts (flaky telephony).

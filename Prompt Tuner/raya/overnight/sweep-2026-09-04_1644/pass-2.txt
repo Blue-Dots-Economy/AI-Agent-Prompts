@@ -1,0 +1,411 @@
+
+==== static_regression (rc=0)
+Static regression: 20 prompts | 0 critical, 0 major, 1 minor
+
+==== fix_presence (rc=0)
+fix-presence check | 16 fixes
+  OK   memory-injection             12 bot(s)  
+  OK   no-jobrec-alias              12 bot(s)  
+  OK   apply-bridge-dropped         12 bot(s)  
+  OK   row1-evidence-gate           12 bot(s)  
+  OK   failure-offers-another-job   6 bot(s)  
+  OK   no-spoken-job-count          12 bot(s)  
+  OK   inbound-confirm-first        6 bot(s)  
+  OK   inbound-caseB-location       6 bot(s)  
+  OK   no-postal-address-aloud      6 bot(s)  
+  OK   maya-confirm-in-closed-set   4 bot(s)  
+  OK   dkb-not-government           2 bot(s)  
+  OK   dkb-expiry-needs-a-role      2 bot(s)  
+  OK   trrain-names-the-partner     2 bot(s)  
+  OK   maya-college-two-openers     2 bot(s)  
+  OK   token-counts-as-empty        8 bot(s)  
+  OK   no-item-state-in-dhiway      6 bot(s)  
+
+FIX PRESENCE CLEAN — every shipped fix present on every bot that needs it
+
+==== toolschema_parity (rc=0)
+  fetch failed: maya-hi-in-signals     HTTP Error 429: Too Many Requests
+
+=== DKB / legacy — 2 bots
+  create_job         on 2/2 bots
+  get_talent_insights on 2/2 bots
+  update_job_details on 2/2 bots
+  update_job_status  on 2/2 bots
+
+=== DKB / signals — 2 bots
+  create_job         on 2/2 bots
+  update_job         on 2/2 bots
+
+=== KKB / legacy — 4 bots
+  apply_job          on 4/4 bots
+  create_profile     on 4/4 bots
+  get_profile        on 4/4 bots
+
+=== KKB / signals — 4 bots
+  apply_job          on 4/4 bots
+  create_profile     on 4/4 bots
+  get_profile        on 4/4 bots
+  update_profile     on 4/4 bots
+
+=== Maya / legacy — 2 bots
+  apply_job          on 2/2 bots
+  create_profile     on 2/2 bots
+  get_profile        on 2/2 bots
+
+=== Maya / signals — 1 bots
+  apply_job          on 1/1 bots
+  create_profile     on 1/1 bots
+  get_profile        on 1/1 bots
+  update_profile     on 1/1 bots
+
+=== TRRAIN / signals — 2 bots
+  get_profile        on 2/2 bots
+
+SCHEMA PARITY CLEAN
+
+==== dkb_employer_integrity (rc=0)
+dkb employer-integrity check | since 2026-09-04T15:52:18 | 5 calls
+  G CLAIMED TO BE GOVERNMENT       2026-09-04T18:41:04 dkb-hi-out       4b2d7dca-3f3e-4776-9f76-0681aa3ff5a0
+        DKB is the city administration's initiative, never a government programme
+
+==== inbound_location_consent (rc=1)
+inbound location+consent check | since 2026-09-04T15:52:18 | 15 calls
+  L OPEN ASK ON KNOWN PROFILE LOCATION     2026-09-04T17:38:30 kkb-hi-in-signals    f56ecb1a-aada-44a9-a867-88ea8c3bd915
+        profile carried 'Sahibabad, Ghaziabad, India' and the bot asked the open area question anyway
+  L OPEN ASK ON KNOWN PROFILE LOCATION     2026-09-04T17:57:31 kkb-kn-in-signals    c9535580-76b6-47bd-8395-2add6b27eb61
+        profile carried 'Koramangala, Bengaluru, Karnataka, India' and the bot asked the open area question anyway
+  L OPEN ASK ON KNOWN PROFILE LOCATION     2026-09-04T20:12:56 maya-hi-in-signals   e6da3e32-2bed-440b-a60d-e7f152ae7cc3
+        profile carried 'Sahibabad, Ghaziabad, India' and the bot asked the open area question anyway
+  L OPEN ASK ON KNOWN PROFILE LOCATION     2026-09-04T16:54:57 maya-hi-in-signals   ed9435d5-c493-4c26-9a2a-551eb36b34fb
+        profile carried 'Sahibabad, Ghaziabad, India' and the bot asked the open area question anyway
+  L OPEN ASK ON KNOWN PROFILE LOCATION     2026-09-04T16:43:35 maya-hi-in-signals   9221f843-97f9-493b-8a24-11542c858206
+        profile carried 'Sahibabad, Ghaziabad, India' and the bot asked the open area question anyway
+  M JOBS IN ANOTHER CITY, MISMATCH NOT NAMED 2026-09-04T17:42:27 kkb-hi-in-signals    1c3b4fe7-05e2-4f78-8eb3-ba62a30875f1
+        profile 'Sahibabad, Ghaziabad, India' (गाज़ियाबाद/साहिबाबाद), jobs read aloud in ['बेंगलुरु'], no mismatch spoken
+  M JOBS IN ANOTHER CITY, MISMATCH NOT NAMED 2026-09-04T17:57:31 kkb-kn-in-signals    c9535580-76b6-47bd-8395-2add6b27eb61
+        profile 'Koramangala, Bengaluru, Karnataka, India' (कोरमंगला/बेंगलुरु), jobs read aloud in ['ಬೆಂಗಳೂರು'], no mismatch spoken
+
+==== nojobs_integrity (rc=1)
+no-jobs integrity check | since 2026-09-04T15:52:18 | 33 calls | fetch errors: 0
+  NO JOBS CLAIMED WITH JOBS SUPPLIED     2026-09-04T15:56:38 kkb-hi-signals       8d3453b1
+        22 job(s) were in `recommendations` and NOT ONE was presented before the bot said it could not find any
+  NO JOBS CLAIMED WITH JOBS SUPPLIED     2026-09-04T17:23:31 kkb-hi-signals       f8ab149e
+        8 job(s) were in `recommendations` and NOT ONE was presented before the bot said it could not find any
+  NO JOBS CLAIMED WITH JOBS SUPPLIED     2026-09-04T20:08:48 maya-hi-signals      58f0445c
+        12 job(s) were in `recommendations` and NOT ONE was presented before the bot said it could not find any
+  NO-JOBS LINE AFTER PRESENTING (info)   2026-09-04T15:53:15 kkb-hi-signals       6e45947a
+        1 job(s) supplied, jobs were presented, then the missing-job-data line — legitimate exhausted-list/wrong-role case
+
+==== jobs_presented (rc=0)
+jobs-presented check | since 2026-09-04T15:52:18 | 41 calls
+fetch errors: 0
+
+  ASKED FOR MORE, NOT ALL SHOWN (info) 2026-09-04T17:26:44  kkb-kn-signals     cf664904-7a27-45ae-bc72-f2076cb87737
+        supplied=12 presented=6 asked_for_more=True — caller asked to hear more; 6 of 12 distinct job(s) were presented (12 array entries)
+  ASKED FOR MORE, NOT ALL SHOWN (info) 2026-09-04T16:03:35  kkb-kn-signals     e853e2c0-f468-4052-8ffe-a033e8623312
+        supplied=12 presented=1 asked_for_more=True — caller asked to hear more; 1 of 12 distinct job(s) were presented (12 array entries)
+  REPEAT NOT SEPARABLE FROM PAYLOAD (info) 2026-09-04T17:05:09  kkb-hi-signals     4982c225-390e-4731-9c66-15fa14417db8
+        supplied=22 presented=18 asked_for_more=True — ordinals reached 22 for 18 distinct spoken jobs, but the payload itself holds the same role+company more than once (22 entries, 18 distinct), so a repeat cannot be told from a faithful array walk; repeated: क्रू मेंबर - मैकडॉनल्ड्स,  मैकडॉनल्ड्स
+  ASKED FOR MORE, NOT ALL SHOWN (info) 2026-09-04T15:56:38  kkb-hi-signals     8d3453b1-aae2-4aaf-aa85-71cdb6e44f95
+        supplied=22 presented=0 asked_for_more=True — caller asked to hear more; 0 of 18 distinct job(s) were presented (22 array entries)
+  ASKED FOR MORE, NOT ALL SHOWN (info) 2026-09-04T16:45:26  maya-hi-signals    d57b9ff6-e37c-4ff6-8953-0544210db22f
+        supplied=12 presented=3 asked_for_more=True — caller asked to hear more; 3 of 12 distinct job(s) were presented (12 array entries)
+  ASKED FOR MORE, NOT ALL SHOWN (info) 2026-09-04T16:38:10  maya-hi-signals    772e87db-e40c-4623-9b7e-4094ef567d8c
+        supplied=12 presented=3 asked_for_more=True — caller asked to hear more; 3 of 12 distinct job(s) were presented (12 array entries)
+
+==== consent_before_apply (rc=1)
+consent-before-apply check | since 2026-09-04T15:52:18 | 42 calls
+fetch errors: 0
+
+  NO CONSENT BEFORE APPLY    2026-09-04T16:22:30  kkb-kn-in-signals    34a460f0-b3fb-4df3-9a51-ec6784d4ff86
+        apply_job was called and the data-sharing line was never spoken on this call
+  NO CONSENT BEFORE APPLY    2026-09-04T16:45:26  maya-hi-signals      d57b9ff6-e37c-4ff6-8953-0544210db22f
+        apply_job was called and the data-sharing line was never spoken on this call
+  NO CONSENT BEFORE APPLY    2026-09-04T16:38:10  maya-hi-signals      772e87db-e40c-4623-9b7e-4094ef567d8c
+        apply_job was called and the data-sharing line was never spoken on this call
+
+==== location_chain (rc=1)
+location chain check | since 2026-09-04T15:52:18 | 42 calls
+fetch errors: 0
+
+  C1 CONFIRM MISSING     2026-09-04T18:18:17  kkb-hi-out         8e2021e3-5985-4ed7-91d3-d6635b86751e  location='Ghaziabad' landmark-absent
+        location 'Ghaziabad' has jobs but was never read back for confirmation
+  C1 CONFIRM MISSING     2026-09-04T18:23:59  kkb-kn-out         1b7fb500-a953-4389-bd6d-ea325aac8603  location='Hubballi' landmark-absent
+        location 'Hubballi' has jobs but was never read back for confirmation
+  C1 CONFIRM MISSING     2026-09-04T17:26:44  kkb-kn-signals     cf664904-7a27-45ae-bc72-f2076cb87737  location='Hubballi' landmark-absent
+        location 'Hubballi' has jobs but was never read back for confirmation
+  C1 CONFIRM MISSING     2026-09-04T16:11:20  kkb-kn-signals     b9629043-c316-455f-a527-65588f14d81e  location='Hubli' landmark-absent
+        location 'Hubli' has jobs but was never read back for confirmation
+  C1 CONFIRM MISSING     2026-09-04T16:03:35  kkb-kn-signals     e853e2c0-f468-4052-8ffe-a033e8623312  location='Hubballi' landmark-absent
+        location 'Hubballi' has jobs but was never read back for confirmation
+  C1 CONFIRM MISSING     2026-09-04T17:23:31  kkb-hi-signals     f8ab149e-5145-47b7-8d72-14ac6f0d51a6  location='Ghaziabad' landmark-absent
+        location 'Ghaziabad' has jobs but was never read back for confirmation
+  C3 TURN B MISSING      2026-09-04T17:19:38  kkb-hi-signals     8b0e6866-dfec-4d89-8910-73dde6cd2c98  location='Ghaziabad' landmark-absent
+        the args carried a contact_memory with no nearest_landmark and the finer-detail question was never asked
+  C1 CONFIRM MISSING     2026-09-04T17:05:09  kkb-hi-signals     4982c225-390e-4731-9c66-15fa14417db8  location='Ghaziabad' landmark-absent
+        location 'Ghaziabad' has jobs but was never read back for confirmation
+  C1 CONFIRM MISSING     2026-09-04T15:56:38  kkb-hi-signals     8d3453b1-aae2-4aaf-aa85-71cdb6e44f95  location='Ghaziabad' landmark-absent
+        location 'Ghaziabad' has jobs but was never read back for confirmation
+  C1 CONFIRM MISSING     2026-09-04T17:14:59  maya-hi-out        78ef362f-9da0-4795-a977-5eca424e2ecb  location='Ghaziabad' landmark-absent
+        location 'Ghaziabad' has jobs but was never read back for confirmation
+  C1 CONFIRM MISSING     2026-09-04T20:08:48  maya-hi-signals    58f0445c-9974-4361-8d68-37abdeea53e1  location='Ghaziabad' landmark-absent
+        location 'Ghaziabad' has jobs but was never read back for confirmation
+  C2 OPEN ASK INSTEAD    2026-09-04T20:08:48  maya-hi-signals    58f0445c-9974-4361-8d68-37abdeea53e1  location='Ghaziabad' landmark-absent
+        asked openly which area, on a call that supplied a location
+  C1 CONFIRM MISSING     2026-09-04T20:05:32  maya-hi-signals    f330d05a-0572-4008-8998-bbca64c77bb0  location='Ghaziabad' landmark-absent
+        location 'Ghaziabad' has jobs but was never read back for confirmation
+  C1 CONFIRM MISSING     2026-09-04T16:50:51  maya-hi-signals    24293fbe-5b8f-4e86-8681-a2f3dc9c8a4d  location='Ghaziabad' landmark-absent
+        location 'Ghaziabad' has jobs but was never read back for confirmation
+  C2 OPEN ASK INSTEAD    2026-09-04T16:50:51  maya-hi-signals    24293fbe-5b8f-4e86-8681-a2f3dc9c8a4d  location='Ghaziabad' landmark-absent
+        asked openly which area, on a call that supplied a location
+  C1 CONFIRM MISSING     2026-09-04T16:45:26  maya-hi-signals    d57b9ff6-e37c-4ff6-8953-0544210db22f  location='Ghaziabad' landmark-absent
+        location 'Ghaziabad' has jobs but was never read back for confirmation
+  C2 OPEN ASK INSTEAD    2026-09-04T16:45:26  maya-hi-signals    d57b9ff6-e37c-4ff6-8953-0544210db22f  location='Ghaziabad' landmark-absent
+        asked openly which area, on a call that supplied a location
+  C1 CONFIRM MISSING     2026-09-04T16:38:10  maya-hi-signals    772e87db-e40c-4623-9b7e-4094ef567d8c  location='Ghaziabad' landmark-absent
+        location 'Ghaziabad' has jobs but was never read back for confirmation
+  C1 CONFIRM MISSING     2026-09-04T16:32:47  maya-hi-signals    718aa8ab-2c64-40b8-8328-2e9af3978d66  location='Ghaziabad' landmark-absent
+        location 'Ghaziabad' has jobs but was never read back for confirmation
+  C2 OPEN ASK INSTEAD    2026-09-04T16:32:47  maya-hi-signals    718aa8ab-2c64-40b8-8328-2e9af3978d66  location='Ghaziabad' landmark-absent
+        asked openly which area, on a call that supplied a location
+
+==== location_reconfirm (rc=1)
+location reconfirm check | since 2026-09-04T15:52:18 | 42 calls
+fetch errors: 0
+
+  CAMPAIGN SIGNAL: 1 call(s) were dialled for a place holding no job (Hubballi) — targeting, not the bot
+
+  C MISMATCH NOT NAMED       2026-09-04T16:07:44  kkb-kn-signals       0e204ad1-5b79-4a21-9d4c-c16314ba8004  location='Hubballi' had_jobs=No
+        input 'Hubballi' holds no job and the bot never told the caller
+  A OPEN ASK ON KNOWN LOC    2026-09-04T20:08:48  maya-hi-signals      58f0445c-9974-4361-8d68-37abdeea53e1  location='Ghaziabad' had_jobs=Yes
+        input 'Ghaziabad' has jobs, but the bot asked openly instead of reconfirming
+  A OPEN ASK ON KNOWN LOC    2026-09-04T16:50:51  maya-hi-signals      24293fbe-5b8f-4e86-8681-a2f3dc9c8a4d  location='Ghaziabad' had_jobs=Yes
+        input 'Ghaziabad' has jobs, but the bot asked openly instead of reconfirming
+  A OPEN ASK ON KNOWN LOC    2026-09-04T16:45:26  maya-hi-signals      d57b9ff6-e37c-4ff6-8953-0544210db22f  location='Ghaziabad' had_jobs=Yes
+        input 'Ghaziabad' has jobs, but the bot asked openly instead of reconfirming
+  A OPEN ASK ON KNOWN LOC    2026-09-04T16:32:47  maya-hi-signals      718aa8ab-2c64-40b8-8328-2e9af3978d66  location='Ghaziabad' had_jobs=Yes
+        input 'Ghaziabad' has jobs, but the bot asked openly instead of reconfirming
+
+==== apply_result_integrity (rc=1)
+apply-result integrity check | since 2026-09-04T15:52:18 | 42 calls
+fetch errors: 0
+
+  Z SUCCESS WITH NO SUCCESS RESULT 2026-09-04T18:23:59  kkb-kn-out           1b7fb500-a953-4389-bd6d-ea325aac8603
+        spoke the apply-success line with no successful apply_job result in the transcript
+  Z SUCCESS WITH NO SUCCESS RESULT 2026-09-04T18:27:40  kkb-hi-in            35de19e7-275e-4d89-af55-212642060ca5
+        spoke the apply-success line with no successful apply_job result in the transcript
+  W? MEMORY-COVERAGE GAP (info)    2026-09-04T17:26:44  kkb-kn-signals       cf664904-7a27-45ae-bc72-f2076cb87737
+        job 19e3da1f-fdaf-4b3c-a415-22e73248fae6 was already applied in the backend but is NOT in this call's contact_memory.jobs_applied, so the bot could not have known. Not a prompt bug — the fix is either richer memory or the platform surfacing the error body
+  W? MEMORY-COVERAGE GAP (info)    2026-09-04T17:26:44  kkb-kn-signals       cf664904-7a27-45ae-bc72-f2076cb87737
+        job fb160251-bd34-455f-a204-9afbc22be91d was already applied in the backend but is NOT in this call's contact_memory.jobs_applied, so the bot could not have known. Not a prompt bug — the fix is either richer memory or the platform surfacing the error body
+  W? MEMORY-COVERAGE GAP (info)    2026-09-04T17:19:38  kkb-hi-signals       8b0e6866-dfec-4d89-8910-73dde6cd2c98
+        job 66da6404-1ab0-4da1-a6e1-23dd2f842da0 was already applied in the backend but is NOT in this call's contact_memory.jobs_applied, so the bot could not have known. Not a prompt bug — the fix is either richer memory or the platform surfacing the error body
+  W? MEMORY-COVERAGE GAP (info)    2026-09-04T17:19:38  kkb-hi-signals       8b0e6866-dfec-4d89-8910-73dde6cd2c98
+        job 66da6404-1ab0-4da1-a6e1-23dd2f842da0 was already applied in the backend but is NOT in this call's contact_memory.jobs_applied, so the bot could not have known. Not a prompt bug — the fix is either richer memory or the platform surfacing the error body
+  W? MEMORY-COVERAGE GAP (info)    2026-09-04T15:59:44  kkb-hi-signals       a0999f10-5228-43f6-aa8a-18e506a1b5e2
+        job d55db597-2f72-4d44-b347-5d60270b7dd2 was already applied in the backend but is NOT in this call's contact_memory.jobs_applied, so the bot could not have known. Not a prompt bug — the fix is either richer memory or the platform surfacing the error body
+  W? MEMORY-COVERAGE GAP (info)    2026-09-04T15:59:44  kkb-hi-signals       a0999f10-5228-43f6-aa8a-18e506a1b5e2
+        job 41ed5fd5-fc28-43d1-9ba9-314f235e8f07 was already applied in the backend but is NOT in this call's contact_memory.jobs_applied, so the bot could not have known. Not a prompt bug — the fix is either richer memory or the platform surfacing the error body
+  W? MEMORY-COVERAGE GAP (info)    2026-09-04T15:53:15  kkb-hi-signals       6e45947a-2c2d-41c3-81b5-549ebe99748f
+        job 66da6404-1ab0-4da1-a6e1-23dd2f842da0 was already applied in the backend but is NOT in this call's contact_memory.jobs_applied, so the bot could not have known. Not a prompt bug — the fix is either richer memory or the platform surfacing the error body
+  Z SUCCESS WITH NO SUCCESS RESULT 2026-09-04T17:14:59  maya-hi-out          78ef362f-9da0-4795-a977-5eca424e2ecb
+        spoke the apply-success line with no successful apply_job result in the transcript
+  W? MEMORY-COVERAGE GAP (info)    2026-09-04T17:42:27  kkb-hi-in-signals    1c3b4fe7-05e2-4f78-8eb3-ba62a30875f1
+        job d55db597-2f72-4d44-b347-5d60270b7dd2 was already applied in the backend but is NOT in this call's contact_memory.jobs_applied, so the bot could not have known. Not a prompt bug — the fix is either richer memory or the platform surfacing the error body
+  W? MEMORY-COVERAGE GAP (info)    2026-09-04T17:42:27  kkb-hi-in-signals    1c3b4fe7-05e2-4f78-8eb3-ba62a30875f1
+        job 41ed5fd5-fc28-43d1-9ba9-314f235e8f07 was already applied in the backend but is NOT in this call's contact_memory.jobs_applied, so the bot could not have known. Not a prompt bug — the fix is either richer memory or the platform surfacing the error body
+  W? MEMORY-COVERAGE GAP (info)    2026-09-04T17:38:30  kkb-hi-in-signals    f56ecb1a-aada-44a9-a867-88ea8c3bd915
+        job 9766a30e-e4b9-4b28-a943-394972f1a985 was already applied in the backend but is NOT in this call's contact_memory.jobs_applied, so the bot could not have known. Not a prompt bug — the fix is either richer memory or the platform surfacing the error body
+  W? MEMORY-COVERAGE GAP (info)    2026-09-04T17:38:30  kkb-hi-in-signals    f56ecb1a-aada-44a9-a867-88ea8c3bd915
+        job d55db597-2f72-4d44-b347-5d60270b7dd2 was already applied in the backend but is NOT in this call's contact_memory.jobs_applied, so the bot could not have known. Not a prompt bug — the fix is either richer memory or the platform surfacing the error body
+  W? MEMORY-COVERAGE GAP (info)    2026-09-04T17:38:30  kkb-hi-in-signals    f56ecb1a-aada-44a9-a867-88ea8c3bd915
+        job 41ed5fd5-fc28-43d1-9ba9-314f235e8f07 was already applied in the backend but is NOT in this call's contact_memory.jobs_applied, so the bot could not have known. Not a prompt bug — the fix is either richer memory or the platform surfacing the error body
+  W? MEMORY-COVERAGE GAP (info)    2026-09-04T16:17:31  kkb-hi-in-signals    84724178-9bb1-4f7f-aae4-76e5a530d379
+        job d55db597-2f72-4d44-b347-5d60270b7dd2 was already applied in the backend but is NOT in this call's contact_memory.jobs_applied, so the bot could not have known. Not a prompt bug — the fix is either richer memory or the platform surfacing the error body
+  W? MEMORY-COVERAGE GAP (info)    2026-09-04T16:17:31  kkb-hi-in-signals    84724178-9bb1-4f7f-aae4-76e5a530d379
+        job 9766a30e-e4b9-4b28-a943-394972f1a985 was already applied in the backend but is NOT in this call's contact_memory.jobs_applied, so the bot could not have known. Not a prompt bug — the fix is either richer memory or the platform surfacing the error body
+  W? MEMORY-COVERAGE GAP (info)    2026-09-04T16:17:31  kkb-hi-in-signals    84724178-9bb1-4f7f-aae4-76e5a530d379
+        job 41ed5fd5-fc28-43d1-9ba9-314f235e8f07 was already applied in the backend but is NOT in this call's contact_memory.jobs_applied, so the bot could not have known. Not a prompt bug — the fix is either richer memory or the platform surfacing the error body
+  W? MEMORY-COVERAGE GAP (info)    2026-09-04T16:13:24  kkb-hi-in-signals    72112c10-d11c-4e2f-bb26-b5ec1513b768
+        job 9766a30e-e4b9-4b28-a943-394972f1a985 was already applied in the backend but is NOT in this call's contact_memory.jobs_applied, so the bot could not have known. Not a prompt bug — the fix is either richer memory or the platform surfacing the error body
+  W? MEMORY-COVERAGE GAP (info)    2026-09-04T16:13:24  kkb-hi-in-signals    72112c10-d11c-4e2f-bb26-b5ec1513b768
+        job 41ed5fd5-fc28-43d1-9ba9-314f235e8f07 was already applied in the backend but is NOT in this call's contact_memory.jobs_applied, so the bot could not have known. Not a prompt bug — the fix is either richer memory or the platform surfacing the error body
+  W? MEMORY-COVERAGE GAP (info)    2026-09-04T16:13:24  kkb-hi-in-signals    72112c10-d11c-4e2f-bb26-b5ec1513b768
+        job d55db597-2f72-4d44-b347-5d60270b7dd2 was already applied in the backend but is NOT in this call's contact_memory.jobs_applied, so the bot could not have known. Not a prompt bug — the fix is either richer memory or the platform surfacing the error body
+  W? MEMORY-COVERAGE GAP (info)    2026-09-04T16:13:24  kkb-hi-in-signals    72112c10-d11c-4e2f-bb26-b5ec1513b768
+        job d479bfbc-308d-4655-8ba1-19d94f3b37d0 was already applied in the backend but is NOT in this call's contact_memory.jobs_applied, so the bot could not have known. Not a prompt bug — the fix is either richer memory or the platform surfacing the error body
+  V UNEVIDENCED ALREADY-APPLIED    2026-09-04T16:13:24  kkb-hi-in-signals    72112c10-d11c-4e2f-bb26-b5ec1513b768
+        spoke the already-applied line, but no apply_job ran twice for the same job in this call and contact_memory.jobs_applied names none of the jobs attempted — the evidence gate allows neither, so the cause was guessed off an unreadable 422
+  W? MEMORY-COVERAGE GAP (info)    2026-09-04T17:57:31  kkb-kn-in-signals    c9535580-76b6-47bd-8395-2add6b27eb61
+        job 7bbe791c-d850-4864-8e13-0ef8bf356985 was already applied in the backend but is NOT in this call's contact_memory.jobs_applied, so the bot could not have known. Not a prompt bug — the fix is either richer memory or the platform surfacing the error body
+  W? MEMORY-COVERAGE GAP (info)    2026-09-04T17:57:31  kkb-kn-in-signals    c9535580-76b6-47bd-8395-2add6b27eb61
+        job 791b1a7c-c99c-4d69-ba51-65acdbab2643 was already applied in the backend but is NOT in this call's contact_memory.jobs_applied, so the bot could not have known. Not a prompt bug — the fix is either richer memory or the platform surfacing the error body
+  W? MEMORY-COVERAGE GAP (info)    2026-09-04T17:57:31  kkb-kn-in-signals    c9535580-76b6-47bd-8395-2add6b27eb61
+        job 6026213a-b567-4388-ad5e-e19cabaa4dd1 was already applied in the backend but is NOT in this call's contact_memory.jobs_applied, so the bot could not have known. Not a prompt bug — the fix is either richer memory or the platform surfacing the error body
+  W? MEMORY-COVERAGE GAP (info)    2026-09-04T16:22:30  kkb-kn-in-signals    34a460f0-b3fb-4df3-9a51-ec6784d4ff86
+        job 70414b1c-e11c-4d10-91f5-348d0a88476b was already applied in the backend but is NOT in this call's contact_memory.jobs_applied, so the bot could not have known. Not a prompt bug — the fix is either richer memory or the platform surfacing the error body
+  V UNEVIDENCED ALREADY-APPLIED    2026-09-04T16:22:30  kkb-kn-in-signals    34a460f0-b3fb-4df3-9a51-ec6784d4ff86
+        spoke the already-applied line, but no apply_job ran twice for the same job in this call and contact_memory.jobs_applied names none of the jobs attempted — the evidence gate allows neither, so the cause was guessed off an unreadable 422
+  W? MEMORY-COVERAGE GAP (info)    2026-09-04T16:32:47  maya-hi-signals      718aa8ab-2c64-40b8-8328-2e9af3978d66
+        job 9a8687b5-3c93-40e0-9fb6-19256050c978 was already applied in the backend but is NOT in this call's contact_memory.jobs_applied, so the bot could not have known. Not a prompt bug — the fix is either richer memory or the platform surfacing the error body
+  W? MEMORY-COVERAGE GAP (info)    2026-09-04T16:32:47  maya-hi-signals      718aa8ab-2c64-40b8-8328-2e9af3978d66
+        job ce9fbbcb-d52b-418c-b708-86887116c3f3 was already applied in the backend but is NOT in this call's contact_memory.jobs_applied, so the bot could not have known. Not a prompt bug — the fix is either richer memory or the platform surfacing the error body
+  W? MEMORY-COVERAGE GAP (info)    2026-09-04T20:12:56  maya-hi-in-signals   e6da3e32-2bed-440b-a60d-e7f152ae7cc3
+        job d55db597-2f72-4d44-b347-5d60270b7dd2 was already applied in the backend but is NOT in this call's contact_memory.jobs_applied, so the bot could not have known. Not a prompt bug — the fix is either richer memory or the platform surfacing the error body
+  W? MEMORY-COVERAGE GAP (info)    2026-09-04T20:12:56  maya-hi-in-signals   e6da3e32-2bed-440b-a60d-e7f152ae7cc3
+        job 9766a30e-e4b9-4b28-a943-394972f1a985 was already applied in the backend but is NOT in this call's contact_memory.jobs_applied, so the bot could not have known. Not a prompt bug — the fix is either richer memory or the platform surfacing the error body
+  W? MEMORY-COVERAGE GAP (info)    2026-09-04T18:02:11  maya-hi-in-signals   67951fd3-9cfb-47b8-b3fd-4eeb64dd5a05
+        job d55db597-2f72-4d44-b347-5d60270b7dd2 was already applied in the backend but is NOT in this call's contact_memory.jobs_applied, so the bot could not have known. Not a prompt bug — the fix is either richer memory or the platform surfacing the error body
+  V UNEVIDENCED ALREADY-APPLIED    2026-09-04T18:02:11  maya-hi-in-signals   67951fd3-9cfb-47b8-b3fd-4eeb64dd5a05
+        spoke the already-applied line, but no apply_job ran twice for the same job in this call and contact_memory.jobs_applied names none of the jobs attempted — the evidence gate allows neither, so the cause was guessed off an unreadable 422
+  W? MEMORY-COVERAGE GAP (info)    2026-09-04T16:54:57  maya-hi-in-signals   ed9435d5-c493-4c26-9a2a-551eb36b34fb
+        job 9766a30e-e4b9-4b28-a943-394972f1a985 was already applied in the backend but is NOT in this call's contact_memory.jobs_applied, so the bot could not have known. Not a prompt bug — the fix is either richer memory or the platform surfacing the error body
+  W? MEMORY-COVERAGE GAP (info)    2026-09-04T16:43:35  maya-hi-in-signals   9221f843-97f9-493b-8a24-11542c858206
+        job 9766a30e-e4b9-4b28-a943-394972f1a985 was already applied in the backend but is NOT in this call's contact_memory.jobs_applied, so the bot could not have known. Not a prompt bug — the fix is either richer memory or the platform surfacing the error body
+
+==== apply_failure_wording (rc=1)
+apply-failure wording check | since 2026-09-04T15:52:18 | 42 calls
+fetch errors: 0
+
+  DIAGNOSED A CAUSE    2026-09-04T17:26:44  kkb-kn-signals       cf664904-7a27-45ae-bc72-f2076cb87737
+        technical issue
+  ROW 1 MISSED         2026-09-04T17:26:44  kkb-kn-signals       cf664904-7a27-45ae-bc72-f2076cb87737
+        duplicate apply but the already-applied line was not spoken
+  DIAGNOSED A CAUSE    2026-09-04T16:11:20  kkb-kn-signals       b9629043-c316-455f-a527-65588f14d81e
+        technical issue
+  DIAGNOSED A CAUSE    2026-09-04T17:19:38  kkb-hi-signals       8b0e6866-dfec-4d89-8910-73dde6cd2c98
+        technical issue
+  ROW 1 MISSED         2026-09-04T17:19:38  kkb-hi-signals       8b0e6866-dfec-4d89-8910-73dde6cd2c98
+        duplicate apply but the already-applied line was not spoken
+  DIAGNOSED A CAUSE    2026-09-04T15:59:44  kkb-hi-signals       a0999f10-5228-43f6-aa8a-18e506a1b5e2
+        technical issue
+  ROW 1 MISSED         2026-09-04T15:59:44  kkb-hi-signals       a0999f10-5228-43f6-aa8a-18e506a1b5e2
+        duplicate apply but the already-applied line was not spoken
+  DIAGNOSED A CAUSE    2026-09-04T15:53:15  kkb-hi-signals       6e45947a-2c2d-41c3-81b5-549ebe99748f
+        technical issue
+  ROW 1 MISSED         2026-09-04T15:53:15  kkb-hi-signals       6e45947a-2c2d-41c3-81b5-549ebe99748f
+        duplicate apply but the already-applied line was not spoken
+  DIAGNOSED A CAUSE    2026-09-04T17:42:27  kkb-hi-in-signals    1c3b4fe7-05e2-4f78-8eb3-ba62a30875f1
+        technical issue
+  ROW 1 MISSED         2026-09-04T17:42:27  kkb-hi-in-signals    1c3b4fe7-05e2-4f78-8eb3-ba62a30875f1
+        duplicate apply but the already-applied line was not spoken
+  DIAGNOSED A CAUSE    2026-09-04T17:38:30  kkb-hi-in-signals    f56ecb1a-aada-44a9-a867-88ea8c3bd915
+        technical issue
+  ROW 1 MISSED         2026-09-04T17:38:30  kkb-hi-in-signals    f56ecb1a-aada-44a9-a867-88ea8c3bd915
+        duplicate apply but the already-applied line was not spoken
+  DIAGNOSED A CAUSE    2026-09-04T16:17:31  kkb-hi-in-signals    84724178-9bb1-4f7f-aae4-76e5a530d379
+        technical issue
+  ROW 1 MISSED         2026-09-04T16:17:31  kkb-hi-in-signals    84724178-9bb1-4f7f-aae4-76e5a530d379
+        duplicate apply but the already-applied line was not spoken
+  DIAGNOSED A CAUSE    2026-09-04T16:13:24  kkb-hi-in-signals    72112c10-d11c-4e2f-bb26-b5ec1513b768
+        technical issue
+  DIAGNOSED A CAUSE    2026-09-04T17:57:31  kkb-kn-in-signals    c9535580-76b6-47bd-8395-2add6b27eb61
+        technical issue
+  ROW 1 MISSED         2026-09-04T17:57:31  kkb-kn-in-signals    c9535580-76b6-47bd-8395-2add6b27eb61
+        duplicate apply but the already-applied line was not spoken
+  ROW 1 MISSED         2026-09-04T16:22:30  kkb-kn-in-signals    34a460f0-b3fb-4df3-9a51-ec6784d4ff86
+        duplicate apply but the already-applied line was not spoken
+  DIAGNOSED A CAUSE    2026-09-04T16:32:47  maya-hi-signals      718aa8ab-2c64-40b8-8328-2e9af3978d66
+        technical issue
+  ROW 1 MISSED         2026-09-04T16:32:47  maya-hi-signals      718aa8ab-2c64-40b8-8328-2e9af3978d66
+        duplicate apply but the already-applied line was not spoken
+  DIAGNOSED A CAUSE    2026-09-04T20:12:56  maya-hi-in-signals   e6da3e32-2bed-440b-a60d-e7f152ae7cc3
+        technical issue
+  ROW 1 MISSED         2026-09-04T20:12:56  maya-hi-in-signals   e6da3e32-2bed-440b-a60d-e7f152ae7cc3
+        duplicate apply but the already-applied line was not spoken
+  DIAGNOSED A CAUSE    2026-09-04T18:02:11  maya-hi-in-signals   67951fd3-9cfb-47b8-b3fd-4eeb64dd5a05
+        technical issue
+  DIAGNOSED A CAUSE    2026-09-04T16:54:57  maya-hi-in-signals   ed9435d5-c493-4c26-9a2a-551eb36b34fb
+        technical issue
+  ROW 1 MISSED         2026-09-04T16:54:57  maya-hi-in-signals   ed9435d5-c493-4c26-9a2a-551eb36b34fb
+        duplicate apply but the already-applied line was not spoken
+  DIAGNOSED A CAUSE    2026-09-04T16:43:35  maya-hi-in-signals   9221f843-97f9-493b-8a24-11542c858206
+        technical issue
+  ROW 1 MISSED         2026-09-04T16:43:35  maya-hi-in-signals   9221f843-97f9-493b-8a24-11542c858206
+        duplicate apply but the already-applied line was not spoken
+
+==== location_integrity (rc=0)
+location-integrity check | since 2026-09-04T15:52:18 | 42 calls
+fetch errors: 0
+
+profile writes using a JOB's city the caller never said: 0
+  none — no borrowed job cities detected
+
+==== apply_outcomes (rc=1)
+apply-outcome check | since 2026-09-04T15:52:18 | 43 calls to inspect
+fetch errors: 0
+
+-- apply outcomes by bot --
+  kkb-hi-in                succeeded=   1  failed=   0
+  kkb-hi-in-signals        succeeded=   1  failed=  12
+  kkb-hi-signals           succeeded=   0  failed=   4
+  kkb-kn-in-signals        succeeded=   1  failed=   3
+  kkb-kn-out               succeeded=   1  failed=   0
+  kkb-kn-signals           succeeded=   2  failed=   2
+  maya-hi-in-signals       succeeded=   0  failed=   5
+  maya-hi-out              succeeded=   1  failed=   0
+  maya-hi-signals          succeeded=   4  failed=   1
+  TOTAL succeeded=11 failed=27
+
+-- failure reasons --
+    17  ACTION_LIMIT_REACHED
+     4  HTTP 422 — ACTION_LIMIT_REACHED
+     2  ACTION_LIMIT_REACHED: An active request already exists.
+     1  An active request already exists between these two profiles.
+     1  HTTP 422 — USER_NOT_FOUND
+     1  ACTION_LIMIT_REACHED: An active request already exists
+     1  ACTION_LIMIT_REACHED: An active request already exists between these two profiles.
+
+-- D47 duplicate-apply wording --
+  correct (truthful 'already applied' line): 6
+     OK  2026-09-04T16:13:24  kkb-hi-in-signals    72112c10-d11c-4e2f-bb26-b5ec1513b768
+     OK  2026-09-04T16:13:24  kkb-hi-in-signals    72112c10-d11c-4e2f-bb26-b5ec1513b768
+     OK  2026-09-04T16:13:24  kkb-hi-in-signals    72112c10-d11c-4e2f-bb26-b5ec1513b768
+     OK  2026-09-04T16:13:24  kkb-hi-in-signals    72112c10-d11c-4e2f-bb26-b5ec1513b768
+     OK  2026-09-04T16:22:30  kkb-kn-in-signals    34a460f0-b3fb-4df3-9a51-ec6784d4ff86
+     OK  2026-09-04T18:02:11  maya-hi-in-signals   67951fd3-9cfb-47b8-b3fd-4eeb64dd5a05
+  VIOLATIONS (duplicate spoken as a technical fault): 20
+     BAD 2026-09-04T17:26:44  kkb-kn-signals       cf664904-7a27-45ae-bc72-f2076cb87737  [no_truthful_line, -]
+     BAD 2026-09-04T17:19:38  kkb-hi-signals       8b0e6866-dfec-4d89-8910-73dde6cd2c98  [no_truthful_line, -]
+     BAD 2026-09-04T15:59:44  kkb-hi-signals       a0999f10-5228-43f6-aa8a-18e506a1b5e2  [no_truthful_line, -]
+     BAD 2026-09-04T15:59:44  kkb-hi-signals       a0999f10-5228-43f6-aa8a-18e506a1b5e2  [no_truthful_line, -]
+     BAD 2026-09-04T15:53:15  kkb-hi-signals       6e45947a-2c2d-41c3-81b5-549ebe99748f  [no_truthful_line, -]
+     BAD 2026-09-04T17:42:27  kkb-hi-in-signals    1c3b4fe7-05e2-4f78-8eb3-ba62a30875f1  [no_truthful_line, -]
+     BAD 2026-09-04T17:42:27  kkb-hi-in-signals    1c3b4fe7-05e2-4f78-8eb3-ba62a30875f1  [no_truthful_line, -]
+     BAD 2026-09-04T17:38:30  kkb-hi-in-signals    f56ecb1a-aada-44a9-a867-88ea8c3bd915  [no_truthful_line, -]
+     BAD 2026-09-04T17:38:30  kkb-hi-in-signals    f56ecb1a-aada-44a9-a867-88ea8c3bd915  [no_truthful_line, -]
+     BAD 2026-09-04T17:38:30  kkb-hi-in-signals    f56ecb1a-aada-44a9-a867-88ea8c3bd915  [no_truthful_line, -]
+
+==== fab_rate (rc=1)
+Traceback (most recent call last):
+  File "/Users/parthbansal/EkStep/Prompt Tuner/raya/regression/fab_rate.py", line 101, in <module>
+    main()
+  File "/Users/parthbansal/EkStep/Prompt Tuner/raya/regression/fab_rate.py", line 66, in main
+    for r in ex.map(lambda w: grade(*w), work):
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/concurrent/futures/_base.py", line 608, in result_iterator
+    yield fs.pop().result()
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/concurrent/futures/_base.py", line 445, in result
+    return self.__get_result()
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/concurrent/futures/_base.py", line 390, in __get_result
+    raise self._exception
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/concurrent/futures/thread.py", line 52, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "/Users/parthbansal/EkStep/Prompt Tuner/raya/regression/fab_rate.py", line 66, in <lambda>
+    for r in ex.map(lambda w: grade(*w), work):
+  File "/Users/parthbansal/EkStep/Prompt Tuner/raya/regression/fab_rate.py", line 40, in grade
+    d = get("/api/call/" + uuid)
+  File "/Users/parthbansal/EkStep/Prompt Tuner/raya/regression/fab_rate.py", line 35, in get
+    with urllib.request.urlopen(req, timeout=90) as r:
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/urllib/request.py", line 214, in urlopen
+    return opener.open(url, data, timeout)
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/urllib/request.py", line 523, in open
+    response = meth(req, response)
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/urllib/request.py", line 632, in http_response
+    response = self.parent.error(
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/urllib/request.py", line 561, in error
+    return self._call_chain(*args)
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/urllib/request.py", line 494, in _call_chain
+    result = func(*args)
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/urllib/request.py", line 641, in http_error_default
+    raise HTTPError(req.full_url, code, msg, hdrs, fp)
+urllib.error.HTTPError: HTTP Error 429: Too Many Requests

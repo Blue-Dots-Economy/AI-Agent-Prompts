@@ -1,0 +1,3 @@
+#!/bin/sh
+# Block any push that would publish a secret or a new personal phone number (repo is PUBLIC).
+exec python3 "$(git rev-parse --show-toplevel)/scripts/push_guard.py"

@@ -1,0 +1,6 @@
+{
+ "contact_name": "Aryan",
+ "country_code": 91,
+ "location": "Ghaziabad",
+ "recommendations": "[{\"job_id\": \"b5e7d286-7d7c-40d6-a17b-81620ce44861\", \"role\": \"Billing Engineer\", \"company\": \"Kalco alu systems pvt ltd\", \"location\": \"Ghaziabad, Masuri\", \"salary\": \"25000-45000\", \"vacancy\": \"2\", \"qualification\": \"Graduation\"}, {\"job_id\": \"c9b3a17e-cd42-4ede-91b7-59121a31bb30\", \"role\": \"Supervisor\", \"company\": \"Shivalik Prints\", \"location\": \"Ghaziabad\", \"salary\": \"18000-22000\", \"vacancy\": \"2\", \"qualification\": \"Graduation\"}, {\"job_id\": \"e49795fd-02c8-45fb-8c16-5bad4baa94d3\", \"role\": \"Commercial Manager\", \"company\": \"GREY FASHION PRIVATE LIMITED\", \"location\": \"Ghaziabad\", \"salary\": \"20000-25000\", \"vacancy\": \"2\", \"qualification\": \"Graduation\"}]"
+}

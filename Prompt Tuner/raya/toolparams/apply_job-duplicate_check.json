@@ -1,0 +1,9 @@
+{
+  "name": "duplicate_check",
+  "required": true,
+  "schema": {
+    "type": "string",
+    "enum": ["not-applied-before", "caller-asked-again-anyway"],
+    "description": "REQUIRED — you must run this check before every call. Has the caller ALREADY applied to THIS job? Look at two things: (a) has apply_job already run for this same job_id earlier in this call, with either result; and (b) does the caller context's jobs_applied already list this job — the same role at the same company, ignoring a Ltd / Limited / Pvt Ltd suffix and a shortened role name. Send 'not-applied-before' ONLY when you have looked at both and neither is true. If EITHER is true, do NOT call this tool: say the already-applied line from the instructions instead ('इस जॉब के लिए आपकी एप्लीकेशन पहले से लगी हुई है — दोबारा अप्लाई करने की ज़रूरत नहीं।'), because a call on a job whose application already exists can only fail. The one case where you may call it anyway is when you have already told the caller it is applied and they have asked you to try again regardless — then send 'caller-asked-again-anyway' and let the API decide. Never send 'not-applied-before' without actually having looked."
+  }
+}

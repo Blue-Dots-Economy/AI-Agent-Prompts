@@ -1,0 +1,11 @@
+#!/bin/sh
+# Push by default: every commit is pushed to origin in the background, through the pre-push guard.
+# Skip once with:  NO_AUTOPUSH=1 git commit ...
+[ -n "$NO_AUTOPUSH" ] && exit 0
+branch=$(git rev-parse --abbrev-ref HEAD)
+[ "$branch" = "HEAD" ] && exit 0
+log="$(git rev-parse --git-dir)/autopush.log"
+token=$(gh auth token --user parthekstep 2>/dev/null)
+( echo "== $(date '+%F %T') $(git rev-parse --short HEAD) -> origin/$branch"; \
+  GH_TOKEN="$token" git push origin "$branch" 2>&1 ) >> "$log" 2>&1 &
+exit 0

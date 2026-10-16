@@ -1,0 +1,53 @@
+[trrain-kn-out-kn-trrain-accept-then-asks] POST /api/call -> 200 {"message": "Call initiated successfully", "uuid": "d4e42fca-7431-4ff6-be94-f2e83f733d9e"}
+[trrain-kn-out-kn-trrain-accept-then-asks] poll 0: outcome='Pending' dur=0 turns=0
+[trrain-kn-out-kn-trrain-accept-then-asks] poll 1: outcome='Failure' dur=0 turns=0
+[trrain-kn-out-kn-trrain-accept-then-asks] connect attempt 1 did not bridge (outcome=Failure); letting the tester line settle for 90s
+[trrain-kn-out-kn-trrain-accept-then-asks] POST /api/call -> 200 {"message": "Call initiated successfully", "uuid": "2b363e5f-be39-4363-a328-bd667cb25af9"}
+[trrain-kn-out-kn-trrain-accept-then-asks] poll 0: outcome='Failure' dur=0 turns=0
+[trrain-kn-out-kn-trrain-accept-then-asks] connect attempt 2 did not bridge (outcome=Failure); letting the tester line settle for 90s
+[trrain-kn-out-kn-trrain-accept-then-asks] POST /api/call -> 200 {"message": "Call initiated successfully", "uuid": "978e264c-0687-47b4-8905-9bb055c05340"}
+[trrain-kn-out-kn-trrain-accept-then-asks] poll 0: outcome='Pending' dur=0 turns=0
+[trrain-kn-out-kn-trrain-accept-then-asks] poll 1: outcome='Failure' dur=0 turns=0
+[trrain-kn-out-kn-trrain-accept-then-asks] connect attempt 3 did not bridge (outcome=Failure); letting the tester line settle for 90s
+[trrain-kn-out-kn-trrain-accept-then-asks] POST /api/call -> 200 {"message": "Call initiated successfully", "uuid": "37ccdea4-dd71-4d49-83b9-0b301bebe468"}
+[trrain-kn-out-kn-trrain-accept-then-asks] poll 0: outcome='Pending' dur=0 turns=0
+[trrain-kn-out-kn-trrain-accept-then-asks] poll 1: outcome='Pending' dur=0 turns=0
+[trrain-kn-out-kn-trrain-accept-then-asks] poll 2: outcome='Pending' dur=0 turns=0
+[trrain-kn-out-kn-trrain-accept-then-asks] poll 3: outcome='Pending' dur=0 turns=0
+[trrain-kn-out-kn-trrain-accept-then-asks] poll 4: outcome='Pending' dur=0 turns=0
+[trrain-kn-out-kn-trrain-accept-then-asks] poll 5: outcome='Pending' dur=0 turns=0
+[trrain-kn-out-kn-trrain-accept-then-asks] poll 6: outcome='Pending' dur=0 turns=0
+[trrain-kn-out-kn-trrain-accept-then-asks] poll 7: outcome='Completed' dur=75 turns=10
+
+============================================================================
+[trrain-kn-out-kn-trrain-accept-then-asks] BOT 37ccdea4-dd71-4d49-83b9-0b301bebe468 outcome=Completed dur=75
+call_output: null
+
+TRANSCRIPT:
+[user] hello
+[assistant] ಹಲೋ, ನನ್ನ ಧ್ವನಿ ಕೇಳಿಸ್ತಾ ಇದೆಯಾ? 
+[user]  ಹೌದು ಕೇಳಿಸ್ತಾ ಇದೆ.
+[assistant->TOOL] get_profile({"phone_number": "917946350285", "hold_message": "ಒಂದು ನಿಮಿಷ."})
+[tool] {'user_id': 'c3fc8471-b0d2-453b-bf06-77a99c34f562', 'user_consent': {'terms_accepted': True, 'privacy_accepted': True, 'has_age': True}, 'items': [{'item_id': 'ffce36d8-d89b-454c-a78a-830bfd77ff10', 'item_network': 'blue_dot', 'item_domain': 'seeker', 'item_type': 'profile_1.0', 'lifecycle_status': 'live', 'profile_consent_accepted': True, 'item_state': {'age': 26, 'name': 'Partha', 'phone': '917946350285', 'gender': 'Female', 'location': 'Koramangala, Bengaluru, Karnataka, India', 'languageSpoken': ['Kannada'], 'workExperience': 'Worked before', 'otherHelpNeeded': ['Skilling & Vocational Trai
+[assistant] ಒಂದು ನಿಮಿಷ. ನಮಸ್ಕಾರ ಪಾರ್ಥ ಅವರೇ. ನಾನು ನಗರ ಆಡಳಿತದ 'ಕೆಲಸದ ಮಾತು' ಉಪಕ್ರಮದಿಂದ ಮಾತಾಡ್ತಾ ಇದ್ದೇನೆ. ಕೆಲವು ದಿನಗಳ ಹಿಂದೆ ನೀವು ಡೇಟಾ ಎಂಟ್ರಿ ಆಪರೇಟರ್ ಜಾಬ್‌ಗೆ ಅಪ್ಲೈ ಮಾಡಿದ್ರಿ — ನೆನಪಿದೆಯಾ? ಈ ಮಾತುಕತೆ ರೆಕಾರ್ಡ್ ಆಗಬಹುದು. 
+[user]  ಹೌದು ನೆನಪಿದೆ.
+[assistant] ಜಾಬ್ ಸಿಗುವ ಚಾನ್ಸ್ ಇನ್ನೂ ಹೆಚ್ಚಿಸೋಕೆ ಟ್ರೇನ್ ಟ್ರಸ್ಟ್‌ನ ಒಂದು ಫ್ರೀ ಸರ್ವಿಸ್ ಇದೆ — ಇದು ಒಂದು ಪಬ್ಲಿಕ್ ಚ್ಯಾರಿಟಬಲ್ ಟ್ರಸ್ಟ್, ನಿಮ್ಮ ಅಗತ್ಯಕ್ಕೆ ಸರಿಹೊಂದುವ ಕೆಲಸ ಆಯ್ಕೆ ಮಾಡೋಕೆ ಮತ್ತು ಅದಕ್ಕೆ ತಯಾರಾಗೋಕೆ ಸಹಾಯ ಮಾಡುತ್ತೆ. ನೀವು ಇಂಟರೆಸ್ಟೆಡ್ ಇದ್ರೆ, ಅವರ ಟೀಮ್ ಒಂದು-ಎರಡು ದಿನದಲ್ಲಿ ನಿಮಗೆ ಕಾಲ್ ಮಾಡುತ್ತೆ. 
+[user]  ಹೌದು ಆಸಕ್ತಿ ಇದೆ, ಸರಿ. ಇದು ಯಾವುದರ ಬಗ್ಗೆ? ಈ ಸರ್ವಿಸ್ ಏನು?
+[assistant] ತುಂಬಾ ಒಳ್ಳೆದು, ನಮ್ಮ ಟೀಮ್ ಒಂದು-ಎರಡು ದಿನದಲ್ಲಿ ನಿಮಗೆ ಕಾಲ್ ಮಾಡುತ್ತೆ. ಇದು ಟ್ರೇನ್ ಟ್ರಸ್ಟ್‌ನ ಒಂದು ಫ್ರೀ ಸರ್ವಿಸ್ — ಅವರ ಟೀಮ್ ನಿಮ್ಮ ಅಗತ್ಯಕ್ಕೆ ಅನುಸಾರ ಯಾವ ಕೆಲಸ ನಿಮಗೆ ಸರಿ ಹೊಂದುತ್ತೆ ಅಂತ ಅರ್ಥ ಮಾಡ್ಕೊಳ್ಳೋಕೆ ಸಹಾಯ ಮಾಡ್ತಾರೆ, ಆಮೇಲೆ ಟ್ರೇನಿಂಗ್ ಮತ್ತು ಕೋರ್ಸ್ ಮೂಲಕ ಹೊಸ ಸ್ಕಿಲ್ ಕಲಿಸಿ ಆ ಕೆಲಸಕ್ಕೆ ನಿಮ್ಮನ್ನ ತಯಾರು ಮಾಡ್ತಾರೆ. ಇದಕ್ಕೆ ದುಡ್ಡು ಏನೂ ಕೊಡಬೇಕಾಗಿಲ್ಲ.  ಸರಿ, ನಿಮ್ಮ ದಿನ ಚೆನ್ನಾಗಿರಲಿ. Goodbye 
+
+[trrain-kn-out-kn-trrain-accept-then-asks] TESTER leg 730044f9: outcome=Completed dur=76 turns=10 call_output=null
+[trrain-kn-out-kn-trrain-accept-then-asks] POST /api/call -> 200 {"message": "Call initiated successfully", "uuid": "35e501f5-b08b-4514-8da4-dbce46e76889"}
+[trrain-kn-out-kn-trrain-accept-then-asks] poll 0: outcome='Pending' dur=0 turns=0
+[trrain-kn-out-kn-trrain-accept-then-asks] poll 1: outcome='Failure' dur=0 turns=0
+[trrain-kn-out-kn-trrain-accept-then-asks] connect attempt 1 did not bridge (outcome=Failure); letting the tester line settle for 90s
+[trrain-kn-out-kn-trrain-accept-then-asks] POST /api/call -> 200 {"message": "Call initiated successfully", "uuid": "a73e09f9-b82c-4a71-a067-f8042d9b1b5e"}
+[trrain-kn-out-kn-trrain-accept-then-asks] poll 0: outcome='Failure' dur=0 turns=0
+[trrain-kn-out-kn-trrain-accept-then-asks] connect attempt 2 did not bridge (outcome=Failure); letting the tester line settle for 90s
+[trrain-kn-out-kn-trrain-accept-then-asks] POST /api/call -> 200 {"message": "Call initiated successfully", "uuid": "eb1962ae-9cfd-45ee-a879-9d1887fc21dc"}
+[trrain-kn-out-kn-trrain-accept-then-asks] poll 0: outcome='Failure' dur=0 turns=0
+[trrain-kn-out-kn-trrain-accept-then-asks] connect attempt 3 did not bridge (outcome=Failure); letting the tester line settle for 90s
+[trrain-kn-out-kn-trrain-accept-then-asks] POST /api/call -> 200 {"message": "Call initiated successfully", "uuid": "7342ada6-974e-49cb-b0b1-73fd3ff73787"}
+[trrain-kn-out-kn-trrain-accept-then-asks] poll 0: outcome='Failure' dur=0 turns=0
+[trrain-kn-out-kn-trrain-accept-then-asks] connect attempt 4 did not bridge (outcome=Failure); letting the tester line settle for 90s
+
+[trrain-kn-out-kn-trrain-accept-then-asks] NEVER BRIDGED after 4 attempts (flaky telephony).

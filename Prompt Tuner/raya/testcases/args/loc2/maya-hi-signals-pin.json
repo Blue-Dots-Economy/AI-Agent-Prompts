@@ -1,0 +1,45 @@
+{
+ "college_name": "VTU",
+ "contact_name": "परीक्षण",
+ "country_code": 91,
+ "contact_memory": "No Old Memory, Mandatory get_profile for the user",
+ "recommendations": [
+  {
+   "role": "Data Entry Operator",
+   "job_id": "b7513680-6b2f-4223-bba5-893143c949b9",
+   "salary": "12000-16000",
+   "company": "Kashi Infotech",
+   "location": "Bengaluru",
+   "positions": "2",
+   "qualification": "12th pass"
+  },
+  {
+   "role": "Electrician",
+   "job_id": "02c4fd1d-ed44-4a6a-b11b-f636f8c19c31",
+   "salary": "13000-22000",
+   "company": "Bella Rath Park",
+   "location": "Bengaluru",
+   "positions": "2",
+   "qualification": "ITI"
+  },
+  {
+   "role": "Machine Operator",
+   "job_id": "4d52479b-1bc9-42f2-a11f-de40af755546",
+   "salary": "13000-26000",
+   "company": "Procaps",
+   "location": "Bengaluru",
+   "positions": "2",
+   "qualification": "Basic literacy"
+  },
+  {
+   "role": "Customer Service Executive",
+   "job_id": "9a1b2c3d-0000-4000-8000-000000000001",
+   "salary": "15000",
+   "company": "Dafsons Healthcare",
+   "location": "Bengaluru",
+   "positions": "2",
+   "qualification": "Graduate"
+  }
+ ],
+ "location": "Muradnagar, 110045"
+}

@@ -1,0 +1,3 @@
+all-kn-1 USABLE 202s 9 d9bf1f43-5a4b-4d47-8748-272a8b2fcaba
+all-kn-2 USABLE 216s 10 15f6d453-fd0e-44de-9d37-2b9f7a57759e
+all-hi-1 USABLE 184s 11 4b0ea64d-fe03-4128-83e6-3a10c3989370

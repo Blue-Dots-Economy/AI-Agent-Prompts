@@ -1,0 +1,12 @@
+{
+  "name": "maya-inbound-mpl-agegender",
+  "agent": "maya-hi-in",
+  "notes": "Returning caller whose profile carries age+gender (e.g. +91XXXXXX0942). Asserts: MPL offered once; age/gender NOT re-asked; at least one apply succeeds. The age/gender checks assume the caller's profile has those fields — true for the +91 96672 test number; adjust per test caller.",
+  "checks": [
+    {"id": "mpl_offered", "type": "transcript_any", "patterns": ["मार्केटर", "प्रीमियर लीग", "कॉम्पिटिशन"], "expect": true, "bug_pattern": "D10", "desc": "MPL Competition must be offered once per call"},
+    {"id": "age_not_reasked", "type": "transcript_any", "patterns": ["उम्र कितनी"], "expect": false, "bug_pattern": "D9", "desc": "age must NOT be asked (profile carries it)"},
+    {"id": "gender_not_reasked", "type": "transcript_any", "patterns": ["male हैं या female"], "expect": false, "bug_pattern": "D9", "desc": "gender must NOT be asked (profile carries it)"},
+    {"id": "apply_succeeded", "type": "output_ge", "field": "applications_count", "value": 1, "bug_pattern": "backend-apply_failed", "desc": "at least one apply must actually succeed"},
+    {"id": "mpl_registration_info", "type": "output_truthy", "field": "mpl_registration", "expect": true, "severity": "info", "desc": "did MPL registration capture? (info only)"}
+  ]
+}

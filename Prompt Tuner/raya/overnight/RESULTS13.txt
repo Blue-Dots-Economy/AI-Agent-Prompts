@@ -1,0 +1,4 @@
+pos-hi-1 USABLE 220s 13 778cbb8f-74fa-4e4d-bd36-5c0855cc19ef
+pos-hi-2 USABLE 171s 10 57e3716b-300e-4a3d-82fa-473c80b41318
+pos-hi-3 USABLE 226s 13 c86fca56-b2b6-4f52-8eb5-4210b4eeba33
+pos-kn-1 USABLE 212s 12 af228ce3-33c8-4da9-be8b-4e910a7cbb29

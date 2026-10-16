@@ -1,0 +1,584 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Prompt Tuner — the quality rail for voice agents</title>
+<style>
+:root{
+  --ink:#182338; --ink-soft:#39414f; --muted:#6b7280; --paper:#f3f4f1;
+  --surface:#ffffff; --line:#dcddd6; --line-soft:#e8e8e2;
+  --signal:#c2641d; --signal-tint:#f7ece1;
+  --blue:#2f5d92; --blue-tint:#e7eef5;
+  --green:#2c6b4f; --green-tint:#e5efe9;
+  --red:#a2382a; --red-tint:#f8e7e3;
+  --display:'Space Grotesk','Inter',ui-sans-serif,system-ui,'Helvetica Neue',Arial,sans-serif;
+  --body:'Newsreader','Iowan Old Style',Georgia,'Times New Roman',serif;
+  --mono:'JetBrains Mono',ui-monospace,'SFMono-Regular',Menlo,Consolas,monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{background:#22262b;font-family:var(--body);color:var(--ink);overflow:hidden;-webkit-font-smoothing:antialiased}
+
+/* ---------- stage ---------- */
+#viewport{position:fixed;inset:0;overflow:hidden}
+#stage{width:1280px;height:720px;position:absolute;top:50%;left:50%;
+  transform-origin:center center;background:var(--paper);
+  box-shadow:0 18px 60px rgba(0,0,0,.45);overflow:hidden}
+.slide{position:absolute;inset:0;padding:38px 52px 40px;display:none;flex-direction:column;justify-content:center}
+.slide.on{display:flex}
+
+/* ---------- chrome ---------- */
+#hud{position:fixed;bottom:14px;right:18px;z-index:60;font-family:var(--display);font-size:12px;
+  letter-spacing:.08em;color:#c9cdd3;display:flex;align-items:center;gap:14px;
+  background:rgba(0,0,0,.42);padding:7px 13px;border-radius:20px;backdrop-filter:blur(6px)}
+#hud b{color:#fff;font-weight:600}
+#hud .hint{color:#8f959d;text-transform:uppercase;font-size:10px;letter-spacing:.12em}
+#bar{position:fixed;top:0;left:0;height:3px;background:var(--signal);z-index:61;transition:width .22s ease}
+#tocbtn{cursor:pointer;color:#c9cdd3;border:1px solid #555b63;border-radius:12px;padding:2px 9px;font-size:10px;
+  letter-spacing:.1em;text-transform:uppercase}
+#tocbtn:hover{color:#fff;border-color:#9aa1a9}
+#toc{position:fixed;inset:0;z-index:70;background:rgba(24,35,56,.96);display:none;padding:46px 60px;overflow:auto}
+#toc.on{display:block}
+#toc h4{font-family:var(--display);color:var(--signal);font-size:12px;letter-spacing:.18em;
+  text-transform:uppercase;margin-bottom:22px;font-weight:600}
+#toc ol{columns:2;column-gap:54px;list-style:none;counter-reset:t}
+#toc li{counter-increment:t;font-family:var(--display);font-size:14.5px;color:#c9cdd3;padding:7px 0;
+  cursor:pointer;border-bottom:1px solid rgba(255,255,255,.07);break-inside:avoid}
+#toc li:before{content:counter(t);color:var(--signal);font-size:11px;margin-right:12px;
+  display:inline-block;min-width:20px}
+#toc li:hover{color:#fff}
+
+/* ---------- typography ---------- */
+.eyebrow{font-family:var(--display);font-size:10.5px;font-weight:600;letter-spacing:.19em;
+  text-transform:uppercase;color:var(--signal);margin-bottom:10px;display:flex;align-items:center;gap:11px}
+.eyebrow .n{border:1px solid var(--signal);border-radius:4px;padding:2px 7px;letter-spacing:.06em}
+h1{font-family:var(--display);font-size:52px;line-height:1.04;font-weight:600;letter-spacing:-.02em}
+h2{font-family:var(--display);font-size:29px;line-height:1.1;font-weight:600;letter-spacing:-.014em;margin-bottom:5px}
+h3{font-family:var(--display);font-size:14px;font-weight:600;letter-spacing:-.002em;margin-bottom:6px}
+.sub{font-size:16px;color:var(--ink-soft);font-style:italic;line-height:1.4;margin-bottom:14px;max-width:1010px}
+p{font-size:15.5px;line-height:1.5;color:var(--ink-soft)}
+b,strong{font-weight:600;color:var(--ink)}
+/* bold must stay legible on every dark surface — inheriting --ink would make it invisible */
+.dark b,.dark strong,.lead-in b,.lead-in strong,.title-slide b,.title-slide strong,
+.node.inkfill b,.node.inkfill strong,#toc b{color:#fff}
+.k{font-family:var(--display);font-weight:600;color:var(--signal)}
+code,.mono{font-family:var(--mono);font-size:.84em;background:#eceee9;border-radius:3px;padding:1px 5px;color:var(--ink)}
+.body-sm{font-size:14px;line-height:1.48}
+.tiny{font-size:11.5px;line-height:1.45;color:var(--muted)}
+.center{text-align:center}
+
+/* ---------- layout helpers ---------- */
+.grow{flex:1;min-height:0}
+.row{display:flex;gap:16px}
+.col{flex:1;min-width:0}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px}
+.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.g5{display:grid;grid-template-columns:repeat(5,1fr);gap:11px}
+.mt{margin-top:12px}.mt-s{margin-top:7px}.mt-l{margin-top:18px}
+
+/* ---------- cards ---------- */
+.card{background:var(--surface);border:1px solid var(--line);border-radius:9px;padding:13px 15px}
+.card.tint{background:#fbfbf9}
+.card.dash{border-style:dashed;background:#fbfbf9}
+.card h3{color:var(--ink)}
+.card p{font-size:13.5px;line-height:1.45}
+.dark{background:var(--ink);color:#e9ecf1;border-radius:9px;padding:14px 17px}
+.dark h3{color:#fff}
+.dark p{color:#c4cbd6;font-size:14px}
+.dark .k{color:#e8a463}
+.lead-in{background:var(--ink);color:#eef0f4;border-radius:9px;padding:13px 17px;font-size:15px;line-height:1.42}
+.lead-in b{color:#fff}
+.lead-in .k{color:#e8a463}
+
+/* ---------- badges ---------- */
+.badge{font-family:var(--display);font-size:9px;font-weight:600;letter-spacing:.11em;text-transform:uppercase;
+  padding:3px 7px;border-radius:3px;white-space:nowrap;display:inline-block;vertical-align:middle}
+.b-ship{background:var(--green-tint);color:var(--green);border:1px solid #b9d2c5}
+.b-prog{background:var(--signal-tint);color:var(--signal);border:1px solid #e2c3a4}
+.b-plan{background:transparent;color:var(--muted);border:1px dashed #b8bcc2}
+.legend{display:flex;gap:16px;align-items:center;font-family:var(--display);font-size:10.5px;color:var(--muted);
+  letter-spacing:.04em}
+.legend span{display:flex;align-items:center;gap:6px}
+
+/* ---------- metrics ---------- */
+.metric{background:var(--surface);border:1px solid var(--line);border-radius:9px;padding:11px 13px}
+.metric .v{font-family:var(--display);font-size:29px;font-weight:600;line-height:1;color:var(--ink);letter-spacing:-.02em}
+.metric .v.sig{color:var(--signal)}
+.metric .v.bl{color:var(--blue)}
+.metric .v.gr{color:var(--green)}
+.metric .l{font-family:var(--display);font-size:10px;letter-spacing:.09em;text-transform:uppercase;
+  color:var(--muted);margin-top:7px;line-height:1.35}
+.metric .src{font-size:10px;color:#9aa0a8;margin-top:5px;font-family:var(--mono)}
+
+/* ---------- tables ---------- */
+table{width:100%;border-collapse:collapse;background:var(--surface);border:1px solid var(--line);
+  border-radius:8px;overflow:hidden;font-family:var(--display);font-size:12.5px}
+thead th{background:var(--ink);color:#fff;text-align:left;font-size:9.5px;font-weight:600;
+  letter-spacing:.1em;text-transform:uppercase;padding:8px 11px}
+td{padding:8px 11px;border-top:1px solid var(--line-soft);vertical-align:top;line-height:1.4;color:var(--ink-soft)}
+td b{color:var(--ink)}
+tbody tr:nth-child(even) td{background:#fcfcfa}
+table.tight td,table.tight th{padding:5px 8px;font-size:11.5px}
+table.xtight td,table.xtight th{padding:4px 7px;font-size:11px;line-height:1.32}
+#skillgrid .card{padding:9px 11px}
+#skillgrid h3{font-size:13px;margin-bottom:4px}
+#skillgrid .card p{font-size:12.2px;line-height:1.37}
+
+/* ---------- lists ---------- */
+ul.ticks{list-style:none}
+ul.ticks li{font-size:13px;line-height:1.4;color:var(--ink-soft);padding-left:16px;position:relative;margin-bottom:5px}
+ul.ticks li:before{content:'';position:absolute;left:0;top:7px;width:6px;height:6px;border-radius:50%;
+  background:var(--signal)}
+ul.ticks li b{color:var(--ink)}
+ul.arrows li:before{content:'\2192';font-family:var(--display);background:none;width:auto;height:auto;
+  color:var(--signal);top:0;font-size:12px}
+ul.bad li:before{background:var(--red)}
+ul.good li:before{background:var(--green)}
+
+/* ---------- diagram primitives ---------- */
+.node{background:var(--surface);border:1.5px solid var(--ink);border-radius:8px;padding:10px 12px;text-align:center}
+.node .t{font-family:var(--display);font-size:12.5px;font-weight:600;color:var(--ink);line-height:1.25}
+.node .d{font-size:10.5px;color:var(--muted);margin-top:4px;line-height:1.35;font-family:var(--display)}
+.node.sig{border-color:var(--signal);background:var(--signal-tint)}
+.node.bl{border-color:var(--blue);background:var(--blue-tint)}
+.node.gr{border-color:var(--green);background:var(--green-tint)}
+.node.inkfill{background:var(--ink);border-color:var(--ink)}
+.node.inkfill .t{color:#fff}.node.inkfill .d{color:#b6bfcd}
+.node.ghost{border-style:dashed;border-color:#b8bcc2;background:transparent}
+.node.ghost .t{color:var(--muted)}
+.arrow{font-family:var(--display);color:var(--signal);font-size:19px;font-weight:600;
+  display:flex;align-items:center;justify-content:center;line-height:1}
+.arrow.sm{font-size:14px}
+.arrow.mute{color:#b8bcc2}
+.wire{border-top:2px dashed var(--signal);position:relative;flex:1}
+.wire .lab{position:absolute;left:50%;top:-11px;transform:translateX(-50%);background:var(--paper);
+  padding:0 9px;font-family:var(--display);font-size:10px;font-weight:600;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--signal);white-space:nowrap}
+.loopbar{border:2px dashed var(--signal);border-top:none;border-radius:0 0 9px 9px;height:20px;position:relative}
+.loopbar .lab{position:absolute;left:50%;bottom:-9px;transform:translateX(-50%);background:var(--paper);
+  padding:0 10px;font-family:var(--display);font-size:10px;font-weight:600;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--signal);white-space:nowrap}
+
+/* ---------- transcript ---------- */
+.tr{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:12px 14px;font-family:var(--mono);font-size:11.5px;line-height:1.6}
+.tr .who{color:var(--blue);font-weight:600}
+.tr .bot{color:var(--signal);font-weight:600}
+.tr .tool{color:var(--green);font-weight:600}
+.tr .err{color:var(--red);font-weight:600}
+.tr .cm{color:#9aa0a8}
+.tr .hl{background:var(--red-tint);border-radius:2px;padding:0 3px}
+.tr .ok{background:var(--green-tint);border-radius:2px;padding:0 3px}
+
+/* ---------- footnote ---------- */
+.fn{border-top:1px solid var(--line);margin-top:auto;padding-top:7px;font-size:9.5px;line-height:1.36;
+  color:var(--muted);font-family:var(--display)}
+.fn b{color:var(--ink-soft)}
+.src-tag{font-family:var(--mono);font-size:10px;color:#9aa0a8}
+
+/* ---------- title slide ---------- */
+.title-slide{justify-content:center;background:var(--ink);color:#fff}
+.title-slide .eyebrow{color:#e8a463}
+.title-slide h1{color:#fff;max-width:1010px}
+.title-slide .sub{color:#b6bfcd;font-size:19px;max-width:830px;margin-top:20px}
+.title-slide .meta{margin-top:34px;display:flex;gap:34px;font-family:var(--display);font-size:11px;
+  letter-spacing:.11em;text-transform:uppercase;color:#7f8a9b}
+.title-slide .meta b{color:#e9ecf1;font-weight:600}
+.rule{width:64px;height:3px;background:var(--signal);margin-bottom:26px}
+
+/* pill row */
+.pills{display:flex;gap:7px;flex-wrap:wrap}
+.pill{font-family:var(--display);font-size:10.5px;font-weight:500;padding:4px 9px;border-radius:12px;
+  background:var(--surface);border:1px solid var(--line);color:var(--ink-soft)}
+.pill.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+</style>
+</head>
+<body>
+
+<div id="bar"></div>
+<div id="viewport"><div id="stage">
+
+<section class="slide on title-slide">
+  <div class="rule"></div>
+  <div class="eyebrow">EkStep · Internal</div>
+  <h1>Prompt Tuner</h1>
+  <p class="sub">Voice bots that stay correct — tested by another AI agent, not by hand.</p>
+  <div class="meta">
+    <span><b>18</b>&nbsp; bot scripts</span>
+    <span><b>269</b>&nbsp; checks daily</span>
+    <span><b>127</b>&nbsp; logged fixes</span>
+    <span><b>67</b>&nbsp; failure patterns</span>
+    <span><b>2026-08-05</b></span>
+  </div>
+</section>
+
+<section class="slide">
+  <div class="eyebrow">Executive summary</div>
+  <h2>The loop runs without us</h2>
+  <p class="sub">One agent calls the bot. The transcript is graded. The fix ships. Nobody dials a phone.</p>
+  <div class="row mt-s">
+    <div class="col metric"><div class="v sig">269</div><div class="l">automated checks, every morning, in the cloud</div></div>
+    <div class="col metric"><div class="v gr">8&#8202;/&#8202;8</div><div class="l">bots green after the last full pass</div></div>
+    <div class="col metric"><div class="v">127</div><div class="l">prompt fixes logged in 37 days</div></div>
+    <div class="col metric"><div class="v">~148 h</div><div class="l">manual effort removed <span class="tiny">(modelled — see Impact)</span></div></div>
+  </div>
+  <div class="card mt-l"><b>The ask:</b> adopt this rail for the next bot rather than rebuilding QA per project.
+  Purple Dots is first. <span class="mute">Marginal cost per additional bot is near zero.</span></div>
+</section>
+
+<section class="slide">
+  <div class="eyebrow">The problem</div>
+  <h2>Bots drift. Silently.</h2>
+  <div class="row mt-s">
+    <div class="col card"><h3>Drift is invisible</h3><p class="tiny">A prompt edit lands in one language, not its twin. Nothing errors. The call just gets worse.</p></div>
+    <div class="col card"><h3>Found late, in bulk</h3><p class="tiny">Test at scale and dozens of issues surface at once — after a campaign is already waiting.</p></div>
+    <div class="col card"><h3>Each fix risks the next</h3><p class="tiny">Patch one section, break its neighbour. Re-verifying by hand costs more than the fix.</p></div>
+  </div>
+  <div class="card dark mt-l center"><b>Net effect:</b> manual testing is what blocks campaigns from going live.</div>
+</section>
+
+<section class="slide">
+  <div class="eyebrow">Before &rarr; after</div>
+  <h2>What changed</h2>
+  <div class="row mt-s">
+    <div class="col card"><h3 class="err">Manual</h3>
+      <p class="tiny">Humans place test calls &middot; bugs found in bulk &middot; fixes verified by eye &middot;
+      each language checked separately &middot; regression when someone remembers</p></div>
+    <div class="col card"><h3 class="gr">Autonomous</h3>
+      <p class="tiny">Agents call agents &middot; graded against 67 known patterns &middot; transcript is the proof &middot;
+      every language audited &middot; regression every morning, unattended</p></div>
+  </div>
+  <div class="src mt-s">.claude/skills/ &middot; raya/regression/ &middot; .github/workflows/regression.yml</div>
+</section>
+
+<section class="slide">
+  <div class="eyebrow">Hero capability</div>
+  <h2>Two AI agents. One real phone call.</h2>
+  <div class="row mt-s center">
+    <div class="col card"><h3>Tester agent</h3><p class="tiny">Role-plays a real caller — hesitant, silent, off-topic, accepts anything</p></div>
+    <div class="col center" style="flex:0 0 60px;padding-top:26px;font-size:22px;color:var(--signal)">&rarr;</div>
+    <div class="col card"><h3>Bot under test</h3><p class="tiny">Its real prompt, real tools, real backend — nothing mocked</p></div>
+  </div>
+  <div class="pills mt-l">
+    <span class="pill on">transcript</span><span class="pill">graded vs checklists</span>
+    <span class="pill">root-caused</span><span class="pill">fixed surgically</span>
+    <span class="pill">deployed</span><span class="pill">re-tested</span>
+  </div>
+  <div class="card mt-s"><b>No human places a call.</b> <span class="mute">The prompt edit is agentic too.</span></div>
+</section>
+
+<section class="slide">
+  <div class="eyebrow">Hero capability</div>
+  <h2>Every call graded on 93&ndash;114 checks</h2>
+  <p class="sub">Not a vibe check. Each item names the evidence that proves pass or fail.</p>
+  <div class="pills mt-s">
+    <span class="pill">greeting &amp; AI disclosure</span><span class="pill">off-topic</span>
+    <span class="pill">silence</span><span class="pill">interruption</span>
+    <span class="pill">ASR mishearing</span><span class="pill">no fabrication</span>
+    <span class="pill">language purity</span><span class="pill">consent &amp; PII</span>
+    <span class="pill">tool actually fired</span><span class="pill">graceful exit</span>
+    <span class="pill on">accessibility</span>
+  </div>
+  <div class="card mt-l"><b>Evidence, not opinion:</b> "the tool appears in <span class="mono">tool_calls</span> on that turn",
+  not "sounded right".</div>
+  <div class="src">voice-test/reference/checklists/ &mdash; generic 54 items + per-bot</div>
+</section>
+
+<section class="slide">
+  <div class="eyebrow">Hero capability</div>
+  <h2>A bug the harness caught that we would have shipped</h2>
+  <div class="row mt-s">
+    <div class="col card"><h3>1 &middot; Hindi passed</h3><p class="tiny">Maya outbound: clean call, apply succeeded.</p></div>
+    <div class="col card"><h3>2 &middot; Twin tested anyway</h3><p class="tiny">House law: never extrapolate across variants.</p></div>
+    <div class="col card"><h3>3 &middot; Inbound failed</h3><p class="tiny">Phone built as <span class="mono">+91+91&hellip;</span> &mdash; lookup dead, profile creation 400.</p></div>
+    <div class="col card"><h3>4 &middot; Fixed fleet-wide</h3><p class="tiny">Same template corrected in all 6 bots, re-verified live.</p></div>
+  </div>
+  <div class="card dark mt-l center">Extrapolating from the passing twin would have shipped a broken bot.</div>
+</section>
+
+<section class="slide">
+  <div class="eyebrow">Honesty</div>
+  <h2>What it does not do</h2>
+  <div class="row mt-s">
+    <div class="col card"><h3>Backend faults</h3><p class="tiny">Bad inventory, API 5xx. Escalated, never "prompted around".</p></div>
+    <div class="col card"><h3>Model disobedience</h3><p class="tiny">Ignoring a clear instruction. More prose makes it worse.</p></div>
+    <div class="col card"><h3>Judgement calls</h3><p class="tiny">Tone and dignity still need a human ear.</p></div>
+  </div>
+  <div class="card mt-l"><b>Not every reported bug is a prompt bug.</b>
+  <span class="mute">The rail is built to say "the inputs were wrong" out loud instead of editing.</span></div>
+</section>
+
+<section class="slide">
+  <div class="eyebrow">The standard</div>
+  <h2>Three tiers. All three, or it is not done.</h2>
+  <div class="row mt-s">
+    <div class="col card"><h3>1 &middot; Did the bug die?</h3><p class="tiny">Reproduce the exact failure. Post-fix transcript or it does not count.</p></div>
+    <div class="col card"><h3>2 &middot; Did anything else break?</h3><p class="tiny">Blast radius: the twin language, the shared logic, the tool payload.</p></div>
+    <div class="col card"><h3>3 &middot; Has anything drifted?</h3><p class="tiny">Standing daily check across the whole fleet, unattended.</p></div>
+  </div>
+  <div class="card dark mt-l center">Tested on <b>every</b> variant &mdash; language, direction, backend. Never extrapolated.</div>
+</section>
+
+<section class="slide">
+  <div class="eyebrow">The compounding asset</div>
+  <h2>67 failure patterns, each with a detector</h2>
+  <div class="row mt-s">
+    <div class="col metric"><div class="v sig">67</div><div class="l">codified patterns: symptom &rarr; root cause &rarr; how to detect &rarr; fix direction</div></div>
+    <div class="col card"><h3>Why it compounds</h3><p class="tiny">Every bug fixed must teach the analyser. The catalogue only grows,
+    so the same class is caught pre-flight next time &mdash; on a bot nobody has seen yet.</p></div>
+  </div>
+  <div class="card mt-l"><b>This is the moat.</b> <span class="mute">Anyone can write a prompt. Few have a
+  taxonomy of how voice prompts fail in production.</span></div>
+</section>
+
+<section class="slide">
+  <div class="eyebrow">Multi-language</div>
+  <h2>A fix in one language is half a fix</h2>
+  <div class="row mt-s">
+    <div class="col card"><h3>One master, N mirrors</h3><p class="tiny">Logic copied byte-identically. Only spoken lines are re-authored natively.</p></div>
+    <div class="col card"><h3>Drift is audited</h3><p class="tiny">Every mirror compared to the master, per language.</p></div>
+    <div class="col card"><h3>Intent is registered</h3><p class="tiny">Deliberate divergences recorded, so no future audit "corrects" a decision.</p></div>
+  </div>
+  <div class="card mt-l">Next: <b>12 Indic languages</b> &mdash; re-authored the way each is actually spoken, never literally translated.
+  <span class="badge b-prog">In progress</span></div>
+</section>
+
+<section class="slide">
+  <div class="eyebrow">The standing net</div>
+  <h2>Every morning, unattended</h2>
+  <div class="row mt-s">
+    <div class="col metric"><div class="v sig">269</div><div class="l">assertions per run</div></div>
+    <div class="col metric"><div class="v">18</div><div class="l">bot scripts, all of them</div></div>
+    <div class="col metric"><div class="v">~6 s</div><div class="l">runtime</div></div>
+    <div class="col metric"><div class="v gr">0</div><div class="l">critical findings today</div></div>
+  </div>
+  <div class="card mt-l"><b>Runs in the cloud</b> &mdash; survives every laptop being shut. Mails a plain-English digest:
+  what broke, on which bot, why it matters, what to do. <span class="badge b-ship">Shipped</span></div>
+  <div class="card mt-s">Weekly live-call tier <span class="badge b-plan">Planned</span>
+  <span class="mute">&mdash; blocked on CI credentials, not engineering.</span></div>
+</section>
+
+<section class="slide">
+  <div class="eyebrow">Credibility</div>
+  <h2>It found its own blind spot</h2>
+  <div class="row mt-s">
+    <div class="col card"><h3>The gap</h3><p class="tiny">The daily check hard-coded 16 files. The fleet was <b>18</b>.
+    Two live bots were never examined &mdash; while the digest read as full coverage.</p></div>
+    <div class="col card"><h3>The fix</h3><p class="tiny">It now reads the deploy manifest and raises a
+    <b>critical</b> if any live bot goes unchecked. Proven by hiding one.</p></div>
+  </div>
+  <div class="card dark mt-l center">A quality system that can silently under-cover is worse than none. So it audits itself.</div>
+</section>
+
+<section class="slide">
+  <div class="eyebrow">Capability map</div>
+  <h2>14 skills, one rail</h2>
+  <div class="row mt-s">
+    <div class="col card"><h3>Find</h3><div class="pills mt-s"><span class="pill">prompt-analyser</span><span class="pill">sync-check</span><span class="pill">bug-fix</span><span class="pill">raya-reconcile</span></div></div>
+    <div class="col card"><h3>Fix</h3><div class="pills mt-s"><span class="pill">update-prompt</span><span class="pill">port-feature</span><span class="pill">update-memory</span><span class="pill">update-output</span><span class="pill">prompt-version</span></div></div>
+  </div>
+  <div class="row mt-s">
+    <div class="col card"><h3>Prove</h3><div class="pills mt-s"><span class="pill on">voice-test</span><span class="pill">generate-test-cases <span class="badge b-prog">new</span></span></div></div>
+    <div class="col card"><h3>Onboard &amp; scale</h3><div class="pills mt-s"><span class="pill">onboard</span><span class="pill">register-bot <span class="badge b-prog">new</span></span><span class="pill">translate-prompt <span class="badge b-prog">new</span></span></div></div>
+  </div>
+  <div class="src mt-s">11 with a production track record &middot; 3 authored, not yet exercised</div>
+</section>
+
+<section class="slide">
+  <div class="eyebrow">Measured</div>
+  <h2>37 days of real output</h2>
+  <div class="row mt-s">
+    <div class="col metric"><div class="v">127</div><div class="l">prompt changes, each logged with its reason</div></div>
+    <div class="col metric"><div class="v gr">8&#8202;/&#8202;8</div><div class="l">bots green on the last full pass</div></div>
+    <div class="col metric"><div class="v">14</div><div class="l">features carried across bots instead of rebuilt</div></div>
+    <div class="col metric"><div class="v">1</div><div class="l">rollback needed</div></div>
+  </div>
+  <div class="row mt-s">
+    <div class="col metric"><div class="v">18</div><div class="l">scripts &middot; 22,004 lines under management</div></div>
+    <div class="col metric"><div class="v">67</div><div class="l">failure patterns codified</div></div>
+    <div class="col metric"><div class="v">16</div><div class="l">tester personas</div></div>
+    <div class="col metric"><div class="v">228</div><div class="l">rollback snapshots</div></div>
+  </div>
+  <div class="src mt-s">CHANGELOG.md &times;3 &middot; latest-report.json &middot; deploy-history.md &middot; versions/</div>
+</section>
+
+<section class="slide">
+  <div class="eyebrow">Impact</div>
+  <h2>What it is worth</h2>
+  <div class="row mt-s">
+    <div class="col metric"><div class="v sig">~148 h</div><div class="l">manual effort removed in 37 days</div></div>
+    <div class="col metric"><div class="v sig">70%</div><div class="l">shorter fix&#8202;&rarr;&#8202;verified cycle</div></div>
+    <div class="col metric"><div class="v sig">15&times;</div><div class="l">regression cadence &mdash; fortnightly to daily</div></div>
+    <div class="col metric"><div class="v sig">~$3.7k</div><div class="l">at $25/h &middot; ~$36.5k annualised</div></div>
+  </div>
+  <div class="card mt-l"><b>The model, in full:</b> 140 h test-execution + 7.6 h cross-bot reuse + 10 h/mo regression,
+  at a stated $25/h blended rate. Annual figure extrapolates 37 days &mdash; it is an estimate, not a measurement.</div>
+  <div class="card mt-s"><b class="err">Not modelled:</b> campaign go-live delay &mdash; the largest real cost.
+  <span class="mute">No volume or cost-per-call data exists in the repo, so we do not invent one.</span></div>
+</section>
+
+<section class="slide">
+  <div class="eyebrow">Ecosystem</div>
+  <h2>Infrastructure, not a team tool</h2>
+  <div class="row mt-s">
+    <div class="col card"><h3>Bot-agnostic</h3><p class="tiny">Nothing assumes jobs, Hindi, or one backend. A new domain is a config, not a fork.</p></div>
+    <div class="col card"><h3>Language-agnostic</h3><p class="tiny">Master + N mirrors. Adding a language does not touch any skill.</p></div>
+    <div class="col card"><h3>Transferable</h3><p class="tiny">The bug taxonomy is the reusable asset &mdash; it encodes how voice prompts fail anywhere.</p></div>
+  </div>
+  <div class="card dark mt-l center">Every DPG voice agent faces the same drift problem. This is the shared answer.</div>
+</section>
+
+<section class="slide">
+  <div class="eyebrow">Adoption</div>
+  <h2>Bringing a bot on: five steps</h2>
+  <div class="row mt-s">
+    <div class="col card"><h3>1 &middot; Onboard</h3><p class="tiny">Prompt, languages, tools, and the issues you want gone.</p></div>
+    <div class="col card"><h3>2 &middot; Register</h3><p class="tiny">Becomes deployable and enters the daily net.</p></div>
+    <div class="col card"><h3>3 &middot; Audit</h3><p class="tiny">Pre-flight against 67 patterns, before a single call.</p></div>
+  </div>
+  <div class="row mt-s">
+    <div class="col card"><h3>4 &middot; Generate tests</h3><p class="tiny">Custom suite from your flow, tools, audience and issues.</p></div>
+    <div class="col card"><h3>5 &middot; Call it</h3><p class="tiny">Agent-to-agent test, fix, deploy, re-verify.</p></div>
+    <div class="col card"><h3>Then</h3><p class="tiny">It is in the morning digest forever.</p></div>
+  </div>
+  <div class="card mt-s"><b>You need:</b> the prompt, the platform ids, and one honest list of what is broken.</div>
+</section>
+
+<section class="slide">
+  <div class="eyebrow">Next</div>
+  <h2>Roadmap</h2>
+  <div class="row mt-s">
+    <div class="col card"><h3>Purple Dots <span class="badge b-plan">Next</span></h3><p class="tiny">Disability-focused rail. Accessibility grading already shipped fleet-wide.</p></div>
+    <div class="col card"><h3>12 Indic languages <span class="badge b-prog">In progress</span></h3><p class="tiny">Re-authored natively, not translated. Skill built, first language unrun.</p></div>
+  </div>
+  <div class="row mt-s">
+    <div class="col card"><h3>Weekly live tier <span class="badge b-plan">Blocked</span></h3><p class="tiny">Needs platform keys in CI. Not an engineering problem.</p></div>
+    <div class="col card"><h3>Fleet-wide manifest <span class="badge b-prog">In progress</span></h3><p class="tiny">One source of truth for every bot, every project.</p></div>
+  </div>
+  <div class="card dark mt-l center">The rail is built. The next bot costs a fraction of the first.</div>
+</section>
+
+<section class="slide">
+  <div class="eyebrow">Appendix</div>
+  <h2>Every number, and where it comes from</h2>
+  <table class="tight mt-s">
+    <thead><tr><th style="width:150px">Claim</th><th style="width:78px">Value</th><th>Source</th></tr></thead>
+    <tbody>
+      <tr><td>Bot scripts</td><td><b>18</b></td><td class="mono">raya/agents.json &middot; fleet.json</td></tr>
+      <tr><td>Assertions / run</td><td><b>269</b></td><td class="mono">instrumented static_regression.py</td></tr>
+      <tr><td>Failure patterns</td><td><b>67</b></td><td class="mono">bug-patterns.md (grep '### ')</td></tr>
+      <tr><td>Prompt changes</td><td><b>127</b></td><td class="mono">3 &times; CHANGELOG.md</td></tr>
+      <tr><td>Checks / call</td><td><b>93&ndash;114</b></td><td class="mono">checklists/ (54 generic + per-bot)</td></tr>
+      <tr><td>Bots green</td><td><b>8/8</b></td><td class="mono">signals-expansion/e2e/TEST-LOG.md</td></tr>
+      <tr><td>Snapshots</td><td><b>228</b></td><td class="mono">versions/*/HISTORY.md</td></tr>
+      <tr><td>Hours &amp; dollars</td><td><b>modelled</b></td><td>assumptions stated on the Impact slide</td></tr>
+      <tr><td>Go-live delay</td><td><b class="err">not modelled</b></td><td>no volume data exists &mdash; deliberately omitted</td></tr>
+    </tbody>
+  </table>
+  <div class="src mt-s">Full traceability: deck/DECK-NOTES.md</div>
+</section>
+
+
+</div></div>
+
+<div id="hud">
+  <span id="tocbtn">Contents</span>
+  <span><b id="cur">1</b> / <span id="tot">20</span></span>
+  <span class="hint">← →</span>
+</div>
+
+<div id="toc">
+  <h4>Prompt Tuner — contents</h4>
+  <ol id="toclist"></ol>
+</div>
+
+
+<script>
+(function(){
+  var slides = Array.prototype.slice.call(document.querySelectorAll('.slide'));
+  var stage  = document.getElementById('stage');
+  var cur = 0;
+  var titles = [
+    "Prompt Tuner",
+    "Executive summary",
+    "The problem",
+    "Before / after",
+    "HERO — agent-to-agent",
+    "HERO — how a call is graded",
+    "HERO — a real bug",
+    "What it cannot do",
+    "Three tiers",
+    "67 patterns",
+    "Multi-language integrity",
+    "The daily net",
+    "It audits itself",
+    "Skill catalogue",
+    "Results to date",
+    "Impact, quantified",
+    "Ecosystem use case",
+    "How to adopt",
+    "Roadmap",
+    "Appendix — claim traceability"];
+
+  document.getElementById('tot').textContent = slides.length;
+
+  function fit(){
+    var pad = 22;
+    var s = Math.min((window.innerWidth - pad) / 1280, (window.innerHeight - pad) / 720);
+    stage.style.transform = 'translate(-50%,-50%) scale(' + s + ')';
+  }
+
+  function show(i){
+    if(i < 0) i = 0;
+    if(i > slides.length - 1) i = slides.length - 1;
+    slides[cur].classList.remove('on');
+    slides[i].classList.add('on');
+    cur = i;
+    document.getElementById('cur').textContent = i + 1;
+    document.getElementById('bar').style.width = ((i + 1) / slides.length * 100) + '%';
+    try{ location.hash = 's' + (i + 1); }catch(e){}
+  }
+
+  // build TOC
+  var ol = document.getElementById('toclist');
+  slides.forEach(function(_, i){
+    var li = document.createElement('li');
+    li.textContent = titles[i] || ('Slide ' + (i + 1));
+    li.onclick = function(){ toc(false); show(i); };
+    ol.appendChild(li);
+  });
+
+  var tocEl = document.getElementById('toc');
+  function toc(on){ tocEl.classList.toggle('on', on); }
+  document.getElementById('tocbtn').onclick = function(){ toc(!tocEl.classList.contains('on')); };
+  tocEl.onclick = function(e){ if(e.target === tocEl) toc(false); };
+
+  document.addEventListener('keydown', function(e){
+    var k = e.key;
+    if(tocEl.classList.contains('on')){
+      if(k === 'Escape' || k === 't' || k === 'T'){ toc(false); e.preventDefault(); }
+      return;
+    }
+    if(k === 'ArrowRight' || k === 'PageDown' || k === ' ' || k === 'Enter' || k === 'n'){ show(cur + 1); e.preventDefault(); }
+    else if(k === 'ArrowLeft' || k === 'PageUp' || k === 'Backspace' || k === 'p'){ show(cur - 1); e.preventDefault(); }
+    else if(k === 'Home'){ show(0); e.preventDefault(); }
+    else if(k === 'End'){ show(slides.length - 1); e.preventDefault(); }
+    else if(k === 't' || k === 'T'){ toc(true); e.preventDefault(); }
+  });
+
+  // click right/left halves to advance (ignore clicks on the HUD)
+  document.getElementById('viewport').addEventListener('click', function(e){
+    if(e.target.closest('#hud') || e.target.closest('#toc')) return;
+    show(e.clientX > window.innerWidth * 0.5 ? cur + 1 : cur - 1);
+  });
+
+  window.addEventListener('resize', fit);
+  fit();
+
+  var m = /^#s(\d+)$/.exec(location.hash || '');
+  show(m ? Math.min(parseInt(m[1], 10) - 1, slides.length - 1) : 0);
+})();
+</script>
+</body>
+</html>

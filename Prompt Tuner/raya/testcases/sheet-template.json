@@ -1,0 +1,208 @@
+{
+  "readme": [
+    [
+      "Blue Dots voice agents — test cases",
+      "Test cases for every Blue Dots voice bot, in the same layout as the Purple Dots sheet. Prepared 5 Oct 2026 by Parth Bansal for the Operation Rozgar test cycle."
+    ],
+    [
+      "Tabs",
+      "Bots to Test: every bot, its language and direction, the number to dial or how to start it, and its Raya console link.\nOne tab per bot family after that. Each row is one test case."
+    ],
+    [
+      "Columns",
+      "Phase: the part of the call being tested, in the bot's own order.\nScenario: what is being tested.\nWhat the tester should say: the exact words, in the bot's language. Text in [square brackets] says how to START the call (e.g. which inputs an outbound call needs).\nExpected Response: what the bot must do, then 'Pass criteria' — what you should hear, and where relevant what the Raya console call log should show.\nActual Response, Verdict, Notes: for you to fill in."
+    ],
+    [
+      "Type",
+      "Smoke — run these first: the core cases that prove the bot works end to end.\nManual — full coverage.\nStress — robustness: silence, noise, talking over the bot, changing the topic, very long answers, several testers calling at once."
+    ],
+    [
+      "Priority",
+      "P0 — breaks the call or misleads the caller (wrong or invented job, says 'applied' when it did not, saves wrong data, skips consent).\nP1 — a visible quality problem.\nP2 — polish."
+    ],
+    [
+      "Verdict values",
+      "PASS · FAIL · PARTIAL · BLOCKED (could not set up the case) · NOT TESTED"
+    ],
+    [
+      "Before you start — important",
+      "1. These are PRODUCTION bots on the real backend. An 'apply' creates a REAL job application, and every call creates or updates a REAL profile for the phone number that called.\n2. Test only from your own or test phone numbers. Never use a job seeker's number.\n3. A number becomes a 'returning caller' after its first call. Cases marked new / first-time caller need a number that has never called the bot before.\n4. DKB creates or updates REAL job postings. Tell Parth which test postings to remove after testing."
+    ],
+    [
+      "Seeing what happened on a call",
+      "Raya console → the bot (links on the Bots to Test tab) → Calls. Each call has the transcript, the tool calls and the recording."
+    ],
+    [
+      "Reporting a failure",
+      "Fill in Actual Response + Verdict, and in Notes put the call time and the last 4 digits of the number you called from. That is enough for us to find the exact call."
+    ],
+    [
+      "Known issues (already being fixed — no need to log again)",
+      "1. Now and then (about 1 call in 15) the bot speaks a short English note aloud before the services offer, e.g. \"Fetching services for the closing offer\".\n2. The PIN code / nearest-landmark questions are sometimes skipped for a returning caller.\n3. Kannada: the Dharwad backend has no support-service providers listed yet, so the Kannada bot says no suitable service is available (Hindi has 8 providers).\n4. The bots do not tell the caller the job's address; they say they don't have it.\n5. On a bad line the bot says it will call back later, which does not happen on inbound calls."
+    ],
+    [
+      "Contact",
+      "Parth Bansal — parth@ekstepplus.org (reply on the Operation Rozgar thread)."
+    ]
+  ],
+  "bots": [
+    {
+      "bot": "DKB — Employer (Hindi)",
+      "language": "Hindi",
+      "direction": "Outbound",
+      "how_to_reach": "Start from a campaign or the Raya console with the business and job details",
+      "console": "https://console.getraya.app/agents/fabda71d-af75-4ddd-8cf1-fa35c827f753",
+      "what_it_does": "Employer / business-owner bot. Verifies an existing job posting or captures a new vacancy.",
+      "notes": "Tab 'DKB'. Writes REAL postings."
+    }
+  ],
+  "bot_tabs": {
+    "DKB": [
+      {
+        "id": "DK-01",
+        "phase": "Turn 0 — Audio check",
+        "scenario": "First turn is the audio check only",
+        "tester_says": "[New-vacancy start: company_name = \"New Star Garments\"; job_role, num_vacancies, salary, location, qualification, work_experience, work_experience_years and job_id all = \"Not Available\"; city = your test city; phoneNumber = your 10-digit test number] Pick up and say \"हैलो?\" then, after the bot's first line, \"हाँ, आ रही है।\"",
+        "expected": "Bot's first turn is only the audio check — Hindi \"हैलो, मेरी आवाज़ आ रही है?\" / Kannada \"ಹಲೋ, ನನ್ನ ಧ್ವನಿ ಕೇಳಿಸ್ತಾ ಇದೆಯಾ?\" — then it waits for the reply before the opening question. Pass criteria: the first bot turn has no greeting, no introduction, no reason for calling, no business-name question and no recording disclosure; the opening question comes only after the tester's reply; the audio check is never asked again later in the call; no tool called in this stretch.",
+        "language": "Both",
+        "direction": "Outbound",
+        "type": "Smoke",
+        "priority": "P1"
+      },
+      {
+        "id": "DK-03",
+        "phase": "Turn 1 — Opening",
+        "scenario": "Opening names the business that was passed",
+        "tester_says": "[New-vacancy start (company_name = \"New Star Garments\")] After the audio check: \"हाँ, आ रही है।\" then, to the opening question, \"हाँ जी, मैं ही ओनर हूँ।\"",
+        "expected": "Bot asks to confirm the business by name — Hindi \"हैलो! क्या आप न्यू स्टार गारमेंट्स से बोल रहे हैं?\" / Kannada \"ಹ್ಯಾಲೋ! ನೀವು ನ್ಯೂ ಸ್ಟಾರ್ ಗಾರ್ಮೆಂಟ್ಸ್ ನಿಂದ ಮಾತಾಡ್ತಾ ಇದ್ದೀರಾ?\" — waits for the yes, then moves on to Turn 2. Pass criteria: the business named is exactly the one passed, never a different or invented business; the pitch (free service, sixteen thousand job seekers, expiring posting) is NOT in the same turn as the identity question; the words \"company name\" / \"not available\" are never spoken; the city is not mentioned in the opening.",
+        "language": "Both",
+        "direction": "Outbound",
+        "type": "Smoke",
+        "priority": "P0"
+      },
+      {
+        "id": "DK-08",
+        "phase": "Turn 2 — Purpose and two-minute ask",
+        "scenario": "New-vacancy call: free-service pitch, then straight to the vacancy question",
+        "tester_says": "[New-vacancy start: company_name = \"New Star Garments\"; job_role, num_vacancies, salary, location, qualification, work_experience, work_experience_years and job_id all = \"Not Available\"; city = your test city; phoneNumber = your 10-digit test number] \"हाँ, आ रही है।\" then \"हाँ, मैं ओनर हूँ।\" then, to the two-minute question, \"हाँ, बोलिए।\"",
+        "expected": "Turn 2 is the new-vacancy line — \"जी, मैं शहर प्रशासन की एम्प्लॉयमेंट पहल की तरफ से कॉल कर रही हूँ। … यह सर्विस बिल्कुल फ्री है। क्या आपके पास दो मिनट हैं?\" / \"ನಮಸ್ಕಾರ.. ನಾನು ನಗರ ಆಡಳಿತದ ಎಂಪ್ಲಾಯ್ಮೆಂಟ್ ಉಪಕ್ರಮದ ಕಡೆಯಿಂದ … ನಿಮ್ಮ ಹತ್ರ ಎರಡು ನಿಮಿಷ ಇದೆಯಾ?\". After the yes: the AI/recording line, then directly the Step 3a question ending \"…क्या आपके यहाँ अभी कोई vacancy है?\" / \"…ನಿಮ್ಮ ಹತ್ರ ಈಗ ಯಾವುದಾದರೂ vacancy ಇದೆಯಾ?\". Pass criteria: no expiry line and no posting details; no freshness question; no explanation of the skip (\"कोई posting नहीं मिली\", \"आपके पास कोई data नहीं है\" or similar); \"Not Available\" is never spoken; \"फ्री\" / \"ಫ್ರೀ\" is clearly heard; no tool called.",
+        "language": "Both",
+        "direction": "Outbound",
+        "type": "Smoke",
+        "priority": "P0"
+      }
+    ]
+  },
+  "language_checks": {
+    "Language testing": [
+      {
+        "scenario": "All snippets translated",
+        "level": "Prompt",
+        "how": "All snippets apart from the prompt instructions should be in the target language. No Hindi residue should be there",
+        "pass_criteria": "Zero characters outside the target language, with the single exception of the Goodbye token."
+      },
+      {
+        "scenario": "Hangup token",
+        "level": "Prompt",
+        "how": "Check the final word of every exit line, in every scenario, is exactly 'Goodbye' in Latin script, once, with nothing after it.",
+        "pass_criteria": "All exit lines end with the exact token. No translated or transliterated variant anywhere."
+      },
+      {
+        "scenario": "Payload fields untranslated",
+        "level": "Prompt",
+        "how": "Check the enum values, field names, tool names and JSON keys are unchanged English.",
+        "pass_criteria": "All enums and payload fields byte-identical to the source. Only spoken strings differ."
+      },
+      {
+        "scenario": "Questions written properly",
+        "level": "Prompt",
+        "how": "For every line that is a question in the source, check it is marked the way the language marks a question.",
+        "pass_criteria": "Every source question is a question in the target, by that language's own marking."
+      },
+      {
+        "scenario": "Digits",
+        "level": "Prompt",
+        "how": "Check no spoken string contains numerals, abbreviations, clock conventions or currency symbols. All are written as words.",
+        "pass_criteria": "No digit or symbol in any spoken string."
+      },
+      {
+        "scenario": "Substitution table",
+        "level": "Prompt",
+        "how": "Check a table exists for this language, built from scratch rather than translated, giving the everyday word for each official or Sanskritised term.",
+        "pass_criteria": "Table exists, is language-specific, and every listed term has an everyday equivalent."
+      },
+      {
+        "scenario": "Insulting words",
+        "level": "Prompt / Call",
+        "how": "Check a denylist of insulting words for this language exists and no denylisted word appears in any bot line.",
+        "pass_criteria": "Denylist exists. Zero denylisted words in bot speech."
+      },
+      {
+        "scenario": "Gender rules",
+        "level": "Prompt",
+        "how": "Check the rule for this language is written down rather than copied from Hindi, and no line needs the caller's gender before it is known.",
+        "pass_criteria": "A written per-language rule exists, and no line depends on an unknown caller gender."
+      },
+      {
+        "scenario": "Terms",
+        "level": "Prompt / Call",
+        "how": "Check the translated consent disclosure contains every required element.",
+        "pass_criteria": "All elements present in the translated greeting, in both inbound and outbound."
+      },
+      {
+        "scenario": "Tone",
+        "level": "Call",
+        "how": "Place a test call and listen to every bot turn. Check the bot sounds warm and conversational, in the everyday spoken register of this language, not like a formal notice.",
+        "pass_criteria": "Every bot turn uses everyday spoken words. No turn sounds like a government circular or a word-for-word translation from Hindi."
+      },
+      {
+        "scenario": "Questions experience",
+        "level": "Call",
+        "how": "Listen to each question the bot asks during the call. Check it sounds like a question (rising tone or the language's question word) and the bot waits for the answer.",
+        "pass_criteria": "Every question is heard as a question, is asked once, and the bot pauses for the reply before moving on."
+      },
+      {
+        "scenario": "Disability/sensitive words",
+        "level": "Call",
+        "how": "Mention a disability or a personal difficulty during the call and listen to how the bot refers to it.",
+        "pass_criteria": "The bot uses respectful everyday words, never a denylisted or pitying term, and never makes the disability the topic of the call."
+      },
+      {
+        "scenario": "Caller's own words",
+        "level": "Call",
+        "how": "Answer in your own everyday words, including local words and the English words common in this language.",
+        "pass_criteria": "The bot accepts the answer without asking you to repeat it in formal words, and repeats it back with the same meaning."
+      },
+      {
+        "scenario": "Numbers heard correctly",
+        "level": "Call",
+        "how": "Say a salary, a PIN code and a phone number aloud in the target language, then listen to the bot read them back.",
+        "pass_criteria": "Every number the bot speaks back is the number you said, spoken as words in the target language."
+      },
+      {
+        "scenario": "Proper nouns",
+        "level": "Call",
+        "how": "Give a person's name, a place name and a company name, then listen to how the bot says them.",
+        "pass_criteria": "Each name is said as a name, not spelled out or read as English text. The console transcript shows each name in the target script."
+      },
+      {
+        "scenario": "Gender in practice",
+        "level": "Call",
+        "how": "Run one call as a woman caller and one as a man. Listen to every line that addresses the caller, before and after the caller's gender is known.",
+        "pass_criteria": "No line uses a gendered form for the caller before the gender is known. The bot's own voice keeps one gender for the whole call."
+      },
+      {
+        "scenario": "Sensitive moments",
+        "level": "Call",
+        "how": "Say you lost your job, are short of money, or are upset, and listen to the bot's next line.",
+        "pass_criteria": "The bot acknowledges once in a calm, kind line, does not lecture or joke, and offers to carry on or end the call."
+      },
+      {
+        "scenario": "End-to-end scenarios (scoring)",
+        "level": "Call",
+        "how": "Run the bot's Smoke scenarios in the target language from the first turn to Goodbye, and score each one PASS, FAIL or PARTIAL.",
+        "pass_criteria": "Every Smoke scenario passes in the target language, with the same tool calls in the console as the master-language run."
+      }
+    ]
+  }
+}

@@ -1,0 +1,43 @@
+[kkb-hi-signals-hi-asks-for-all-jobs] POST /api/call -> 200 {"message": "Call initiated successfully", "uuid": "4982c225-390e-4731-9c66-15fa14417db8"}
+[kkb-hi-signals-hi-asks-for-all-jobs] poll 0: outcome='Pending' dur=0 turns=0
+[kkb-hi-signals-hi-asks-for-all-jobs] poll 1: outcome='Pending' dur=0 turns=0
+[kkb-hi-signals-hi-asks-for-all-jobs] poll 2: outcome='Pending' dur=0 turns=0
+[kkb-hi-signals-hi-asks-for-all-jobs] poll 3: outcome='Pending' dur=0 turns=0
+[kkb-hi-signals-hi-asks-for-all-jobs] poll 4: outcome='Pending' dur=0 turns=0
+[kkb-hi-signals-hi-asks-for-all-jobs] poll 5: outcome='Pending' dur=0 turns=0
+[kkb-hi-signals-hi-asks-for-all-jobs] poll 6: outcome='Pending' dur=0 turns=0
+[kkb-hi-signals-hi-asks-for-all-jobs] poll 7: outcome='Pending' dur=0 turns=0
+[kkb-hi-signals-hi-asks-for-all-jobs] poll 8: outcome='Pending' dur=0 turns=0
+[kkb-hi-signals-hi-asks-for-all-jobs] poll 9: outcome='Pending' dur=0 turns=0
+[kkb-hi-signals-hi-asks-for-all-jobs] poll 10: outcome='Pending' dur=0 turns=0
+[kkb-hi-signals-hi-asks-for-all-jobs] poll 11: outcome='Pending' dur=0 turns=0
+[kkb-hi-signals-hi-asks-for-all-jobs] poll 12: outcome='Pending' dur=0 turns=0
+[kkb-hi-signals-hi-asks-for-all-jobs] poll 13: outcome='Pending' dur=0 turns=0
+[kkb-hi-signals-hi-asks-for-all-jobs] poll 14: outcome='Pending' dur=0 turns=0
+[kkb-hi-signals-hi-asks-for-all-jobs] poll 15: outcome='Completed' dur=186 turns=18
+
+============================================================================
+[kkb-hi-signals-hi-asks-for-all-jobs] BOT 4982c225-390e-4731-9c66-15fa14417db8 outcome=Completed dur=186
+call_output: null
+
+TRANSCRIPT:
+[user] hello
+[assistant] हैलो, मेरी आवाज़ आ रही है? 
+[user]  हाँ जी आ रही है
+[assistant] नमस्ते। शहर प्रशासन की 'काम की बात' पहल में आपका स्वागत है। आपके इलाके में कुछ अच्छी जॉब्स की जानकारी देने के लिए कॉल कर रही हूँ। यह बातचीत रिकॉर्ड की जा सकती है। क्या आप अभी काम ढूंढ रहे हैं? 
+[user]  हाँ जी काम चाहिए
+[assistant->TOOL] get_profile({"hold_message": "एक मिनट।", "phone_number": "917946350285"})
+[tool] {'user_id': 'a6c122eb-634e-4955-9ae9-f36306b31c7a', 'user_consent': {'terms_accepted': True, 'privacy_accepted': True, 'has_age': True}, 'items': [{'item_id': '588a907f-bc3b-4bad-9695-d6300a3dbd6d', 'item_network': 'blue_dot', 'item_domain': 'seeker', 'item_type': 'profile_1.0', 'lifecycle_status': 'live', 'profile_consent_accepted': True, 'item_state': {'age': 22, 'name': 'Aryan', 'phone': '917946350285', 'gender': 'Male', 'location': 'Sahibabad, Ghaziabad, India', 'educationCategory': 'College', 'collegeQualification': 'B.Com', 'nameOfJobRolesInterestedIn': 'Any'}, 'item_locations': [{'lat':
+[assistant] एक मिनट। आर्यन जी, पिछली बार हमारी बात डेटा एंट्री ऑपरेटर के काम के बारे में हुई थी — आप अभी भी उसी तरह की जॉब देख रहे हैं? 
+[user]  और कौन सी जॉब हैं सारी बता दीजिए
+[assistant] आपके लिए जॉब्स हैं — पहला: बिलिंग इंजीनियर, काल्को एल्युमिनियम सिस्टम्स प्राइवेट लिमिटेड, गाज़ियाबाद, सैलरी पच्चीस हज़ार से पैंतालीस हज़ार। दूसरा: टेली मार्केटिंग फीमेल, ग्लोबल केमिकल्स, गाज़ियाबाद, सैलरी बीस हज़ार से पच्चीस हज़ार। तीसरा: सुपरवाइज़र, महाराजा इंजीनियरिंग वर्क्स, गाज़ियाबाद, सैलरी बीस हज़ार। चौथा: कमर्शियल मैनेजर, ग्रे फैशन प्राइवेट लिमिटेड, गाज़ियाबाद, सैलरी बीस हज़ार से पच्चीस हज़ार। पाँचवाँ: फील्ड सेल्सपर्सन, श्री कृष्णा इंडस्ट्री, गाज़ियाबाद, सैलरी पंद्रह हज़ार से बीस हज़ार। छठा: कैशियर और पैकर, क्वेस कॉर्प लिमिटेड, गाज़ियाबाद, सैलरी तेरह हज़ार से अठारह हज़ार। सातवाँ: क्रू म
+[user]  और कोई जॉब है क्या सारी सुनानी है
+[assistant] सत्रहवाँ: कस्टमर सपोर्ट एग्जीक्यूटिव, सी.वाई. फ्यूचर, नोएडा, सैलरी पंद्रह हज़ार से सत्रह हज़ार। अठारहवाँ: कैशियर, सी.आई.ई.एल- एच.आर, ग्रेटर नोएडा, सैलरी चौदह हज़ार से सत्रह हज़ार। उन्नीसवाँ: अकाउंटेंट, यतिंदर गोयल, दिल्ली, सैलरी तीस हज़ार। बीसवाँ: कस्टमर सपोर्ट एग्जीक्यूटिव, सी.वाई. फ्यूचर, नोएडा, सैलरी पंद्रह हज़ार से अठारह हज़ार। इक्कीसवाँ: पैकिंग (लॉजिस्टिक्स वेयरहाउस), एडिको इंडिया प्राइवेट लिमिटेड, दादरी, सैलरी पंद्रह हज़ार से सत्रह हज़ार। बाईसवाँ: फील्ड सेल्सपर्सन, ऋषभ पैकेजिंग इंडस्ट्रीज़, कोनिका सिटी, सैलरी इंसेंटिव आधारित। क्या इनमें से किसी के बारे में और जानना चाहेंगे? 
+[user]  जी समझ नहीं आया और पूरी लिस्ट सुनाइए
+[assistant] मैंने आपको अभी सारी उपलब्ध जॉब्स की लिस्ट सुनाई है। क्या आप इनमें से किसी खास तरह के काम या किसी जॉब के बारे में और जानना चाहेंगे? मैं उसी हिसाब से आपको जानकारी दे सकती हूँ। 
+[user]  अभी नहीं पहले सारी जॉब सुनाइए
+[assistant] मैंने आपको अभी सारी उपलब्ध जॉब्स की लिस्ट सुनाई है। अगर आप चाहें तो मैं किसी खास रोल या एरिया के हिसाब से आपको फिर से बता सकती हूँ। आप किस तरह का काम देख रहे हैं? 
+[user]  समझ नहीं आया ठीक है धन्यवाद
+[assistant] ठीक है। ज़रूरत होने पर हमारी टीम आपसे फिर संपर्क करेगी। Goodbye 
+
+[kkb-hi-signals-hi-asks-for-all-jobs] TESTER leg 54768424: outcome=Completed dur=187 turns=22 call_output=null

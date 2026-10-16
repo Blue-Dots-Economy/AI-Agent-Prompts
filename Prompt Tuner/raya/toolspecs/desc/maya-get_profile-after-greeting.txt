@@ -1,0 +1,1 @@
+ WHEN: only in the turn AFTER the caller has answered the campus greeting (the turn that ends "...अभी काम ढूंढ रहे हैं?"). Never in the same turn as that greeting, and never in reply to the audio check "हैलो, मेरी आवाज़ आ रही है?": on that reply you speak the greeting and call no tool. Calling it in the greeting turn makes the whole greeting play twice (8 of 8 such calls).

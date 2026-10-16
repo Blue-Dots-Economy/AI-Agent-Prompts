@@ -1,0 +1,8 @@
+{
+ "name": "acting_as_user_id",
+ "required": true,
+ "schema": {
+  "type": "string",
+  "description": "The PROFILE OWNER's user_id (a UUID): the value of the TOP-LEVEL user_id field in the get_profile or create_profile response you received IN THIS CALL. It is NEVER equal to profile_id - profile_id comes from items[].item_id, this comes from the response's top-level user_id, and they are two different UUIDs. Before you emit this call, check that the two values differ; if they are the same you have not got a user_id and the call will fail with USER_NOT_FOUND ('acting_as_user_id does not resolve to any user') - call 5f0d3671 sent both fields as 687fd5a1... and the caller's application was lost while she was told it already existed. If you have not seen a get_profile or create_profile result in THIS call you do not have this value: knowing the caller's name or profile id from remembered context is not a user_id - call get_profile first and read it from the response."
+ }
+}

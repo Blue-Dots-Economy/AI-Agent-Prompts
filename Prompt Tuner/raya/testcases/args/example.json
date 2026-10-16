@@ -1,0 +1,20 @@
+{
+ "_comment": "ANNOTATED TEMPLATE — copy this, rename to <bot-id>-<scenario>.json, replace the values. The _comment* keys are ignored by the platform; strip them if you prefer a clean file. Shape taken from a real KKB Signals outbound call (see raya/testcases/args/README.md for how to read the real shape off a past call).",
+ "_comment_country_code": "Always 91 for the India fleet. The platform prepends it to the 10-digit to_number you pass on the command line.",
+ "country_code": 91,
+ "_comment_contact_phone": "DO NOT SET THIS EXPECTING IT TO BE USED. ${contact_phone} binds to the number actually DIALLED (the tester DID), not to anything you put here. It already carries the country code — a prompt that writes 91${contact_phone} doubles it, which is a real bug class this repo checks for daily.",
+ "_comment_recommendations": "The job inventory the bot is allowed to offer. This is the field that matters most: a bot given an empty or wrong-shaped recommendations list will either invent jobs or dead-end. A real reported 'bot is broken' turned out to be jobs sent in the wrong field, not a prompt bug — so always confirm the args before blaming the prompt. Keep job_id values EXACT; they are passed to apply_job and a stale id 404s.",
+ "recommendations": [
+  {
+   "job_id": "REPLACE-WITH-A-REAL-JOB-UUID",
+   "role": "Data Entry Operator",
+   "company": "Example Infotech",
+   "location": "Bengaluru",
+   "salary": "12000-16000",
+   "positions": "2",
+   "qualification": "12th pass; 2 years experience"
+  }
+ ],
+ "_comment_contact_memory": "What we already know about this caller from past calls. It is BACKGROUND CONTEXT ONLY — it is not a profile fetch, and the prompts forbid greeting by name or claiming the profile is ready based on it. For a genuinely-new-caller test use the literal string below so nothing is implied.",
+ "contact_memory": "No Old Memory, Mandatory get_profile for the user"
+}

@@ -1,0 +1,5 @@
+fin-dkb-kn USABLE 188s 13 3f996a3d-28d4-452a-8a80-4d3e697f0f0c
+fin-maya USABLE 216s 10 4882a3c1-2309-48a4-a8b2-355d5eb81267
+fin-in-hi USABLE 175s 11 52ef63d2-bcf9-469c-8f7b-272c86496294
+fin-in-kn USABLE 170s 8 2a1a3805-032b-42fe-954f-e60da341a991
+fin-dkb-hi USABLE 149s 10 0eb3fc72-4a9e-452a-ace8-dbcf5b6f9e80

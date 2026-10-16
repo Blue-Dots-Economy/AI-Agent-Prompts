@@ -1,0 +1,638 @@
+{
+ "_note": "Explicit file -> Raya agent-ID manifest. This mapping is the SOURCE OF TRUTH for deploys and MUST be filled by hand from `scripts/raya_deploy.py list` -- never inferred from filenames (e.g. 'KKB Placeholder Inbound.md' is HINDI; 'Maya Inbound.md' has no language token). 'raya_agent_id' is keyed by environment so staging and prod IDs never collide; the tool picks the one matching RAYA_ENV in raya/.env. A target whose id for the active env is empty, or with deploy=false, is skipped. 'expected_name_contains' is a wrong-target guard: deploy aborts if the live agent's name lacks ALL these tokens. Tighten it (e.g. add 'Inbound' or 'Kannada') once you see the real agent names from `list`.",
+ "targets": [
+  {
+   "id": "kkb-hi-out",
+   "file": "KKB/KKB Placeholder Hindi.md",
+   "agent": "KKB",
+   "language": "hi",
+   "direction": "outbound",
+   "kind": "conversation",
+   "profile": "conversation",
+   "expected_name_contains": [
+    "KKB"
+   ],
+   "raya_name": "KKB Placeholder",
+   "raya_agent_id": {
+    "prod": "da612923-1927-45d7-9ad0-b1c7cbb15294",
+    "staging": ""
+   },
+   "deploy": true
+  },
+  {
+   "id": "kkb-kn-out",
+   "file": "KKB/KKB Placeholder Kannada.md",
+   "agent": "KKB",
+   "language": "kn",
+   "direction": "outbound",
+   "kind": "conversation",
+   "profile": "conversation",
+   "expected_name_contains": [
+    "KKB"
+   ],
+   "raya_name": "KKB Placeholder- Kannada",
+   "raya_agent_id": {
+    "prod": "87ab9108-5d66-4a13-a20a-575eaa9aae36",
+    "staging": ""
+   },
+   "deploy": true
+  },
+  {
+   "id": "kkb-hi-in",
+   "file": "KKB/KKB Placeholder Inbound.md",
+   "agent": "KKB",
+   "language": "hi",
+   "direction": "inbound",
+   "kind": "conversation",
+   "profile": "conversation",
+   "expected_name_contains": [
+    "KKB"
+   ],
+   "raya_name": "KKB Inbound Placeholder",
+   "raya_agent_id": {
+    "prod": "b6222233-8a8d-49a6-9950-d07e9d159757",
+    "staging": ""
+   },
+   "deploy": true
+  },
+  {
+   "id": "kkb-kn-in",
+   "file": "KKB/KKB Placeholder Inbound Kannada.md",
+   "agent": "KKB",
+   "language": "kn",
+   "direction": "inbound",
+   "kind": "conversation",
+   "profile": "conversation",
+   "expected_name_contains": [
+    "KKB"
+   ],
+   "raya_name": "KKB Inbound Placeholder- Kannada",
+   "raya_agent_id": {
+    "prod": "4ac90bf1-a740-4b1c-92b0-45bda099e53f",
+    "staging": ""
+   },
+   "deploy": true
+  },
+  {
+   "id": "kkb-kn-signals",
+   "file": "KKB/KKB Placeholder Kannada Signals.md",
+   "agent": "KKB",
+   "language": "kn",
+   "direction": "outbound",
+   "kind": "conversation",
+   "profile": "conversation",
+   "expected_name_contains": [
+    "KKB",
+    "Signals"
+   ],
+   "raya_name": "KKB Placeholder- Kannada Signals API",
+   "raya_agent_id": {
+    "prod": "33037201-78ce-405d-b509-a3b6934e20f1",
+    "staging": ""
+   },
+   "deploy": true
+  },
+  {
+   "id": "kkb-hi-signals",
+   "file": "KKB/KKB Placeholder Hindi Signals.md",
+   "agent": "KKB",
+   "language": "hi",
+   "direction": "outbound",
+   "kind": "conversation",
+   "profile": "conversation",
+   "expected_name_contains": [
+    "KKB",
+    "Signals"
+   ],
+   "raya_name": "KKB Placeholder- Hindi Signals API",
+   "raya_agent_id": {
+    "prod": "115b38a5-42ef-4082-be69-84a871bb226a",
+    "staging": ""
+   },
+   "deploy": true
+  },
+  {
+   "id": "kkb-hi-signals-slim",
+   "file": "KKB-Slim/KKB Slim Hindi Signals.md",
+   "agent": "KKB-Slim",
+   "language": "hi",
+   "direction": "outbound",
+   "kind": "conversation",
+   "profile": "conversation",
+   "signals": true,
+   "expected_name_contains": [
+    "KKB",
+    "Slim"
+   ],
+   "raya_name": "KKB Slim- Hindi Signals API (A/B)",
+   "raya_agent_id": {
+    "prod": "140d13ca-c80f-47c4-9454-5edb3fd38c96",
+    "staging": ""
+   },
+   "deploy": true,
+   "_note": "A/B TWIN of kkb-hi-signals. Same tools, voice, language, DID, timings, memory and output prompts -- cloned field by field via raya/slim/create_slim_bot.py -- so the ONLY difference from 115b38a5 is the conversation prompt: 68,744 chars against 219,518. It exists to test whether prompt size is what the latency complaints are actually about. Do NOT point production traffic at it until the A/B has run; do NOT let /sync-check treat it as a mirror of the Kannada Signals prompt (it is a rewrite of the Hindi one, not a language variant)."
+  },
+  {
+   "id": "kkb-kn-signals-slim",
+   "file": "KKB-Slim/KKB Slim Kannada Signals.md",
+   "agent": "KKB-Slim",
+   "language": "kn",
+   "direction": "outbound",
+   "kind": "conversation",
+   "profile": "conversation",
+   "expected_name_contains": [
+    "KKB",
+    "Slim",
+    "Kannada"
+   ],
+   "raya_name": "KKB Slim- Kannada Signals API (A/B)",
+   "raya_agent_id": {
+    "prod": "bd4dfd44-a0c5-4d37-9b49-f8c186c901c1",
+    "staging": ""
+   },
+   "deploy": true
+  },
+  {
+   "id": "dkb-hi-out",
+   "file": "DKB/DKB Hindi.md",
+   "agent": "DKB",
+   "language": "hi",
+   "direction": "outbound",
+   "kind": "conversation",
+   "profile": "conversation",
+   "expected_name_contains": [
+    "DKB",
+    "Hindi"
+   ],
+   "raya_name": "DKB Hindi- New",
+   "raya_agent_id": {
+    "prod": "57814ac8-5d79-41f5-bab7-bcfe2d9aac4f",
+    "staging": ""
+   },
+   "deploy": true
+  },
+  {
+   "id": "dkb-kn-out",
+   "file": "DKB/DKB Kannada.md",
+   "agent": "DKB",
+   "language": "kn",
+   "direction": "outbound",
+   "kind": "conversation",
+   "profile": "conversation",
+   "expected_name_contains": [
+    "DKB",
+    "Kannada"
+   ],
+   "raya_name": "DKB Kannada- New",
+   "raya_agent_id": {
+    "prod": "d1a1614f-fa7e-41c1-8963-e7f3af213a13",
+    "staging": ""
+   },
+   "deploy": true
+  },
+  {
+   "id": "dkb-hi-in",
+   "file": "DKB/DKB Inbound Hindi.md",
+   "agent": "DKB",
+   "language": "hi",
+   "direction": "inbound",
+   "kind": "conversation",
+   "profile": "conversation",
+   "expected_name_contains": [
+    "DKB",
+    "Dhande",
+    "Dhandhe"
+   ],
+   "raya_name": "",
+   "raya_agent_id": {
+    "prod": "",
+    "staging": ""
+   },
+   "deploy": true
+  },
+  {
+   "id": "dkb-kn-in",
+   "file": "DKB/DKB Inbound Kannada.md",
+   "agent": "DKB",
+   "language": "kn",
+   "direction": "inbound",
+   "kind": "conversation",
+   "profile": "conversation",
+   "expected_name_contains": [
+    "DKB",
+    "Dhande",
+    "Dhandhe"
+   ],
+   "raya_name": "",
+   "raya_agent_id": {
+    "prod": "",
+    "staging": ""
+   },
+   "deploy": true
+  },
+  {
+   "id": "maya-hi-out",
+   "file": "Maya/Maya Hindi.md",
+   "agent": "Maya",
+   "language": "hi",
+   "direction": "outbound",
+   "kind": "conversation",
+   "profile": "conversation",
+   "expected_name_contains": [
+    "Maya"
+   ],
+   "raya_name": "Maya KKB College Hindi",
+   "raya_agent_id": {
+    "prod": "47fdffe6-0cb0-4fcf-8762-135ddadfb194",
+    "staging": ""
+   },
+   "deploy": true
+  },
+  {
+   "id": "maya-hi-in",
+   "file": "Maya/Maya Inbound.md",
+   "agent": "Maya",
+   "language": "hi",
+   "direction": "inbound",
+   "kind": "conversation",
+   "profile": "conversation",
+   "expected_name_contains": [
+    "Maya"
+   ],
+   "raya_name": "Inbound Maya KKB College Hindi",
+   "raya_agent_id": {
+    "prod": "df99f501-e636-4f3d-80dc-e06e82240082",
+    "staging": ""
+   },
+   "deploy": true
+  },
+  {
+   "id": "kkb-memory",
+   "file": "KKB/KKB Memory.md",
+   "agent": "KKB",
+   "language": "xx",
+   "direction": "postcall",
+   "kind": "memory",
+   "profile": "memory",
+   "expected_name_contains": [
+    "KKB"
+   ],
+   "raya_agent_id": {
+    "prod": "",
+    "staging": ""
+   },
+   "deploy": false
+  },
+  {
+   "id": "kkb-output",
+   "file": "KKB/KKB Output.md",
+   "agent": "KKB",
+   "language": "xx",
+   "direction": "postcall",
+   "kind": "output",
+   "profile": "output",
+   "expected_name_contains": [
+    "KKB"
+   ],
+   "raya_agent_id": {
+    "prod": "",
+    "staging": ""
+   },
+   "deploy": false
+  },
+  {
+   "id": "dkb-memory",
+   "file": "DKB/DKB Memory.md",
+   "agent": "DKB",
+   "language": "xx",
+   "direction": "postcall",
+   "kind": "memory",
+   "profile": "memory",
+   "expected_name_contains": [
+    "DKB"
+   ],
+   "raya_agent_id": {
+    "prod": "",
+    "staging": ""
+   },
+   "deploy": false
+  },
+  {
+   "id": "dkb-output",
+   "file": "DKB/DKB Output.md",
+   "agent": "DKB",
+   "language": "xx",
+   "direction": "postcall",
+   "kind": "output",
+   "profile": "output",
+   "expected_name_contains": [
+    "DKB"
+   ],
+   "raya_agent_id": {
+    "prod": "",
+    "staging": ""
+   },
+   "deploy": false
+  },
+  {
+   "id": "maya-out-memory",
+   "file": "Maya/Maya Memory.md",
+   "agent": "Maya",
+   "language": "hi",
+   "direction": "outbound",
+   "kind": "memory",
+   "profile": "memory",
+   "expected_name_contains": [
+    "Maya"
+   ],
+   "raya_agent_id": {
+    "prod": "47fdffe6-0cb0-4fcf-8762-135ddadfb194",
+    "staging": ""
+   },
+   "deploy": true
+  },
+  {
+   "id": "maya-in-memory",
+   "file": "Maya/Maya Memory.md",
+   "agent": "Maya",
+   "language": "hi",
+   "direction": "inbound",
+   "kind": "memory",
+   "profile": "memory",
+   "expected_name_contains": [
+    "Maya"
+   ],
+   "raya_agent_id": {
+    "prod": "df99f501-e636-4f3d-80dc-e06e82240082",
+    "staging": ""
+   },
+   "deploy": true
+  },
+  {
+   "id": "maya-output",
+   "file": "Maya/Maya Output.md",
+   "agent": "Maya",
+   "language": "xx",
+   "direction": "postcall",
+   "kind": "output",
+   "profile": "output",
+   "expected_name_contains": [
+    "Maya"
+   ],
+   "raya_agent_id": {
+    "prod": "",
+    "staging": ""
+   },
+   "deploy": false
+  },
+  {
+   "id": "kkb-hi-in-signals",
+   "file": "KKB/KKB Placeholder Inbound Signals.md",
+   "agent": "KKB",
+   "language": "hi",
+   "direction": "inbound",
+   "kind": "conversation",
+   "profile": "conversation",
+   "raya_name": "KKB Hindi Inbound Signals",
+   "raya_agent_id": {
+    "prod": "3f521174-574d-43ca-a9be-081849373c18",
+    "staging": ""
+   },
+   "deploy": true,
+   "experimental": true,
+   "expected_name_contains": [
+    "KKB",
+    "Signals"
+   ],
+   "_note": "REPURPOSED from a combined ${call_direction} experiment into a Signals bot (2026-07-31). uuid reused; instructions+tools+name to be PATCHed to Signals. Phase per raya/signals-expansion/PLAN.md.",
+   "signals": true
+  },
+  {
+   "id": "kkb-kn-in-signals",
+   "file": "KKB/KKB Placeholder Inbound Kannada Signals.md",
+   "agent": "KKB",
+   "language": "kn",
+   "direction": "inbound",
+   "kind": "conversation",
+   "profile": "conversation",
+   "raya_name": "KKB Kannada Inbound Signals",
+   "raya_agent_id": {
+    "prod": "f38da775-c572-4a50-9340-fe1f42c43901",
+    "staging": ""
+   },
+   "deploy": true,
+   "experimental": true,
+   "expected_name_contains": [
+    "KKB",
+    "Signals"
+   ],
+   "_note": "REPURPOSED from a combined ${call_direction} experiment into a Signals bot (2026-07-31). uuid reused; instructions+tools+name to be PATCHed to Signals. Phase per raya/signals-expansion/PLAN.md.",
+   "signals": true
+  },
+  {
+   "id": "maya-hi-signals",
+   "file": "Maya/Maya Hindi Signals.md",
+   "agent": "Maya",
+   "language": "hi",
+   "direction": "outbound",
+   "kind": "conversation",
+   "profile": "conversation",
+   "raya_name": "Maya Hindi Signals",
+   "raya_agent_id": {
+    "prod": "904f333f-1919-4523-a51d-b22ba382dd22",
+    "staging": ""
+   },
+   "deploy": true,
+   "experimental": true,
+   "expected_name_contains": [
+    "Maya",
+    "Signals"
+   ],
+   "_note": "REPURPOSED from a combined ${call_direction} experiment into a Signals bot (2026-07-31). uuid reused; instructions+tools+name to be PATCHed to Signals. Phase per raya/signals-expansion/PLAN.md.",
+   "signals": true
+  },
+  {
+   "id": "dkb-hi-signals",
+   "file": "DKB/DKB Hindi Signals.md",
+   "agent": "DKB",
+   "language": "hi",
+   "direction": "outbound",
+   "kind": "conversation",
+   "profile": "conversation",
+   "raya_name": "DKB Hindi Signals",
+   "raya_agent_id": {
+    "prod": "fabda71d-af75-4ddd-8cf1-fa35c827f753",
+    "staging": ""
+   },
+   "deploy": true,
+   "experimental": true,
+   "expected_name_contains": [
+    "DKB",
+    "Signals"
+   ],
+   "_note": "REPURPOSED from a combined ${call_direction} experiment into a Signals bot (2026-07-31). uuid reused; instructions+tools+name to be PATCHed to Signals. Phase per raya/signals-expansion/PLAN.md.",
+   "signals": true
+  },
+  {
+   "id": "dkb-kn-signals",
+   "file": "DKB/DKB Kannada Signals.md",
+   "agent": "DKB",
+   "language": "kn",
+   "direction": "outbound",
+   "kind": "conversation",
+   "profile": "conversation",
+   "raya_name": "DKB Kannada Signals",
+   "raya_agent_id": {
+    "prod": "847a85e2-c5c8-4727-9918-f1db9efad05d",
+    "staging": ""
+   },
+   "deploy": true,
+   "experimental": true,
+   "expected_name_contains": [
+    "DKB",
+    "Signals"
+   ],
+   "_note": "REPURPOSED from a combined ${call_direction} experiment into a Signals bot (2026-07-31). uuid reused; instructions+tools+name to be PATCHed to Signals. Phase per raya/signals-expansion/PLAN.md.",
+   "signals": true
+  },
+  {
+   "id": "maya-hi-in-signals",
+   "raya_name": "Maya Inbound Signals",
+   "file": "Maya/Maya Inbound Signals.md",
+   "agent": "Maya",
+   "language": "hi",
+   "direction": "inbound",
+   "kind": "conversation",
+   "profile": "conversation",
+   "raya_agent_id": {
+    "prod": "1c24feda-a584-4012-a865-fa8f950089df",
+    "staging": ""
+   },
+   "deploy": true,
+   "signals": true,
+   "expected_name_contains": [
+    "Maya",
+    "Signals"
+   ],
+   "source_agent_for_clone": "df99f501-e636-4f3d-80dc-e06e82240082",
+   "_note": "NEW Signals agent (Maya Hindi INBOUND) — base Maya/Maya Inbound.md; create by cloning maya-hi-in (df99f501) config + Signals tools. Phase 1."
+  },
+  {
+   "id": "trrain-hi-out",
+   "file": "TRRAIN/TRRAIN Hindi.md",
+   "agent": "TRRAIN",
+   "language": "hi",
+   "direction": "outbound",
+   "kind": "conversation",
+   "profile": "conversation",
+   "master": true,
+   "raya_name": "TRRAIN Hindi",
+   "expected_name_contains": [
+    "TRRAIN"
+   ],
+   "raya_agent_id": {
+    "prod": "cf39a59a-3b24-4842-ba03-4248ec245aa1",
+    "staging": ""
+   },
+   "deploy": true,
+   "_note": "New 2026-08-10. Outbound-only follow-up campaign for seekers who already applied. NO tools. say_hello=false + audio-check Turn 1. 2026-09-04: flagged signals=true — its get_profile has pointed at gzb-signals/dharwad-signals since the 2026-08-28 cutover, but every tool that derives the backend from the target id was still classifying it as legacy, so TRRAIN was excluded from the Signals parity group, --signals-only runs and the Signals contract checks.",
+   "signals": true
+  },
+  {
+   "id": "trrain-kn-out",
+   "file": "TRRAIN/TRRAIN Kannada.md",
+   "agent": "TRRAIN",
+   "language": "kn",
+   "direction": "outbound",
+   "kind": "conversation",
+   "profile": "conversation",
+   "raya_name": "TRRAIN Kannada",
+   "expected_name_contains": [
+    "TRRAIN"
+   ],
+   "raya_agent_id": {
+    "prod": "dfeda883-3d2d-4a74-a0b5-1a47fdde2282",
+    "staging": ""
+   },
+   "deploy": true,
+   "_note": "Mirror of trrain-hi-out (master = Hindi). 2026-09-04: flagged signals=true — its get_profile has pointed at gzb-signals/dharwad-signals since the 2026-08-28 cutover, but every tool that derives the backend from the target id was still classifying it as legacy, so TRRAIN was excluded from the Signals parity group, --signals-only runs and the Signals contract checks.",
+   "signals": true
+  },
+  {
+   "id": "trrain-hi-memory",
+   "file": "TRRAIN/TRRAIN Memory.md",
+   "agent": "TRRAIN",
+   "language": "xx",
+   "direction": "postcall",
+   "kind": "memory",
+   "profile": "memory",
+   "expected_name_contains": [
+    "TRRAIN"
+   ],
+   "raya_agent_id": {
+    "prod": "cf39a59a-3b24-4842-ba03-4248ec245aa1",
+    "staging": ""
+   },
+   "deploy": true,
+   "signals": true,
+   "_note": "2026-09-04: flagged signals=true — its get_profile has pointed at gzb-signals/dharwad-signals since the 2026-08-28 cutover, but every tool that derives the backend from the target id was still classifying it as legacy, so TRRAIN was excluded from the Signals parity group, --signals-only runs and the Signals contract checks."
+  },
+  {
+   "id": "trrain-kn-memory",
+   "file": "TRRAIN/TRRAIN Memory.md",
+   "agent": "TRRAIN",
+   "language": "xx",
+   "direction": "postcall",
+   "kind": "memory",
+   "profile": "memory",
+   "expected_name_contains": [
+    "TRRAIN"
+   ],
+   "raya_agent_id": {
+    "prod": "dfeda883-3d2d-4a74-a0b5-1a47fdde2282",
+    "staging": ""
+   },
+   "deploy": true,
+   "signals": true,
+   "_note": "2026-09-04: flagged signals=true — its get_profile has pointed at gzb-signals/dharwad-signals since the 2026-08-28 cutover, but every tool that derives the backend from the target id was still classifying it as legacy, so TRRAIN was excluded from the Signals parity group, --signals-only runs and the Signals contract checks."
+  },
+  {
+   "id": "trrain-hi-output",
+   "file": "TRRAIN/TRRAIN Output.md",
+   "agent": "TRRAIN",
+   "language": "xx",
+   "direction": "postcall",
+   "kind": "output",
+   "profile": "output",
+   "expected_name_contains": [
+    "TRRAIN"
+   ],
+   "raya_agent_id": {
+    "prod": "cf39a59a-3b24-4842-ba03-4248ec245aa1",
+    "staging": ""
+   },
+   "deploy": true,
+   "signals": true,
+   "_note": "2026-09-04: flagged signals=true — its get_profile has pointed at gzb-signals/dharwad-signals since the 2026-08-28 cutover, but every tool that derives the backend from the target id was still classifying it as legacy, so TRRAIN was excluded from the Signals parity group, --signals-only runs and the Signals contract checks."
+  },
+  {
+   "id": "trrain-kn-output",
+   "file": "TRRAIN/TRRAIN Output.md",
+   "agent": "TRRAIN",
+   "language": "xx",
+   "direction": "postcall",
+   "kind": "output",
+   "profile": "output",
+   "expected_name_contains": [
+    "TRRAIN"
+   ],
+   "raya_agent_id": {
+    "prod": "dfeda883-3d2d-4a74-a0b5-1a47fdde2282",
+    "staging": ""
+   },
+   "deploy": true,
+   "signals": true,
+   "_note": "2026-09-04: flagged signals=true — its get_profile has pointed at gzb-signals/dharwad-signals since the 2026-08-28 cutover, but every tool that derives the backend from the target id was still classifying it as legacy, so TRRAIN was excluded from the Signals parity group, --signals-only runs and the Signals contract checks."
+  }
+ ]
+}

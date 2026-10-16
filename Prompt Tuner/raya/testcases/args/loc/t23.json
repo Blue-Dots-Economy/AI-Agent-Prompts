@@ -1,0 +1,8 @@
+{
+ "recommendations": "[\n {\n  \"job_id\": \"41ed5fd5-fc28-43d1-9ba9-314f235e8f07\",\n  \"role\": \"Production Worker\",\n  \"company\": \"Lava International Ltd\",\n  \"qualification\": \"School\",\n  \"salary\": \"10000-14000\",\n  \"vacancy\": \"35\",\n  \"location\": \"Sahibabad\"\n },\n {\n  \"job_id\": \"a2ca1d0e-9aa2-47fa-ae97-304f4b16cc89\",\n  \"role\": \"Fitter\",\n  \"company\": \"Electronic Hyperlink\",\n  \"qualification\": \"School\",\n  \"salary\": \"12000-16000\",\n  \"vacancy\": \"9\",\n  \"location\": \"Loni\"\n },\n {\n  \"job_id\": \"de4389f7-750d-471a-9f6e-65e00db382a9\",\n  \"role\": \"Welder\",\n  \"company\": \"Spectrum Talent Management\",\n  \"qualification\": \"School\",\n  \"salary\": \"12000-16000\",\n  \"vacancy\": \"50\",\n  \"location\": \"Govindpuram\"\n }\n]",
+ "contact_memory": "",
+ "contact_phone": "91XXXXXX5213",
+ "contact_name": "Sanjay Tiwari",
+ "country_code": 91,
+ "location": "Ghaziabad"
+}

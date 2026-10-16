@@ -1,0 +1,277 @@
+{
+ "schema_version": 1,
+ "_note": "DELIBERATE-DIVERGENCE REGISTRY. Some differences between a bot's language files are INTENTIONAL, owner-approved decisions -- not drift. This file is the machine-checkable record of them. `/sync-check` loads it and reports a covered difference as 'EXPECTED (registered divergence)' instead of drift; an UNREGISTERED difference in language-agnostic content is what gets flagged. `/update-prompt` and `/port-feature` MUST add an entry here -- in the same change as the prompt edit and the CHANGELOG entry -- whenever they knowingly apply a change to some languages of a sync family and not others, or otherwise suspend the master->mirror sync rule. No entry = the next audit will 'correct' the divergence and silently undo an owner decision. An entry is a NARROW carve-out (specific targets, languages, sections and tokens), never a blanket licence for a language to differ; everything in `still_must_match` is audited normally. Lives next to agents.json because it is fleet data read by /sync-check, /update-prompt, /port-feature and raya/regression/static_regression.py -- not skill prose. Schema notes: .claude/skills/sync-check/reference/n-language-parity.md",
+ "_schema": {
+  "id": "stable kebab-case key; cited verbatim in audit reports",
+  "bot": "the bot/agent the divergence belongs to (KKB, DKB, Maya, purple-dots, ...)",
+  "sync_family": "'bot · direction · variant' -- scopes the entry to ONE sync family; files in other families are not mirrors of each other",
+  "targets": "raya/agents.json target ids this divergence applies to",
+  "master_language": "the family's master language at the time of approval",
+  "languages_affected": "language codes that legitimately differ from the master",
+  "direction": "mirror-only | master-only | both-differ",
+  "scope": "the sections/lines that legitimately differ. Each item: section (heading, matched by intent not exact string), kind (persona|spoken-line|rule), what (plain English), contains[] (tokens a script can match inside the actual delta)",
+  "why": "the owner's reason, in plain English",
+  "approved_by": "the human who decided, and how (explicit instruction / email approval)",
+  "approved_on": "YYYY-MM-DD",
+  "changelog_ref": "the CHANGELOG.md entry that records the edit",
+  "still_must_match": "everything this entry does NOT excuse -- audited normally",
+  "not_applied_to": "sibling targets deliberately left alone (stops scope creep)",
+  "review_on": "optional; after this date the entry must be re-confirmed or it is reported as a registry gap",
+  "expires": "optional hard expiry; after it, the divergence is drift again",
+  "_match_rule": "A difference is EXPECTED only if ALL hold: (1) the file's target id is in `targets` and its family matches `sync_family`; (2) the file's language is in `languages_affected`; (3) the differing section matches a scope[].section by intent; (4) the delta text contains at least one of that scope item's `contains` tokens. Anything else is UNREGISTERED = drift. If a scope item's `contains` tokens are NO LONGER present in the covered files, the divergence was undone -- report a registry gap / possible silent revert and ask the owner; do not delete the entry and do not silently re-apply it."
+ },
+ "divergences": [
+  {
+   "id": "kkb-kn-signals-maya-name",
+   "bot": "KKB",
+   "sync_family": "KKB · outbound+inbound · signals (Kannada Signals pair)",
+   "targets": [
+    "kkb-kn-signals",
+    "kkb-kn-in-signals",
+    "kkb-kn-signals-slim"
+   ],
+   "files": [
+    "KKB/KKB Placeholder Kannada Signals.md",
+    "KKB/KKB Placeholder Inbound Kannada Signals.md"
+   ],
+   "master_language": "hi",
+   "languages_affected": [
+    "kn"
+   ],
+   "direction": "mirror-only",
+   "scope": [
+    {
+     "section": "Introduction (persona line)",
+     "kind": "persona",
+     "what": "The Kannada Signals bots name the agent in the persona line -- 'You are ಮಾಯಾ (Maya), the named voice of the ಕೆಲಸದ ಮಾತು initiative' -- plus the rule that it answers 'who are you?' with that name mid-call. The Hindi Signals twins intentionally keep the institution-only persona ('You are काम की बात') with no personal name.",
+     "contains": [
+      "ಮಾಯಾ (Maya)",
+      "the named voice of",
+      "Your name is ಮಾಯಾ"
+     ]
+    },
+    {
+     "section": "Call Introduction Rules → Introduction Script (fixed opening line)",
+     "kind": "spoken-line",
+     "what": "The fixed opening line carries one extra short sentence, 'ನಾನು ಮಾಯಾ.', inserted after 'ನಮಸ್ಕಾರ.' and before the existing institutional welcome. Everything else in the greeting -- including the recording disclosure and its position -- is byte-identical to before. The Hindi opening line has no equivalent self-naming sentence.",
+     "contains": [
+      "ನಾನು ಮಾಯಾ."
+     ]
+    },
+    {
+     "section": "Call Introduction Rules → Intro-turn rules",
+     "kind": "rule",
+     "what": "Kannada-only intro-turn rules that exist because of the name: (a) 'give your name once in this intro turn, never repeat it in later turns' (guards the repetition failure class); (b) the identity anchor reads that the NAME TOGETHER WITH the city-administration initiative is the whole identity -- the Hindi twins still read that the institutional anchor is the entire identity, which would contradict a personal name; (c) an explicit guard that being named ಮಾಯಾ does not make the agent a private individual, an agent, or a company representative.",
+     "contains": [
+      "Give your name once, in this intro turn",
+      "together with",
+      "does not make you a private individual"
+     ]
+    }
+   ],
+   "why": "Feature request from the owner: the KKB Kannada bots should be called Maya and state that name in their introduction. Applied to the Kannada Signals pair ONLY, at the owner's explicit instruction -- the Hindi Signals twins and BOTH legacy Kannada bots keep the institution-only intro with no personal name. For this pair the normal 'Hindi is source of truth, mirror to Kannada' rule was consciously suspended for a language-specific persona choice. A /sync-check WILL see a persona-line, opening-line and intro-turn-rule difference between KKB Hindi Signals and KKB Kannada Signals: that is EXPECTED, not drift. ('Maya' is also the name of the separate Maya agent -- Hindi-only, UP campus recruitment, ${college_name}. Different agents, different prompts, different uuids; the shared first name is intentional and has no functional coupling.) Extended 2026-09-10 to the Kannada SLIM twin (kkb-kn-signals-slim): the slim bots are latency A/B twins of the production bots, so the Kannada slim must speak with the same persona name as the Kannada bot it is being compared against — otherwise the A/B measures two different bots.",
+   "approved_by": "Parth (owner) — explicit instruction",
+   "approved_on": "2026-08-04",
+   "changelog_ref": "KKB/CHANGELOG.md → '2026-08-04 — KKB Kannada SIGNALS bots: introduce as \"ಮಾಯಾ\" (Maya)'",
+   "still_must_match": [
+    "All call-flow logic, phase/step structure, conditions and routing",
+    "All tool names, JSON payloads, payload field names, fixed params and enum literals",
+    "All ${input variables}",
+    "The memory-injection block '{${contact_memory}}'",
+    "The 'do NOT add ಗವರ್ನಮೆಂಟ್ / do NOT claim to be calling from the government' ban (preserved verbatim)",
+    "The inbound 'do NOT say I'm calling you' ban (preserved verbatim on the inbound file)",
+    "The recording disclosure and its position in the intro turn",
+    "Every other section of both files"
+   ],
+   "not_applied_to": [
+    "kkb-hi-signals",
+    "kkb-hi-in-signals",
+    "kkb-kn-out",
+    "kkb-kn-in"
+   ],
+   "review_on": null,
+   "expires": null
+  },
+  {
+   "id": "kkb-hi-signals-location-capture",
+   "bot": "KKB",
+   "sync_family": "KKB · outbound · signals (Hindi/Kannada Signals pair)",
+   "targets": [
+    "kkb-hi-signals",
+    "kkb-kn-signals"
+   ],
+   "files": [
+    "KKB/KKB Placeholder Hindi Signals.md",
+    "KKB/KKB Placeholder Kannada Signals.md"
+   ],
+   "master_language": "hi",
+   "languages_affected": [
+    "hi",
+    "kn"
+   ],
+   "direction": "master + kn mirror (no longer a pilot)",
+   "scope": [
+    {
+     "section": "Input Variables → Contact Variables",
+     "kind": "input-variable",
+     "what": "kkb-hi-signals alone declares the `location` input (${location}) and the Location precedence rules. Its Kannada twin and both inbound twins do NOT receive this variable and must not declare it — a declared-but-never-sent arg makes the reconfirmation silently inert (analyser G3).",
+     "contains": [
+      "`location` is ${location}",
+      "Location precedence (highest first)"
+     ]
+    },
+    {
+     "section": "Step 1 → Location state / Location capture ladder / Location fillers",
+     "kind": "flow",
+     "what": "The bounded three-turn location escalation ladder (reconfirm → finer probe / slow-repeat → station or landmark), its filler clauses, and the Location state branch that decides the WORDING of the single existing area turn. 2026-09-01: the block was PROMOTED out of Case A to a sibling `###` section so both the known-role (Case A) and unknown-role (Case B) paths reach it — a Case-B call was using the open UNKNOWN lines quoted inline in Case B and never speaking the reconfirmation (calls 5c67bd19, 90da81db, 14f90f64, 0decf61a; analyser D51/D53). A third state was added: KNOWN-but-no-job-in-that-place gets its own mandatory truthful line naming both places.",
+     "contains": [
+      "### Location state — the ONE area turn, and it governs BOTH Case A and Case B",
+      "### Location capture ladder — bounded escalation",
+      "आपको ${location} के आसपास जॉब चाहिए",
+      "माफ़ कीजिए, नाम ठीक से समझ नहीं पाई",
+      "कौन सा रेलवे या मेट्रो स्टेशन है?",
+      "कोई जानी-पहचानी जगह है",
+      "आपके लिए [जगह] में अभी कोई जॉब नहीं है"
+     ]
+    },
+    {
+     "section": "No-Match Fallback → Preference capture on a mismatch (both copies)",
+     "kind": "flow",
+     "what": "The location/role mismatch preference capture and its acknowledgement clause, gated behind the existing No-Match HARD GUARD so it can never fire while un-presented jobs remain.",
+     "contains": [
+      "### Preference capture on a mismatch",
+      "आपको किस जगह के आसपास काम चाहिए?",
+      "आपको किस तरह का काम चाहिए?",
+      "ठीक है, समझ गई।"
+     ]
+    },
+    {
+     "section": "Canonical Location Spellings",
+     "kind": "language-specific",
+     "what": "Ten additional Devanagari canonical spellings for Ghaziabad-area localities plus the off-list rule. A Kannada port needs Kannada-script equivalents, never these.",
+     "contains": [
+      "Vasundhara → वसुंधरा",
+      "Crossings Republik → क्रॉसिंग्स रिपब्लिक",
+      "Places the caller gives you, and places that arrive in an input variable."
+     ]
+    },
+    {
+     "section": "KKB Output.md (output_instructions on kkb-hi-signals ONLY)",
+     "kind": "output-field",
+     "what": "preferred_location and preference_mismatch_reason are deployed to the kkb-hi-signals agent's output_instructions only. Other KKB agents keep the previous output prompt because only this bot can produce those values. 2026-09-01: added `input_location_had_jobs` (Yes/No/NA) so a campaign dialling a city we hold no inventory in shows up in reporting.",
+     "contains": [
+      "15a. preferred_location",
+      "15b. preference_mismatch_reason",
+      "15c. input_location_had_jobs"
+     ]
+    }
+   ],
+   "must_still_match": [
+    "Turn-1 audio check, Introduction Script, and the recording disclosure position",
+    "The returning-caller callback clause and the role-confirm question",
+    "Step 2 spoken formats (three/two/one option) and the Step 3 deep-dive format",
+    "Both No-Match HARD GUARD paragraphs and the 'a short no ends a SET' paragraph",
+    "The missing-job-data line and the no-relevant-jobs line themselves (unchanged; the acknowledgement is a prefix only)",
+    "Need Capture path lines, Graceful Exit structure, and the final word Goodbye",
+    "All tool names, payload field names, enum values, and hold_message values",
+    "Heading count: ^# and ^## must stay at 118 in both languages"
+   ],
+   "why": "Team-mandated pilot (2026-08-28). Location capture, reconfirmation and the two mismatch fallbacks were scoped deliberately to KKB Signals Hindi FIRST, to be validated in production before any port. Treating the Kannada/inbound twins as lagging and back-porting or reverting this would be wrong on both counts.",
+   "approved_by": "Parth Bansal (product owner), 2026-08-28",
+   "changelog_ref": "KKB/CHANGELOG.md — 2026-08-28 — KKB Signals Hindi: location capture (R1-R4)",
+   "expires": "On explicit approval to port. Port via /port-feature with re-authored Kannada spoken lines, Kannada canonical spellings, an inbound-safe closing clause (no outbound callback promise), and an independent live test per variant.",
+   "registered": "2026-08-28",
+   "last_reviewed": "2026-09-02",
+   "_note_2026_09_02": "Ported to Kannada Signals on 2026-09-02 at Parth's request. The Kannada twin now carries the same Location step (Turn A two-slot sentence, Turn B asked once ever, nearest_landmark skip, never-answer-your-own-question) with Kannada spoken lines and its OWN canonical spellings for the Dharwad/Hubballi inventory. Raya has derived `location` into kkb-kn-signals' agent_args; the campaign must actually SEND it, otherwise the input is EMPTY and the step degrades to the open area lines (analyser G3) — that is the pre-existing behaviour, so no regression, but the reconfirm stays inert until the campaign passes it. The INBOUND Signals twins still do NOT have this step."
+  },
+  {
+   "id": "kkb-slim-location-pin-capture",
+   "bot": "KKB-Slim",
+   "sync_family": "KKB-Slim · outbound · signals (Hindi/Kannada slim pair)",
+   "targets": [
+    "kkb-hi-signals-slim",
+    "kkb-kn-signals-slim"
+   ],
+   "master_language": "hi",
+   "languages_affected": [
+    "hi",
+    "kn"
+   ],
+   "direction": "both-differ",
+   "scope": [
+    {
+     "section": "Inputs → contact variables",
+     "kind": "input-variable",
+     "what": "BOTH slim twins declare the `location` input (${location}) and the Location precedence rules. The Kannada PRODUCTION bot (kkb-kn-signals) does NOT receive that variable — see kkb-hi-signals-location-capture — so the Kannada slim is deliberately ahead of its own production twin here.",
+     "contains": [
+      "${location}",
+      "Location precedence"
+     ]
+    },
+    {
+     "section": "5 — Orient, then the location turn → Turn B (the pin code)",
+     "kind": "rule",
+     "what": "Both slim twins carry the three-turn location step: A confirm the place, B confirm/ask the 6-digit PIN spoken digit-by-digit, C the landmark. No other bot in the fleet has the pin turn yet.",
+     "contains": [
+      "Turn B — the pin code",
+      "pin code",
+      "pin_code"
+     ]
+    }
+   ],
+   "why": "The location + PIN capture work is the team-mandated proximity pilot (tracker rows 22/35: 'pass what we have, confirm it, capture simple markers (landmark / PIN / locality)'). It was built and verified on the Hindi slim bot first, then carried to the Kannada slim when that bot was created on 2026-09-10, because the slim pair is an A/B set that has to be identical in behaviour to be comparable. The production Kannada bot still has no `location` input, so a /sync-check between kkb-kn-signals and kkb-kn-signals-slim will legitimately differ here.",
+   "approved_by": "Parth (explicit instruction, 2026-09-10: fix the location/pin issue, then create a slim Kannada version)",
+   "approved_on": "2026-09-10",
+   "changelog_ref": "KKB-Slim/CHANGELOG.md — 2026-09-10 'Kannada slim twin created' + '2026-09-10 location pin turn'",
+   "still_must_match": "Everything else in the slim pair: the six laws, the call order, all tool contracts and payloads, the consent flag gate and record_consent rules, the readiness/apply logic, the post-apply topics and the read-back template. Only the two scoped items above may differ from the production Kannada bot, and NOTHING may differ between the two slim twins themselves.",
+   "not_applied_to": [
+    "kkb-kn-signals",
+    "kkb-hi-in-signals",
+    "kkb-kn-in-signals",
+    "maya-hi-signals",
+    "maya-hi-in-signals"
+   ]
+  },
+  {
+   "id": "kkb-slim-6a-region-list",
+   "bot": "KKB-Slim",
+   "sync_family": "KKB-Slim · outbound · signals (Hindi/Kannada slim pair)",
+   "targets": [
+    "kkb-hi-signals-slim",
+    "kkb-kn-signals-slim"
+   ],
+   "master_language": "hi",
+   "languages_affected": [
+    "kn"
+   ],
+   "direction": "mirror-only",
+   "scope": [
+    {
+     "section": "6a step 1 region list",
+     "kind": "rule",
+     "what": "The out-of-region drop in step 6a step 1 names each bot's own region. Hindi keeps rows in Uttar Pradesh, Delhi or Haryana and the Ghaziabad, Delhi and Noida area (examples dropped: Kanpur, Bengaluru, Hubballi, Gandhinagar). Kannada serves Hubballi-Dharwad on the Dharwad backend, so it keeps rows in Karnataka and the Hubballi-Dharwad area (examples dropped: Ghaziabad, Delhi, Noida, Kanpur, Gandhinagar).",
+     "contains": [
+      "names a state other than",
+      "Uttar Pradesh, Delhi or Haryana",
+      "Karnataka",
+      "Ghaziabad, Delhi and Noida area",
+      "Hubballi-Dharwad area"
+     ]
+    }
+   ],
+   "why": "Each slim twin runs on a different regional job backend (Hindi: Ghaziabad; Kannada: Dharwad), and jobProviderLocation is now a raw address, so the region filter has to name the region that bot actually serves. Mirroring the Hindi region list verbatim would make the Kannada bot drop every local Hubballi-Dharwad row.",
+   "approved_by": "Parth (bug-fix 2026-10-13, tracker r111)",
+   "approved_on": "2026-10-13",
+   "changelog_ref": "KKB-Slim/CHANGELOG.md, 2026-10-13 GZB review / tracker r111 entry",
+   "still_must_match": "The structure of the step 6a step 1 'Also drop' rule (drop by state, drop by city outside the area, the order of the three drops), the already-applied drop (role + company in `jobs_applied` or applied earlier this call) and the test/placeholder company drop, all verbatim. Everything else in the slim pair is audited normally.",
+   "not_applied_to": [
+    "kkb-hi-signals",
+    "kkb-kn-signals",
+    "kkb-hi-in-signals",
+    "kkb-kn-in-signals",
+    "maya-hi-signals",
+    "maya-hi-in-signals"
+   ]
+  }
+ ]
+}

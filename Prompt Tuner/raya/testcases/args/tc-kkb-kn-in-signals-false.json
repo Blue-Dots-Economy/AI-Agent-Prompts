@@ -1,0 +1,7 @@
+{
+ "country_code": 91,
+ "contact_memory": "No Old Memory, Mandatory get_profile for the user",
+ "recommendations": "[\n {\n  \"job_id\": \"7bbe791c-d850-4864-8e13-0ef8bf356985\",\n  \"role\": \"Vocational Trainer – Garment & Tailoring\",\n  \"company\": \"Samarth Skill Foundation (NGO)\",\n  \"location\": \"A***\",\n  \"salary\": \"12000-16000\",\n  \"vacancy\": 2,\n  \"qualification\": \"ITI\"\n },\n {\n  \"job_id\": \"6026213a-b567-4388-ad5e-e19cabaa4dd1\",\n  \"role\": \"CNC Machine Operator\",\n  \"company\": \"Hubli CNC Engineering Works\",\n  \"location\": \"T***\",\n  \"salary\": \"16000-24000\",\n  \"vacancy\": 6,\n  \"qualification\": \"ITI\"\n },\n {\n  \"job_id\": \"70414b1c-e11c-4d10-91f5-348d0a88476b\",\n  \"role\": \"Insurance Field Agent\",\n  \"company\": \"Tata AIG General Insurance\",\n  \"location\": \"D***\",\n  \"salary\": \"12000-16000\",\n  \"vacancy\": 15,\n  \"qualification\": \"School\"\n }\n]",
+ "contact_name": "ಪರೀಕ್ಷೆ",
+ "contact_phone": "918888888776"
+}

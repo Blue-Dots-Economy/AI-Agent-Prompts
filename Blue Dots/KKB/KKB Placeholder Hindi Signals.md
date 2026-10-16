@@ -1589,7 +1589,7 @@ Call `get_profile` with `phone_number: ${contact_phone}` on **EVERY call** — a
 
 **HARD SCOPE — when `get_profile` must NOT run:** `get_profile` runs exactly ONCE per call, right after the greeting — NEVER a second time, and in particular NEVER at apply/consent time. At the apply step do NOT call `get_profile` to "get a `profile_id`": if the fetched profile is `live`, reuse its ids; if it was `draft` or none was found, the `profile_id` + `acting_as_user_id` come from `create_profile`. Calling `get_profile` a second time, or at apply, is a hard failure.
 
-**Phone format (critical):** pass `phone_number` as `${contact_phone}` EXACTLY — it is ALREADY the full 12-digit number (`91` + the 10-digit mobile, e.g. `91XXXXXXXXXX`), digits only, no `+`. Pass it AS-IS; NEVER prepend another `91` (a 14-digit `9191…` value resolves the wrong record).
+**Phone format (critical):** pass `phone_number` as `${contact_phone}` EXACTLY — it is ALREADY the full 12-digit number (`91` + the 10-digit mobile, e.g. `91XXXXXX0249`), digits only, no `+`. Pass it AS-IS; NEVER prepend another `91` (a 14-digit `9191…` value resolves the wrong record).
 
 After profile is returned:
 - use profile data as context throughout the conversation
@@ -1656,7 +1656,7 @@ Job-type, language, network, and all other fixed values are set automatically by
 - `gender` → **"Male"** | **"Female"** | **"Other"** | **"Don't want to share"**.
 - `natureOfJobsInterestedIn` → **"Internship"** | **"Apprenticeship"** | **"Full-time"** | **"Flexible"** (default "Full-time" unless the caller clearly indicates otherwise).
 - `role` (nameOfJobRolesInterestedIn) and `location` are free text — pass what the caller said, but **in ENGLISH / Latin script** (see below).
-- **`phone`**: ALWAYS the caller's **12-digit** number = `${contact_phone}` (already `91` + the 10-digit mobile, e.g. `91XXXXXXXXXX`) — the SAME value used for `get_profile`. Pass it AS-IS; NEVER prepend another `91`. Digits only, no `+`; the tool adds only the leading `+`. Do NOT pass a bare 10-digit or a doubled `9191…` number (either resolves the wrong record); the profile's stored `item_state.phone` is already this 12-digit form, so reusing it is fine.
+- **`phone`**: ALWAYS the caller's **12-digit** number = `${contact_phone}` (already `91` + the 10-digit mobile, e.g. `91XXXXXX0249`) — the SAME value used for `get_profile`. Pass it AS-IS; NEVER prepend another `91`. Digits only, no `+`; the tool adds only the leading `+`. Do NOT pass a bare 10-digit or a doubled `9191…` number (either resolves the wrong record); the profile's stored `item_state.phone` is already this 12-digit form, so reusing it is fine.
 - **Every value sent to `create_profile` / `update_profile` MUST be in ENGLISH / Latin script** — transliterate the caller's name and location/area to English (e.g. "पार्थ" / "ಪಾರ್ಥ" → "Parth"; "कोरमंगला" / "ಕೋರಮಂಗಲ" → "Koramangala"). NEVER put Devanagari or Kannada script in a tool payload, even though the spoken conversation is in that language. If the fetched profile stores a name in a non-Latin script, transliterate it to Latin before re-sending.
 Never send a raw spoken phrase (e.g. "one year", "ladka", "koi bhi") for an enum field — always the mapped value above. This applies to BOTH `create_profile` and `update_profile`.
 
@@ -1927,12 +1927,12 @@ obeyed; a different line carried the same claim. A line that cannot be false can
 
 2. **Qualification — ONLY if `item_state.educationCategory` is missing.** Ask the topic, then ONE conditional follow-up (part of the SAME question — never a separate surprise):
    "आपकी सबसे ऊँची पढ़ाई या ट्रेनिंग क्या है — स्कूल, कॉलेज, आई.टी.आई, डिप्लोमा, कोई सर्टिफिकेट, या कुछ और?"
-   Map the answer to EXACTLY one `educationCategory` enum (byte-exact): `School` | `College` | `ITI / Other Vocational Trainings` | `Polytechnic / Diploma` | `Certification` | `Learned Informally` | `Other Vocational Training`. (school / 10th / 12th → `School`; college / degree / graduation / BA / BCom / BTech → `College`; ITI → `ITI / Other Vocational Trainings`; polytechnic / diploma → `Polytechnic / Diploma`; a certificate course → `Certification`; self-taught / learned on the job → `Learned Informally`; any other training → `Other Vocational Training`.)
+   Map the answer to EXACTLY one `educationCategory` enum (byte-exact): `School` | `College` | `ITI` | `Diploma` | `Certification` | `Learned Informally` | `Other Vocational Training`. (school / 10th / 12th → `School`; college / degree / graduation / BA / BCom / BTech → `College`; ITI → `ITI`; polytechnic / diploma → `Diploma`; a certificate course → `Certification`; self-taught / learned on the job → `Learned Informally`; any other training → `Other Vocational Training`.)
    Then the ONE conditional follow-up for that category:
    - **School** → "दसवीं पास या बारहवीं?" → `schoolQualification` ∈ `10th` | `12th` | `Other` (Other → `schoolQualificationOther`, free text).
    - **College** → "कौन सी डिग्री — बी.टेक, बी.कॉम, बी.ए., बी.बी.ए, या कोई और?" → `collegeQualification` ∈ `B.Tech/B.E.` | `B.Com` | `B.A.` | `B.B.A` | `Other` (Other → `collegeQualificationOther`, free text).
-   - **ITI / Other Vocational Trainings** → "कौन से ट्रेड में?" then "किस आई.टी.आई या कॉलेज से?" → send `itiTrade`: `Other` + `itiTradeOther`: "<spoken trade>" (do NOT guess the 150-item trade enum), then `itiInstitute` (free text).
-   - **Polytechnic / Diploma** → "कौन सा डिप्लोमा — मैकेनिकल, इलेक्ट्रिकल, इलेक्ट्रॉनिक्स, सिविल, कंप्यूटर साइंस, ऑटोमोबाइल, या कोई और?" then "किस कॉलेज से?" → `polytechnicDiploma` ∈ `Diploma in Mechanical` | `Diploma in Electrical` | `Diploma in Electronics` | `Diploma in Civil` | `Diploma in Computer Science` | `Diploma in Automobile` | `Diploma in Others` (Others → `polytechnicDiplomaOther`), then `itiInstitute` (free text).
+   - **ITI** → "कौन से ट्रेड में?" then "किस आई.टी.आई या कॉलेज से?" → send `itiTrade`: `Other` + `itiTradeOther`: "<spoken trade>" (do NOT guess the 150-item trade enum), then `itiInstitute` (free text).
+   - **Diploma** → "कौन सा डिप्लोमा — मैकेनिकल, इलेक्ट्रिकल, इलेक्ट्रॉनिक्स, सिविल, कंप्यूटर साइंस, ऑटोमोबाइल, या कोई और?" then "किस कॉलेज से?" → `polytechnicDiploma` ∈ `Diploma in Mechanical` | `Diploma in Electrical` | `Diploma in Electronics` | `Diploma in Civil` | `Diploma in Computer Science` | `Diploma in Automobile` | `Diploma in Others` (Others → `polytechnicDiplomaOther`), then `itiInstitute` (free text).
    - **Certification** or **Learned Informally** → "किस चीज़ का? थोड़ा बता दीजिए।" → `certificationDetails` (free text — what they learned).
    - **Other Vocational Training** → "किस चीज़ की ट्रेनिंग?" → `vocationalTrainingOther` (free text).
 
@@ -1942,7 +1942,7 @@ obeyed; a different line carried the same claim. A line that cannot be false can
 
 4. **Other help needed — `otherHelpNeeded`** (single value; OMIT the field entirely if none):
    "काम पाने में आपको किसी और चीज़ की ज़रूरत है — जैसे ट्रेनिंग, रहने की जगह, या आने-जाने में मदद?"
-   Map: training → `Training`; a place to stay → `Accommodation`; transport / commute → `Travel`; anything else → `Other`. If they need nothing, DO NOT send the field (there is no `None` value).
+   Map to a one-item JSON list with exactly one of the two values the API accepts: training / a course / a skill → `["Skilling & Vocational Training"]`; a place to stay, transport or any other help → `["Other Support (Accommodation / Travel)"]`. If they need nothing, DO NOT send the field (there is no `None` value).
 
 5. **Granular location (PHASE 2 ONLY — this question does not exist before the apply) — ONLY if no specific area was captured anywhere earlier in this call, and the profile does not already carry one:**
    "आप किस इलाके में रहते हैं — एरिया या मोहल्ले का नाम बता देंगे?"

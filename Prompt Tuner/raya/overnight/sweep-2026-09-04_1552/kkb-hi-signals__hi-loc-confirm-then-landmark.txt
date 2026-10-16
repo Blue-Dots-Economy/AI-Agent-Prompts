@@ -1,0 +1,73 @@
+[kkb-hi-signals-hi-loc-confirm-then-landmark] POST /api/call -> 200 {"message": "Call initiated successfully", "uuid": "a0999f10-5228-43f6-aa8a-18e506a1b5e2"}
+[kkb-hi-signals-hi-loc-confirm-then-landmark] poll 0: outcome='Pending' dur=0 turns=0
+[kkb-hi-signals-hi-loc-confirm-then-landmark] poll 1: outcome='Pending' dur=0 turns=0
+[kkb-hi-signals-hi-loc-confirm-then-landmark] poll 2: outcome='Pending' dur=0 turns=0
+[kkb-hi-signals-hi-loc-confirm-then-landmark] poll 3: outcome='Pending' dur=0 turns=0
+[kkb-hi-signals-hi-loc-confirm-then-landmark] poll 4: outcome='Pending' dur=0 turns=0
+[kkb-hi-signals-hi-loc-confirm-then-landmark] poll 5: outcome='Pending' dur=0 turns=0
+[kkb-hi-signals-hi-loc-confirm-then-landmark] poll 6: outcome='Pending' dur=0 turns=0
+[kkb-hi-signals-hi-loc-confirm-then-landmark] poll 7: outcome='Pending' dur=0 turns=0
+[kkb-hi-signals-hi-loc-confirm-then-landmark] poll 8: outcome='Pending' dur=0 turns=0
+[kkb-hi-signals-hi-loc-confirm-then-landmark] poll 9: outcome='Pending' dur=0 turns=0
+[kkb-hi-signals-hi-loc-confirm-then-landmark] poll 10: outcome='Pending' dur=0 turns=0
+[kkb-hi-signals-hi-loc-confirm-then-landmark] poll 11: outcome='Pending' dur=0 turns=0
+[kkb-hi-signals-hi-loc-confirm-then-landmark] poll 12: outcome='Pending' dur=0 turns=0
+[kkb-hi-signals-hi-loc-confirm-then-landmark] poll 13: outcome='Pending' dur=0 turns=0
+[kkb-hi-signals-hi-loc-confirm-then-landmark] poll 14: outcome='Pending' dur=0 turns=0
+[kkb-hi-signals-hi-loc-confirm-then-landmark] poll 15: outcome='Pending' dur=0 turns=0
+[kkb-hi-signals-hi-loc-confirm-then-landmark] poll 16: outcome='Pending' dur=0 turns=32
+[kkb-hi-signals-hi-loc-confirm-then-landmark] poll 17: outcome='Completed' dur=206 turns=32
+
+============================================================================
+[kkb-hi-signals-hi-loc-confirm-then-landmark] BOT a0999f10-5228-43f6-aa8a-18e506a1b5e2 outcome=Completed dur=206
+call_output: null
+
+TRANSCRIPT:
+[user] hello
+[assistant] हैलो, मेरी आवाज़ आ रही है? 
+[user]  हाँ जी आ रही है
+[assistant] नमस्ते। शहर प्रशासन की 'काम की बात' पहल में आपका स्वागत है। आपके इलाके में कुछ अच्छी जॉब्स की जानकारी देने के लिए कॉल कर रही हूँ। यह बातचीत रिकॉर्ड की जा सकती है। क्या आप अभी काम ढूंढ रहे हैं? 
+[user]  हा जी काम की जरूरत है
+[assistant->TOOL] get_profile({"phone_number": "917946350285", "hold_message": "एक मिनट।"})
+[tool] {'user_id': 'a6c122eb-634e-4955-9ae9-f36306b31c7a', 'user_consent': {'terms_accepted': True, 'privacy_accepted': True, 'has_age': True}, 'items': [{'item_id': '588a907f-bc3b-4bad-9695-d6300a3dbd6d', 'item_network': 'blue_dot', 'item_domain': 'seeker', 'item_type': 'profile_1.0', 'lifecycle_status': 'live', 'profile_consent_accepted': True, 'item_state': {'age': 22, 'name': 'Aryan', 'phone': '917946350285', 'gender': 'Male', 'location': 'Sahibabad, Ghaziabad, India', 'educationCategory': 'College', 'collegeQualification': 'B.Com', 'nameOfJobRolesInterestedIn': 'Any'}, 'item_locations': [{'lat':
+[assistant] एक मिनट। 
+[user]  आ रही है बोलिए
+[assistant] आर्यन जी, पिछली बार हमारी बात डेटा एंट्री के काम के बारे में हुई थी — आप अभी बी.कॉम कर रहे हैं, क्या आप अभी भी डेटा एंट्री ऑपरेटर की जॉब देख रहे हैं? 
+[user]  हा जी कुछ भी चलेगा आप बताइए
+[assistant] हमारे पास आपकी जॉब की लोकेशन गाज़ियाबाद है, और अभी जॉब्स गाज़ियाबाद और नोएडा में हैं — क्या यह ठीक रहेगा? 
+[user]  हा जी सही है
+[assistant] आखिरी सवाल, फिर सीधे जॉब्स पर आती हूँ — आपके घर के सबसे नज़दीक कौन सा बस स्टॉप, रेलवे या मेट्रो स्टेशन है? 
+[user]  साहिबाबाद स्टेशन सबसे नज़दीक है
+[assistant] आपके लिए जॉब्स हैं — पहला: कंप्यूटर ऑपरेटर या डेटा एंट्री, एन.आई.आई.टी लिमिटेड, राज नगर डिस्ट्रिक्ट सेंटर, सैलरी बारह हज़ार से सोलह हज़ार। दूसरा: प्रोडक्शन वर्कर, लावा इंटरनेशनल लिमिटेड, सूरजपुर इंडस्ट्रियल एरिया, सैलरी दस हज़ार से चौदह हज़ार। तीसरा: फ्लोर एसोसिएट, वी-मार्ट रिटेल लिमिटेड, कवि नगर मार्केट, सैलरी नौ हज़ार से बारह हज़ार। किसी एक के बारे में और जानना चाहेंगे? 
+[user]  सााहिबाबाद स्टेशन सबसे नजदीक है
+[assistant] ठीक है, समझ गई। आपके लिए जॉब्स हैं — पहला: कंप्यूटर ऑपरेटर या डेटा एंट्री, एन.आई.आई.टी लिमिटेड, राज नगर डिस्ट्रिक्ट सेंटर, सैलरी बारह हज़ार से सोलह हज़ार। दूसरा: प्रोडक्शन वर्कर, लावा इंटरनेशनल लिमिटेड, सूरजपुर इंडस्ट्रियल एरिया, सैलरी दस हज़ार से चौदह हज़ार। तीसरा: फ्लोर एसोसिएट, वी-मार्ट रिटेल लिमिटेड, कवि नगर मार्केट, सैलरी नौ हज़ार से बारह हज़ार। किसी एक के बारे में और जानना चाहेंगे? 
+[user]  पहले वाली जॉब में अप्लाई कर दीजिए
+[assistant] अप्लाई करने पर आपकी personal details company के साथ share होंगी। इस जॉब के लिए अप्लाई कर दूँ? 
+[user]  हा जी कर दीजिए
+[assistant->TOOL] apply_job({"acting_as_user_id": "a6c122eb-634e-4955-9ae9-f36306b31c7a", "hold_message": "एक मिनट।", "profile_id": "588a907f-bc3b-4bad-9695-d6300a3dbd6d", "duplicate_check": "not-applied-before", "job_id": "d55db597-2f72-4d44-b347-5d60270b7dd2"})
+[tool] [Error: apply_job request failed (HTTP 422).]
+
+__RAYA_TOOL_DEBUG__
+422 Client Error: Unprocessable Entity for url: https://gzb-signals.bluedotseconomy.org/api/v1/action/perform
+status_code=422
+url=https://gzb-signals.bluedotseconomy.org/api/v1/action/perform
+kind=http_error
+response_body_excerpt={"results":[{"index":0,"status":"error","error":"ACTION_LIMIT_REACHED","message":"An active request already exists between these two profiles."}],"summary":{"total":1,"succeeded":0,"failed":1}}
+[assistant] एक मिनट। इस नौकरी के लिए अप्लाई अभी आगे नहीं बढ़ा है, technical issue है। हमने आपकी रुचि नोट कर ली है। जॉब मिलने के चांस और बढ़ाने के लिए हमारे पास कुछ सर्विस प्रोवाइडर हैं जो आपकी मदद कर सकते हैं। क्या आप इंटरेस्टेड हैं? 
+[user]  हाँ जी ठीक है
+[assistant] बहुत बढ़िया, हमारी टीम आपसे एक-दो दिन में संपर्क करेगी। ठीक है। एक और option है — प्रोडक्शन वर्कर, लावा इंटरनेशनल लिमिटेड, सूरजपुर इंडस्ट्रियल एरिया, सैलरी दस हज़ार से चौदह हज़ार। इसमें अप्लाई करने की कोशिश करूँ? 
+[user]  हा जी कर दीजिए
+[assistant->TOOL] apply_job({"acting_as_user_id": "a6c122eb-634e-4955-9ae9-f36306b31c7a", "job_id": "41ed5fd5-fc28-43d1-9ba9-314f235e8f07", "hold_message": "एक मिनट।", "duplicate_check": "not-applied-before", "profile_id": "588a907f-bc3b-4bad-9695-d6300a3dbd6d"})
+[tool] [Error: apply_job request failed (HTTP 422).]
+
+__RAYA_TOOL_DEBUG__
+422 Client Error: Unprocessable Entity for url: https://gzb-signals.bluedotseconomy.org/api/v1/action/perform
+status_code=422
+url=https://gzb-signals.bluedotseconomy.org/api/v1/action/perform
+kind=http_error
+response_body_excerpt={"results":[{"index":0,"status":"error","error":"ACTION_LIMIT_REACHED","message":"An active request already exists between these two profiles."}],"summary":{"total":1,"succeeded":0,"failed":1}}
+[assistant] एक मिनट। इस नौकरी के लिए अप्लाई अभी आगे नहीं बढ़ा है, technical issue है। हमने आपकी रुचि नोट कर ली है। जॉब मिलने के चांस और बढ़ाने के लिए हमारे पास कुछ सर्विस प्रोवाइडर हैं जो आपकी मदद कर सकते हैं। क्या आप इंटरेस्टेड हैं? 
+[user]  हाँ जी ठीक है धन्यवाद
+[assistant] आज यह अप्लाई पूरा नहीं हो पा रहा — हम इसे देखकर आपको वापस बताएँगे। ज़रूरत होने पर हमारी टीम आपसे फिर संपर्क करेगी। Goodbye 
+
+[kkb-hi-signals-hi-loc-confirm-then-landmark] TESTER leg f35d79da: outcome=Completed dur=207 turns=30 call_output=null

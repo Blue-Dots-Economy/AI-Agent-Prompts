@@ -1,0 +1,4 @@
+vfy-dkb-hi USABLE 118s 8 6fb57606-205c-4f33-9c05-efcc77a447ce
+vfy-maya-hi USABLE 317s 12 26c75f37-b2bd-4381-b985-82e9e843e1e0
+vfy-dkb-kn USABLE 176s 14 9df3a852-c079-41a9-8f45-23ccf9924f02
+vfy-maya-in USABLE 250s 8 7ba0a9d2-8ec3-4441-ab74-a79fad3d834e

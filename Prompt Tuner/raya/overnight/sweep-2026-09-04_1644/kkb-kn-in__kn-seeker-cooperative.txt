@@ -1,0 +1,96 @@
+[kkb-kn-in-kn-seeker-cooperative] POST /api/call -> 200 {"message": "Call initiated successfully", "uuid": "bb889884-d2a9-4529-a9be-61a80a5e20f2"}
+[kkb-kn-in-kn-seeker-cooperative] poll 0: outcome='Pending' dur=0 turns=0
+[kkb-kn-in-kn-seeker-cooperative] poll 1: outcome='Pending' dur=0 turns=0
+[kkb-kn-in-kn-seeker-cooperative] poll 2: outcome='Pending' dur=0 turns=0
+[kkb-kn-in-kn-seeker-cooperative] poll 3: outcome='Pending' dur=0 turns=0
+[kkb-kn-in-kn-seeker-cooperative] poll 4: outcome='Pending' dur=0 turns=0
+[kkb-kn-in-kn-seeker-cooperative] poll 5: outcome='Pending' dur=0 turns=0
+[kkb-kn-in-kn-seeker-cooperative] poll 6: outcome='Pending' dur=0 turns=0
+[kkb-kn-in-kn-seeker-cooperative] poll 7: outcome='Pending' dur=0 turns=0
+[kkb-kn-in-kn-seeker-cooperative] poll 8: outcome='Pending' dur=0 turns=0
+[kkb-kn-in-kn-seeker-cooperative] poll 9: outcome='Pending' dur=0 turns=0
+[kkb-kn-in-kn-seeker-cooperative] poll 10: outcome='Pending' dur=0 turns=0
+[kkb-kn-in-kn-seeker-cooperative] poll 11: outcome='Pending' dur=0 turns=0
+[kkb-kn-in-kn-seeker-cooperative] poll 12: outcome='Pending' dur=0 turns=0
+[kkb-kn-in-kn-seeker-cooperative] poll 13: outcome='Pending' dur=0 turns=0
+[kkb-kn-in-kn-seeker-cooperative] poll 14: outcome='Pending' dur=0 turns=0
+[kkb-kn-in-kn-seeker-cooperative] poll 15: outcome='Pending' dur=0 turns=0
+[kkb-kn-in-kn-seeker-cooperative] poll 16: outcome='Pending' dur=0 turns=0
+[kkb-kn-in-kn-seeker-cooperative] poll 17: outcome='Pending' dur=0 turns=0
+[kkb-kn-in-kn-seeker-cooperative] poll 18: outcome='Completed' dur=237 turns=68
+
+============================================================================
+[kkb-kn-in-kn-seeker-cooperative] BOT bb889884-d2a9-4529-a9be-61a80a5e20f2 outcome=Completed dur=237
+call_output: null
+
+TRANSCRIPT:
+[user] hello
+[assistant] ನಮಸ್ಕಾರ. ನಗರ ಆಡಳಿತದ ಕೆಲಸದ ಮಾತಿಗೆ ಸ್ವಾಗತ. ಈ ಮಾತುಕತೆ ರೆಕಾರ್ಡ್ ಆಗಬಹುದು. ಹೇಳಿ, ನೀವು ಯಾವ ಥರದ ಕೆಲಸ ಹುಡುಕ್ತಾ ಇದೀರಾ? 
+[user]  *No audio/User is speaking softly*
+[assistant] ಒಂದು ನಿಮಿಷ 
+[user]  ಒಂದು ನಿಮಿಷ
+[assistant] ಒಂದು ನಿಮಿಷ 
+[user]  ಒಂದು ನಿಮಿಷ
+[assistant] ಒಂದು ನಿಮಿಷ 
+[user]  ಒಂದು ನಿಮಿಷ
+[assistant] ಒಂದು ನಿಮಿಷ 
+[user]  ಒಂದು ನಿಮಿಷ
+[assistant] ಒಂದು ನಿಮಿಷ 
+[user]  ಒಂದು ನಿಮಿಷ
+[assistant] ಒಂದು ನಿಮಿಷ 
+[user]  ಒಂದು ನಿಮಿಷ
+[assistant] ಒಂದು ನಿಮಿಷ 
+[user]  ಒಂದು ನಿಮಿಷ
+[assistant] ಒಂದು ನಿಮಿಷ 
+[user]  ಒಂದು ನಿಮಿಷ
+[assistant] ಒಂದು ನಿಮಿಷ 
+[user]  ಒಂದು ನಿಮಿಷ
+[assistant] ಒಂದು ನಿಮಿಷ 
+[user]  ಒಂದು ನಿಮಿಷ
+[assistant] ಒಂದು ನಿಮಿಷ 
+[user]  ಒಂದು ನಿಮಿಷ
+[assistant] ಒಂದು ನಿಮಿಷ 
+[user]  ಒಂದು ನಿಮಿಷ
+[assistant] ಒಂದು ನಿಮಿಷ 
+[user]  ಒಂದು ನಿಮಿಷ
+[assistant] ಒಂದು ನಿಮಿಷ 
+[user]  ಒಂದು ನಿಮಿಷ
+[assistant] ಒಂದು ನಿಮಿಷ 
+[user]  ಒಂದು ನಿಮಿಷ
+[assistant] ಒಂದು ನಿಮಿಷ 
+[user]  ಒಂದು ನಿಮಿಷ
+[assistant] ಒಂದು ನಿಮಿಷ 
+[user]  ಒಂದು ನಿಮಿಷ ಒಂದು ನಿಮಿಷ
+[assistant] ಒಂದು ನಿಮಿಷ 
+[user]  ಒಂದು ನಿಮಿಷ
+[assistant] ಒಂದು ನಿಮಿಷ 
+[user]  ಒಂದು ನಿಮಿಷ
+[assistant] ಒಂದು ನಿಮಿಷ 
+[user]  ಒಂದು ನಿಮಿಷ
+[assistant] ಒಂದು ನಿಮಿಷ 
+[user]  *No audio/User is speaking softly*
+[assistant] ಒಂದು ನಿಮಿಷ 
+[user]  *No audio/User is speaking softly*
+[assistant] ಒಂದು ನಿಮಿಷ 
+[user]  *No audio/User is speaking softly*
+[assistant] ಒಂದು ನಿಮಿಷ 
+[user]  ಒಂದು ನಿಮಿಷ
+[assistant] ಒಂದು ನಿಮಿಷ 
+[user]  *No audio/User is speaking softly*
+[assistant] ಒಂದು ನಿಮಿಷ 
+[user]  *No audio/User is speaking softly*
+[assistant] ಒಂದು ನಿಮಿಷ 
+[user]  *No audio/User is speaking softly*
+[assistant] ಒಂದು ನಿಮಿಷ 
+[user]  *No audio/User is speaking softly*
+[assistant] ಒಂದು ನಿಮಿಷ 
+[user]  ಒಂದು ನಿಮಿಷ
+[assistant] ಒಂದು ನಿಮಿಷ 
+[user]  *No audio/User is speaking softly*
+[assistant] ಒಂದು ನಿಮಿಷ 
+[user]  *No audio/User is speaking softly*
+[assistant] ಒಂದು ನಿಮಿಷ 
+[user]  *No audio/User is speaking softly*
+[assistant] ಒಂದು ನಿಮಿಷ 
+
+[kkb-kn-in-kn-seeker-cooperative] TESTER leg 4ed4ef09: outcome=Completed dur=238 turns=122 call_output=null

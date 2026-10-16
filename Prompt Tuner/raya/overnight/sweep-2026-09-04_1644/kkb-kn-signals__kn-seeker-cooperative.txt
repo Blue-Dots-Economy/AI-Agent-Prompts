@@ -1,0 +1,15 @@
+[kkb-kn-signals-kn-seeker-cooperative] POST /api/call -> 200 {"message": "Call initiated successfully", "uuid": "4a2c13d4-a866-4640-a644-1b7ae70af781"}
+[kkb-kn-signals-kn-seeker-cooperative] poll 0: outcome='Pending' dur=0 turns=0
+[kkb-kn-signals-kn-seeker-cooperative] poll 1: outcome='Failure' dur=0 turns=0
+[kkb-kn-signals-kn-seeker-cooperative] connect attempt 1 did not bridge (outcome=Failure); letting the tester line settle for 90s
+[kkb-kn-signals-kn-seeker-cooperative] POST /api/call -> 200 {"message": "Call initiated successfully", "uuid": "a3b5978d-40e4-4f60-accb-4d386008fb16"}
+[kkb-kn-signals-kn-seeker-cooperative] poll 0: outcome='Failure' dur=0 turns=0
+[kkb-kn-signals-kn-seeker-cooperative] connect attempt 2 did not bridge (outcome=Failure); letting the tester line settle for 90s
+[kkb-kn-signals-kn-seeker-cooperative] POST /api/call -> 200 {"message": "Call initiated successfully", "uuid": "deafb1f1-3849-472f-8305-a4f3c0ba85d0"}
+[kkb-kn-signals-kn-seeker-cooperative] poll 0: outcome='Failure' dur=0 turns=0
+[kkb-kn-signals-kn-seeker-cooperative] connect attempt 3 did not bridge (outcome=Failure); letting the tester line settle for 90s
+[kkb-kn-signals-kn-seeker-cooperative] POST /api/call -> 200 {"message": "Call initiated successfully", "uuid": "0c426fd5-af88-4e67-8874-2410da323b6d"}
+[kkb-kn-signals-kn-seeker-cooperative] poll 0: outcome='Failure' dur=0 turns=0
+[kkb-kn-signals-kn-seeker-cooperative] connect attempt 4 did not bridge (outcome=Failure); letting the tester line settle for 90s
+
+[kkb-kn-signals-kn-seeker-cooperative] NEVER BRIDGED after 4 attempts (flaky telephony).

@@ -1,0 +1,7 @@
+{
+ "contact_name": "Aryan",
+ "country_code": 91,
+ "location": "Muradnagar, 110045",
+ "recommendations": "[{\"job_id\": \"a8155bee-0996-438e-92a5-58ac2848eee6\", \"role\": \"Field Salesperson\", \"company\": \"Shree Krishna Industrie\", \"qualification\": \"12th Pass\", \"salary\": \"15000 to 20000\", \"vacancy\": \"2\", \"location\": \"Ghaziabad, Ghaziabad\"}]",
+ "contact_memory": "{\"session_count\": 2, \"last_action\": \"Applied\", \"last_conversation_summary\": \"Caller asked about field sales work in Muradnagar and applied to one job.\", \"jobs_applied\": [\"2026-09-08: Field Salesperson, Shree Krishna Industrie, Ghaziabad, Ghaziabad\"], \"last_options_presented\": [\"2026-09-08: 1 option shown\"], \"applications_this_session\": 1}"
+}

@@ -1,0 +1,12 @@
+kkb-hi-signals	hi	hi-force-apply	already-applied-muradnagar	CALL	6e45947a-2c2d-41c3-81b5-549ebe99748f	apply on a job already applied to -> row1/row2 wording
+kkb-hi-signals	hi	hi-asks-for-all-jobs	morejobs-22	CALL	8d3453b1-aae2-4aaf-aa85-71cdb6e44f95	exhaust a 22-job list, no spoken counts
+kkb-hi-signals	hi	hi-loc-confirm-then-landmark	loc-reconfirm-gzb	CALL	a0999f10-5228-43f6-aa8a-18e506a1b5e2	supplied location is confirmed, not re-asked
+kkb-kn-signals	kn	kn-force-apply	dharwad-validated-12	CALL	e853e2c0-f468-4052-8ffe-a033e8623312	Kannada apply path end to end
+kkb-kn-signals	kn	kn-asks-for-all-jobs	morejobs-kn	CALL	0e204ad1-5b79-4a21-9d4c-c16314ba8004	Kannada more-jobs, ordinals + no counts
+kkb-kn-signals	kn	kn-seeker-cooperative	kn-signals-repro	CALL	b9629043-c316-455f-a527-65588f14d81e	Kannada location + free-service detail on request
+kkb-hi-in-signals	hi	hi-loc-confirm-then-landmark	inbound-probe	CALL	72112c10-d11c-4e2f-bb26-b5ec1513b768	inbound: confirm the profile location (Case B)
+kkb-hi-in-signals	hi	hi-force-apply	inbound-probe	CALL	84724178-9bb1-4f7f-aae4-76e5a530d379	inbound: consent before apply, no fabricated success
+kkb-kn-in-signals	kn	kn-seeker-cooperative	inbound-probe	CALL	2d0c771b-1bdf-4856-b42a-459751d45509	Kannada inbound: location + acting_as_user_id
+kkb-kn-in-signals	kn	kn-force-apply	inbound-probe	NO-BRIDGE	aaca940a-e7e5-4877-8689-294f10983bff	Kannada inbound: apply path
+maya-hi-signals	hi	hi-force-apply	gzb-validated-12	CALL	718aa8ab-2c64-40b8-8328-2e9af3978d66	Maya outbound apply + MPL offer before goodbye
+maya-hi-signals	hi	hi-student-cooperative	gzb-validated-12	CALL	772e87db-e40c-4623-9b7e-4094ef567d8c	Maya: experience capture, campus identity

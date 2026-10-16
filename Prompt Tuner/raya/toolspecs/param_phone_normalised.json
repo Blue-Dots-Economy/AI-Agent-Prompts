@@ -1,0 +1,8 @@
+{
+  "name": "phone",
+  "required": true,
+  "schema": {
+    "type": "string",
+    "description": "The caller's number in the SAME form you sent to get_profile: 12 digits beginning with 91, digits only, no plus sign - e.g. 919876543210. Build it by FORMAT, not by adding: if ${contact_phone} is already 12 digits starting with 91 (outbound calls), send it UNCHANGED and never add another 91; if it is 10 digits (inbound calls), put 91 in front. A number starting 9191 is always wrong - the backend finds users by phone, so a doubled prefix silently creates a separate phantom user."
+  }
+}

@@ -1,0 +1,124 @@
+name: Prompt Tuner Regression
+
+# Tier-3 standing regression (see repo CLAUDE.md → "The three testing tiers").
+# Runs on GitHub's CLOUD infra, so it fires even when the dev machine is off —
+# which the local schedulers (scheduled-tasks MCP / CronCreate) cannot do.
+#
+# CURRENT STATE (be precise — this is the only thing that actually runs):
+#   - ONE job, `static`, once a day. It reads all 16 bot scripts every run: no per-bot
+#     rotation, no sampling, and it NEVER places a phone call.
+#   - The weekly LIVE voice regression is NOT implemented yet (no live-call script exists, and
+#     the Raya/Signals keys it needs aren't in repo secrets). Until it is, there is no weekly
+#     job — see raya/regression/open-items.json -> weekly-live-not-wired.
+#
+# Email digest -> parth@ekstepplus.org. Two independent notification paths:
+#   1. GUARANTEED, zero-config: on critical findings the job EXITS NON-ZERO, so GitHub
+#      emails the repo owner about the failed run (the run page shows the full digest).
+#   2. OPTIONAL, well-formatted HTML to any address: the SMTP step below, active only
+#      once repo secrets MAIL_USERNAME + MAIL_PASSWORD (a Gmail app password) are set.
+
+on:
+  schedule:
+    # ONE entry only. A second "weekly" entry at the same time also matched on Mondays, so
+    # GitHub fired two runs (observed 2026-08-03: 04:35:58Z and 04:37:09Z) = duplicate emails.
+    # When the live-call test exists it gets its OWN job + its own distinct time, not a
+    # second cron on the same schedule as this one.
+    - cron: "7 1 * * *"     # nominally 06:37 IST. NOTE: GitHub's shared cron queue delays
+                            # scheduled runs — observed arrival ~04:20-04:40 UTC (~09:50 IST).
+  workflow_dispatch:        # manual "Run workflow" button
+
+permissions:
+  contents: read
+
+jobs:
+  static:
+    runs-on: ubuntu-latest
+    # job-level env so the email step's `if:` guard can read these (step-level env can't be
+    # referenced in that same step's own `if:`). Whichever provider secret exists wins —
+    # see raya/regression/send_digest.py for the priority order.
+    env:
+      GMAIL_OAUTH_CLIENT_ID: ${{ secrets.GMAIL_OAUTH_CLIENT_ID }}
+      GMAIL_OAUTH_CLIENT_SECRET: ${{ secrets.GMAIL_OAUTH_CLIENT_SECRET }}
+      GMAIL_OAUTH_REFRESH_TOKEN: ${{ secrets.GMAIL_OAUTH_REFRESH_TOKEN }}
+      RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+      SMTP_HOST: ${{ secrets.SMTP_HOST }}
+      SMTP_PORT: ${{ secrets.SMTP_PORT }}
+      SMTP_USER: ${{ secrets.SMTP_USER }}
+      SMTP_PASS: ${{ secrets.SMTP_PASS }}
+      GMAIL_SA_JSON_BASE64: ${{ secrets.GMAIL_SA_JSON_BASE64 }}
+    outputs:
+      critical: ${{ steps.run.outputs.critical }}
+      major: ${{ steps.run.outputs.major }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Run static regression suite
+        id: run
+        run: |
+          python3 raya/regression/static_regression.py || true
+          # fix_presence is static and needs no secrets, so it belongs in the unattended job: it is
+          # the only check that knows what we FIXED, and half-landed mirrors are the failure mode this
+          # fleet keeps hitting. Non-fatal here for the same reason the suite above is -- the digest
+          # reports, the job does not gate.
+          echo "::group::fix_presence"
+          python3 raya/regression/fix_presence.py || echo "FIX PRESENCE FAILURES (see log)"
+          echo "::endgroup::"
+          python3 - <<'PY' >> "$GITHUB_OUTPUT"
+          import json
+          r = json.load(open("raya/regression/latest-report.json"))
+          print(f"critical={len(r['critical'])}")
+          print(f"major={len(r['major'])}")
+          try:
+              items = json.load(open("raya/regression/open-items.json"))["items"]
+          except Exception:
+              items = []
+          highs = len([i for i in items if i.get("priority") == "high"])
+          print(f"highs={highs}")
+          # subject line that tells you the state without opening the mail
+          bits = []
+          if len(r["critical"]): bits.append(f"{len(r['critical'])} critical")
+          if len(r["major"]):    bits.append(f"{len(r['major'])} major")
+          if highs:              bits.append(f"{highs} high-priority open")
+          print("headline=" + (", ".join(bits) if bits else "all clear"))
+          PY
+
+      - name: Build digest -> job summary + email body
+        id: digest
+        run: |
+          python3 raya/regression/build_digest.py daily > digest.html
+          # also drop the markdown report into the run page
+          cat raya/regression/latest-report.md >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Upload report
+        uses: actions/upload-artifact@v4
+        with:
+          name: regression-report
+          path: |
+            raya/regression/latest-report.md
+            raya/regression/latest-report.json
+
+      # OPTIONAL well-formatted HTML email. Multi-provider: Gmail-OAuth (no admin needed) /
+      # Resend / SMTP / service-account+DWD — whichever secret is present. Skipped entirely
+      # when none is set, so the workflow is safe to run before email is wired up.
+      - name: Email digest
+        if: ${{ env.GMAIL_OAUTH_REFRESH_TOKEN != '' || env.RESEND_API_KEY != '' || env.SMTP_PASS != '' || env.GMAIL_SA_JSON_BASE64 != '' }}
+        env:
+          GMAIL_SENDER: ${{ secrets.GMAIL_SENDER }}
+          GMAIL_TO: ${{ secrets.GMAIL_TO }}
+          DIGEST_SUBJECT: "[Prompt Tuner] Daily bot health check — ${{ steps.run.outputs.headline }}"
+        run: |
+          if [ -n "$GMAIL_OAUTH_REFRESH_TOKEN$GMAIL_SA_JSON_BASE64" ]; then
+            pip install --quiet google-api-python-client google-auth
+          fi
+          python3 raya/regression/send_digest.py
+
+      # GUARANTEED backstop email: a non-zero exit makes GitHub email the repo owner.
+      - name: Fail the run on critical findings
+        if: ${{ steps.run.outputs.critical != '0' }}
+        run: |
+          echo "::error::Regression found ${{ steps.run.outputs.critical }} critical finding(s) — see the job summary."
+          exit 1

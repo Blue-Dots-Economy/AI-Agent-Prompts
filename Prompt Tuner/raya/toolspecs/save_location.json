@@ -1,0 +1,52 @@
+{
+  "_note": "Dedicated location write for KKB Slim Hindi (2026-09-23). Replaces an attempt that used the general update_profile, where the model sent `role` instead of `location` (call 482ea2e2). This tool's ONLY writable field is item_state.location, so the wrong-field failure is impossible rather than forbidden. The backend geocodes `location` into item_locations on every write (verified: 9 scenarios, 0.15-0.76 km from OpenStreetMap where a reference exists; updates re-geocode). Cloned from update_profile so no key is stored here. v3 (2026-09-23): v2's trigger read 'right after the location questions are finished (area confirmed, pin confirmed or asked, landmark asked or skipped)' - satisfied by ${location} merely being in context, so on 28f4cf52 the bot skipped all three location questions and saved+fetched straight from the role turn (D95 in the tool itself). v3 names the caller's ANSWERS as the trigger and excludes ${location} by name; allows a re-save on a mid-call change; restructures the format so a missing landmark cannot be filled with the locality ('Muradnagar, Muradnagar'). v5 (2026-09-23): moved from the job-fetch turn to step 13 alongside get_services - every wording of the fetch-bundled version (v2-v4) dropped the location block from 4/4 to ~2/7, so the mechanism changed rather than the words.",
+  "name": "save_location",
+  "description": "Save where the caller lives so the backend can place them on the map for 'jobs near you'; it re-places them on every save. WHEN: once, at the CLOSING services step - emit it in the SAME turn as get_services, both together. Never earlier in the call, and never alongside get_recommended_jobs / get_jobs. Save the caller's FINAL answers: if they corrected or changed where they live at any point in the call, save the latest. Only places the caller said or confirmed in THIS call, or already on the profile. Skip it if no location question was asked this call. If the services step is skipped, emit it alone just before the goodbye. Say nothing about it. Live seeker profile only.",
+  "clone_api_from": "update_profile",
+  "method": "POST",
+  "parameters": {
+    "type": "object",
+    "required": [
+      "profile_id",
+      "name",
+      "age",
+      "phone",
+      "location"
+    ],
+    "properties": {
+      "profile_id": {
+        "type": "string",
+        "description": "The caller's SEEKER profile item_id from get_profile (item_type profile_1.0, item_domain seeker, lifecycle_status live). Never a job id, never a user_id."
+      },
+      "name": {
+        "type": "string",
+        "description": "The caller's name exactly as get_profile returned it, in Latin script."
+      },
+      "age": {
+        "type": "integer",
+        "description": "The caller's age exactly as get_profile returned it."
+      },
+      "phone": {
+        "type": "string",
+        "description": "The caller's number in the SAME form you sent to get_profile: 12 digits beginning with 91, digits only, no plus sign - e.g. 919876543210. Build it by FORMAT, not by adding: if ${contact_phone} is already 12 digits starting with 91 (outbound calls), send it UNCHANGED and never add another 91; if it is 10 digits (inbound calls), put 91 in front. A number starting 9191 is always wrong - the backend finds users by phone, so a doubled prefix silently creates a separate phantom user."
+      },
+      "location": {
+        "type": "string",
+        "description": "Where the caller lives, Latin script, from the most specific place the CALLER gave down to the state. With a stop or landmark: 'Muradnagar Bus Stand, Muradnagar, Ghaziabad, Uttar Pradesh, India'. Without one (they did not know it, or the question was skipped): start straight from their area - 'Muradnagar, Ghaziabad, Uttar Pradesh, India' - and put NOTHING in place of the missing landmark. Each place appears ONCE: 'Muradnagar, Muradnagar, ...' is wrong; if their area is also the city, write it once. City and State come from the END of the stored profile location, which may already be a full address from an earlier call - the last two place names before 'India'. Only places you actually hold; never invent one. No PIN code."
+      }
+    }
+  },
+  "payload_template": {
+    "age": "{{age}}",
+    "name": "{{name}}",
+    "domain": "seeker",
+    "channel": "voice",
+    "item_id": "{{profile_id}}",
+    "network": "blue_dot",
+    "item_type": "profile_1.0",
+    "phone_number": "+{{phone}}",
+    "item_state": {
+      "location": "{{location}}"
+    }
+  }
+}

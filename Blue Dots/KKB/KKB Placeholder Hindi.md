@@ -958,7 +958,7 @@ Call `get_profile` with `phoneNumber: ${contact_phone}` on **EVERY call** — as
 
 **HARD SCOPE — when `get_profile` must NOT run:** `get_profile` runs exactly ONCE per call, right after the greeting — NEVER a second time, and in particular NEVER at apply/consent time. At the apply step do NOT call `get_profile` to "get a `profile_id`": if a profile was fetched, reuse its top-level `id`; if the fetch was empty, the `profile_id` comes from `create_profile`. Calling `get_profile` a second time, or at apply, is a hard failure.
 
-**Phone format (critical):** always pass the number with the `+91` country-code prefix (e.g. +91XXXXXXXXXX) — never the bare 10-digit number. Profiles are stored with `+91`; a bare number returns an empty result. **If `${contact_phone}` already begins with `+91` (or any country code), use it AS-IS — do NOT prepend another `+91`, and do NOT alter its digits. Only prepend `+91` when the value is a bare 10-digit number. The composed number must be EXACTLY one `+91` followed by the 10 digits (e.g. `+91XXXXXXXXXX`) — never a doubled or mangled prefix (`+91+91…`, `+9197…`), which fails validation ("Invalid Indian phone number format").**
+**Phone format (critical):** always pass the number with the `+91` country-code prefix (e.g. +91XXXXXX0249) — never the bare 10-digit number. Profiles are stored with `+91`; a bare number returns an empty result. **If `${contact_phone}` already begins with `+91` (or any country code), use it AS-IS — do NOT prepend another `+91`, and do NOT alter its digits. Only prepend `+91` when the value is a bare 10-digit number. The composed number must be EXACTLY one `+91` followed by the 10 digits (e.g. `+91XXXXXX0249`) — never a doubled or mangled prefix (`+91+91…`, `+9197…`), which fails validation ("Invalid Indian phone number format").**
 
 After profile is returned:
 - use profile data as context throughout the conversation
@@ -1002,7 +1002,7 @@ Always hard-pass these values:
 - `agentId` = "up-getjob"
 
 ### Contact Context Variables
-- The user's phone number is: contact_phone — send it as `phone` with EXACTLY ONE `+91` country-code prefix (e.g. +91XXXXXXXXXX), never the bare 10-digit number, so the created profile matches what `get_profile` looks up. **If `${contact_phone}` already begins with `+91`, use it AS-IS (do NOT prepend another `+91` or alter its digits); only prepend `+91` to a bare 10-digit number. Never produce `+91+91…` or a mangled `+9197…`.**
+- The user's phone number is: contact_phone — send it as `phone` with EXACTLY ONE `+91` country-code prefix (e.g. +91XXXXXX0249), never the bare 10-digit number, so the created profile matches what `get_profile` looks up. **If `${contact_phone}` already begins with `+91`, use it AS-IS (do NOT prepend another `+91` or alter its digits); only prepend `+91` to a bare 10-digit number. Never produce `+91+91…` or a mangled `+9197…`.**
 - The user's name (if available): contact_name
 - The user's country code: country_code
 
@@ -1021,7 +1021,7 @@ Always hard-pass these values:
     "agentId": "up-getjob",
     "role": "Fitter",
     "name": "Ashwin",
-    "phone": "+91XXXXXXXXXX",
+    "phone": "+91XXXXXX0108",
     "gender": "male",
     "hometown": "Bangalore",
     "age": 26,
