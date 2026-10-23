@@ -59,12 +59,19 @@ OWN_LINES = {
 
 
 def env():
+    # process env first (GitHub Actions), raya/.env as the local fallback
     e = {}
-    for line in open('raya/.env'):
-        line = line.strip()
-        if '=' in line and not line.startswith('#'):
-            k, v = line.split('=', 1)
-            e[k.strip()] = v.strip()
+    p = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))),
+                     'raya', '.env')
+    if os.path.exists(p):
+        for line in open(p):
+            line = line.strip()
+            if '=' in line and not line.startswith('#'):
+                k, v = line.split('=', 1)
+                e[k.strip()] = v.strip()
+    for k in ('RAYA_BASE_URL', 'RAYA_API_TOKEN'):
+        if os.environ.get(k):
+            e[k] = os.environ[k].strip()
     return e
 
 

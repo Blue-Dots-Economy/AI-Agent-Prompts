@@ -1,257 +1,202 @@
 {
- "updated": "2026-09-01",
- "note": "Curated list of known open work per bot. The automated static check reads the scripts and cannot see these — they come from live call testing and from features we know are unfinished. Keep this file current; the daily digest reads it verbatim. Remove an item the day it is genuinely closed.",
+ "updated": "2026-10-19",
+ "note": "Curated list of known open work per bot, regenerated 2026-10-19 from the top entries of KKB-Slim, KKB, Maya, DKB and TRRAIN CHANGELOG.md. The nightly email reads it verbatim; the live test calls and the script checks cannot see these. Remove an item the day it is genuinely closed (a call id proves it).",
  "items": [
   {
-   "id": "kkb-hi-signals-mismatch-unverified",
+   "id": "signals-apply-422-backend",
    "bots": [
-    "KKB Hindi · outbound · Signals"
-   ],
-   "title": "The \"we have no jobs in your city\" line has never been heard on a real call",
-   "what": "When the campaign dials someone for a city we hold no jobs in (Khushboo's calls were sent 'Delhi' while every job was in Ghaziabad), the bot is supposed to say so plainly and offer the city the jobs ARE in. Until today it never did — first because the whole location section sat inside a branch her calls never entered, then because the bot was reading the location off her stored profile instead of the value the campaign sent. Both are fixed and deployed. The line itself has still not been observed.",
-   "why": "This is the difference between a caller being told the truth about where we have work and being quietly asked to name an area from scratch. It is also the only signal that a campaign is dialling a city we have no inventory for.",
-   "next": "One live call with location='Delhi' and the Ghaziabad job set: raya/regression/pending-verifications.sh mismatch. Telephony to the tester number failed 8 dials in a row from 17:37 IST on 2026-09-01, which is why it is still open.",
-   "priority": "high",
-   "since": "2026-09-01"
-  },
-  {
-   "id": "kkb-hi-signals-memory-gated-unverifiable",
-   "bots": [
-    "KKB Hindi · outbound · Signals"
-   ],
-   "title": "Two rules depend on stored memory, and stored memory can be neither set nor read",
-   "what": "The bot is meant to ask a caller for their nearest bus stop ONCE ever, and to recognise a job they have already applied to before trying again. Both read the caller's stored memory. But a memory value passed into a test call is ignored by the platform (proven on call c2ffe9fb, which carried invented facts the bot never voiced), and there is no way to read back what the platform actually holds — the contact endpoints 404 or 500. So when the bot asks a second time we cannot tell whether it ignored the rule or whether memory was empty.",
-   "why": "A rule we cannot observe is a rule we cannot maintain. It also means the duplicate-application fix may simply never fire in production, if memory arrives empty there too.",
-   "next": "Ask LitWiz for a read-only endpoint for a contact's stored memory. Until then treat both rules as VERIFY-PENDING and do not report either as fixed. See analyser D54.",
-   "priority": "high",
-   "since": "2026-09-01"
-  },
-  {
-   "id": "raya-tool-error-body-not-visible",
-   "bots": [
-    "KKB Hindi · outbound · Signals",
-    "KKB Kannada · outbound · Signals",
-    "KKB Kannada · inbound · Signals",
-    "Maya Hindi · outbound · Signals"
-   ],
-   "title": "The bot is never told WHY an application failed, so it cannot say \"you have already applied\"",
-   "what": "When someone applies to a job they already applied to, the backend says so precisely (ACTION_LIMIT_REACHED, \"an active request already exists\"). The bot only receives \"apply_job request failed (HTTP 422)\". Across 9 real calls on 4 bots in 2 languages it has never once said the specific thing, including calls where the instruction was written into the tool's own description. Three rounds of rewording could not have worked.",
-   "why": "Callers are told a vague \"this did not go through\" for something that in fact already succeeded, and QA cannot tell a duplicate from an outage.",
-   "next": "Ask LitWiz to pass the tool error's error/message fields to the model, or return a distinct tool result per reason. Evidence: 90da81db, 21c428dc, dc3168ec, 18b5e1b8, d824912c, 96e72c85, 9d82ac2c, 3be8d3fb, 14f90f64. See analyser D52.",
-   "priority": "high",
-   "since": "2026-09-01"
-  },
-  {
-   "id": "kkb-maya-propagation-untested",
-   "bots": [
-    "KKB Hindi · outbound",
-    "KKB Kannada · outbound",
-    "KKB Hindi · inbound",
-    "KKB Kannada · inbound",
-    "KKB Hindi · inbound · Signals",
-    "KKB Kannada · inbound · Signals",
-    "KKB Kannada · outbound · Signals",
-    "Maya Hindi · outbound",
-    "Maya Hindi · outbound · Signals",
-    "Maya Hindi · inbound",
-    "Maya Hindi · inbound · Signals"
-   ],
-   "title": "Eleven prompts got the apply-failure rewrite and none has been voice-tested",
-   "what": "The false \"there is a technical problem\" line was removed fleet-wide on 2026-09-01 and replaced with wording that claims nothing, along with the duplicate pre-check. All eleven deployed with read-back confirmed. Not one has been called.",
-   "why": "A change verified on one bot is not verified on its twins — runtime adherence, ASR and TTS differ per language, and a mirrored edit can land differently.",
-   "next": "Eleven separate live calls, one per variant. Inbound bots cannot be dialled by the tester, so those need post-deploy transcript review instead.",
-   "priority": "medium",
-   "since": "2026-09-01"
-  },
-  {
-   "id": "tester-did-fixture-pollution",
-   "bots": [
-    "all seeker bots on Ghaziabad"
-   ],
-   "title": "The test number now has five live seeker records and active applications on most test jobs",
-   "what": "Repeated testing has left five live profiles on the tester number, and the bot picks the most COMPLETE one rather than the first — so a precondition prepared against one record is usually not the record the call uses. It also already holds applications on most of the handover job set, so ordinary apply tests now return \"already applied\".",
-   "why": "It silently produces both false passes and false failures. One prepared duplicate test on 2026-09-01 passed while testing nothing at all.",
-   "next": "Have Sanketika retire four of the five records, leaving the one with a complete name/age/gender/location. Then re-establish which record the bot picks and pin it in the test manifest.",
-   "priority": "medium",
-   "since": "2026-09-01"
-  },
-  {
-   "id": "kkb-kn-in-apply-unverified",
-   "bots": [
-    "KKB Kannada · inbound · legacy"
-   ],
-   "title": "The \"apply for the job\" step has never been confirmed working on this bot",
-   "what": "In the last test call the bot tried to submit the application using an internal record number instead of the caller's proper profile ID, and the backend rejected it (404 \"invalid or missing profile_id\"). The Hindi version of the same bot applies successfully, so this is specific to the Kannada inbound bot — or to the test profile that call used, which had been left in a bad state by an earlier test.",
-   "why": "Applying to a job is the whole point of the call. Until a clean test passes, we cannot say this bot can actually place an application for a Kannada caller who rings in.",
-   "next": "Re-test with a freshly created caller profile and confirm the application goes through. If it fails again, the fix is to read the profile ID the same way the working Hindi bot does.",
-   "priority": "high",
-   "since": "2026-08-01"
-  },
-  {
-   "id": "weekly-live-not-wired",
-   "bots": [
-    "all"
-   ],
-   "title": "The weekly real-phone-call test is not switched on yet",
-   "what": "This daily check only reads the scripts; it never dials a phone. The planned weekly test that places actual calls to each bot cannot run from the cloud yet, because the phone-platform and backend keys it needs have not been added to the GitHub repository secrets.",
-   "why": "Reading a script catches wrong wording and wrong field names, but only a real call catches problems in how the bot actually behaves on the phone — speech recognition, tone, and whether the backend truly saves the data.",
-   "next": "Add the Raya platform token and the backend API keys as GitHub Actions secrets, then enable the weekly live job.",
-   "priority": "medium",
-   "since": "2026-08-02"
-  },
-  {
-   "id": "output-prompts-missing-vars",
-   "bots": [
-    "all"
-   ],
-   "title": "Two call outcomes are not being captured after the call ends",
-   "what": "Each bot has a separate \"output\" script that reads the finished conversation and pulls out structured results. Two useful results are not being extracted yet: whether the caller gave consent, and whether they are ready for an interview.",
-   "why": "Without these, the team has to listen to or read the transcript to answer basic questions like \"how many callers consented?\" — it cannot be reported automatically.",
-   "next": "Add both fields to each agent's output script and confirm they populate on a real call.",
-   "priority": "medium",
-   "since": "2026-08-01"
-  },
-  {
-   "id": "signals-inventory-ids",
-   "bots": [
-    "KKB Hindi · outbound · Signals",
-    "KKB Kannada · outbound · Signals",
-    "KKB Hindi · inbound · Signals",
-    "KKB Kannada · inbound · Signals",
+    "KKB-Slim Hindi · outbound · Signals",
+    "KKB-Slim Kannada · outbound · Signals",
     "Maya Hindi · outbound · Signals",
     "Maya Hindi · inbound · Signals"
    ],
-   "title": "Job list used for testing is not the real production job list",
-   "what": "The job openings these bots read out during testing are sample entries. The real, current openings are maintained by the team directly on the phone-platform console.",
-   "why": "A bot can pass every test and still fail in production if it offers a job whose ID no longer exists — the application then errors out for a real caller.",
-   "next": "Confirm each bot is pointed at the live job list before the next production run, and re-check after the team updates openings.",
-   "priority": "medium",
-   "since": "2026-08-01"
+   "priority": "high",
+   "since": "2026-10-12",
+   "title": "Job applications are being refused by the backend",
+   "what": "Since about 6 October the jobs backend refuses applications with HTTP 422 (it rejects the consent field it also requires). The bot asks correctly and calls the apply step; the backend says no. This is not something the bot's script can fix.",
+   "why": "Applying to a job is the point of the call. Callers who say yes are not actually applied.",
+   "next": "Backend team (Sanketika / Signals) to fix the consent field on apply_job. Recorded in KKB-Slim/CHANGELOG.md, 2026-10-12."
   },
   {
-   "id": "cd7-wording-outbound",
+   "id": "slim-oct13-deployed-not-verified",
    "bots": [
-    "KKB Hindi · outbound · Signals",
-    "KKB Kannada · outbound · Signals"
+    "KKB-Slim Hindi · outbound · Signals",
+    "KKB-Slim Kannada · outbound · Signals"
    ],
-   "title": "Slightly stiff wording when the bot refers to the caller's details",
-   "what": "On outbound calls the bot says \"प्रोफाइल\" (profile) where the warmer, more everyday \"जानकारी\" (your details) would sound more natural to a worker.",
-   "why": "Cosmetic only — nothing breaks. It affects how natural the bot sounds, not whether the call succeeds.",
-   "next": "Swap the wording next time these scripts are edited for something else; not worth a dedicated deployment.",
+   "priority": "medium",
+   "since": "2026-10-13",
+   "title": "Seven fixes from the 13 October tracker review are live but not yet heard on a call",
+   "what": "Live and checked in the script, but not yet seen on a test call: the education value the backend accepts (r113), the 'already applied' wording (r118), no apply after a failed profile save (r119), a 'yes' to the role check no longer counting as new work (r135), no repeated deep dive after a bare yes (r137), off-topic requests declined in one line (r141), the salary answer (r144), the slower repeat when the caller cannot hear (KI-02), and the 'call me later' output field.",
+   "why": "A change is only proven when a call shows it. Until then these are DEPLOYED, NOT VERIFIED.",
+   "next": "The nightly test calls cover the Slim bots first; a targeted call per fix is still needed for the ones the nightly scenario does not reach."
+  },
+  {
+   "id": "slim-decisions-pending",
+   "bots": [
+    "KKB-Slim Hindi · outbound · Signals",
+    "KKB-Slim Kannada · outbound · Signals"
+   ],
+   "priority": "medium",
+   "since": "2026-10-13",
+   "title": "Two changes are waiting for a decision, not for a fix",
+   "what": "(1) Tracker r146 asks to move the PIN and landmark questions after the first jobs are read out; that conflicts with KI-12, which needs the PIN first. (2) What to do when a caller under 18 says they are an adult.",
+   "why": "Both change who gets jobs read out and when, so the programme team has to choose.",
+   "next": "Programme team to decide; then route through /update-prompt."
+  },
+  {
+   "id": "slim-u18-and-inventory-backend",
+   "bots": [
+    "KKB-Slim Hindi · outbound · Signals",
+    "KKB-Slim Kannada · outbound · Signals"
+   ],
+   "priority": "medium",
+   "since": "2026-10-12",
+   "title": "About half the ITI / polytechnic contacts are blocked as under 18, and the job list has junk rows",
+   "what": "The profile lookup returns U18_NOT_ALLOWED for about half of the ITI and polytechnic campaign contacts. The job list carries duplicates, roles like 'na' or 'Any', Karnataka rows on the Ghaziabad bot, and masked locations.",
+   "why": "Blocked callers cannot be helped at all, and bad rows make the bot read out jobs that are not real options.",
+   "next": "Data team: check the date-of-birth data on the blocked contacts, and clean the job inventory."
+  },
+  {
+   "id": "slim-quote-marks",
+   "bots": [
+    "KKB-Slim Hindi · outbound · Signals"
+   ],
    "priority": "low",
-   "since": "2026-08-01"
+   "since": "2026-10-13",
+   "title": "The Hindi Slim bot sometimes wraps its lines in quote marks",
+   "what": "Seen on calls f063e40c and 29771cd5 after the latest Hindi deploys. Not yet traced.",
+   "why": "Usually harmless, but quote marks can change how the voice reads a line.",
+   "next": "Trace which prompt lines teach it (look for quoted spoken lines the model copies)."
   },
   {
-   "id": "fetch-leak-kn-signals",
+   "id": "location-writeback-mac-only",
    "bots": [
-    "KKB Kannada · outbound · Signals",
-    "KKB Kannada · inbound · Signals"
+    "KKB-Slim Hindi · outbound · Signals",
+    "KKB-Slim Kannada · outbound · Signals"
    ],
-   "title": "The bot hints out loud that it looked the caller up",
-   "what": "The script explicitly says the caller must never hear that a lookup happened. In test calls on 2026-08-04 the bot said “ನಾನು ನೋಡ್ತಿದ್ದೀನಿ” (“I’m having a look”) on the outbound call, and “ನಿಮ್ಮ ಮಾಹಿತಿಯಲ್ಲಿ … ಕಾಣ್ತಿದೆ” (“I can see in your information”) on the inbound one — both reveal it.",
-   "why": "The prose already forbids this clearly, so it is a model-adherence miss rather than a missing instruction; adding more wording tends to make it worse. Impact is on how natural and discreet the call feels, not on whether it succeeds — nothing fails because of it.",
-   "next": "Try a structural fix rather than more prose: bind the post-fetch turn to a fixed opening phrase so there is no room to narrate. Check the Hindi twins for the same phrasing first — do not change Kannada alone if both drift.",
    "priority": "medium",
-   "since": "2026-08-04"
+   "since": "2026-10-13",
+   "title": "Saving the caller's address to their profile only runs while Parth's Mac is on",
+   "what": "The location write-back (scripts/location_writeback.py) runs every 15 minutes from launchd on one Mac. A missed window is caught up only for calls still in the latest 100.",
+   "why": "If the Mac is off for a busy day, some callers' addresses are never saved.",
+   "next": "Move it to a cloud schedule (GitHub Actions now has the Raya secrets) or a server."
   },
   {
-   "id": "confirm-turn-2-inbound-legacy-unreached",
+   "id": "maya-consent-lost-before-apply",
+   "bots": [
+    "Maya Hindi · outbound · Signals",
+    "Maya Hindi · inbound · Signals"
+   ],
+   "priority": "medium",
+   "since": "2026-10-13",
+   "title": "Maya still loses a new caller's consent if they hang up before applying",
+   "what": "Consent is written only when the profile is created at apply time. The KKB Slim fix (save consent at once) was tried on Maya on 13 October and reverted the same day because Maya invented the caller's age 3 times out of 4.",
+   "why": "A caller who agreed but hung up early has no consent on record.",
+   "next": "Re-try with the age asked before the consent question (the order that worked on KKB Slim), then test."
+  },
+  {
+   "id": "maya-oct13-deployed-not-verified",
+   "bots": [
+    "Maya Hindi · outbound · Signals",
+    "Maya Hindi · inbound · Signals"
+   ],
+   "priority": "low",
+   "since": "2026-10-13",
+   "title": "Maya's education value and age guard are live but not yet heard on a call",
+   "what": "The tester went silent before every apply, so the save step was never reached. MPL removal on the two Signals Maya bots is also DEPLOYED, NOT VERIFIED.",
+   "why": "Unverified until a call reaches the apply step.",
+   "next": "A test call that reaches apply on each Maya Signals bot."
+  },
+  {
+   "id": "maya-inbound-stale-inventory",
    "bots": [
     "Maya Hindi · inbound · legacy",
-    "KKB Kannada · inbound · legacy"
+    "Maya Hindi · inbound · Signals"
    ],
-   "title": "Two inbound bots could not be driven as far as the apply-confirmation step",
-   "what": "The split-turn confirm fix was deployed to all 12 bots and live-verified on 10. On these two the test call never reached the confirmation step: both said no job in the list matched what the caller asked for, so the conversation ended before the point being tested. That is correct behaviour given the test job list, not a fault.",
-   "why": "The edit is identical to the ten that passed, so it is very likely fine — but the house rule is that a variant is only proven by its own call, never assumed from a twin.",
-   "next": "Re-run with a job list that matches what the inbound flow will actually offer these two bots, and confirm the separate consent question appears.",
-   "priority": "low",
-   "since": "2026-08-07"
+   "priority": "medium",
+   "since": "2026-10-12",
+   "title": "Maya inbound reads out an old Bengaluru job list",
+   "what": "Inbound Maya offers stale Bengaluru roles (EV roles and similar) to Ghaziabad callers.",
+   "why": "Callers hear jobs they cannot take.",
+   "next": "Point the inbound bot's job source at the current Ghaziabad inventory."
   },
   {
-   "id": "audiocheck-verify-pending-9-variants",
+   "id": "dkb-oct13-deployed-not-verified",
    "bots": [
-    "KKB Kannada · outbound · Signals",
-    "KKB Hindi · outbound · legacy",
-    "KKB Kannada · outbound · legacy",
-    "Maya Hindi · outbound · Signals",
-    "Maya Hindi · outbound · legacy",
     "DKB Hindi · outbound · Signals",
-    "DKB Kannada · outbound · Signals",
-    "DKB Hindi · outbound · legacy",
-    "DKB Kannada · outbound · legacy"
+    "DKB Kannada · outbound · Signals"
    ],
-   "title": "The new \"can you hear me?\" opening turn is live on 9 more bots but has only been tested on one of them",
-   "what": "Outbound bots now open with a short audio check and only give their real introduction after the caller confirms. That behaviour was tested on live calls for KKB Hindi Signals and works there. The same change was then applied to nine more outbound bots and deployed, but none of those nine has had its own test call yet.",
-   "why": "A change that works in one language or on one bot is not proof it works on its twin — the speech recognition, the voice, and the way the model follows the instruction all differ per language. This is exactly the case where assuming would be a mistake.",
-   "next": "Run one live call per bot — Hindi and Kannada, legacy and Signals — and confirm three things in each transcript: the first thing said is only the audio check, the real introduction comes after the caller answers, and a caller who cannot hear gets exactly one slower repeat and then a polite goodbye.",
-   "severity": "major"
+   "priority": "low",
+   "since": "2026-10-13",
+   "title": "Two DKB fixes are live but not yet heard on a call",
+   "what": "The truthful line after a failed job post (r130) and 'जी, ज़रूर।' instead of a spoken '(Wait silently)' (r133). r131 is verified on 8cf101ad.",
+   "why": "Unverified until a call shows them.",
+   "next": "Test calls: one with a failed post, one where the owner asks the bot to hold."
   },
   {
-   "id": "trrain-new-bot-partial-verification",
+   "id": "dkb-backend-gaps",
    "bots": [
-    "TRRAIN Hindi · outbound",
-    "TRRAIN Kannada · outbound"
+    "DKB Hindi · outbound · Signals",
+    "DKB Kannada · outbound · Signals"
    ],
-   "title": "The new TRRAIN follow-up bot works on the happy path but several scenarios are still untested",
-   "what": "TRRAIN calls seekers who already applied to a job and offers them one free support service. Live calls confirm the Hindi bot handles the ordinary case correctly and handles a missing job title without ever reading \"Not Available\" aloud. Still untested: what happens when we reach the wrong person (the offer must not be made at all), the Kannada version end to end, and a re-test of the fix that makes the bot name the actual job the person applied to.",
-   "why": "The wrong-person case is the one that matters most for trust — offering a service to somebody who never applied to anything, on a call that opens by telling them they did, is the worst outcome this bot can produce.",
-   "next": "Run the wrong-person scenario on the Hindi bot, run the decline scenario on the Kannada bot, and re-run the ordinary case to confirm the bot now says the real job title instead of a vague \"a job\".",
-   "severity": "major"
+   "priority": "medium",
+   "since": "2026-10-13",
+   "title": "The employer bot cannot save salary or qualification, or close a posting",
+   "what": "The job posting schema has no salary, qualification or experience fields (r115); there is no update or close route (r116); each owner is capped at 5 profiles (r120). A shorter opening pitch (r145, 53% hang up on the current one) needs sign-off for an A/B test.",
+   "why": "Owners give details the system then drops, and cannot close filled jobs.",
+   "next": "Backend team for r115/r116/r120; programme sign-off for the r145 A/B."
   },
   {
-   "id": "returning-caller-and-need-capture-pilot-only",
+   "id": "trrain-yes-path-unverified",
    "bots": [
-    "KKB Hindi · outbound · Signals"
+    "TRRAIN Hindi · outbound · Signals",
+    "TRRAIN Kannada · outbound · Signals"
    ],
-   "title": "Two new features are live on one bot only, on purpose, until they are confirmed",
-   "what": "Two additions are running on KKB Hindi Signals and nowhere else: a line that references a previous conversation when we genuinely have one on record, and a single offer of help from a service provider made just before the call ends. Both were asked to be piloted on one bot before being copied to the rest.",
-   "why": "The first one took two attempts to make work and must be seen firing on a real call before it is copied anywhere. The second one silently did not happen on a call where the caller was undecided, which was fixed but not yet re-confirmed.",
-   "next": "Confirm both on live calls for this bot, then copy them to the other KKB bots and to Maya. Neither belongs on DKB — its caller is the employer, so an offer to help someone find a job makes no sense there.",
-   "severity": "major"
+   "priority": "medium",
+   "since": "2026-10-12",
+   "title": "TRRAIN's full 'yes, call me at this time' path has not been heard end to end",
+   "what": "The new offer (ends on a question, only a named time counts as Yes) is verified for silence and refusal. The yes then time then Yes path is VERIFY-PENDING, and the output fix that stores silence as Maybe is DEPLOYED, NOT VERIFIED. Kannada TRRAIN has never run in production.",
+   "why": "The yes path is the one that creates a follow-up for the partner team.",
+   "next": "A test call with a caller who accepts and names a time, on Hindi and on Kannada."
   },
   {
-   "id": "intro-spoken-twice-once-in-nine-calls",
+   "id": "kkb-signals-no-traffic",
    "bots": [
-    "KKB Hindi · outbound · Signals"
+    "KKB Hindi · outbound · Signals",
+    "KKB Kannada · outbound · Signals",
+    "KKB Hindi · inbound · Signals",
+    "KKB Kannada · inbound · Signals"
    ],
-   "title": "On one call out of nine the bot said its introduction twice",
-   "what": "After the new opening turn was added, nine live calls were checked. Eight said the introduction exactly once. On the ninth the bot said it, looked the caller up, and then said the whole introduction again before continuing. On that call the lookup happened earlier than usual, which is probably what pushed it into repeating itself.",
-   "why": "Hearing the same introduction twice makes the bot sound broken, even though the rest of the call was fine. One in nine is too often to ignore and too rare to be the normal behaviour.",
-   "next": "Watch for it across the next batch of calls on any outbound bot. If it recurs, the fix is a rule that the introduction is spoken once per call and never repeated — the same rule that fixed an identical repeat on the new TRRAIN bot.",
-   "severity": "minor"
+   "priority": "low",
+   "since": "2026-10-13",
+   "title": "The older KKB Signals bots carry no live traffic",
+   "what": "Their numbers moved to KKB Slim. Their scripts are kept correct (education values fixed 13 October, DEPLOYED, NOT VERIFIED) so they never regress, and the nightly test calls still dial them.",
+   "why": "Information only.",
+   "next": "None unless traffic moves back."
   },
   {
-   "id": "get-profile-skipped-on-one-call",
+   "id": "memory-unreadable",
    "bots": [
-    "TRRAIN Kannada · outbound"
+    "all"
    ],
-   "title": "The caller lookup was skipped entirely on one call, with no reason visible",
-   "what": "The new TRRAIN bot is meant to look the caller up once, silently, so it can greet them by name. It did so on four live calls and skipped it completely on a fifth — no attempt at all — with the same instruction in place. On that call it also greeted the caller with a name that merely sounded like the one supplied.",
-   "why": "This is the model not following a clear instruction rather than the instruction being unclear, so writing the rule more forcefully tends to make things worse, not better. It matters because a skipped lookup means no name, and a guessed name is worse than none.",
-   "next": "The name problem is fixed — the bot is now told to say the name exactly as given or leave it out entirely. The skipped lookup should be raised with the platform team rather than patched in the script. The bot copes without it: it drops the name and still names the job correctly, because the job title comes from a supplied value.",
-   "severity": "minor"
+   "priority": "low",
+   "since": "2026-09-01",
+   "title": "What a bot remembers about a caller cannot be read back",
+   "what": "Rules that depend on stored memory (ask the bus stop once, know a job was already applied to) cannot be checked directly, because the platform has no endpoint to read a contact's stored memory.",
+   "why": "Those rules can only be judged indirectly from call behaviour.",
+   "next": "Ask LitWiz for a read-only memory endpoint."
   },
   {
-   "id": "memory-store-key-format",
+   "id": "tester-number-profiles",
    "bots": [
-    "ALL"
+    "all"
    ],
-   "title": "Stored memories are keyed on the 10-digit number while the bots look profiles up on 12 digits",
-   "what": "The stored-memory list keys each entry on a 10-digit phone number (for example 7946350285), whereas the bots pass the 12-digit form with the country code (917946350285) when they look up a caller's profile. Both forms are in play across the system.",
-   "why": "Probably harmless, since the platform both stores and retrieves memory itself and will be self-consistent. Worth noting only because a mismatch between the two forms has already caused one real bug today — a profile lookup silently returned nothing because it was sent 10 digits instead of 12.",
-   "next": "Confirm with the platform team which form memory is keyed on, so nobody later assumes the two systems agree.",
-   "severity": "minor"
-  },
-  {
-   "id": "returning-caller-working-rollout-pending",
-   "bots": [
-    "KKB Hindi · outbound · Signals"
-   ],
-   "title": "The \"we spoke last time\" line now WORKS on the pilot bot — rollout to the other bots is the remaining work",
-   "what": "After six failed attempts to put this in the opening, it was moved into the turn the bot already speaks after looking the caller up — the turn where it greets them by name and asks about their trade. It now says, in one turn: the caller's name, what was discussed last time, and the question about whether they still want that kind of work. Verified on a live call, with the topic taken correctly from the stored history rather than invented.",
-   "why": "This was one of four requested changes and is now working on one bot. It is not yet on the other seven KKB bots or the four Maya bots, and each of those needs its own call to confirm — the wording has to be re-authored for Kannada and for Maya's campus context and feminine verb forms.",
-   "next": "Copy the clause into the other KKB and Maya scripts, translating the spoken part for Kannada and adapting it for Maya, then place one live call per bot. Two things to check in each transcript: the clause appears, and the turn still ends on a single question rather than stacking two. Also still unconfirmed: what happens for a caller with NO history under the new shape — the test number's history is now permanent, so confirming that needs either a fresh number or deleting that history row from the console.",
-   "severity": "major"
+   "priority": "low",
+   "since": "2026-09-01",
+   "title": "The test number already has profiles and applications, so it is never a truly new caller",
+   "what": "Every test call reaches the bot from the same test number, which already holds seeker records and applications on most test jobs. 'New caller' scenarios therefore run as returning callers, and apply tests can come back as 'already applied'.",
+   "why": "It can produce false passes and false failures in the nightly calls.",
+   "next": "Have the backend team retire the extra records on the test number, or give the tester a second number."
   }
  ]
 }

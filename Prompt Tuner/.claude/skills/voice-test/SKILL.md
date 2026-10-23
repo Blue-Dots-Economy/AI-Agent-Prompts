@@ -84,6 +84,9 @@ bot's DID as the number; the tester then needs an `out_did`).
 
 ("run these test cases, N calls each, and update the sheet")
 
+No sheet yet? `/generate-test-cases` builds one for the bot first. To keep going unattended until every
+row passes, use `/goal` as described in `/bug-fix` → "Fix until the sheet passes".
+
 1. **Read it through the service account, never a browser:**
    `python3 scripts/testcase_sheet.py pull --sheet-id <ID> --tab "<tab>" --out <scratch>.json`. A 403
    means it is not shared with `kkb-sheets-writer@operation-rozgar.iam.gserviceaccount.com`: ask the

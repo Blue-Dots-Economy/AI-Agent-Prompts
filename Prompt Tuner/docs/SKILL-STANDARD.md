@@ -45,6 +45,11 @@ tuner that every skill must already know. Use it when writing a new skill, and w
   split by input, read the guard), then remedy. Two failed wordings means change mechanism, not volume.
   If a fix does not hold across three calls, stop adding text.
 - A required tool parameter constrains what the model says, not what it did (D91, D95).
+- Locate before you fix: trace the failing call to the section that produced its first wrong turn
+  (`scripts/prompt_map.py locate`), and list what that section touches before editing it (`impact`).
+- After two failed fixes on one issue, read the whole prompt cold (a fresh subagent, no history) and run
+  `scripts/prompt_structure.py`: a rule the bot "ignores" is often a rule a stale step reference never
+  lets it reach (D125).
 - The prompt's own examples are a defect source: an example that shows the forbidden behaviour beats
   any rule against it (D50). Fix the example.
 
@@ -84,6 +89,11 @@ tuner that every skill must already know. Use it when writing a new skill, and w
   lint`; a sheet can be run and filled in (`pull` / `result` / `add-bug`). Sheets are read through the
   service account `kkb-sheets-writer@operation-rozgar.iam.gserviceaccount.com`, not a browser.
 - Real users' numbers and profiles are read-only, always. Test numbers only.
+
+**Copies of the tuner**
+- Teams run their own copies; `/upgrade` (`scripts/tuner_upgrade.py`) is the only way shared machinery
+  reaches them. Anything a skill adds must be safe to merge into a copy: no bot names, uuids or paths that
+  only exist here.
 
 **Repo hygiene**
 - The repo is PUBLIC and every commit auto-pushes behind `scripts/push_guard.py`. Never commit

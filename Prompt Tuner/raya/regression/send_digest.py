@@ -45,9 +45,8 @@ def html_to_text(html):
     t = re.sub(r"(?i)</(div|p|tr|table)>", "\n", t)
     t = re.sub(r"(?i)<br\s*/?>", "\n", t)
     t = re.sub(r"<[^>]+>", "", t)
-    for a, b in (("&nbsp;", " "), ("&amp;", "&"), ("&lt;", "<"), ("&gt;", ">"),
-                 ("&ldquo;", '"'), ("&rdquo;", '"'), ("&mdash;", "—")):
-        t = t.replace(a, b)
+    import html as _html
+    t = _html.unescape(t.replace("&mdash;", ", "))    # every entity (&middot;, &#10007; ...) to text
     lines = [ln.strip() for ln in t.splitlines()]
     out, blank = [], False
     for ln in lines:                       # collapse runs of blank lines
@@ -85,8 +84,8 @@ def send_gmail_oauth(sender, to, subject, html):
     )
     svc = build("gmail", "v1", credentials=creds, cache_discovery=False)
     raw = base64.urlsafe_b64encode(build_message(sender, to, subject, html).as_bytes()).decode()
-    svc.users().messages().send(userId="me", body={"raw": raw}).execute()
-    return "Gmail API (OAuth user credentials)"
+    res = svc.users().messages().send(userId="me", body={"raw": raw}).execute() or {}
+    return "Gmail API (OAuth user credentials), message id %s" % res.get("id", "?")
 
 
 def send_resend(sender, to, subject, html):

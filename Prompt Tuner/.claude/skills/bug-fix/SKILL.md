@@ -1,6 +1,6 @@
 ---
 name: bug-fix
-description: Work through reported bugs from the Consolidated Feedback Tracker (Google Sheet, tab "All Issues") or a bot's open-issues list, end to end on the live Raya agents. Reads what is open, grounds each issue in its real call, separates prompt bugs from input, backend and platform causes, fixes only real prompt gaps (one fix per cause), carries the fix to sibling bots that have the same bug, deploys, tests, and writes the status back. Use when the user says "process the feedback sheet", "fix the reported bugs", "go through the tracker", "what is still open on <bot>", "fix the open issues", "run the bug-fix loop", or points at the tracker or a sheet row.
+description: Work through reported bugs from the Consolidated Feedback Tracker (Google Sheet, tab "All Issues") or a bot's open-issues list, end to end on the live Raya agents. Reads what is open, grounds each issue in its real call, separates prompt bugs from input, backend and platform causes, fixes only real prompt gaps (one fix per cause), carries the fix to sibling bots that have the same bug, deploys, tests, and writes the status back. Use when the user says "process the feedback sheet", "fix the reported bugs", "go through the tracker", "what is still open on <bot>", "fix the open issues", "run the bug-fix loop", or points at the tracker or a sheet row. Locates each failure to the part of the prompt that produced it, lists what else a fix touches before editing, and finds competing rules ("which part of the prompt caused this", "what else will this change affect").
 ---
 
 # Bug-fix loop
@@ -10,11 +10,12 @@ real prompt gaps only, the sheet (or intake issue list) updated row by row, and 
 root `CLAUDE.md` format (Fixed with call id · Failed / still open · New bugs · Next · still open from
 before), written in plain words.
 
-**Fast path:** read the open list → pull each issue's real call → classify → group by cause →
-`/update-prompt` (or `/port-feature`) → deploy → `/voice-test` each variant → flip the sheet status →
-report last.
+**Fast path:** read the open list → pull each issue's real call → **locate** the first wrong turn in the
+prompt map → classify → group by cause → **impact** check → `/update-prompt` (or `/port-feature`) →
+deploy → `/voice-test` each variant (re-locate the proving call) → flip the sheet status → report last.
 
-Tools it ties together: `scripts/gsheets.py` (sheet read/write), `scripts/raya_call.py` (transcripts with
+Tools it ties together: `scripts/prompt_map.py` (which part of the prompt a turn came from, what else a
+change affects, every rule about one thing), `scripts/gsheets.py` (sheet read/write), `scripts/raya_call.py` (transcripts with
 tool arguments), `scripts/raya_deploy.py` (diff / pull / deploy), `/raya-reconcile`, `/update-prompt`,
 `/port-feature`, `/voice-test`, `/sync-check`.
 
@@ -43,6 +44,85 @@ one call that would decide, (c) fix issues one at a time when one change would h
    exists for this), and some defects only show on paths the earlier calls never reached. Say which new
    issues are regressions caused by the last change and which are first sightings of an old defect, so
    the person can tell progress from churn.
+5. **When the same issue survives two fixes, read the whole prompt cold before the third.** A fresh
+   subagent with no history (`/prompt-analyser` step 0) plus `scripts/prompt_structure.py`. A session that
+   has been fixing for hours reads the prompt through its own theory of the bug; on Orange Dots that
+   meant hours of added rules, while a fresh read found the step numbering was sending the bot to the
+   wrong question (D125).
+
+## The prompt map: which part is wrong, what else it touches, how to resolve it
+
+A prompt is treated as a structure, not a wall of text: its sections are the nodes, step references and
+shared values are the links. The map is **built from the prompt file every time** by
+`scripts/prompt_map.py`, never kept as a second copy: a structure maintained beside the prompt drifts
+from it (an MSR 2025 study of 1,262 real prompt changes found most edits undocumented and some
+introducing contradictions; our own stale step references, D125, are that drift). The method borrows four
+well-tested ideas: prompts as programs made of components (Microsoft SAMMO, POML), a call as a walk through
+a graph of steps (Pipecat Flows, Retell), impact analysis by following what writes and what reads each
+value (program slicing), and ranking suspects by failing versus passing runs (spectrum-based fault
+localisation). Use it at four moments:
+
+**A. Which part produced the failure (root cause, step 2).**
+`python3 scripts/prompt_map.py locate <prompt> --call <uuid or saved call.json>` lists every bot turn and
+tool call with the section it came from. Find the **first** turn that went wrong: later turns are often
+its consequences (error-analysis practice: code the first failure in each trace). What the first wrong
+turn tells you:
+- it matches a rule section, said at the right moment, with the wrong content → a problem **inside that
+  step** (its instructions);
+- it matches the right line at the wrong moment, or a step was skipped or repeated → a problem **between
+  steps**: the transition, the guard on the step (D1-D3, read the guard), or a step reference that lands
+  in the wrong place (`scripts/prompt_structure.py`, D125);
+- it matches a line in an **example** → the example taught it (D50): fix the example, not the rule;
+- **no prompt line is close** → the bot improvised: a branch the prompt never covers, or a rule it never
+  reached. Look for the missing branch before adding words;
+- a tool fired, or did not, against its section's contract → read that tool's section and its live schema.
+A turn can also be placed alone: `locate <prompt> --say "<what the bot said>"`.
+
+**B. Group by cause (habit 3).** Locate the first wrong turn of every failing call in the batch and group
+the issues by the section (or the value) they land on: several symptoms at one section are one cause and
+get one fix. With ten or more calls of the same bot, some passing and some failing,
+`prompt_map.py spectrum <prompt> --calls <dir> --fail <uuid prefixes>` ranks the sections that go most
+with the failures. It is a ranking, not a verdict: a section that runs on every call scores low even when
+it is the culprit, so always confirm with `locate` on the failing calls. (Checked on 32 saved KKB Slim
+Hindi calls: the 5 calls that repeated a line traced, with `locate`, to step 8, step 10 and Turn B;
+`spectrum` ranked step 8 first and Turn B third, and missed step 10, whose line also runs in passing calls.)
+
+**C. What else the fix touches (before editing, and the Tier 2 list).**
+`python3 scripts/prompt_map.py impact <prompt> --section "<title words or line number>" [--sheet <rows.json>]`
+lists the rules elsewhere that point at that part (they break if it is renamed, renumbered or moved), the
+values it writes and which steps read them, the values it depends on and which steps write them (a wrong
+value often starts upstream), the tools it uses, the same part in every other language, and, given a
+pulled test sheet (`scripts/testcase_sheet.py pull`), the rows to re-run. That list **is** the
+blast-radius plan for Tier 2; paste it into the report. If it says a value is both checked and written in
+the same part, read the guard first (root `CLAUDE.md`, D3).
+
+**D. Is there already a rule about this (before adding one).**
+`python3 scripts/prompt_map.py rules-about <prompt> <tool | ${variable} | field | phrase>` prints every
+line about it, grouped by section, and flags directions and prohibitions that sit in different places.
+Models do not reliably resolve two rules that can both be followed (instruction-hierarchy studies,
+2025), so a fix usually **scopes, merges or deletes** an existing rule rather than adding a new one
+(ladder rungs 2-3).
+
+**After the fix:** run `locate` on the proving call. The report quotes the turn and names the section it
+now comes from: that is the evidence the fix landed where intended, next to the call id.
+
+## Fix until the sheet passes (`/goal`)
+
+When the user wants the loop to keep going on its own ("keep fixing until every case passes"), use
+Claude Code's built-in **`/goal`**. After each turn a small model checks the condition against what
+Claude has printed, and Claude keeps taking turns until it is met, judged impossible, or stalled. It
+cannot read files or run commands itself, and it does not start subagents, so:
+
+- Write the condition so it can be proven from printed output, and make each turn end by printing the
+  results table (row id, verdict, call ids). Example:
+  `/goal every Smoke and P0 row in the "<tab>" tab of <sheet link> shows PASS on 3 of 3 calls in the
+  results table you print, and the sheet is updated; or stop after 25 turns`.
+- Always include a stop ("or stop after N turns"), and run it in auto mode or with the needed tools
+  allowed, or it waits on permission prompts.
+- The loop still obeys everything here: a transcript before every fix, one fix per cause, a cold read
+  after two failed fixes on one issue, never a third wording, escalation after the ladder, every variant
+  tested, and "fixed" only with a call id. A goal that can only be met by breaking a rule is reported as
+  blocked, not met.
 
 ## The two non-negotiable rules
 
@@ -67,16 +147,18 @@ one call that would decide, (c) fix issues one at a time when one change would h
    tool-result shape, earlier branch, language and direction (a near-clean split is a condition bug, not
    adherence); and **read the guard** of any skipped step, because it may have been correctly skipped
    under a too-generous condition. On 2026-09-23 a remedy applied before this split cost two failed
-   fixes, one a regression.
+   fixes, one a regression. Place the first wrong turn in the prompt with `prompt_map.py locate`
+   (prompt map, A).
 3. **Classify** (table below). Only *prompt gap* gets a prompt edit.
-4. **Group by cause** (habit 3), then **fix** each cause once via `/update-prompt`: reconcile with live
+4. **Group by cause** (habit 3, prompt map B), check what the fix touches (`impact`, prompt map C) and
+   what rules already exist (`rules-about`, prompt map D), then **fix** each cause once via `/update-prompt`: reconcile with live
    first, snapshot, surgical edit on the master, mirrors brought up, `CHANGELOG.md` entry, and a new or
    sharpened `bug-patterns.md` entry.
 5. **Propagate**: check each sibling for the SAME gap and port it only where present (step details).
 6. **Verify nothing broke** before deploying (step details).
 7. **Deploy** each changed target with `scripts/raya_deploy.py deploy <target>`.
-8. **Test** each changed variant (Tier 1 and Tier 2) with `/voice-test`; the daily standing check is
-   Tier 3.
+8. **Test** each changed variant (Tier 1 and Tier 2) with `/voice-test`; Tier 2 covers what `impact`
+   listed. Re-run `locate` on the proving call. The daily standing check is Tier 3.
 9. **Write the sheet status** for every row touched (status discipline below).
 10. **Repeat** until every open row has a verdict.
 11. **Report last**, in the root `CLAUDE.md` format. Never write the summary before the work is done;

@@ -5,6 +5,14 @@ output prompts; the ONLY difference is the conversation prompt — a ground-up r
 against the master's ~224k. It exists to test whether prompt size is what the latency complaints
 are about. Not a language variant, so `/sync-check` must not treat it as a mirror.
 
+## 2026-10-19 - Automated-message rule; false "already applied"; invented gender; PIN read with bars; under-18 line
+- **Feedback/bug:** Aryan (2026-10-19): end calls on IVR/voicemail per the shared instructions. Today's live tests and the first nightly run found: "already applied" said with no `apply_job` when the caller said "फिर से अप्लाई"; the read-back said "ಮಹಿಳೆ" for a man who never answered; the PIN read back as "दो | शून्य | …"; a city from the job rows confirmed as the caller's location; lines wrapped in quote marks; an under-18 close composed with "18" in digits (nightly call `6b7454a9`).
+- **Change (Hindi + Kannada):** top-priority automated-message rule; "What the caller says is never evidence" in the duplicate check; empty read-back slots left out; the silent PIN split uses commas; "a city in job results is never the caller's location"; no quotation marks in replies; a fixed under-18 line with the number in words.
+- **Files:** `KKB-Slim/KKB Slim Hindi Signals.md`, `KKB-Slim/KKB Slim Kannada Signals.md`.
+- **Verified (live):** applications go through again end to end, Hindi `c1ce0293` and Kannada (kkb-kn-new run, apply success on our test posting); education saves accepted (`Diploma` Kannada, `ITI` Hindi), r113; consent saved with the spoken age (`c1ce0293`, Kannada run); bare yes after the job details gets the one-line answer, r137 (`1d748aef`); unanswerable job question gets "यह कंपनी से बात होने पर पता चलेगा।", r144 (`c1ce0293`); PIN read with commas (`ae53a6af`).
+- **VERIFY-PENDING:** already-applied on a real duplicate (r118; the repeat test's tester script was overwritten mid-call), the automated-message rule, the gender and under-18 fixes. `hold_message` on writes cannot be emptied from the prompt (the platform fills it): raised with Raya.
+- **Verified later 2026-10-19:** voicemail answered with "Goodbye" only (Hindi `6c65aa09`, Kannada `ba701225`); off-topic request redirected in two short sentences, r141 (`cc664798`). Raya's error wrapper ("tell the caller it may or may not have gone through") overrides the already-applied routing even when the body says ACTION_LIMIT_REACHED (`078532ed`): override added to every Signals prompt, platform fix asked of Raya.
+
 ## 2026-10-13 - Tracker r111-r146 (Gaurav's Oct 6/8 campaign review) and Aryan's test sheet (KI-02, KI-12)
 - **Feedback/bug:** 36 new tracker rows dated 12/10 plus Aryan's KKB Inbound + Slim test results (2 PARTIAL). Every row was grounded in the downloaded Oct 6-12 calls (1,139 calls over 20s) before any edit; the calls ran on the pre-2026-10-12 prompt.
 - **Change (Hindi master, Kannada mirrored; English instructions byte-identical except the registered region list):**

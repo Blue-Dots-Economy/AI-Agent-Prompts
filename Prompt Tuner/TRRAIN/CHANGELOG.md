@@ -1,5 +1,22 @@
 # TRRAIN — Changelog
 
+## 2026-10-19 - Ported Oct 12-13 fixes
+- **Feedback/bug:** the KKB Slim fixes of 2026-10-12/13 (tracker r132, r136, r138, KI-02, r141; analyser D113 and the no-promise rule) checked against TRRAIN. Present here: the bad-line and silence closes promised "मैं बाद में कॉल करती हूँ" / "ನಾನು ಆಮೇಲೆ ಕಾಲ್ ಮಾಡ್ತೀನಿ", the proxy and busy lines promised a call back, the "more jobs" answer promised a call about jobs, worked-call tool notes sat inside the dialogue as `> *( ... )*`, no mid-call "can't hear" rule, no turn-length cap or markdown ban.
+- **Change (Hindi master, Kannada mirrored, English lines identical):**
+  - Turn 1 bad-line close and Silence Handling close: "मैं बाद में कॉल करती हूँ" -> "समय देने के लिए धन्यवाद।" (Kannada "ಸಮಯ ಕೊಟ್ಟಿದ್ದಕ್ಕೆ ಧನ್ಯವಾದ."), plus "(never promise to call back)".
+  - Proxy caller: "मैं बाद में कॉल कर लूँगी" removed -> "कोई बात नहीं, धन्यवाद। Goodbye".
+  - Busy / bad time: the call-back promise replaced by one time question ("ठीक है। किस वक़्त बात करना ठीक रहेगा?") and "ठीक है, धन्यवाद। Goodbye"; never promise the call.
+  - FAQ "मुझे और जॉब्स चाहिए": dropped "आपके लिए कुछ आने पर हमारी तरफ़ से कॉल ज़रूर आएगा" (nothing records it).
+  - New "Caller cannot hear you, after Turn 1": repeat the last sentence once, slower, then the bad-line close.
+  - Style: no turn longer than three short sentences (except Turn 2, the offer and an FAQ answer); no markdown.
+  - Examples 1 and 2: the `get_profile` stage directions moved out of the quote block as "Note (not spoken): ...".
+- **Not changed:** the Yes line "उनकी टीम एक-दो दिन में कॉल करेगी" (a recorded Yes with `callback_slot`, verified 2026-10-12; KKB Slim dropped its own "एक-दो दिन में" as unkeepable, so this is a decision for the lead); the greeting is already never replayed (Turn 2 rule); "मुझे इसकी जानकारी नहीं है" already covers off-topic. The time asked on a busy line is not stored anywhere (`TRRAIN Output.md` 12a `callback_requested` is Yes/No only).
+- **Files:** `TRRAIN/TRRAIN Hindi.md`, `TRRAIN/TRRAIN Kannada.md`. Snapshot `versions/TRRAIN/*pre-oct19-port`.
+- **Ported from:** KKB-Slim (2026-10-12, 2026-10-13).
+- **DEPLOYED, NOT VERIFIED** (the lead deploys; each fix needs its own live call, Hindi and Kannada separately).
+- **Also 2026-10-19:** the top-priority automated-message rule (voicemail/IVR -> "Goodbye" only, per Aryan's instructions doc) added to every outbound prompt in this folder. DEPLOYED, NOT VERIFIED.
+- **Verified 2026-10-19:** the false-positive fix's yes path: yes, then the time question, then a named time stored as `callback_slot` Evening with the caller's words as evidence (Hindi `27e6ed3e`, Kannada `2b319494`).
+
 ## 2026-10-12 - False positives: the offer now ends on a question, and only a named time counts as Yes
 - **Feedback/bug:** Aryan (email, 2026-10-12): "the TRRAIN bot is creating a lot of false positives ... adding more friction so that we get positive affirmations." Across the real calls, 35/53 Yes (66%) were a backchannel "हाँ"/"जी" to an offer that ended on a statement, or a caller who thought it was a job offer.
 - **Change (Hindi master, Kannada mirrored):** the offer ends on a direct question and says "यह किसी जॉब का ऑफ़र नहीं है"; a yes is followed by one confirmation asking WHEN the team should call; only a named time routes to Yes (stored in `callback_slot`); filler, silence or a job question closes neutrally ("ठीक है, धन्यवाद। आपका दिन शुभ हो। Goodbye") as Maybe; examples rewritten to match. Output: field 7 `trrain_interest` redefined on the caller's own words, new 7a `callback_slot`, 7b `interest_evidence`; `partner_named` and `callback_requested` defined; silence or no reply is never "No" (it is Maybe).

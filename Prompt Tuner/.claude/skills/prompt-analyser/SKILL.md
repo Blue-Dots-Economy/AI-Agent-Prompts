@@ -1,6 +1,6 @@
 ---
 name: prompt-analyser
-description: Read-only check of a voice bot's conversation prompt, in any language and any project, for the problems that break live calls, BEFORE they reach a caller. Finds missing parts the prompt needs (consent, safety interrupt, closing, per-language speech rules), and the failure patterns learned from past bugs - skipped steps, lines repeated, tools not called or called with wrong values, examples that teach the wrong thing, words callers will not understand, Hindi left in a translation, a prompt too big for its bot. Flags and explains; does not fix. Use when the user says "check this prompt before we go live", "what could go wrong with this prompt", "find the gaps", "audit / review the prompt", "is the Marathi (or any) translation OK", "is this prompt too big", when a new bot is registered, before translating a master, or as a review before /update-prompt.
+description: Read-only check of a voice bot's conversation prompt, in any language and any project, for the problems that break live calls, BEFORE they reach a caller. Finds missing parts the prompt needs (consent, safety interrupt, closing, per-language speech rules), and the failure patterns learned from past bugs - skipped steps, lines repeated, tools not called or called with wrong values, examples that teach the wrong thing, words callers will not understand, Hindi left in a translation, a prompt too big for its bot, step numbers or cross-references that send the bot to the wrong step. Reads the whole prompt cold, with no memory of earlier fixes. Flags and explains; does not fix. Use when the user says "check this prompt before we go live", "what could go wrong with this prompt", "find the gaps", "audit / review the prompt", "is the Marathi (or any) translation OK", "is this prompt too big", when a new bot is registered, before translating a master, or as a review before /update-prompt.
 ---
 
 # Prompt Analyser
@@ -12,7 +12,8 @@ line, pattern id, fix direction) for whoever makes the fix. It **flags**; it nev
 **Fast path:**
 1. Resolve the file and its target (path map in root `CLAUDE.md`, `raya/agents.json`). Is it a master
    or a mirror?
-2. Run the mechanical checks: size, and the language checks if it is a mirror.
+2. Read it cold (a fresh subagent with no history; step 0), and run the mechanical checks: structure,
+   size, and the language checks if it is a mirror.
 3. List the prompt's sections against `reference/section-checklists.md`.
 4. Sweep `reference/bug-patterns.md` family by family, using its **Index**.
 5. Check the prompt's examples against its rules.
@@ -44,7 +45,19 @@ line, pattern id, fix direction) for whoever makes the fix. It **flags**; it nev
 
 ## Procedure
 
+0. **Read it cold.** Run the analysis in a FRESH subagent (the `Agent` tool), given only the prompt
+   file path(s), this skill and its `reference/` files: never the conversation so far, never the list of
+   fixes already tried. Then read the WHOLE prompt top to bottom before judging any one rule. A session
+   that has been patching a prompt for hours carries its own theory of the bug and reads the prompt
+   through it; on Orange Dots (Oct 2026) the tuner kept adding rules for hours, while a fresh chat that
+   treated it as a brand-new prompt found in minutes that the step numbering sent the bot to the wrong
+   question (D125). Always cold when: fixes for the same issue have failed twice, a prompt was edited many
+   times, before translating a master, or when the user says "look at it fresh".
 1. **Mechanical checks** (fast, objective; run them before reading):
+   - **Structure (every file):** `python3 scripts/prompt_structure.py <file>`. Every FAIL is a high
+     finding: a "go to Step N" that points at a step that does not exist, a reference whose label names a
+     different step ("Step 2 (consent)" landing on the name question), two steps with the same number.
+     With `--map` it lists where every step reference lands, which is the fastest way to read a flow.
    - **Size (every file with a target):** `python3 scripts/prompt_size.py check <file> --target <id>`.
      BLOCK is a high finding (past the size where this bot already stopped calling tools, D116). WARN
      means no call has proven this size works: say the first test call must confirm every tool fires.
@@ -153,6 +166,6 @@ High first.
 
 Every new class of live bug, found here or through `/update-prompt` or `/bug-fix`, gets an entry in
 `reference/bug-patterns.md` (symptom, root cause, detection heuristic, fix direction, source bot and
-date) under the next free id (D124 onward; never reuse a number), plus a row in the Index at the top
+date) under the next free id (D126 onward; never reuse a number; check the last `## D` heading first), plus a row in the Index at the top
 of that file. If it implies a section a prompt of that kind must always have, update
 `reference/section-checklists.md` too. If a script can detect it, say which one in the entry.

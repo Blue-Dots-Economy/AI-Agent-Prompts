@@ -215,6 +215,9 @@ additions or ports of already-working behaviour.
 | Build ONE bot's own test suite — scenarios from its flow/tools/audience/reported issues + the learned bug patterns → test manifest, tester personas, bot checklist with explicit pass/fail detection ("what should we test on this bot") | `/generate-test-cases` |
 | Onboard a new user/customer bringing a voice bot (or point at an existing repo bot) | `/onboard` |
 | Register a new bot — or a new language/direction variant — so every skill and script resolves it: folder + prompt files + `CHANGELOG.md`, path-map rows, `raya/agents.json` target(s) with hand-copied uuids, regression fleet entry ("wire up Purple Dots", "add a Tamil variant") | `/register-bot` |
+| Bring a COPY of the tuner (a team's own repo, e.g. Purple Dots or Orange Dots) up to date with this parent repo: newest skills, scripts and docs merged in, the copy's own bots never touched ("upgrade the prompt tuner", "/upgrade") | `/upgrade` |
+| Find which part of a prompt produced a bot's line, what else a change to a part affects, every rule about one thing, and which parts go with failing calls (`/bug-fix` → "The prompt map") | `python3 scripts/prompt_map.py locate / impact / rules-about / spectrum` |
+| Check that every "go to Step N" / "see <section>" in a prompt lands where it says (run after any edit that adds, removes or renumbers a section) | `python3 scripts/prompt_structure.py <file>` |
 | Shrink a long conversation prompt into a "slim" variant without losing behaviour, on its own A/B agent, proven by a coverage table + live calls before any traffic moves ("slim this prompt", "compress the prompt") | `/slim-prompt` |
 
 **For a new or non-technical user, start with `docs/WHAT-YOU-CAN-ASK.md`**: what the tuner does, in

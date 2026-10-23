@@ -448,9 +448,9 @@ these ourselves. All are **live** seeker profiles, so they can surface in employ
 | user / item | phone | how it got there |
 |---|---|---|
 | user `b2683040-9490-4858-b63b-f8383636ba7e`, item `6c340287-a80f-4468-9643-86f177ea5a4d` | `91918888888790` | **A bot bug, not a test.** The bot doubled the country code on `update_profile`; your endpoint finds-or-creates by phone, so it created a new user. Call `482ea2e2`. Duplicate of a real test profile named Ramesh. |
-| item `391aa220…` | `918888777101` | our geocoding probe, name "Geo Probe" |
-| item `8c2c4568…` | `918888777102` | our geocoding probe, name "Geo Probe" |
-| item `5a681768…` | `918888777103` | our geocoding probe, name "Geo Probe" |
+| item `391aa220…` | `91XXXXXX7101` | our geocoding probe, name "Geo Probe" |
+| item `8c2c4568…` | `91XXXXXX7102` | our geocoding probe, name "Geo Probe" |
+| item `5a681768…` | `91XXXXXX7103` | our geocoding probe, name "Geo Probe" |
 
 **Also worth knowing — this is a class, not a one-off.** Because `POST /admin/participant` creates
 rather than fails when the phone is not found, any malformed phone from any client silently makes a

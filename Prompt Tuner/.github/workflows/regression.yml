@@ -1,54 +1,164 @@
 name: Prompt Tuner Regression
 
-# Tier-3 standing regression (see repo CLAUDE.md → "The three testing tiers").
-# Runs on GitHub's CLOUD infra, so it fires even when the dev machine is off —
-# which the local schedulers (scheduled-tasks MCP / CronCreate) cannot do.
+# Tier-3 standing regression (see repo CLAUDE.md, "The three testing tiers").
+# Runs on GitHub's CLOUD infra, so it fires even when the dev machine is off.
 #
-# CURRENT STATE (be precise — this is the only thing that actually runs):
-#   - ONE job, `static`, once a day. It reads all 16 bot scripts every run: no per-bot
-#     rotation, no sampling, and it NEVER places a phone call.
-#   - The weekly LIVE voice regression is NOT implemented yet (no live-call script exists, and
-#     the Raya/Signals keys it needs aren't in repo secrets). Until it is, there is no weekly
-#     job — see raya/regression/open-items.json -> weekly-live-not-wired.
+# WHAT RUNS, AND WHEN (as of 2026-10-19):
+#   - `nightly` (cron 21:30 UTC, nominally 03:00 IST; GitHub's cron queue can start it late):
+#       1. the static script checks (static_regression.py + fix_presence.py), all bots;
+#       2. LIVE test calls: raya/overnight/overnight_sweep.py dials every live bot (every
+#          conversation target in raya/agents.json with a prod uuid) from the tester agent, one
+#          case per bot first, then the extra cases, until the --hours budget runs out;
+#       3. every transcript detector (run_runtime_checks.sh) over the calls made since step 2 began;
+#       4. ONE email digest combining the live calls and the script checks.
+#     This replaces the old 06:37 IST static-only email: one email per night, no duplicates.
+#   - `static` runs only on demand (Run workflow -> mode: static). No calls, no secrets beyond email.
 #
-# Email digest -> parth@ekstepplus.org. Two independent notification paths:
-#   1. GUARANTEED, zero-config: on critical findings the job EXITS NON-ZERO, so GitHub
-#      emails the repo owner about the failed run (the run page shows the full digest).
-#   2. OPTIONAL, well-formatted HTML to any address: the SMTP step below, active only
-#      once repo secrets MAIL_USERNAME + MAIL_PASSWORD (a Gmail app password) are set.
+# Secrets: RAYA_BASE_URL + RAYA_API_TOKEN (live calls, detectors), GMAIL_OAUTH_* (email).
+# This repo is PUBLIC: secrets are never echoed and are not passed to fork PRs (no PR trigger here).
 
 on:
   schedule:
-    # ONE entry only. A second "weekly" entry at the same time also matched on Mondays, so
-    # GitHub fired two runs (observed 2026-08-03: 04:35:58Z and 04:37:09Z) = duplicate emails.
-    # When the live-call test exists it gets its OWN job + its own distinct time, not a
-    # second cron on the same schedule as this one.
-    - cron: "7 1 * * *"     # nominally 06:37 IST. NOTE: GitHub's shared cron queue delays
-                            # scheduled runs — observed arrival ~04:20-04:40 UTC (~09:50 IST).
-  workflow_dispatch:        # manual "Run workflow" button
+    - cron: "30 21 * * *"     # nightly live + static, ~03:00 IST
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: "nightly = live calls + script checks + email; static = script checks + email"
+        type: choice
+        options: [nightly, static]
+        default: nightly
+      only:
+        description: "Only these bot ids, comma-separated (blank = every live bot)"
+        required: false
+        default: ""
+      max_cases:
+        description: "Stop after this many calls (0 = no cap)"
+        required: false
+        default: "0"
+      hours:
+        description: "Time budget for placing calls, in hours"
+        required: false
+        default: "3"
+      email:
+        description: "Send the email digest"
+        type: boolean
+        default: true
 
 permissions:
   contents: read
 
+concurrency:
+  group: prompt-tuner-regression     # one tester agent: never two runs dialling at once
+  cancel-in-progress: false
+
 jobs:
-  static:
+  nightly:
+    if: ${{ github.event_name == 'schedule' || inputs.mode == 'nightly' }}
     runs-on: ubuntu-latest
-    # job-level env so the email step's `if:` guard can read these (step-level env can't be
-    # referenced in that same step's own `if:`). Whichever provider secret exists wins —
-    # see raya/regression/send_digest.py for the priority order.
+    timeout-minutes: 330              # GitHub's hard cap is 360
+    env:
+      RAYA_BASE_URL: ${{ secrets.RAYA_BASE_URL }}
+      RAYA_API_TOKEN: ${{ secrets.RAYA_API_TOKEN }}
+      GMAIL_OAUTH_CLIENT_ID: ${{ secrets.GMAIL_OAUTH_CLIENT_ID }}
+      GMAIL_OAUTH_CLIENT_SECRET: ${{ secrets.GMAIL_OAUTH_CLIENT_SECRET }}
+      GMAIL_OAUTH_REFRESH_TOKEN: ${{ secrets.GMAIL_OAUTH_REFRESH_TOKEN }}
+      ONLY: ${{ inputs.only }}
+      MAX_CASES: ${{ inputs.max_cases || '0' }}
+      HOURS: ${{ inputs.hours || '3' }}
+      SEND_EMAIL: ${{ github.event_name == 'schedule' || inputs.email }}
+      RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+      PYTHONUNBUFFERED: "1"
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Prepare
+        run: |
+          test -n "$RAYA_API_TOKEN" || { echo "::error::RAYA_API_TOKEN secret is not set"; exit 1; }
+          # Most detectors read raya/.env directly; materialise it from the secrets for this runner only
+          # (git-ignored, never uploaded). Scripts that read the environment first ignore it.
+          umask 077
+          printf 'RAYA_BASE_URL=%s\nRAYA_API_TOKEN=%s\n' "$RAYA_BASE_URL" "$RAYA_API_TOKEN" > raya/.env
+          SWEEP="$RUNNER_TEMP/sweep"; mkdir -p "$SWEEP"
+          echo "SWEEP=$SWEEP" >> "$GITHUB_ENV"
+          echo "CALLCACHE=$RUNNER_TEMP/callcache" >> "$GITHUB_ENV"
+          pip install --quiet google-api-python-client google-auth
+
+      - name: Script checks (static)
+        run: |
+          python3 raya/regression/static_regression.py || true
+          python3 raya/regression/fix_presence.py > "$SWEEP/fix_presence.txt" 2>&1 || true
+          tail -3 "$SWEEP/fix_presence.txt"
+
+      - name: Live test calls
+        run: |
+          ARGS=(--hours "$HOURS" --passes 1 --coverage-first --no-phase-b --outdir "$SWEEP")
+          [ -n "$ONLY" ] && ARGS+=(--only "$ONLY")
+          [ "$MAX_CASES" != "0" ] && ARGS+=(--max-cases "$MAX_CASES")
+          python3 raya/overnight/overnight_sweep.py --dry-run "${ARGS[@]}" | tail -30
+          python3 raya/overnight/overnight_sweep.py "${ARGS[@]}" || echo "::warning::sweep exited non-zero"
+          echo "---- calls.tsv"; cut -f1,5,6 "$SWEEP/calls.tsv" || true
+
+      - name: Transcript detectors on tonight's calls
+        if: ${{ always() }}
+        run: |
+          SINCE=$(python3 -c "import json;print(json.load(open('$SWEEP/meta.json'))['since'])" 2>/dev/null || date -u -d '-6 hours' +%Y-%m-%dT%H:%M:%S)
+          echo "detectors since $SINCE UTC"
+          bash raya/regression/run_runtime_checks.sh --since "$SINCE" > "$SWEEP/detectors.txt" 2>&1 || true
+          tail -5 "$SWEEP/detectors.txt"
+
+      - name: Grade calls and build the digest
+        if: ${{ always() }}
+        id: digest
+        run: |
+          python3 raya/regression/live_results.py --sweep-dir "$SWEEP" --detectors-log "$SWEEP/detectors.txt" \
+            --cache "$CALLCACHE" --out raya/regression/live-report.json || echo "::warning::live_results failed"
+          python3 raya/regression/build_digest.py nightly > digest.html
+          echo "headline=$(python3 raya/regression/build_digest.py nightly --headline)" >> "$GITHUB_OUTPUT"
+          {
+            echo "## Nightly: $(python3 raya/regression/build_digest.py nightly --headline)"
+            echo
+            echo '```'
+            cut -f1,5,6 "$SWEEP/calls.tsv" 2>/dev/null || echo "no calls.tsv"
+            echo '```'
+            cat raya/regression/latest-report.md
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Upload results
+        if: ${{ always() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: nightly-results
+          path: |
+            ${{ runner.temp }}/sweep
+            raya/regression/live-report.json
+            raya/regression/latest-report.md
+            raya/regression/latest-report.json
+            digest.html
+
+      - name: Email digest
+        if: ${{ always() && env.SEND_EMAIL == 'true' && env.GMAIL_OAUTH_REFRESH_TOKEN != '' }}
+        env:
+          GMAIL_SENDER: ${{ secrets.GMAIL_SENDER }}
+          GMAIL_TO: ${{ secrets.GMAIL_TO }}
+          DIGEST_SUBJECT: "[Prompt Tuner] Nightly bot check: ${{ steps.digest.outputs.headline }}"
+        run: python3 raya/regression/send_digest.py
+
+      - name: Remove the runner's secret file
+        if: ${{ always() }}
+        run: rm -f raya/.env
+
+  static:
+    if: ${{ github.event_name == 'workflow_dispatch' && inputs.mode == 'static' }}
+    runs-on: ubuntu-latest
     env:
       GMAIL_OAUTH_CLIENT_ID: ${{ secrets.GMAIL_OAUTH_CLIENT_ID }}
       GMAIL_OAUTH_CLIENT_SECRET: ${{ secrets.GMAIL_OAUTH_CLIENT_SECRET }}
       GMAIL_OAUTH_REFRESH_TOKEN: ${{ secrets.GMAIL_OAUTH_REFRESH_TOKEN }}
-      RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
-      SMTP_HOST: ${{ secrets.SMTP_HOST }}
-      SMTP_PORT: ${{ secrets.SMTP_PORT }}
-      SMTP_USER: ${{ secrets.SMTP_USER }}
-      SMTP_PASS: ${{ secrets.SMTP_PASS }}
-      GMAIL_SA_JSON_BASE64: ${{ secrets.GMAIL_SA_JSON_BASE64 }}
-    outputs:
-      critical: ${{ steps.run.outputs.critical }}
-      major: ${{ steps.run.outputs.major }}
+      SEND_EMAIL: ${{ inputs.email }}
     steps:
       - uses: actions/checkout@v4
 
@@ -60,37 +170,12 @@ jobs:
         id: run
         run: |
           python3 raya/regression/static_regression.py || true
-          # fix_presence is static and needs no secrets, so it belongs in the unattended job: it is
-          # the only check that knows what we FIXED, and half-landed mirrors are the failure mode this
-          # fleet keeps hitting. Non-fatal here for the same reason the suite above is -- the digest
-          # reports, the job does not gate.
-          echo "::group::fix_presence"
           python3 raya/regression/fix_presence.py || echo "FIX PRESENCE FAILURES (see log)"
-          echo "::endgroup::"
-          python3 - <<'PY' >> "$GITHUB_OUTPUT"
-          import json
-          r = json.load(open("raya/regression/latest-report.json"))
-          print(f"critical={len(r['critical'])}")
-          print(f"major={len(r['major'])}")
-          try:
-              items = json.load(open("raya/regression/open-items.json"))["items"]
-          except Exception:
-              items = []
-          highs = len([i for i in items if i.get("priority") == "high"])
-          print(f"highs={highs}")
-          # subject line that tells you the state without opening the mail
-          bits = []
-          if len(r["critical"]): bits.append(f"{len(r['critical'])} critical")
-          if len(r["major"]):    bits.append(f"{len(r['major'])} major")
-          if highs:              bits.append(f"{highs} high-priority open")
-          print("headline=" + (", ".join(bits) if bits else "all clear"))
-          PY
+          echo "headline=$(python3 raya/regression/build_digest.py daily --headline)" >> "$GITHUB_OUTPUT"
 
-      - name: Build digest -> job summary + email body
-        id: digest
+      - name: Build digest
         run: |
           python3 raya/regression/build_digest.py daily > digest.html
-          # also drop the markdown report into the run page
           cat raya/regression/latest-report.md >> "$GITHUB_STEP_SUMMARY"
 
       - name: Upload report
@@ -101,24 +186,12 @@ jobs:
             raya/regression/latest-report.md
             raya/regression/latest-report.json
 
-      # OPTIONAL well-formatted HTML email. Multi-provider: Gmail-OAuth (no admin needed) /
-      # Resend / SMTP / service-account+DWD — whichever secret is present. Skipped entirely
-      # when none is set, so the workflow is safe to run before email is wired up.
       - name: Email digest
-        if: ${{ env.GMAIL_OAUTH_REFRESH_TOKEN != '' || env.RESEND_API_KEY != '' || env.SMTP_PASS != '' || env.GMAIL_SA_JSON_BASE64 != '' }}
+        if: ${{ env.SEND_EMAIL == 'true' && env.GMAIL_OAUTH_REFRESH_TOKEN != '' }}
         env:
           GMAIL_SENDER: ${{ secrets.GMAIL_SENDER }}
           GMAIL_TO: ${{ secrets.GMAIL_TO }}
-          DIGEST_SUBJECT: "[Prompt Tuner] Daily bot health check — ${{ steps.run.outputs.headline }}"
+          DIGEST_SUBJECT: "[Prompt Tuner] Script check: ${{ steps.run.outputs.headline }}"
         run: |
-          if [ -n "$GMAIL_OAUTH_REFRESH_TOKEN$GMAIL_SA_JSON_BASE64" ]; then
-            pip install --quiet google-api-python-client google-auth
-          fi
+          pip install --quiet google-api-python-client google-auth
           python3 raya/regression/send_digest.py
-
-      # GUARANTEED backstop email: a non-zero exit makes GitHub email the repo owner.
-      - name: Fail the run on critical findings
-        if: ${{ steps.run.outputs.critical != '0' }}
-        run: |
-          echo "::error::Regression found ${{ steps.run.outputs.critical }} critical finding(s) — see the job summary."
-          exit 1

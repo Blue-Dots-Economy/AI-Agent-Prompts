@@ -76,6 +76,7 @@ Add, and treat as critical:
 Tick each; flag misses. (Each ties to a pattern in `bug-patterns.md`.)
 
 **Flow & gates**
+- [ ] Every step reference lands where it says: `scripts/prompt_structure.py` shows 0 FAIL (no "Step N" to a missing step, no label naming a different step, no duplicate step numbers) (D125).
 - [ ] Every "mandatory" step has a **negative gate** on its competing action (A1).
 - [ ] Skip logic (SKIP-AHEAD/ORDER-FLEX/"move silently") is balanced by a never-skippable list (A2).
 - [ ] No two sections capture overlapping content without a sharp distinction + independent gate (A3).

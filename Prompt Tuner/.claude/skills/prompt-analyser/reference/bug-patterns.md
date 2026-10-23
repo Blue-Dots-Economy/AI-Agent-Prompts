@@ -17,9 +17,9 @@ families; from about D42 on, entries were numbered in the order they were found 
 they were added, so use this index, not the section headings, to sweep by family. Jump to an entry
 with `grep -n "^#\+ D95\b" bug-patterns.md`. D89, D90 and D91 are each used for two different
 entries (marked "2nd" here): cite them with their short name, e.g. "D91 (required parameter)".
-New entries take the next free number (D124 onward) and get a row here.
+New entries take the next free number (D125 onward) and get a row here.
 
-**Flow, branches and guards (steps skipped, wrong branch, a guard that tests the wrong thing)** (50)
+**Flow, branches and guards (steps skipped, wrong branch, a guard that tests the wrong thing)** (51)
 
 - A1: Mandatory step skipped because the competing action isn't forbidden
 - A2: Skip-forward pressure with no backpressure
@@ -71,6 +71,7 @@ New entries take the next free number (D124 onward) and get a row here.
 - D105: a hardcoded list was replaced, but the prose around it still describes the old list
 - D110: a guard that tests an injected variable is re-run after the caller answers, so the question loops
 - D114: a routing keyword appears inside the WRONG row's exception text
+- D125: step numbers or cross-references that no longer match the prompt's structure send the bot to the wrong step
 
 **Repetition and loops** (4)
 
@@ -157,7 +158,7 @@ New entries take the next free number (D124 onward) and get a row here.
 - D109: a worked example's input value is supplied as the real value when the call's input is empty
 - D112: example VALUES in the prompt are copied into calls where the real value is absent
 
-**What the caller hears (vocabulary, numbers in words, script, gender, internal words spoken)** (18)
+**What the caller hears (vocabulary, numbers in words, script, gender, internal words spoken)** (19)
 
 - D1: Hard/Sanskritised vocabulary despite a "simple language" rule
 - D2: TTS number/date/time/money not spelled as words
@@ -177,6 +178,7 @@ New entries take the next free number (D124 onward) and get a row here.
 - D92: a digit-by-digit spoken number loses a repeated digit unless the count is asserted
 - D104: "reassure them, in your own words" turns a forbidden threat into an unkeepable promise
 - D113: a stage direction or "stay silent" instruction is spoken aloud
+- D124: a closing, failure or bad-line line promises a call back or an update that nothing records
 
 **Consent, disclosure and safety** (10)
 
@@ -3070,7 +3072,9 @@ wherever the matching input can be empty. Search worked calls, tables and "e.g."
 
 **Fix direction.** Replace example values with typed placeholders (`<pin>`, "the years the caller
 said"), demonstrate the empty case, and in tool descriptions name the only legal source of the value.
-Source: KKB Slim Hindi/Kannada, Maya Signals, 2026-10-13.
+Source: KKB Slim Hindi/Kannada, Maya Signals, 2026-10-13. Also present and fixed 2026-10-19 (DEPLOYED, NOT
+VERIFIED) in KKB Signals (4), legacy KKB (4) and all four Maya prompts: Sarjapur, `110045`-style PINs and
+SARA ENTERPRISES / GLOBAL CHEMICALS in name tables and case notes.
 
 ## D113: a stage direction or "stay silent" instruction is spoken aloud
 
@@ -3088,6 +3092,8 @@ line next to it; grep worked calls for `> *(` notes and "Silent `tool`" phrasing
 
 **Fix direction.** Give a short sanctioned line instead of silence ("जी, ज़रूर।"); write notes outside
 the quote block as "Note (not spoken): ...". Source: DKB Signals, KKB Slim, 2026-10-13.
+Also grep `> INTERNAL:` lines in worked calls: the same shape (one was read aloud with the caller's number on
+`557fbeb0`). Ported 2026-10-19 to TRRAIN, KKB Signals, legacy KKB and Maya (DEPLOYED, NOT VERIFIED).
 
 ## D114: a routing keyword appears inside the WRONG row's exception text
 
@@ -3102,7 +3108,10 @@ nearest, most frequent context was the wrong row.
 a row other than the one it routes to, expect misrouting.
 
 **Fix direction.** State the token only in its own row; make the other row's condition "any other
-result" with no mention of it. Source: KKB Slim, 2026-10-13.
+result" with no mention of it. Also check any "what counts as already applied"
+evidence list: if it omits the token, it sends the token to the wrong row however the table reads (found
+2026-10-19 in KKB Signals and Maya Signals). Source: KKB Slim, 2026-10-13; ported 2026-10-19 (DEPLOYED, NOT
+VERIFIED).
 
 ## D115: "after the tool completes, say done" with no failure branch
 
@@ -3267,3 +3276,131 @@ first live call is the real gate.
 **Fix direction.** Give every translating agent the language's style card with the everyday-word table
 (`raya/translations/style/<iso>.md` + lexicon). Rewrite flagged lines; never ship with an unreviewed
 formal-word warning. Source: Purple Dots Marathi feedback, KKB Kannada history, 2026-10.
+
+## D124: a closing, failure or bad-line line promises a call back or an update that nothing records
+
+**Symptom.** Callers are told "हमारी टीम आपसे फिर संपर्क करेगी", "हम आपको इसी नंबर पर वापस call करेंगे", "मैं बाद में
+कॉल करती हूँ" or "एक-दो दिन में" and nobody ever calls: no output field, tool or campaign acts on the promise, and on
+an inbound bot nobody dials out at all. KKB Slim (2026-10-12/13, tracker r136): the no-jobs line, the bad-line
+close, the apply-failure callbacks and the closing line all promised contact; TRRAIN's bad-line, proxy and busy
+lines said "मैं बाद में कॉल कर लूँगी"; KKB Signals, Maya and the legacy KKB prompts carried the same lines (found
+2026-10-19 while porting).
+
+**Root cause.** A promise is the easiest way to close a turn politely, so it was written into the fallback lines
+(no jobs, bad line, apply failure, closing) where the bot has nothing true to offer. Those are exactly the lines
+spoken most often, and no step downstream records or schedules what they promise.
+
+**Detection heuristic.** Grep every spoken line for future contact by us ("संपर्क करेगी", "वापस call/कॉल",
+"कॉल करेंगे", "इसी नंबर पर बता", "बाद में कॉल", "एक-दो दिन में", "ಆಮೇಲೆ ಕಾಲ್ ಮಾಡ್ತೀನಿ", "ಸಂಪರ್ಕ"). For each, name the
+output field or tool that makes it happen; none → flag. Also flag an English instruction that REQUIRES the
+promise ('Just "वापस call करेंगे"'), a time commitment on a recorded promise, and any such line on an inbound bot.
+
+**Fix direction.** Replace with a line that is true whatever happens next ("समय देने के लिए धन्यवाद।", "आपकी
+पसंद मैंने नोट कर ली है।" where the preference is captured), keep a contact promise only where a recorded Yes
+stands behind it, and drop the time ("एक-दो दिन में"). A caller asking to be called later is asked for a time once,
+and the time is recorded in the output; the call is never promised. Verified on KKB Slim: bad-line close without
+a promise `6296a5be` (Hindi), `c85dc5b7` (Kannada). Source: KKB Slim 2026-10-12/13; ported 2026-10-19 to TRRAIN,
+KKB Signals, KKB legacy and Maya (DEPLOYED, NOT VERIFIED). Related: D5, D15, D89, D104.
+
+## D116: a tool payload drifts from the live backend schema, so writes succeed but stay invisible
+
+**Symptom.** Every DKB job post on 2026-10-08 (30 of 30) came back `lifecycle_status: "draft"`, hidden from seekers,
+while the call said "हो गया". Salary, education, experience, hours and benefits were collected and never stored.
+Tracker r115, r116; Gaurav's A04, A05.
+
+**Root cause.** The prompt and tool were built against a July schema note ("item_state accepts ONLY title, role, ...").
+The live `job_posting_1.0` schema later required `hiringManagerName` + `hiringManagerPhoneNumber` to go live and
+added `salaryMin`, `minEducationalInstitute`, `workingHours`, `benefitsOffered` and more. Nothing re-checked it.
+
+**Detection heuristic.** For every write tool, diff the `payload_template` keys and parameter enums against the
+live schema (`bluedots-schemas`, `blue_dot/<instance>/network.json`): flag (1) required fields never sent,
+(2) schema fields the bot collects but does not send, (3) enum values not in the schema, (4) prompt text that says
+a field "has no slot" when the schema has one. A write that returns `draft` where `live` is expected is this bug.
+
+**Fix direction.** Align the template to the schema, make go-live fields required parameters with a voice-friendly
+source (confirm the dialled number rather than dictating ten digits), and cite the schema file and date in the
+prompt. Source: DKB Signals Hindi/Kannada, 2026-10-19 (verified live post on `ee20caba`).
+
+## D117: the consent question and the tool call go out in the same turn
+
+**Symptom.** DKB said "क्या मैं यह post कर दूँ?" and called `create_job` in the same breath (`0407c2f6`), or posted
+right after an unrelated yes (`ee20caba`, after the phone-number question). Earlier: 5 of 32 posts on 2026-10-08.
+
+**Root cause.** "Only after consent" was stated, but nothing said the question ends the turn, and a yes to a
+neighbouring question looked like the consent.
+
+**Detection heuristic.** For every consent-gated tool, check the prompt says the consent question ENDS the turn and
+the tool goes out only in a later turn; check the tool description repeats the WHEN.
+
+**Fix direction.** "This question ends your turn: no tool call in it" next to the question, plus a WHEN clause in the
+tool description. Source: DKB Signals, 2026-10-19.
+
+## D118: the caller's own words are treated as evidence of a system state
+
+**Symptom.** A caller who had never applied said "फिर से अप्लाई कर दीजिए"; the bot answered "इस जॉब के लिए आपकी
+एप्लीकेशन पहले से लगी हुई है" with no `apply_job` call at all (KKB Slim test, 2026-10-19).
+
+**Root cause.** The duplicate rule named the real evidence (an apply this call, or `jobs_applied` in memory) but
+did not exclude the caller's wording, which pattern-matched "already applied".
+
+**Detection heuristic.** For every line that asserts a system state (applied, saved, removed, registered), check the
+prompt names the ONLY sources that prove it and says what the caller says is not one of them.
+
+**Fix direction.** "What the caller says is never evidence" beside the rule; otherwise call the tool. Source: KKB
+Slim Hindi/Kannada, 2026-10-19.
+
+## D119: a read-back or summary template fills a slot the caller never gave
+
+**Symptom.** The step-12 read-back said "ಮಹಿಳೆ" (female) for a man who never answered the gender question (KKB Slim
+Kannada test, 2026-10-19). The nightly run also caught "18" spoken in digits in a line the prompt never supplied.
+
+**Root cause.** A fixed template with a `[gender]` slot invites a value; with none held, the model guesses. A
+situation with no sanctioned line (under 18) makes the model compose one, and composed lines skip the number rules.
+
+**Detection heuristic.** Every template slot needs an explicit "not held → leave it out" rule. Every terminal branch
+(under 18, decline, no jobs) needs its own fixed spoken line with numbers already in words.
+
+**Fix direction.** Drop empty slots; give each terminal branch a quoted line. Source: KKB Slim, 2026-10-19.
+
+## D120: an internal working format leaks into speech
+
+**Symptom.** The PIN was read back as "दो | शून्य | एक | शून्य | शून्य | नौ": the bar separators from the prompt's silent
+"split the digits with a bar between them" step were spoken. Hindi lines were also wrapped in quotation marks.
+
+**Root cause.** The silent step's notation differed from the spoken form, and the model reused the notation it had
+just written. Quoted example lines teach the model to emit quotes.
+
+**Detection heuristic.** Any instruction that asks the model to write something "silently" must use exactly the form
+it will speak. Check the Style section forbids quotation marks and markdown in replies.
+
+**Fix direction.** Make the internal format identical to speech (commas), and add "never wrap your reply in
+quotation marks". Source: KKB Slim, 2026-10-19.
+
+## D125: step numbers or cross-references that no longer match the prompt's structure
+
+**Symptom.** Orange Dots (Oct 2026): a rule meant for one step sent the bot to the name question first,
+because the prompt's step numbering no longer matched its actual sections. Rules added on top did not
+help, for hours. A fresh Claude chat, reading the whole prompt as a new prompt, found the cause in
+minutes and the fix was to renumber. Earlier cases of the same class: a restructured Apply Failure
+section left rules citing labels that no longer existed (kkb-hi-signals, 2026-09-01), and rules citing
+"Need Capture" / "Path A" after those sections were removed (KKB Slim, 2026-10).
+
+**Root cause.** A step reference ("go to Step 4", "see the Consent section", "Turn B") is a pointer. When
+sections are inserted, removed, renumbered or renamed, every pointer to them goes stale at once, and the
+model follows the pointer to whatever now carries that number, or improvises when nothing does. The
+session doing the fixing rarely notices, because it reads the rule it is fixing, not the whole flow, and
+it already believes it knows where Step 4 is.
+
+**Detection heuristic.** `python3 scripts/prompt_structure.py <prompt>` on every audit and after every
+edit that adds, removes or renames a section: FAIL on a reference to a step that does not exist, on a
+reference whose own label names a different step ("Step 2 (consent)" where consent is Step 3), and on
+two headings with the same number; WARN on labels (Turn B, Path A) used but never defined and on "see
+<Name>" with no heading of that name. Read the `--map` output once: it shows where every reference lands.
+When fixes for one issue have failed twice, do a cold read (a fresh subagent with no history, /prompt-
+analyser step 0) before the next edit.
+
+**Fix direction.** Fix the pointers, not the rule: renumber or relabel so every reference lands where it
+says, and prefer references by name AND number ("Step 9, Consent") so a mismatch is visible. Remove
+references to deleted sections. Never add a new rule to compensate for a pointer that is wrong. Source:
+Orange Dots, KKB Signals, KKB Slim, 2026-10.
+

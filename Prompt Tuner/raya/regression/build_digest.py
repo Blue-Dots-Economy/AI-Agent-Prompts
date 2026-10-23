@@ -14,9 +14,14 @@ matters, and what to do — never just a category tag and a filename. Layout:
 
 Email-client-safe: inline styles only, tables for layout, no external assets, no flex/grid.
 
-Usage: python3 raya/regression/build_digest.py [daily|weekly] > digest.html
+Usage: python3 raya/regression/build_digest.py [daily|weekly|nightly] > digest.html
+       python3 raya/regression/build_digest.py nightly --headline     # one-line email subject
+
+`nightly` adds the live test calls from raya/regression/live-report.json (built by live_results.py
+from that night's overnight_sweep.py run) as the first section: which bots were called, how many
+calls connected, each check per call with its call id and recording link.
 """
-import json, os, sys
+import json, os, sys, time
 
 REPO = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 KIND = (sys.argv[1] if len(sys.argv) > 1 else "daily").lower()
@@ -26,6 +31,15 @@ try:
     OPEN = json.load(open(os.path.join(REPO, "raya/regression/open-items.json"), encoding="utf-8"))
 except Exception:
     OPEN = {"items": []}
+
+LIVE = None
+if KIND == "nightly":
+    try:
+        LIVE = json.load(open(os.environ.get("LIVE_REPORT") or
+                              os.path.join(REPO, "raya/regression/live-report.json"), encoding="utf-8"))
+    except Exception:
+        LIVE = {"calls": [], "detectors": [], "attempts": 0, "connected": 0, "passed": 0,
+                "failed": 0, "thin": 0, "not_dialled": 0, "missing": True}
 
 CRIT, MAJ, MINO = R.get("critical", []), R.get("major", []), R.get("minor", [])
 BOTS = R.get("bots", [])
@@ -106,6 +120,120 @@ def counter(num, label, alert=False):
             f'letter-spacing:.4px;margin-top:3px">{label}</div></td>')
 
 
+FAMILIES = [a for a in ("KKB-Slim", "KKB", "DKB", "Maya", "TRRAIN") if any(b["agent"] == a for b in BOTS)] + \
+    sorted({b["agent"] for b in BOTS} - {"KKB-Slim", "KKB", "DKB", "Maya", "TRRAIN"})
+
+
+# ---------- 2b. Live test calls (nightly only) ----------
+VCOL = {"PASS": ("#137333", "#e6f4ea", "Passed"), "FAIL": (SEV["critical"][0], SEV["critical"][1], "Problem found"),
+        "THIN": ("#8a5300", "#fff4e5", "Too short to judge"),
+        "DID NOT CONNECT": ("#4a5568", "#eef1f5", "Did not connect"),
+        "NOT DIALLED": ("#4a5568", "#eef1f5", "Not called"),
+        "NO CALL ID": ("#4a5568", "#eef1f5", "Did not connect"),
+        "COULD NOT FETCH": ("#8a5300", "#fff4e5", "Could not read the call")}
+
+
+def vchip(v):
+    fg, bg, txt = VCOL.get(v, (MUTED, PANEL, v))
+    return (f'<span style="display:inline-block;padding:2px 8px;border-radius:10px;background:{bg};'
+            f'color:{fg};font-size:11px;font-weight:700">{esc(txt)}</span>')
+
+
+def render_live():
+    if LIVE is None:
+        return ""
+    if LIVE.get("missing"):
+        return section("Tonight's test calls",
+                       f'<p style="margin:0;color:{SEV["critical"][0]};font-size:13px">The live test calls did not '
+                       f'produce a report tonight, so this email shows the script check only. Open the run page '
+                       f'for the reason.</p>', "")
+    calls = LIVE.get("calls", [])
+    called = [c for c in calls if c["verdict"] != "NOT DIALLED"]
+    bots_called = list(dict.fromkeys(c["bot"] for c in called))
+    att, con = LIVE.get("attempts", 0), LIVE.get("connected", 0)
+    intro = (f'We placed test calls to <b>{len(bots_called)} bot(s)</b> tonight. A test caller (another AI '
+             f'playing a job seeker or an employer) answered each call. <b>{con} of {att}</b> call(s) connected. '
+             f'Of the connected calls, <b style="color:#137333">{LIVE.get("passed", 0)} passed</b> every check, '
+             f'<b style="color:{SEV["critical"][0]}">{LIVE.get("failed", 0)} had a problem</b>, and '
+             f'{LIVE.get("thin", 0)} were too short to judge.')
+    body = (f'<table width="100%" cellpadding="0" cellspacing="0" style="margin-bottom:12px"><tr>'
+            f'{counter(len(bots_called), "Bots called")}{counter(f"{con}/{att}", "Calls connected")}'
+            f'{counter(LIVE.get("passed", 0), "Passed")}{counter(LIVE.get("failed", 0), "Problem found", alert=True)}'
+            f'</tr></table><p style="margin:0 0 12px;font-size:13px;color:{INK};line-height:1.55">{intro}</p>')
+    for c in called:
+        fails = [x for x in c.get("checks", []) if x["result"] in ("FAIL", "ERROR")]
+        passes = [x for x in c.get("checks", []) if x["result"] == "PASS"]
+        dets = [x for x in c.get("detector_findings", []) if not x.get("info")]
+        link = ""
+        if c.get("call_id"):
+            link = (f'<div style="font-size:12px;color:{MUTED};margin-top:5px">Call id '
+                    f'<span style="font-family:monospace;color:{INK}">{esc(c["call_id"])}</span>'
+                    + (f' &middot; <a href="{esc(c["recording"])}" style="color:#1a56db">Listen to the recording</a>'
+                       if c.get("status") == "CALL" and c.get("recording") else "")
+                    + (f' &middot; {int(c["duration"])}s' if isinstance(c.get("duration"), (int, float)) else "")
+                    + '</div>')
+        detail = ""
+        if c.get("status") == "CALL":
+            if fails or dets:
+                detail += '<div style="margin-top:6px;font-size:12.5px;color:%s;line-height:1.5">' % INK
+                for x in fails:
+                    detail += f'&#10007; <b>{esc(x["title"])}</b>: {esc(x["detail"])}<br>'
+                for x in dets:
+                    detail += f'&#10007; <b>{esc(x["title"])}</b>: {esc(x["finding"])}<br>'
+                detail += '</div>'
+            if c.get("short_reason"):
+                detail += (f'<div style="margin-top:6px;font-size:12.5px;color:#8a5300;line-height:1.5">'
+                           f'{esc(c["short_reason"])}</div>')
+            if passes:
+                detail += (f'<div style="margin-top:4px;font-size:12px;color:{MUTED};line-height:1.5">'
+                           f'&#10003; Passed: {esc(", ".join(x["title"] for x in passes))}</div>')
+        elif c["verdict"] in ("DID NOT CONNECT", "NO CALL ID"):
+            detail = (f'<div style="margin-top:5px;font-size:12px;color:{MUTED}">The call was placed but the line '
+                      f'did not connect after several tries, so nothing could be checked.</div>')
+        body += (f'<table width="100%" cellpadding="0" cellspacing="0" style="margin-bottom:9px">'
+                 f'<tr><td style="padding:10px 13px;background:#fff;border:1px solid {LINE};'
+                 f'border-left:3px solid {VCOL.get(c["verdict"], (MUTED,))[0]}">'
+                 f'<div>{vchip(c["verdict"])} <span style="font-size:13px;font-weight:700;color:{INK};'
+                 f'margin-left:6px">{esc(c["bot"])}</span></div>'
+                 f'<div style="font-size:12.5px;color:{MUTED};margin-top:4px">What we tested: '
+                 f'{esc(c.get("scenario", ""))}</div>{link}{detail}</td></tr></table>')
+    skipped = [c for c in calls if c["verdict"] == "NOT DIALLED"]
+    if skipped:
+        body += (f'<div style="font-size:12px;color:{MUTED};line-height:1.55;margin:6px 0 4px"><b style="color:{INK}">'
+                 f'Not called tonight:</b> ' + "; ".join(f'{esc(c["bot"])} ({esc(c.get("skip_reason", ""))})'
+                                                         for c in skipped) + '</div>')
+    dets = LIVE.get("detectors", [])
+    if dets:
+        bad = [d for d in dets if d["status"] == "findings"]
+        body += (f'<div style="font-size:12px;color:{MUTED};line-height:1.55;margin-top:8px"><b style="color:{INK}">'
+                 f'Wider checks over every call since the run started</b> (tonight\'s test calls plus any real '
+                 f'callers): {len(dets) - len(bad)} of {len(dets)} clean.'
+                 + (" Found something: " + "; ".join(f'{esc(d["title"])} ({d["findings"]})' for d in bad) + "."
+                    if bad else "") + '</div>')
+    if LIVE.get("run_url"):
+        body += (f'<div style="font-size:12px;margin-top:8px"><a href="{esc(LIVE["run_url"])}" '
+                 f'style="color:#1a56db">Full run log and the call-by-call files</a></div>')
+    return section("Tonight's test calls", body,
+                   "Real phone calls to the live bots, each graded automatically.")
+
+
+def headline():
+    bits = []
+    if LIVE is not None and not LIVE.get("missing"):
+        bits.append(f'{LIVE.get("connected", 0)}/{LIVE.get("attempts", 0)} calls connected')
+        bits.append(f'{LIVE.get("failed", 0)} with a problem')
+        if LIVE.get("thin"):
+            bits.append(f'{LIVE["thin"]} too short to judge')
+    elif LIVE is not None:
+        bits.append("live calls did not run")
+    if CRIT:
+        bits.append(f"{len(CRIT)} critical")
+    highs = len([i for i in ITEMS if prio(i) == "high"])
+    if highs:
+        bits.append(f"{highs} high-priority open")
+    return ", ".join(bits) if bits else "all clear"
+
+
 # ---------- 3. Start here: one ranked action list across every bot ----------
 def bots_label(bots):
     """'all' is a marker, not a bot name — render it for humans."""
@@ -170,6 +298,8 @@ def findings_for(bot):
 
 
 AGENT_TAGLINE = {
+    "KKB-Slim": "Kaam Ki Baat Slim: the job-seeker bots that take the live Ghaziabad and Dharwad calls",
+    "TRRAIN": "TRRAIN follow-up: offers one free support service to people who already applied",
     "KKB": "Kaam Ki Baat — helps workers find & apply to government jobs",
     "DKB": "Dhandhe Ki Baat — helps employers post & verify job openings",
     "Maya": "Maya — campus recruitment for graduates in UP",
@@ -187,14 +317,14 @@ def render_tabbar():
     """Tab-styled jump links. Real click-to-toggle tabs need JS/:checked CSS, which Gmail strips,
     so these are anchors — and the sections stay readable even where anchors don't jump."""
     cells = ""
-    for agent in ("KKB", "DKB", "Maya"):
+    for agent in FAMILIES:
         group, fs, its = agent_stats(agent)
         if not group:
             continue
         total = fs + its
         dot = ("#137333", "&#10003; clear") if total == 0 else (SEV["critical"][0], f"{total} to review")
         cells += (
-            f'<td width="33%" style="padding:0 4px">'
+            f'<td width="{100 // max(1, len(FAMILIES))}%" style="padding:0 4px">'
             f'<a href="#agent-{agent.lower()}" style="display:block;text-decoration:none;'
             f'padding:11px 12px;background:{PANEL};border:1px solid {LINE};border-top:3px solid '
             f'{dot[0]};border-radius:6px 6px 0 0">'
@@ -210,7 +340,7 @@ def render_tabbar():
 
 def render_bots():
     body = render_tabbar()
-    for agent in ("KKB", "DKB", "Maya"):
+    for agent in FAMILIES:
         group, fs_n, its_n = agent_stats(agent)
         if not group:
             continue
@@ -320,8 +450,29 @@ def main():
                    f"testing are still open — see “Start here” below.")
     else:
         verdict = "All bot scripts are healthy and no high-priority work is outstanding."
+    if LIVE is not None and not LIVE.get("missing") and LIVE.get("failed"):
+        verdict = (f"{LIVE['failed']} of tonight's connected test call(s) found a problem (see "
+                   f"\u201cTonight's test calls\u201d). " + verdict)
+        clean = False
+    elif LIVE is not None and not LIVE.get("missing") and not LIVE.get("connected"):
+        verdict = "None of tonight's test calls connected, so no bot behaviour was checked. " + verdict
+        clean = False
     vcol = "#137333" if (clean and not highs) else SEV["critical"][0]
-    label = "Weekly" if KIND == "weekly" else "Daily"
+    label = {"weekly": "Weekly", "nightly": "Nightly"}.get(KIND, "Daily")
+    if LIVE is not None and not LIVE.get("missing"):
+        what_this_is = (
+            "Phone-based AI assistants help people find jobs and help employers post them. Each one runs "
+            "from a written script (a &ldquo;prompt&rdquo;). Every night this job does two things: it "
+            "<b>places real test calls</b> to the live bots and grades each call, and it reads all "
+            f"{N} scripts for {len(GLOSSARY)} known failure patterns that have broken real calls before. "
+            "The test calls go to our own test number, never to a real caller.")
+    else:
+        what_this_is = (
+            "Phone-based AI assistants help people find jobs and help employers post them. Each one runs "
+            "from a written script (a &ldquo;prompt&rdquo;) that tells it what to say and which system to "
+            f"save data into. This job reads all {N} scripts and looks for {len(GLOSSARY)} known failure "
+            "patterns, the kinds of mistakes that have previously broken real calls. It does "
+            "<b>not</b> place phone calls; it inspects the scripts only.")
 
     html = f"""<div style="margin:0;padding:0;background:#eef0f3">
 <table width="100%" cellpadding="0" cellspacing="0" style="background:#eef0f3;padding:20px 10px">
@@ -330,18 +481,14 @@ def main():
  border:1px solid {LINE};font-family:-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif">
 <tr><td style="padding:22px 26px 0">
 
-<div style="font-size:20px;font-weight:700;color:{INK}">Voice-bot script health check</div>
+<div style="font-size:20px;font-weight:700;color:{INK}">Voice-bot health check</div>
 <div style="font-size:12.5px;color:{MUTED};margin-top:4px">{label} automated report · Prompt Tuner
- (KKB · DKB · Maya)</div>
+ ({" · ".join(FAMILIES)}) · {time.strftime("%d %b %Y", time.gmtime(time.time() + 19800))}</div>
 
 <table width="100%" cellpadding="0" cellspacing="0" style="margin:16px 0 4px">
 <tr><td style="padding:13px 15px;background:{PANEL};border:1px solid {LINE};font-size:12.5px;
  color:{INK};line-height:1.6">
-<b>What this is.</b> Three phone-based AI assistants help people find jobs and help employers post
-them. Each one runs from a written script (a &ldquo;prompt&rdquo;) that tells it what to say and which
-system to save data into. Every day this job reads all {N} scripts and looks for {len(GLOSSARY)} known
-failure patterns &mdash; the kinds of mistakes that have previously broken real calls. It does
-<b>not</b> place phone calls; it inspects the scripts only.
+<b>What this is.</b> {what_this_is}
 </td></tr></table>
 
 <table width="100%" cellpadding="0" cellspacing="0" style="margin:14px 0 6px">
@@ -351,6 +498,7 @@ failure patterns &mdash; the kinds of mistakes that have previously broken real 
 {esc(verdict)}</div>
 
 </td></tr>
+{render_live()}
 {render_priority()}
 {render_bots()}
 {render_global_items()}
@@ -370,4 +518,7 @@ cosmetic or informational. Full technical report and history live in the reposit
 
 
 if __name__ == "__main__":
+    if "--headline" in sys.argv:
+        print(headline())
+        sys.exit(0)
     sys.exit(main())

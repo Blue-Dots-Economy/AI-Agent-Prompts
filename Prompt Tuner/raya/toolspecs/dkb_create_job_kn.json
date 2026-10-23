@@ -1,0 +1,173 @@
+{
+ "_note": "2026-10-19: aligned to the live blue_dot job_posting_1.0 schema (bluedots-schemas up-gzb/network.json). hiringManagerPhoneNumber is REQUIRED to go live: without it every DKB post stayed a hidden draft. Verified on gzb with a test post (live, then retired). 2026-10-19 (later): hiringManagerPhoneNumber now comes from a hiringManagerPhone parameter (the dialled number by default, or another number the owner gives), per Aryan.",
+ "name": "create_job",
+ "description": "Post a new job to Signals (provider job_posting_1.0). Company name goes to top-level name; work location to jobProviderLocation. Salary/qualification/experience are NOT persisted. Writing about posting does not post: if you told the owner you are posting or updating the job you MUST invoke this tool in that same turn, and never say it is posted until this tool returns a result. Never emit a stage direction such as \"(calling create_job)\" into your reply — the owner hears it and nothing was posted. WHEN: only in a turn AFTER the owner answered yes to \"ನಾನು ಇದನ್ನ post ಮಾಡಲಾ?\"; never in the same turn as that question, and a yes to the phone-number question is not consent.",
+ "clone_api_from": "create_job",
+ "method": "POST",
+ "parameters": {
+  "type": "object",
+  "required": [
+   "companyName",
+   "hiringManagerName",
+   "hiringManagerPhone",
+   "phoneNumber",
+   "role",
+   "title"
+  ],
+  "properties": {
+   "role": {
+    "type": "string",
+    "description": "job role"
+   },
+   "title": {
+    "type": "string",
+    "description": "job title"
+   },
+   "positions": {
+    "type": "integer",
+    "description": "number of vacancies, as a string Send as a NUMBER, not a string."
+   },
+   "companyName": {
+    "type": "string",
+    "description": "employer/company name (goes to top-level name)"
+   },
+   "natureOfJob": {
+    "type": "string",
+    "enum": [
+     "Full-time",
+     "Internship",
+     "Apprenticeship",
+     "Flexible",
+     "Gig Work"
+    ],
+    "description": "Nature of the job, one of these values only. Part-time or shift work -> Flexible. Default Full-time."
+   },
+   "phoneNumber": {
+    "type": "string",
+    "description": "employer 10-digit phone number, no +91"
+   },
+   "hiringManagerName": {
+    "type": "string",
+    "description": "The name of the person you are speaking to (the owner or the person hiring), in Latin script. REQUIRED by the job board: a post without it stays a hidden draft that seekers cannot see. Use the name they told you this call; if you do not have it, ask once \"ನಿಮ್ಮ ಹೆಸರು ಏನು?\" before posting. Never a placeholder such as Owner or Manager."
+   },
+   "hiringManagerEmail": {
+    "type": "string",
+    "description": "hiring manager email if provided"
+   },
+   "jobProviderLocation": {
+    "type": "string",
+    "description": "work city or location, in English"
+   },
+   "salaryMin": {
+    "type": "number",
+    "description": "Monthly salary in rupees, lower end, as a NUMBER (12000). A single figure: send it as both salaryMin and salaryMax. Omit if the owner gave no salary."
+   },
+   "salaryMax": {
+    "type": "number",
+    "description": "Monthly salary in rupees, upper end, as a NUMBER. Same as salaryMin for a single figure. Omit if none given."
+   },
+   "minEducationalInstitute": {
+    "type": "string",
+    "enum": [
+     "School",
+     "PU College",
+     "College",
+     "ITI",
+     "Other Vocational Training",
+     "Polytechnic",
+     "Diploma",
+     "Certification",
+     "Learned Informally",
+     "None"
+    ],
+    "description": "Minimum education the owner asked for, mapped to one value: 10th/12th/school -> School; graduate/BA/BCom -> College; ITI -> ITI; polytechnic/diploma -> Diploma; no requirement -> None. Omit if not discussed."
+   },
+   "candidateExperienceType": {
+    "type": "string",
+    "enum": [
+     "Fresher",
+     "Worked before",
+     "Returning after a break",
+     "No preference"
+    ],
+    "description": "Whether the owner wants freshers, experienced people, or has no preference. Omit if not discussed."
+   },
+   "workExperienceYears": {
+    "type": "string",
+    "enum": [
+     "< 1 Year",
+     "1 Year",
+     "2 Years",
+     "3 Years",
+     "3-5 Years",
+     "5-10 Years",
+     "10-15 Years",
+     "15+ Years"
+    ],
+    "description": "Years of experience the owner asked for, only when they named a number. Omit otherwise."
+   },
+   "workingHours": {
+    "type": "string",
+    "description": "Working hours as the owner said them, in English, e.g. '9 AM to 6 PM'. Omit if not discussed."
+   },
+   "benefitsOffered": {
+    "type": "array",
+    "items": {
+     "type": "string",
+     "enum": [
+      "Food Provided",
+      "Travel / Transport Provided",
+      "Travel Allowance",
+      "PF / ESIC",
+      "Accommodation Provided",
+      "Other"
+     ]
+    },
+    "description": "Benefits the owner named, as a JSON array of these values only. Omit if none."
+   },
+   "hiringManagerPhone": {
+    "type": "string",
+    "description": "The 10-digit number candidates should call, digits only, no +91. REQUIRED by the job board for the post to go live. Use ${phoneNumber} unchanged when the owner said yes to \"ಕ್ಯಾಂಡಿಡೇಟ್‌ಗಳು ಇದೇ ನಂಬರ್‌ಗೆ ನಿಮ್ಮನ್ನ ಸಂಪರ್ಕಿಸಬಹುದಾ?\"; only when they gave a different number, send that number (exactly the ten digits they said, confirmed back once)."
+   }
+  }
+ },
+ "payload_template": {
+  "name": "{{companyName}}",
+  "domain": "provider",
+  "channel": "voice",
+  "network": "blue_dot",
+  "item_type": "job_posting_1.0",
+  "compliance": [
+   {
+    "key": "user_terms",
+    "value": true
+   },
+   {
+    "key": "user_privacy",
+    "value": true
+   },
+   {
+    "key": "profile_creation",
+    "value": true
+   }
+  ],
+  "item_state": {
+   "role": "{{role}}",
+   "positions": "{{positions}}",
+   "natureOfJob": "{{natureOfJob}}",
+   "hiringManagerName": "{{hiringManagerName}}",
+   "hiringManagerEmail": "{{hiringManagerEmail}}",
+   "jobProviderLocation": "{{jobProviderLocation}}",
+   "jobProviderName": "{{companyName}}",
+   "hiringManagerPhoneNumber": "+91{{hiringManagerPhone}}",
+   "salaryMin": "{{salaryMin}}",
+   "salaryMax": "{{salaryMax}}",
+   "minEducationalInstitute": "{{minEducationalInstitute}}",
+   "candidateExperienceType": "{{candidateExperienceType}}",
+   "workExperienceYears": "{{workExperienceYears}}",
+   "workingHours": "{{workingHours}}",
+   "benefitsOffered": "{{benefitsOffered}}"
+  },
+  "phone_number": "+91{{phoneNumber}}"
+ }
+}

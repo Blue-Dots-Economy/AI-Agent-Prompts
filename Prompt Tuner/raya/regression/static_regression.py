@@ -140,12 +140,21 @@ def check(p):
 
     # 4. Signals seeker enum-exactness (only prompts that carry the new Phase-2 fields)
     if be == "signals" and p["seeker"] and "educationCategory" in t:
-        for enum in ["ITI / Other Vocational Trainings", "Polytechnic / Diploma", "3-5 Years", "B.Tech/B.E."]:
+        # 2026-10-13 (tracker r113): the backend REJECTS "ITI / Other Vocational Trainings" (5/5) and
+        # "Polytechnic / Diploma" (3/3) with INVALID_ITEM_STATE; the live tool schema says `ITI` / `Diploma`.
+        # The old list required the rejected wordings, so it flagged every corrected prompt as critical.
+        for enum in ["`ITI`", "`Diploma`", "3-5 Years", "B.Tech/B.E."]:
             if enum not in t:
                 add("critical", "enum-drift",
-                    f"The answer option \"{enum}\" is missing or reworded. The backend accepts only this "
-                    f"exact wording, so anything else makes saving the caller's profile fail.",
-                    {"expected_option": enum})
+                    f"The answer option \"{enum.strip('`')}\" is missing or reworded. The backend accepts only "
+                    f"this exact wording, so anything else makes saving the caller's profile fail.",
+                    {"expected_option": enum.strip("`")})
+        for bad in ["ITI / Other Vocational Trainings", "Polytechnic / Diploma"]:
+            if bad in t:
+                add("critical", "enum-drift",
+                    f"The answer option \"{bad}\" is back in the script. The backend rejects this wording "
+                    f"(tracker r113), so saving the caller's profile fails.",
+                    {"rejected_option": bad})
 
     # 5. required sections by role
     if "Graceful Exit" not in t and "graceful exit" not in t.lower():
@@ -163,6 +172,20 @@ def check(p):
         add("major", "missing-section",
             "This is an employer bot, but its script never posts the job (no create_job) — the whole "
             "point of the call would go unsaved.", {"section": "create_job"})
+    # 9. step references land where they say (D125): a stale "go to Step N" sends the bot to the wrong step
+    sp = os.path.join(REPO, "scripts", "prompt_structure.py")
+    if os.path.exists(sp):
+        import subprocess, tempfile
+        with tempfile.NamedTemporaryFile(suffix=".json") as tf:
+            subprocess.run([sys.executable, sp, os.path.join(REPO, p["path"]), "--json", tf.name], capture_output=True)
+            try:
+                res = json.load(open(tf.name, encoding="utf-8"))
+            except ValueError:
+                res = {}
+        for msg in (res.get("fails") or [])[:5]:
+            add("major", "step-reference",
+                "A rule in this script points the bot at a step that is wrong or missing, so the bot can end "
+                "up at the wrong question: " + msg, {"check": "scripts/prompt_structure.py"})
     return f
 
 

@@ -3,7 +3,28 @@
 The third testing tier (see repo `CLAUDE.md` → "The three testing tiers"): a standing regression that
 runs automatically and mails critical findings, so drift is caught even when nobody is looking.
 
-**Cadence (user-chosen 2026-08-01): daily static + weekly live.** Digest → **parth@ekstepplus.org**.
+**Cadence (since 2026-10-19): one nightly run, live calls + script checks, one email.** Digest to
+**parth@ekstepplus.org**. (2026-08-01 to 2026-10-18 it was a daily static-only email; the sections
+below that say runtime checks or live calls cannot run in the cloud describe that older state.)
+
+## Nightly (GitHub Actions `nightly` job, cron `30 21 * * *` = ~03:00 IST)
+1. Script checks: `static_regression.py` + `fix_presence.py` over every conversation prompt.
+2. Live test calls: `raya/overnight/overnight_sweep.py --hours 3 --passes 1 --coverage-first --no-phase-b`.
+   Every conversation target in `raya/agents.json` with a prod uuid and `deploy` not false is in the
+   queue (KKB Slim first, since they carry the live traffic). Each bot gets one call before any bot
+   gets a second. The tester DID is read from the tester agent at start (never hard-coded), the sweep
+   waits while the tester is on another call, and an inbound agent with no `out_did` is reported as
+   "not called" instead of being reconfigured.
+3. Transcript detectors: `run_runtime_checks.sh --since <sweep start>`.
+4. `live_results.py` grades each connected call with `grade_call.py`, attaches every detector line that
+   names that call, and writes `live-report.json`; `build_digest.py nightly` renders one email (bots
+   called, calls connected, each check per call with call id and recording link, then the script
+   checks and `open-items.json`); `send_digest.py` sends it.
+
+Secrets in the repo: `RAYA_BASE_URL`, `RAYA_API_TOKEN`, `GMAIL_OAUTH_*`. On the runner the job writes a
+temporary `raya/.env` (most detectors read that file) and deletes it at the end. A short manual run:
+`gh workflow run regression.yml -f only=kkb-hi-signals-slim -f max_cases=1 -f hours=0.5`.
+`-f mode=static` runs the script checks alone.
 
 ## Daily — static suite (fast, reliable, no telephony)
 `python3 raya/regression/static_regression.py` checks EVERY conversation prompt for the failure classes

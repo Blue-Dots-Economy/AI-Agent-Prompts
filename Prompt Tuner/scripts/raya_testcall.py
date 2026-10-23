@@ -19,11 +19,17 @@ Read past calls / transcripts with scripts/raya_call.py <bot_uuid> [limit].
 import json, os, sys, argparse, urllib.request, urllib.error, datetime
 
 REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+# Secrets: process env first (GitHub Actions), raya/.env as the local fallback.
 _env = {}
-for _line in open(os.path.join(REPO, "raya/.env")):
-    _line = _line.strip()
-    if "=" in _line and not _line.startswith("#"):
-        _k, _v = _line.split("=", 1); _env[_k.strip()] = _v.strip()
+_envp = os.path.join(REPO, "raya/.env")
+if os.path.exists(_envp):
+    for _line in open(_envp):
+        _line = _line.strip()
+        if "=" in _line and not _line.startswith("#"):
+            _k, _v = _line.split("=", 1); _env[_k.strip()] = _v.strip()
+for _k in ("RAYA_BASE_URL", "RAYA_API_TOKEN"):
+    if os.environ.get(_k):
+        _env[_k] = os.environ[_k].strip()
 BASE = _env.get("RAYA_BASE_URL", "").rstrip("/")
 KEY = _env.get("RAYA_API_TOKEN", "")
 

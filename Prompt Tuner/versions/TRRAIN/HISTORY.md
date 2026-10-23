@@ -27,3 +27,6 @@
 - **2026-10-12_083036** — `pre-deploy-trrain-kn-output-2026-10-12_083036` — auto snapshot before Raya deploy of TRRAIN/TRRAIN Output.md _(4 files)_
 - **2026-10-12_092733** — `pre-deploy-trrain-hi-output-2026-10-12_092733` — auto snapshot before Raya deploy of TRRAIN/TRRAIN Output.md _(4 files)_
 - **2026-10-12_092733** — `pre-deploy-trrain-kn-output-2026-10-12_092733` — auto snapshot before Raya deploy of TRRAIN/TRRAIN Output.md _(4 files)_
+- **2026-10-19_142537** — `pre-oct19-port` — before porting KKB Slim Oct 12-13 fixes _(4 files)_
+- **2026-10-19_153825** — `pre-deploy-trrain-hi-out-2026-10-19_153825` — auto snapshot before Raya deploy of TRRAIN/TRRAIN Hindi.md _(4 files)_
+- **2026-10-19_153826** — `pre-deploy-trrain-kn-out-2026-10-19_153826` — auto snapshot before Raya deploy of TRRAIN/TRRAIN Kannada.md _(4 files)_

@@ -1,0 +1,24 @@
+{
+ "_note": "2026-10-19: closes (pauses) a filled posting via POST /api/v1/item/lifecycle {item_id, action:'pause'}; pause hides it from seekers and is reversible. Verified on a test post.",
+ "name": "close_job",
+ "description": "Hide a job posting from seekers because the owner says it is filled or no longer needed. Call it ONLY for an existing posting with a real job_id, and only after the owner clearly said it is filled or not needed. Returns the new status; say it is removed only if the result shows lifecycle_status paused.",
+ "clone_api_from": "create_job",
+ "method": "POST",
+ "path_override": "/api/v1/item/lifecycle",
+ "parameters": {
+  "type": "object",
+  "required": [
+   "job_id"
+  ],
+  "properties": {
+   "job_id": {
+    "type": "string",
+    "description": "The existing posting's job_posting item_id (${job_id}); a real UUID, never 'Not Available'."
+   }
+  }
+ },
+ "payload_template": {
+  "item_id": "{{job_id}}",
+  "action": "pause"
+ }
+}

@@ -1,0 +1,1 @@
+ RESULT: an error whose response_body_excerpt contains ACTION_LIMIT_REACHED ("An active request already exists") means the application ALREADY EXISTS: say the already-applied line, whatever the platform's "outcome is unknown" note says.

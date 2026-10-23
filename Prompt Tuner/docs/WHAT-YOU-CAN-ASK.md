@@ -35,6 +35,31 @@ Claude in this folder and say what you want in a normal sentence. A few examples
 - "Check the Kannada version against the Hindi one."
 - "Make a review sheet for a native Marathi speaker." Safety lines come first.
 
+## When something will not get fixed
+
+- "Which part of the prompt made the bot say this?" (give the call id). It walks the call turn by turn
+  and names the section each line came from, so you can see where it went wrong first.
+- "If I change the location step, what else could break?" It lists the other rules that point at it,
+  the steps that use what it collects, the same step in the other languages, and the test rows to re-run.
+
+- "Look at this prompt fresh, as if you had never seen it." If a fix has failed twice, the tuner reads
+  the whole prompt cold (no memory of the earlier attempts) and checks that every "go to step N" lands
+  where it says. A wrong step number once sent a bot to the wrong question for hours of fixing.
+- `/goal every Smoke row in this sheet passes on 3 calls, or stop after 25 turns` keeps it fixing and
+  testing on its own until the condition is met. End the sentence with a stop.
+
+## Keeping your copy of the tuner up to date
+
+- "/upgrade" (or "upgrade the prompt tuner"). If your team runs its own copy, this pulls the newest
+  skills and scripts from the main tuner and merges them in. Your bots, sheets and settings are never
+  touched. Run it in each copy.
+
+## Two Raya accounts
+
+- "Copy the Purple Dots inbound agent from the EkStep account to the ALIMCO account." Each account's key
+  goes in `raya/.env`; the language and voice ids for the new account are recorded once in
+  `raya/voices.json` first.
+
 ## Asking about results
 
 - "What is still open on this bot?"

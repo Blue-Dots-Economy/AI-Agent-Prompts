@@ -19,16 +19,22 @@ Reality of the platform (learned the hard way — see the /voice-test skill):
     agent_args; select the persona by PATCHing the tester prompt (scripts/raya_testcall.py persona).
 
 Usage: raya_testrun.py <bot_uuid> <to_10digit> <args_json> <tester_uuid> [label]
-Env: raya/.env (RAYA_BASE_URL, RAYA_API_TOKEN). Token never printed.
+Env: RAYA_BASE_URL, RAYA_API_TOKEN from the environment, else raya/.env. Token never printed.
 """
 import json, os, sys, time, urllib.request, urllib.error
 
 REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+# Secrets: process env first (GitHub Actions), raya/.env as the local fallback.
 _env = {}
-for _l in open(os.path.join(REPO, "raya/.env")):
-    _l = _l.strip()
-    if "=" in _l and not _l.startswith("#"):
-        k, v = _l.split("=", 1); _env[k.strip()] = v.strip()
+_envp = os.path.join(REPO, "raya/.env")
+if os.path.exists(_envp):
+    for _l in open(_envp):
+        _l = _l.strip()
+        if "=" in _l and not _l.startswith("#"):
+            k, v = _l.split("=", 1); _env[k.strip()] = v.strip()
+for _k in ("RAYA_BASE_URL", "RAYA_API_TOKEN"):
+    if os.environ.get(_k):
+        _env[_k] = os.environ[_k].strip()
 BASE = _env["RAYA_BASE_URL"].rstrip("/"); KEY = _env["RAYA_API_TOKEN"]
 CONNECT_TRIES = 4
 # Measured 2026-09-02 over 115 harness dials: bridging is NOT random telephony flakiness, it is

@@ -115,6 +115,9 @@ Every defect in the master becomes one defect per language, each found and fixed
    (`../prompt-analyser/reference/section-checklists.md`, D121). Translating a bot that misses this
    produces N bots that miss it.
 
+Also run `python3 scripts/prompt_structure.py "<master>"`: a step reference that points at the wrong
+step is copied into every language, and fixing it once in the master is cheap (D125).
+
 ### 1. Scope, register and reviewer
 
 Write down, in the QA record (template at the end of this file), before authoring a line:
