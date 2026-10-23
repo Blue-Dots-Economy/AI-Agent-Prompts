@@ -184,7 +184,7 @@ bot greets.
 5. Real occurrences: `apply_job(profile_id:"items[0].item_id", acting_as_user_id:"user_id")`
    → 400 "body/source_item/item_id Invalid UUID" (**b31fa5c9**); `profile_id:"a8a0e6f0-1a2b-4c3d-
    9e4f-123456789abc"` (**34f1f587**). Related data bug: `create_profile` sending
-   `phone:"XXXXXX0249"` that the backend stored as **`91919108790249`** (double country code) →
+   `phone:"XXXXXX0249"` that the backend stored as **`9191XXXXXX0249`** (double country code) →
    spawned a duplicate user and a later `update_profile` **403 ITEM_NOT_OWNED_BY_USER**
    (**7935ce5a** Hi Signals).
 6. Pass: every tool-arg is a resolved runtime value (real UUIDs/ids), never a template token
