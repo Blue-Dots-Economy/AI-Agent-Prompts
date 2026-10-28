@@ -18,6 +18,9 @@ Claude in this folder and say what you want in a normal sentence. A few examples
   if it says it cannot open the sheet, share the sheet with
   `kkb-sheets-writer@operation-rozgar.iam.gserviceaccount.com` as an editor)
 - "Test the Marathi bot on the safety case." (a caller who says they do not want to live)
+- "Check the bot remembers callers." It calls once and gives some details (a name, where they are
+  staying), calls again from the same number, and tells you which details the bot used and which it
+  asked for again, with both call ids. Add "as an inbound call" to have the tester dial the bot.
 - "Set up a nightly test run and email me the results at <your email>." (the laptop has to stay on for
   live calls; the written checks run in the cloud)
 

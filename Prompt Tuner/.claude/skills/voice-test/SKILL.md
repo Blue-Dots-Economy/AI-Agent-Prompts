@@ -18,6 +18,7 @@ always: **run** a call, then **grade** it. A printed transcript is not a grade.
 | "test this fix" / "verify the fix" | The issue's `R` row (write it first if missing: `/generate-test-cases` → "add a test case for this bug"), **N ≥ 3 calls on every affected variant**, then the blast-radius rows around the change. Report per fix with call ids (→ Report contract). |
 | "reproduce this bug" | One call that recreates the reported inputs and behaviour, read against the original call's `agent_args` first (it may be an input problem, not a bot bug). Report what the call showed, not the possible causes. |
 | "test the inbound bot" | → Run one call → **Inbound bots**. Inbound is testable. |
+| "does the bot remember the caller?" / "test memory" / "the second call forgot the first" | → **Memory test**: two calls from the same number, graded per detail. |
 | "test before the demo" | The Smoke rows of every variant being shown. |
 
 **Before the first call of any session:** read the bot's open-issues list (the tracker sheet, or
@@ -79,6 +80,44 @@ Already set: `kkb-hi-in-signals` 911204404274, `kkb-kn-in-signals` 918037006352,
 caller's number**, so inbound test data goes on the tester's number. `raya_testrun.py` also supports the
 reverse direction (the tester dials the bot's `in_did`: pass the tester's uuid as `<bot_uuid>` and the
 bot's DID as the number; the tester then needs an `out_did`).
+
+## Memory test
+
+For a bot that should remember callers between calls (`memory_enabled` on the agent). One script does
+it: `scripts/raya_memory_test.py`.
+
+```bash
+python3 scripts/raya_memory_test.py check <bot>                     # is memory wired up? fix any FAIL first
+python3 scripts/raya_memory_test.py run <bot> --fact name=Aisha --fact area=Malpe \
+    --reask name="your name" [--direction in] [--gap 180]          # call 1, wait, call 2, grade
+python3 scripts/raya_memory_test.py grade <call1> <call2> --fact name=Aisha --reask name="your name"
+python3 scripts/raya_memory_test.py platform                         # is Raya carrying memory at all?
+```
+
+- **`check`** looks for the three things memory needs: memory switched on, a memory writer prompt, and
+  the injection block word for word in the conversation prompt. Any FAIL means the test cannot pass;
+  fix it before calling.
+- **`run`** writes two personas from the `--fact`s: call 1 gives every detail; call 2 says "I called a
+  little while ago", never volunteers a detail, and ends by asking "do you remember what I told you
+  last time?". Between the calls it waits `--gap` seconds for the memory to be written. It saves the
+  tester's persona and language and puts them back afterwards, and refuses to start while the tester
+  line is in use (`--force` to override).
+- **The grade, per detail:** REMEMBERED (the bot used it before the caller repeated it), FORGOTTEN
+  (asked for it again, matched by `--reask`), MIXED, NOT USED, or INVALID (the caller never gave it in
+  call 1, so the test proves nothing). PASS only when every detail is REMEMBERED. The report quotes the
+  bot's answer to "do you remember?", which is the plainest evidence for a non-specialist.
+- **`--direction in`** is a real inbound call: the tester dials the bot's `in_did`, so the bot needs an
+  inbound number (`check --direction in` says so). Keep both calls in the same direction.
+- **When a bot forgets, run `platform` before touching the bot.** It calls the memory probe, an agent
+  that reads its own stored memory aloud word for word (`reference/memory-probe/`, uuid in
+  `raya/memory-probe.json`; another account makes its own with `probe-create --like <bot>`). If call 2
+  of the probe also says "Nothing stored", Raya is not keeping memory on this account: that is a
+  platform report with the probe's call ids, not a prompt fix. On 2026-10-28 it failed on the EkStep
+  account (probe calls `bd332b65`, `63ce32c9`, `51359f4b`, `8d872d33`; with and without a call report
+  prompt, so that is not the cause).
+- **The stored memory cannot be read through the API** (no endpoint; the console's memories page is
+  the only direct view). The probe and the "do you remember?" answer are the evidence.
+- **Use the tester's number only, never a real caller's.**
 
 ## Run a test sheet
 

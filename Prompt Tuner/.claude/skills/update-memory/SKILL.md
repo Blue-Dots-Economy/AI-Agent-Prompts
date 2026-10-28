@@ -112,7 +112,8 @@ Ask before pushing; show the user the before/after field list first.
 Deploy proves the text shipped, not that memory works. Proof is behaviour across two calls on the
 **tester number** (never a real caller's number): call 1 produces the fact, call 2 shows the bot
 using it (or no longer using a retired field). Name both call ids and the line in call 2 that shows
-it. Do this on each agent type that carries the memory (outbound and inbound, each language, each
+it. `scripts/raya_memory_test.py run <bot> --fact …` does exactly this and grades it per detail
+(`/voice-test` → Memory test); run its `check` first. Do this on each agent type that carries the memory (outbound and inbound, each language, each
 backend); inbound bots are testable (`/voice-test` → Inbound bots, and the inbound bot looks up the tester's
 own number). Running a transcript through the memory prompt by hand is a useful static check, never
 proof. Until called: DEPLOYED, NOT VERIFIED. On a regression, push the saved live copy back and

@@ -72,6 +72,9 @@ New entries take the next free number (D125 onward) and get a row here.
 - D110: a guard that tests an injected variable is re-run after the caller answers, so the question loops
 - D114: a routing keyword appears inside the WRONG row's exception text
 - D125: step numbers or cross-references that no longer match the prompt's structure send the bot to the wrong step
+- D126: a sentence with a missing place, and a closing line that is a question
+- D127: a backend error with a fixed meaning that the prompt never names
+- D128: a value built by a conditional rule, a checklist read out, an optional templated parameter, a typed id
 
 **Repetition and loops** (4)
 
@@ -3321,6 +3324,16 @@ a field "has no slot" when the schema has one. A write that returns `draft` wher
 source (confirm the dialled number rather than dictating ten digits), and cite the schema file and date in the
 prompt. Source: DKB Signals Hindi/Kannada, 2026-10-19 (verified live post on `ee20caba`).
 
+**Half-done alignment (2026-10-23).** After the fix above, education, experience and benefits still reached only
+6, 3 and 2 of 13 posts. The new "send every value" rule was there, but three older lines survived it: "Salary,
+qualification, experience, working hours, and benefits are NOT part of any tool call", "conversational and not
+saved to any field on Signals", and four variable lines whose start had been replaced by a literal `\1` (a broken
+regex substitution), so `${qualification}` and friends were no longer described at all. Salary and hours, which
+the tool also asked for in plain words, kept arriving; the fixed-choice fields lost. **Extra check:** after any
+schema alignment, grep the whole prompt for the old claim in every wording ("NOT part of any tool call", "not
+saved", "no slot", "never persisted", "conversational only") and for `\1`, `\2` or `$1` at the start of a line.
+Every hit is a competing rule, and the model will sometimes obey it.
+
 ## D117: the consent question and the tool call go out in the same turn
 
 **Symptom.** DKB said "क्या मैं यह post कर दूँ?" and called `create_job` in the same breath (`0407c2f6`), or posted
@@ -3404,3 +3417,68 @@ says, and prefer references by name AND number ("Step 9, Consent") so a mismatch
 references to deleted sections. Never add a new rule to compensate for a pointer that is wrong. Source:
 Orange Dots, KKB Signals, KKB Slim, 2026-10.
 
+
+## D126: a sentence with a missing place, and a closing line that is a question
+
+**Symptom.** A caller in Bengaluru was offered Ghaziabad-area jobs. The bot said "अभी बेंगलुरु के लिए टेली सेल्स की
+जॉब्स उपलब्ध नहीं हैं — लेकिन पी.सी.बी. असेंबली टेक्नीशियन जैसी जॉब्स हैं", which sounds as if the PCB job is in
+Bengaluru (it was in Muradnagar). Later, after the caller said "कुछ भी चलेगा, बस बेंगलुरु में हो", it asked
+"किस तरह का काम देख रहे हैं?" again, word for word (`a0a3052a`, `0f8be040`, nightly 2026-10-22).
+
+**Root cause.** Three things together. (1) The offer sentence had slots for the role and the kinds of work but none
+for WHERE the jobs are, so the model filled the gap with the caller's city. (2) The prompt warned against that by
+QUOTING it: `Do not say "[शहर] के लिए … जॉब्स उपलब्ध नहीं हैं"` and a past call's exact words, "अभी बेंगलुरु के लिए
+डेटा एंट्री या कंप्यूटर ऑपरेटर की जॉब्स उपलब्ध नहीं हैं". The legacy bot said that example word for word, with
+jobs it did not have (D81). (3) The only line for "every job named and turned down" was a question about the kind
+of work, so a caller whose objection was the PLACE answered it and got the same question back.
+
+**Detection heuristic.** (a) For every templated offer that names jobs, ask: does it say where they are? If the
+caller may be somewhere else, a missing place slot will be filled with the wrong place. (b) Grep every
+`Do not say "..."` and every quoted past failure in the caller's language: a quoted wrong line is a template. (c) For
+every terminal line (the one said when the list is exhausted), check it is not a question that the previous answer
+already answered, and that each kind of rejection (place, kind of work) has its own ending.
+
+**Fix direction.** Give the right value a slot (`[job place]`, the jobs' own place) instead of banning the wrong
+one; describe past failures in English, never in the spoken language; scope the closing question to once per call
+and never after a place rejection or "anything is fine". Keep any new reusable line to ONE place in the prompt: the
+first version of this fix printed the new place line in four spots and the bot said it four times in one call
+(`ae0b3eb6`). Source: KKB Signals / legacy / Slim, Hindi and Kannada, Maya, 2026-10-23.
+
+## D127: a backend error with a fixed meaning that the prompt never names
+
+**Symptom.** `get_profile` returned 400 `U18_NOT_ALLOWED` (the job board holds the caller as a minor) and the bot carried
+on: offered jobs, explained the account it would create (`547f8b8a`), and once created a profile and applied
+(`0754f5d2`, 2026-09-21).
+
+**Root cause.** The prompts handled "no profile" and "a profile" but had no branch for this error, so the model
+treated it like any failed lookup and continued. The backend owner's rule (Sanketika, 2026-10-23): the lookup IS the
+age check and the bot must decide from it.
+
+**Detection heuristic.** List every error code each tool can return that carries a business meaning (not a fault):
+`U18_NOT_ALLOWED`, `ACTION_LIMIT_REACHED`, `PROFILE_LIMIT_REACHED`, `ANCHOR_NOT_FOUND`, `ANCHOR_HAS_NO_LOCATION`.
+Grep the prompt for each. A code with no branch is this bug.
+
+**Fix direction.** One short section per code, at the point where the tool result is read: what it means and the
+one thing to do. Source: KKB Signals, Slim, Maya, inbound, 2026-10-23.
+
+## D128: a value the model must build by a conditional rule, and a checklist the model reads out
+
+**Symptoms (DKB both-directions rewrite, 2026-10-26).** (1) `get_employer` was sent `9191888888985`: the rule was
+"the number unchanged when it has 12 digits, 91 in front when it has 10", and the model took the wrong branch, so the
+job board found nobody, the owner's postings were skipped and one was posted twice (`f84a3c17`). (2) An English
+checklist of missing fields ("salary, area, qualification, experience, hours, benefits") was read to the owner as one
+question; the owner answered one item and the posting was never completed (`18c2024f`, `1429e575`). (3) An optional
+tool parameter that the payload template always uses (`phoneNumber` → `"+91{{phoneNumber}}"`) was left out, so every
+update went out with `"+91"` and was refused (`a3f61db8`). (4) An id typed with a trailing comma (`…d1,`) was refused
+as an invalid UUID (`1190be24`, `ee2c3603`).
+
+**Detection heuristic.** (1) Any instruction that builds a value differently depending on its input's shape ("if 12
+digits … if 10 digits …"): replace it with one recipe that is correct for every shape ("91 + the last ten digits").
+(2) Any list of things to collect written as a list in prose: the model will speak it as a list. Give each item its
+own spoken question line, numbered, one per turn. (3) For every payload template, every `{{param}}` that is not in the
+tool's `required` list: if the template wraps it in fixed text (`"+91{{x}}"`), an omitted value produces an invalid
+field, so make it required. (4) Ids typed by the model: give the parameter a strict `pattern` and say "exactly as
+returned, nothing added".
+
+**Fix direction.** As above: one recipe, one line per question, required parameters for templated fields, a pattern
+on ids. Source: DKB Signals Hindi/Kannada, 2026-10-26.

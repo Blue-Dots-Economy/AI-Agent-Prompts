@@ -385,6 +385,7 @@ inputs by hand. You cannot place a meaningful test call without one.
 | The daily digest flagged something | Read `raya/regression/latest-report.md` / `.json` → confirm on a **real call** → `/update-prompt` | A static finding alone is **not** a licence to fix (see `/bug-fix`: a static "gap" that 40 calls never reproduced). |
 | A call outcome / variable isn't being captured | **`/update-output`** | One language-agnostic output prompt per bot; extracts call variables from the finished transcript. |
 | The bot should remember the caller between calls | **`/update-memory`** | One language-agnostic memory prompt per bot; it also owns the verbatim memory-injection block in every conversation prompt. |
+| Check the bot really remembers ("the second call forgot the first") | **`/voice-test`** → Memory test | `scripts/raya_memory_test.py`: checks memory is wired up, then call 1 and call 2 from the same number (outbound or a real inbound call), graded per detail. |
 | A skill failed because the bot isn't in the path map / `agents.json` | **`/register-bot`** | Don't guess target ids; register them. |
 | I need to read what actually happened on a call | `python3 scripts/raya_call.py <agent_uuid>` | Prints `tool_calls.function.arguments` + linked results + `agent_args`. A `content`-only reader hides every payload bug. |
 

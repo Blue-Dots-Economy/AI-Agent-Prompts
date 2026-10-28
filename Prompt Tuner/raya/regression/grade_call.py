@@ -32,13 +32,14 @@ SLASH = re.compile(r'[ऀ-ॿಀ-೿][^\s]{0,20}\s*/\s*[^\s]{0,20}|[^\s]{0,20}\s
 # Kannada says ಮಾಹಿತಿ ("information"), not �ವಿವರ — an earlier pattern missed the real line on
 # 41a2c19d and reported a consent failure that had not happened. Match on the SHARE verb.
 DISCLOSE = re.compile(r'personal details|details.*share|share होंगी|जानकारी.*share'
-                      r'|(?:ಮಾಹಿತಿ|ವಿವರ).{0,24}ಶೇರ್|ಶೇರ್.{0,24}(?:ಮಾಹಿತಿ|ವಿವರ)')
+                      r'|(?:ಮಾಹಿತಿ|ವಿವರ|ಡೀಟೇಲ್ಸ್).{0,120}ಶೇರ್|ಶೇರ್.{0,24}(?:ಮಾಹಿತಿ|ವಿವರ|ಡೀಟೇಲ್ಸ್)')
 SALARY = re.compile(r'सैलरी|ಸಂಬಳ')
 ALREADY = re.compile(r'पहले से लगी हुई|ಈಗಾಗಲೇ ಇದೆ')
 TECH = re.compile(r'technical issue')
 # the Kannada line was reworded to share no opening with the old catch-all, so match both
 # forms -- an out-of-date pattern here reported a false FAIL on 29288fd3, whose line was right.
-NOTCOMPLETE = re.compile(r'पूरा नहीं हो पाया|ಪೂರ್ತಿ ಆಗಿಲ್ಲ|ಸಧ್ಯಕ್ಕೆ ಆಗಿಲ್ಲ')
+NOTCOMPLETE = re.compile(r'पूरा नहीं हो पाया|ಪೂರ್ತಿ ಆಗಿಲ್ಲ|ಸಧ್ಯಕ್ಕೆ ಆಗಿಲ್ಲ'
+                         r'|सिस्टम में नहीं जुड़ पाई|ಸಿಸ್ಟಮ್‌ನಲ್ಲಿ ಸೇರ್ಪಡೆ ಆಗಲಿಲ್ಲ')  # DKB: one truthful line for every create_job error
 
 # words that legitimately appear in Latin inside spoken Hindi/Kannada
 OK_LATIN = {
@@ -251,6 +252,7 @@ def grade(call):
                    if (tc.get('function') or {}).get('name') == 'create_job']
         POSTED = re.compile(r'post कर|पोस्ट कर दिया|ಪೋಸ್ಟ್ ಮಾಡಿ|ಪೋಸ್ಟ್ ಆಗಿದೆ')
         CONSENT = re.compile(r'post कर दूँ|ಪೋಸ್ಟ್ ಮಾಡ್ಲಾ|पोस्ट कर दूँ')
+        OWNER_POST = re.compile(r'(?:post|पोस्ट) कर दीजिए|(?:post|पोस्ट) कर दो|ಪೋಸ್ಟ್ ಮಾಡಿ')
         claimed_post = bool(POSTED.search(allsaid))
         if claimed_post and not created:
             out.append(('post-claim-backed-by-tool', 'FAIL',
@@ -261,8 +263,18 @@ def grade(call):
             out.append(('post-claim-backed-by-tool', 'SKIP', 'no posting claim made'))
 
         if created:
-            out.append(('consent-before-create-job', 'PASS' if CONSENT.search(allsaid) else 'FAIL',
+            # The owner asking for the post himself, before the first create_job, is consent too
+            # (ac659551: "अब पोस्ट कर दीजिए", twice, then the name question, then the post).
+            asked_by_owner = False
+            for t in tr:
+                if any((tc.get('function') or {}).get('name') == 'create_job' for tc in (t.get('tool_calls') or [])):
+                    break
+                if t.get('role') == 'user' and OWNER_POST.search(str(t.get('content') or '')):
+                    asked_by_owner = True
+            ok = bool(CONSENT.search(allsaid)) or asked_by_owner
+            out.append(('consent-before-create-job', 'PASS' if ok else 'FAIL',
                         'consent line present' if CONSENT.search(allsaid)
+                        else 'owner asked for the post himself' if asked_by_owner
                         else 'create_job ran with no spoken consent question'))
         else:
             out.append(('consent-before-create-job', 'SKIP', 'create_job never ran'))
@@ -302,7 +314,7 @@ def grade(call):
 
         # TRRAIN Trust is the ONLY partner that may be named, and it must be introduced
         PARTNER = re.compile(r'ट्रेन ट्रस्ट|ಟ್ರೇನ್ ಟ್ರಸ್ಟ್')
-        INTRO = re.compile(r'चैरिटेबल|ಚಾರಿಟಬಲ್|ट्रस्ट है|ಟ್ರಸ್ಟ್ ಆಗಿದೆ')
+        INTRO = re.compile(r'चैरिटेबल|ಚಾರಿಟಬಲ್|ಚ್ಯಾರಿಟಬಲ್|ಚಾರಿಟೆಬಲ್|ट्रस्ट है|ಟ್ರಸ್ಟ್ ಆಗಿದೆ|ಒಂದು ಪಬ್ಲಿಕ್')
         if PARTNER.search(allsaid):
             out.append(('trrain-partner-introduced', 'PASS' if INTRO.search(allsaid) else 'FAIL',
                         'named with an introduction' if INTRO.search(allsaid)

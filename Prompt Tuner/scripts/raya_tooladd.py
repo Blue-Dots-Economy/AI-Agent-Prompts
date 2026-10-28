@@ -114,7 +114,10 @@ def main():
         sys.exit(f"{target}: clone_api_from tool {spec['clone_api_from']!r} not found — cannot clone url/headers")
     api = copy.deepcopy(donor["api_details"])
     api["method"] = spec.get("method", api.get("method", "POST"))
-    api["payload_template"] = copy.deepcopy(spec["payload_template"])
+    if spec.get("payload_template") is None:      # a GET lookup sends its parameters as the query string
+        api.pop("payload_template", None)
+    else:
+        api["payload_template"] = copy.deepcopy(spec["payload_template"])
     # `path_override` keeps the donor's scheme+host+auth headers but swaps the path -- needed for a
     # tool on a DIFFERENT service of the same instance (e.g. /signals-search/v1/search vs
     # /api/v1/...). The key still never touches the repo: it is cloned from the live donor tool.
@@ -132,6 +135,14 @@ def main():
     }
 
     existing = next((i for i, t in enumerate(llm) if (t.get("function") or {}).get("name") == name), None)
+    # Raya's per-tool "Say a hold message while this runs" switch (2026-10-20). A spec may set it;
+    # otherwise a re-sync keeps whatever the live tool already has, so it is never silently reset.
+    if "speak_hold_message" in spec:
+        api["speak_hold_message"] = spec["speak_hold_message"]
+    elif existing is not None and "speak_hold_message" in (llm[existing].get("api_details") or {}):
+        api["speak_hold_message"] = llm[existing]["api_details"]["speak_hold_message"]
+    else:
+        api.pop("speak_hold_message", None)
     if existing is None:
         llm.append(new_tool)
         print(f"=== {target}: ADD tool {name!r} (api cloned from {spec['clone_api_from']!r})")
