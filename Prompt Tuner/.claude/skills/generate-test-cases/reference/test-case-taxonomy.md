@@ -296,7 +296,7 @@ or opposite forcing behaviour at the same gate (decline vs accept).
   is the inventory non-empty, is the profile `live` or `draft`, are the input args of shape X.
 - **Which number the bot looks up.** With no `contact_phone` in `agent_args`, the bot looks up the
   dialled number (the tester DID). A `contact_phone` sent in `agent_args` DOES reach the model
-  (`e0e7bbc2`), so for bots that read it, any profile state can be built on a `XXXXXX8888xx` number on
+  (`e0e7bbc2`), so for bots that read it, any profile state can be built on a `9188888888xx` number on
   the instance the bot reads (`/voice-test` → "Fixtures"). Inbound bots look up the caller's number,
   so inbound test data goes on the tester's number.
 - Some backends have **no delete route**: once a record exists for a number, it can never be "new"

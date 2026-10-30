@@ -246,7 +246,7 @@ The real limits (details and recipes in `/voice-test` → "Fixtures"):
   as untestable.
 - **Which record the bot looks up IS selectable** for bots that read `${contact_phone}` from the args:
   `contact_phone` in `agent_args` reaches the model (`e0e7bbc2`), so any profile state can be built on a
-  `XXXXXX8888xx` number on the instance the bot reads. Without it, the bot looks up the dialled number.
+  `9188888888xx` number on the instance the bot reads. Without it, the bot looks up the dialled number.
 - **`contact_memory` cannot be set per call** (the platform substitutes its own, `c2ffe9fb`), and the
   stored memory cannot be read. Memory-gated rows → `production_detector` or a two-call production shape.
 - **A TTS tester cannot mumble.** ASR-garble rows → `static_check` + `human_call`. Never write a persona
@@ -339,7 +339,7 @@ python3 scripts/testcase_sheet.py write raya/testcases/<bot-id>-sheet.json --she
   family (id · title · source · persona · preconditions · forcing gate · pass · FAIL signal · severity ·
   variants), the not-reachable register, and patterns applied / not applicable.
 - `raya/testcases/args/<bot-id>-<state>.json`: one per input state, ids valid on that variant's
-  instance. Fixture phone numbers come from the `XXXXXX8888xx` block, never a real person's.
+  instance. Fixture phone numbers come from the `9188888888xx` block, never a real person's.
 - **Personas**, one per behavioural scenario per language, in the house style (read two existing ones
   first; `raya/personas/scenario-catalog.md` is the index): an HTML-comment header (what it is, the
   backend state it needs, what it exercises, its forcing gate, the real call it is grounded in); the

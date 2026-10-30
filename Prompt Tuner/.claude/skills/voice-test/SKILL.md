@@ -114,7 +114,9 @@ python3 scripts/raya_memory_test.py platform                         # is Raya c
   of the probe also says "Nothing stored", Raya is not keeping memory on this account: that is a
   platform report with the probe's call ids, not a prompt fix. On 2026-10-28 it failed on the EkStep
   account (probe calls `bd332b65`, `63ce32c9`, `51359f4b`, `8d872d33`; with and without a call report
-  prompt, so that is not the cause).
+  prompt, so that is not the cause). On 29 Oct a `contact_memory` value sent with the call reached the
+  bot unchanged (`ad458bb1`): with memory on, Raya used to replace it with the stored memory, so the
+  memory switch was behaving as if it were off.
 - **The stored memory cannot be read through the API** (no endpoint; the console's memories page is
   the only direct view). The probe and the "do you remember?" answer are the evidence.
 - **Use the tester's number only, never a real caller's.**
@@ -213,7 +215,7 @@ Each was nearly reported as a bot bug by a team using the tuner (Purple Dots, Oc
    1. **Pick the instance the bot reads**, from its OWN live `get_profile` `api_details.url` (e.g. the
       Hindi slim reads `gzb-signals`, the Kannada slim `dharwad-signals`). A fixture on another host is
       invisible and looks like a fetch failure.
-   2. **Pick a number that cannot be a real person**: the `XXXXXX8888xx` block.
+   2. **Pick a number that cannot be a real person**: the `9188888888xx` block.
    3. **POST the state** to `/api/v1/admin/participant` with that `phone_number`: *new caller* = post
       nothing · *draft / unconsented* = omit `compliance` · *terms only* = `compliance` with `user_terms`
       + `user_privacy` (together, else `400 USER_LEVEL_INCOMPLETE`) · *live and complete* = all three

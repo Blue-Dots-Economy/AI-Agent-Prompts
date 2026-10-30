@@ -441,7 +441,7 @@ lines and is not already public. Pushes go out as `parthekstep` (`gh auth token 
 - When the guard blocks: mask the number at the source (`XXXXXX1234`) and amend; never `--no-verify`
   unless the finding was reviewed as a false positive.
 - Never paste a real caller's or colleague's phone number into a changelog, report or fixture; cite the
-  call uuid instead, and use the `XXXXXX8888xx` block for fixtures.
+  call uuid instead, and use the `9188888888xx` block for fixtures.
 - History before 2026-10-08 was pushed after a scan: two third-party numbers were masked across the
   165 unpushed commits (so their commit ids changed; old ids in chat history no longer resolve).
 

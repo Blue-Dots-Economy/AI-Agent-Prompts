@@ -42,7 +42,7 @@ branch on what comes back. This one change removed a whole class of bugs.
 
 ```
 x-api-key:        <SIGNALS_API_KEY>          # secret — never commit; lives in the Raya tool header / git-ignored env
-x-acting-org-id:  <your organisation id>
+x-acting-org-id:  org_cdce36e6-6a38-4c2c-b264-c581dc8c62e2
 Content-Type:     application/json           # on POST
 ```
 

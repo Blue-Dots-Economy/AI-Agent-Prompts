@@ -40,17 +40,17 @@ Location for the new job. Leave blank if not mentioned.
 new_job_qualification
 Qualification requirement for the new job. Leave blank if not mentioned.
 new_job_posted
-Was the new job successfully posted to the platform during the call?
+Was the new job successfully posted to the platform during the call? Decide from the create_job tool result only.
 
-Yes — bot confirmed the posting was created
-No — new job was mentioned but not posted
+Yes: A create_job tool call returned a successful result.
+No: create_job was never called, or every create_job call returned an error, even if the bot told the employer it was posted.
 
 POSTING CONSENT
 posting_consent
 Did the employer give consent to post the job to the platform (the "shall I post this?" gate that
 precedes create_job)?
 
-Given — employer agreed and the posting went ahead
+Given — employer agreed to post (even if create_job then failed)
 Declined — employer was asked and refused, so nothing was posted
 NA — the consent gate was never reached (no new job to post, or the call ended earlier)
 
@@ -64,6 +64,17 @@ No — insights were not shared or call ended before this phase
 SUMMARY
 final_summary
 Write 2–3 sentences in plain English summarising what happened on the call. Include: whether the job is active or closed, any updates made, and any new jobs captured. If the call dropped early, state that no confirmation was obtained.
+
+TOOL RESULTS ARE THE SOURCE OF TRUTH
+
+The transcript contains the assistant's tool calls and each tool's result (messages with role "tool").
+
+- Any field recording whether an action happened (a job posted or updated, a profile created or updated, an application submitted, or consent saved) must be decided from the tool result, never from what the assistant or caller said.
+- An action happened only if its tool was called AND the result shows success, such as a returned ID or success status.
+- A tool result starting with "[Error" means the action did NOT happen, even if the assistant told the caller it was done.
+- If the tool was never called, the action did not happen.
+- IDs (job_id, user_id, action IDs) must be copied from a tool result. If no tool result contains one, use "NA".
+- Fields recording what the person said or agreed to, such as posting consent, still come from the conversation. A failed tool call does not change whether consent was given.
 
 Rules:
 

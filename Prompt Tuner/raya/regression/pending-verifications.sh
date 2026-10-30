@@ -27,7 +27,7 @@ set -uo pipefail
 cd "$(dirname "$0")/../.."
 BOT=115b38a5-42ef-4082-be69-84a871bb226a
 TESTER=f60e0899-aa3a-4be7-9b4f-0296bd28ef48
-DID=7946350285
+DID=1204404272   # tester agent f60e0899 (7946350285 now belongs to a Purple Dots bot)
 PERSONA=raya/personas/hi-loc-confirm-then-landmark.md
 case "${1:-}" in
   mismatch) ARGS=raya/testcases/args/r3/loc-mismatch-delhi.json ;;

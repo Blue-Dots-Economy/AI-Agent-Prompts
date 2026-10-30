@@ -6,7 +6,7 @@ set -uo pipefail
 cd "$(dirname "$0")/../.." || exit 1
 
 TESTER=f60e0899-aa3a-4be7-9b4f-0296bd28ef48
-DID=7946350285
+DID=1204404272   # tester agent f60e0899 (7946350285 now belongs to a Purple Dots bot)
 OUT="${SWEEP_OUT:-raya/regression/sweep-results.tsv}"
 LOGDIR="${SWEEP_LOGS:-/private/tmp/claude-502/-Users-parthbansal-EkStep-Prompt-Tuner/cad28c14-40a4-477d-993b-eff663bfb052/scratchpad/sweep}"
 mkdir -p "$LOGDIR"

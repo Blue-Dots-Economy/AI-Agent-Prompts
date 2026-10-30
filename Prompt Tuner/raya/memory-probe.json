@@ -1,0 +1,5 @@
+{
+  "_note": "The memory probe: a scratch agent on THIS account whose prompt reads its stored memory aloud word for word, then asks a name and a colour. scripts/raya_memory_test.py platform calls it twice from the tester's number: if the second call still says 'Nothing stored', Raya is not carrying memory between calls on this account, whatever the bot under test does. A copy of the tuner on another account creates its own with `raya_memory_test.py probe-create` and records the uuid here.",
+  "uuid": "c5b4ac1a-eddc-40a6-bb2b-6f1d9e5c2f18",
+  "name": "ZZ Lab - memory probe (Prompt Tuner)"
+}

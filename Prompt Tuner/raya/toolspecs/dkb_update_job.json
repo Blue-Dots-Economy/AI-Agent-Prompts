@@ -8,20 +8,22 @@
   "type": "object",
   "required": [
    "companyName",
-   "job_id"
+   "job_id",
+   "phoneNumber"
   ],
   "properties": {
    "role": {
     "type": "string",
-    "description": "updated job role"
+    "description": "updated job role. English / Latin letters only."
    },
    "title": {
     "type": "string",
-    "description": "updated job title"
+    "description": "updated job title. English / Latin letters only."
    },
    "job_id": {
     "type": "string",
-    "description": "the Signals job_posting item_id to update (a real UUID; never 'Not Available')"
+    "description": "the Signals job_posting item_id to update (a real UUID; never 'Not Available'). Exactly the item_id from get_employer or create_job, nothing added before or after it (no comma, no space).",
+    "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"
    },
    "positions": {
     "type": "integer",
@@ -29,7 +31,7 @@
    },
    "companyName": {
     "type": "string",
-    "description": "employer/company name (top-level name)"
+    "description": "employer/company name (top-level name). In English / Latin letters only, never Devanagari or Kannada script: \"ट्यूनर मोबाइल शॉप\" is \"Tuner Mobile Shop\" (8178a26e posted it in Devanagari)."
    },
    "natureOfJob": {
     "type": "string",
@@ -44,11 +46,11 @@
    },
    "phoneNumber": {
     "type": "string",
-    "description": "employer 10-digit phone number, no +91"
+    "description": "The caller's ten digits (the last ten digits of their number), no +91. Always send it: without it the job board rejects the update (a3f61db8)."
    },
    "jobProviderLocation": {
     "type": "string",
-    "description": "updated work location, in English"
+    "description": "updated work location, in English. English / Latin letters only."
    },
    "hiringManagerName": {
     "type": "string",
@@ -123,7 +125,7 @@
    },
    "hiringManagerPhone": {
     "type": "string",
-    "description": "The 10-digit number candidates should call, digits only, no +91. REQUIRED by the job board for the post to go live. Use ${phoneNumber} unchanged when the owner said yes to \"क्या कैंडिडेट इसी नंबर पर आपसे बात कर सकते हैं?\"; only when they gave a different number, send that number (exactly the ten digits they said, confirmed back once)."
+    "description": "The 10-digit number candidates should call, digits only, no +91. REQUIRED by the job board for the post to go live. Use the caller's ten digits unchanged when the owner said yes to \"क्या कैंडिडेट इसी नंबर पर आपसे बात कर सकते हैं?\"; only when they gave a different number, send that number (exactly the ten digits they said, confirmed back once)."
    }
   }
  },

@@ -1,0 +1,24 @@
+{
+  "_note": "Who is calling, and what they have already posted: GET /api/v1/admin/participant?phone_number=91XXXXXXXXXX, the same lookup KKB's get_profile uses, cloned from create_job's url and headers (Content-Type dropped; no key stored in this repo). Added 2026-10-26 so DKB works on an incoming call, where no campaign sends company_name / job_role / job_id: the bot reads the employer's own postings (job_posting_1.0 items with lifecycle_status live / draft / paused / retired and their item_state) instead of relying on arguments. A number with no account returns user_id null and no items. A number that belongs to a job seeker returns a seeker profile_1.0 item.",
+  "name": "get_employer",
+  "description": "Look up the caller by phone number: returns their account and every job posting they have, each with item_id (the job_id for update_job / close_job / get_candidate_count), lifecycle_status (live = seekers can see it, draft = not yet visible, paused = closed by the owner, retired = removed) and item_state (role, positions, jobProviderName = the business name, salaryMin/salaryMax, hiringManagerName, ...). Call it ONCE, silently, at the start of every call. user_id null means a new employer with nothing posted. Never speak an id or a field name from the result.",
+  "clone_api_from": "create_job",
+  "method": "GET",
+  "drop_headers": [
+    "Content-Type"
+  ],
+  "speak_hold_message": false,
+  "parameters": {
+    "type": "object",
+    "required": [
+      "phone_number"
+    ],
+    "properties": {
+      "phone_number": {
+        "type": "string",
+        "description": "Always 91 followed by the LAST TEN digits of the caller's number: twelve digits, no plus sign, e.g. 919876543210. Take the last ten digits of ${contact_phone} whatever its length and put 91 in front. Never 9191... (f84a3c17 sent 9191888888985 and found nobody)."
+      }
+    }
+  },
+  "payload_template": null
+}

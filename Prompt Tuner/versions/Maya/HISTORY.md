@@ -417,3 +417,18 @@
 - **2026-10-19_160405** — `pre-deploy-maya-hi-in-signals-2026-10-19_160405` — auto snapshot before Raya deploy of Maya/Maya Inbound Signals.md _(6 files)_
 - **2026-10-19_162756** — `pre-deploy-maya-hi-signals-2026-10-19_162756` — auto snapshot before Raya deploy of Maya/Maya Hindi Signals.md _(6 files)_
 - **2026-10-19_162757** — `pre-deploy-maya-hi-in-signals-2026-10-19_162756` — auto snapshot before Raya deploy of Maya/Maya Inbound Signals.md _(6 files)_
+- **2026-10-23_130500** — `pre-job-place` — a0a3052a: offer line names no place; closing question loops on a wrong-city caller _(6 files)_
+- **2026-10-23_130652** — `pre-deploy-maya-hi-out-2026-10-23_130652` — auto snapshot before Raya deploy of Maya/Maya Hindi.md _(6 files)_
+- **2026-10-23_130652** — `pre-deploy-maya-hi-signals-2026-10-23_130652` — auto snapshot before Raya deploy of Maya/Maya Hindi Signals.md _(6 files)_
+- **2026-10-23_131009** — `pre-exact-timing` — apply-success line spoke the English word Exact _(6 files)_
+- **2026-10-23_131531** — `pre-employer-phone` — Latin Employer/Phone in the interview question _(6 files)_
+- **2026-10-23_131700** — `pre-deploy-maya-hi-out-2026-10-23_131700` — auto snapshot before Raya deploy of Maya/Maya Hindi.md _(6 files)_
+- **2026-10-23_131701** — `pre-deploy-maya-hi-in-2026-10-23_131701` — auto snapshot before Raya deploy of Maya/Maya Inbound.md _(6 files)_
+- **2026-10-23_131702** — `pre-deploy-maya-hi-signals-2026-10-23_131702` — auto snapshot before Raya deploy of Maya/Maya Hindi Signals.md _(6 files)_
+- **2026-10-23_131704** — `pre-deploy-maya-hi-in-signals-2026-10-23_131704` — auto snapshot before Raya deploy of Maya/Maya Inbound Signals.md _(6 files)_
+- **2026-10-23_135026** — `pre-company-script` — company read in Latin letters _(6 files)_
+- **2026-10-23_135029** — `pre-deploy-maya-hi-signals-2026-10-23_135029` — auto snapshot before Raya deploy of Maya/Maya Hindi Signals.md _(6 files)_
+- **2026-10-23_135030** — `pre-deploy-maya-hi-in-signals-2026-10-23_135030` — auto snapshot before Raya deploy of Maya/Maya Inbound Signals.md _(6 files)_
+- **2026-10-23_144917** — `pre-u18` — U18_NOT_ALLOWED ends the call (Aniket 23 Oct) _(6 files)_
+- **2026-10-23_151032** — `pre-deploy-maya-hi-signals-2026-10-23_151032` — auto snapshot before Raya deploy of Maya/Maya Hindi Signals.md _(6 files)_
+- **2026-10-23_151033** — `pre-deploy-maya-hi-in-signals-2026-10-23_151033` — auto snapshot before Raya deploy of Maya/Maya Inbound Signals.md _(6 files)_

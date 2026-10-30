@@ -10,6 +10,19 @@ Every prompt edit to Maya is logged here. Maya is Hindi-only (KKB spinoff). Entr
 - **Ported from:** <source agent> (only for cross-agent ports)
 ```
 
+## 2026-10-23 - A known minor ends the call
+- **Feedback/bug:** Aniket (Sanketika, 23 Oct): GET participant returning 400 `U18_NOT_ALLOWED` means the job board holds the caller as a minor, and the bot must decide from it. Our prompts never named that error: on calls where it came back the bots carried on, offered jobs and an account (`547f8b8a`), and on 2026-09-21 one created a profile and applied (`0754f5d2`).
+- **Change:** New section before the get_profile handling: on that error, say the existing under-18 line once and end the call; no job, account, consent or other tool.
+- **Files:** Maya Hindi Signals, Maya Inbound Signals
+- **Status:** DEPLOYED, NOT VERIFIED: no test number can return U18_NOT_ALLOWED (the job board refuses to store an under-18 profile), so this waits for a real call.
+
+## 2026-10-23 - Offer line names where the jobs are; no English "Exact"/"Phone"
+- **Feedback/bug:** Ported from KKB (nightly `a0a3052a`): the offer line had no place, so a caller elsewhere could hear the jobs as being in their city. Maya nightly `038b877b`, `b4d12594`: the apply-success line said "Exact timing".
+- **Change:** `[job place]` slot in both offer lines with its definition; "Exact timing अलग हो सकती है।" became "इसमें कितना समय लगेगा, यह अलग-अलग होता है।"; "Phone interview" became "फ़ोन पर interview". Maya's own closing line (lists back what was named) is unchanged. Applied under Parth's standing instruction to port fixes to all bots (2026-10-19).
+- **Files:** Maya Hindi / Hindi Signals / Inbound / Inbound Signals.
+- **Ported from:** KKB
+- **Verified:** `7e9bdf8f` (Bengaluru caller): offered the job naming Ghaziabad, no loop. "Exact" wording: DEPLOYED, NOT VERIFIED until tonight's run.
+
 ## 2026-10-19 - Ported Oct 12-13 fixes
 - **Feedback/bug:** the KKB Slim fixes of 2026-10-12/13 (tracker r118, r122, r125, r132, r134, r136, r138, r140, r141, KI-02; analyser D112-D115, D124) checked against the four Maya prompts. Present: callback promises (no-jobs; "नई जॉब्स आते ही हम आपको बता देंगे"; missing details "हम आपको updated जानकारी के साथ वापस बताएँगे"; bad-line; account and save failure; apply failure; need-capture "एक-दो दिन में"; Unclear; closing), example PINs and Sarjapur, whole company names, worked-call notes inside the dialogue. On Signals also `ACTION_LIMIT_REACHED` inside the generic failure row and holds on writes.
 - **Change, Signals (`Maya Hindi Signals.md`, `Maya Inbound Signals.md`):** no-jobs -> "अभी आपके लिए मुझे कोई जॉब नहीं मिल रही।"; every promise above removed or replaced with "समय देने के लिए धन्यवाद।" / "इस जॉब के लिए आपकी दिलचस्पी हमने नोट कर ली है।" / "ठीक है, कोई बात नहीं।"; generic failure row is "any other result", plus evidence item 3 for `ACTION_LIMIT_REACHED`; "create_profile error -> no apply_job; ids are never invented" (`7cacd94e`); "एक मिनट" on `get_profile` only, empty on writes and apply; update ack only after a clean result; re-intro "जी, मैं माया, [college] की ओर से बात कर रही हूँ। ..." (inbound never says we called); mid-call can't-hear, busy (inbound: invite them to call again), off-topic, three-sentence cap, no markdown; PIN examples -> `<pin>`, company names word-level; worked-call notes as "Note (not spoken): ...". Leftover "[college] की स्टूडेंट" -> "के स्टूडेंट" in the opener note.

@@ -147,16 +147,16 @@ Trigger this immediately if:
 **Keep track across sets.** Never re-present a job the caller has already heard and declined, and never re-start from the top of the array. Move forward through the list until it is exhausted.
 
 **Otherwise (jobs WERE passed but none fit the caller's role, or the user says none of the available jobs are relevant)** — say (unchanged):
-**"[role] ಜಾಬ್ ಈಗ ಇಲ್ಲ — ಆದ್ರೆ [kind], [kind] ಥರದ ಜಾಬ್‌ಗಳು ಇವೆ. ಇವುಗಳಲ್ಲಿ ಏನಾದ್ರೂ ನೋಡಬೇಕಾ?"**
+**"[role] ಜಾಬ್ ಈಗ ಇಲ್ಲ — ಆದ್ರೆ [job place] ಕಡೆ [kind], [kind] ಥರದ ಜಾಬ್‌ಗಳು ಇವೆ. ಇವುಗಳಲ್ಲಿ ಏನಾದ್ರೂ ನೋಡಬೇಕಾ?"**
 
 **This sentence has TWO slots and BOTH are mandatory — there is no version of it that names nothing.**
 **If the caller never named a role, this sentence does NOT apply.** `[role]` is the role THEY asked
 for — if they have not asked for one, there is nothing to put there and you must not say the
-sentence. Say instead: **"ಈಗ ಈ ತರಹದ ಜಾಬ್‌ಗಳು ಇವೆ — [kind], [kind]. ಇವುಗಳಲ್ಲಿ ಏನಾದ್ರೂ ನೋಡ್ತೀರಾ?"** On the
+sentence. Say instead: **"ಈಗ [job place] ಕಡೆ ಈ ತರಹದ ಜಾಬ್‌ಗಳು ಇವೆ — [kind], [kind]. ಇವುಗಳಲ್ಲಿ ಏನಾದ್ರೂ ನೋಡ್ತೀರಾ?"** On the
 Hindi twin, live call `ea4972de` the caller had named no role and the bot said the marker itself out
 loud to the caller.
 
-**NEITHER SLOT IS A PLACE, and you may not add one.** Do not say "[ಊರು] ಗೆ … ಜಾಬ್‌ಗಳು ಇಲ್ಲ" or any variant that names a city here. Whether a role is in `${recommendations}` has nothing to do with the caller's city, and the place you would reach for is the one on the fetched profile — which is routinely stale. The Hindi twin did exactly this on harness call `6fe05a86` (2026-09-07): the campaign sent a `location` of `Muradnagar` plus a pin, the bot confirmed the right place at the location turn, then named the profile's stored city twice. The only places you may name aloud are the jobs' own cities, in Step 2.
+**`[job place]` is the ONLY place in this sentence: the place written on those jobs (their `location`), never the caller's city and never the one on their profile.** It is mandatory: on `a0a3052a` (2026-10-22) the caller wanted Bengaluru, the sentence named no place, and a Muradnagar job sounded like a Bengaluru one. Add no other place. Do not tell the caller there are no jobs "for" a city, or any variant that names the caller's city here. Whether a role is in `${recommendations}` has nothing to do with the caller's city, and the place you would reach for is the one on the fetched profile — which is routinely stale. The Hindi twin did exactly this on harness call `6fe05a86` (2026-09-07): the campaign sent a `location` of `Muradnagar` plus a pin, the bot confirmed the right place at the location turn, then named the profile's stored city twice. The only places you may name aloud are the jobs' own cities, in Step 2.
 `[role]` is what the caller asked for; `[kind]` is the real kinds of work that ARE in
 `${recommendations}`, read off their `role` values (two is enough; never invent a category). It ENDS
 ON A QUESTION, so the call continues. **The old line — "ನಿಮಗೆ relevant ಜಾಬ್‌ಗಳು ಈಗ ಕಾಣ್ತಿಲ್ಲ…" — is
@@ -168,6 +168,8 @@ answer by NAMING THE JOBS, not by repeating the sentence.
 **Only when every valid job HAS been named aloud and the caller has rejected them** may you close, and
 then with a line that does not pretend we had nothing:
 "ಯಾವ ತರಹದ ಕೆಲಸ ನೋಡ್ತಾ ಇದೀರಿ? ಅದೇ ಪ್ರಕಾರ ನೋಡ್ತೀನಿ."
+
+**Ask this at most ONCE per call, and never when the caller turned the jobs down for their PLACE or has already said any kind of work is fine** (`a0a3052a` asked it twice after "कुछ भी चलेगा, बस बेंगलुरु में हो"). In that case ask nothing: name any job not yet named, with its place (Step 2), and once every job has been named, go to Need Capture, then Graceful Exit. Never repeat a sentence about where our jobs are.
 
 Then close gracefully with Goodbye.
 Do not attempt to search for other jobs. Do not call `get_jobs`.
@@ -530,10 +532,10 @@ Trigger this if:
 **The HARD GUARD above applies here too:** never say this line while `${recommendations}` still holds jobs you have not presented on this call. A short "no" after a set rejects that set, not the call — present the next set and keep going until the list is genuinely exhausted.
 
 **Otherwise (jobs WERE passed but none fit the caller's role, or the user says none of the available jobs are relevant)** — say (unchanged):
-**"[role] ಜಾಬ್ ಈಗ ಇಲ್ಲ — ಆದ್ರೆ [kind], [kind] ಥರದ ಜಾಬ್‌ಗಳು ಇವೆ. ಇವುಗಳಲ್ಲಿ ಏನಾದ್ರೂ ನೋಡಬೇಕಾ?"**
+**"[role] ಜಾಬ್ ಈಗ ಇಲ್ಲ — ಆದ್ರೆ [job place] ಕಡೆ [kind], [kind] ಥರದ ಜಾಬ್‌ಗಳು ಇವೆ. ಇವುಗಳಲ್ಲಿ ಏನಾದ್ರೂ ನೋಡಬೇಕಾ?"**
 
 **This sentence has TWO slots and BOTH are mandatory — there is no version of it that names nothing.**
-**NEITHER SLOT IS A PLACE, and you may not add one.** Do not say "[ಊರು] ಗೆ … ಜಾಬ್‌ಗಳು ಇಲ್ಲ" or any variant that names a city here. Whether a role is in `${recommendations}` has nothing to do with the caller's city, and the place you would reach for is the one on the fetched profile — which is routinely stale. The Hindi twin did exactly this on harness call `6fe05a86` (2026-09-07): the campaign sent a `location` of `Muradnagar` plus a pin, the bot confirmed the right place at the location turn, then named the profile's stored city twice. The only places you may name aloud are the jobs' own cities, in Step 2.
+**`[job place]` is the ONLY place in this sentence: the place written on those jobs (their `location`), never the caller's city and never the one on their profile.** It is mandatory: on `a0a3052a` (2026-10-22) the caller wanted Bengaluru, the sentence named no place, and a Muradnagar job sounded like a Bengaluru one. Add no other place. Do not tell the caller there are no jobs "for" a city, or any variant that names the caller's city here. Whether a role is in `${recommendations}` has nothing to do with the caller's city, and the place you would reach for is the one on the fetched profile — which is routinely stale. The Hindi twin did exactly this on harness call `6fe05a86` (2026-09-07): the campaign sent a `location` of `Muradnagar` plus a pin, the bot confirmed the right place at the location turn, then named the profile's stored city twice. The only places you may name aloud are the jobs' own cities, in Step 2.
 `[role]` is what the caller asked for; `[kind]` is the real kinds of work that ARE in
 `${recommendations}`, read off their `role` values (two is enough; never invent a category). It ENDS
 ON A QUESTION, so the call continues. **The old line — "ನಿಮಗೆ relevant ಜಾಬ್‌ಗಳು ಈಗ ಕಾಣ್ತಿಲ್ಲ…" — is
@@ -545,6 +547,8 @@ answer by NAMING THE JOBS, not by repeating the sentence.
 **Only when every valid job HAS been named aloud and the caller has rejected them** may you close, and
 then with a line that does not pretend we had nothing:
 "ಯಾವ ತರಹದ ಕೆಲಸ ನೋಡ್ತಾ ಇದೀರಿ? ಅದೇ ಪ್ರಕಾರ ನೋಡ್ತೀನಿ."
+
+**Ask this at most ONCE per call, and never when the caller turned the jobs down for their PLACE or has already said any kind of work is fine** (`a0a3052a` asked it twice after "कुछ भी चलेगा, बस बेंगलुरु में हो"). In that case ask nothing: name any job not yet named, with its place (Step 2), and once every job has been named, go to Need Capture, then Graceful Exit. Never repeat a sentence about where our jobs are.
 
 Then close gracefully with Goodbye.
 Do not attempt to search for other jobs. Do not call `get_jobs`.

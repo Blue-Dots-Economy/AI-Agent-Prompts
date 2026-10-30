@@ -5,6 +5,25 @@ output prompts; the ONLY difference is the conversation prompt — a ground-up r
 against the master's ~224k. It exists to test whether prompt size is what the latency complaints
 are about. Not a language variant, so `/sync-check` must not treat it as a mirror.
 
+## 2026-10-23 - Job search limited to 20 km around the caller
+- **Feedback/bug:** Aniket (Sanketika, 23 Oct): search uses location only through the caller's own profile as the anchor (or a geometry). `get_recommended_jobs` anchored with no radius and `get_jobs` sent text only, so Kanpur, Gujarat and Karnataka jobs reached Ghaziabad callers (48 of 142 searches). Probe on gzb, tester profile: 1,291 results with no radius, 399 with 20 km, all within 20 km.
+- **Change:** `get_recommended_jobs` sends a 20 km radius. New tool `get_jobs_near(profile_id, query)` (anchor + the caller's words + 20 km) for a returning caller who names a role; `get_jobs` (text only) is now for callers with no profile and the fallback when either near tool errors (ANCHOR_NOT_FOUND / ANCHOR_HAS_NO_LOCATION). Tool table, step 6a, the hold-message list and a `get_jobs_near` section updated in both languages.
+- **Files:** `KKB Slim Hindi Signals.md`, `KKB Slim Kannada Signals.md`, `raya/toolspecs/get_recommended_jobs.json`, `raya/toolspecs/get_jobs_near.json`
+- **Status:** Slim Hindi `35c3c1c2`: Raju (Ghaziabad) asked for electrician work, the bot called `get_jobs_near("electrician")` and every result was an electrician job 1.4 to 9.7 km away. Slim Kannada `ceae98bc`: `get_jobs_near("Fitter")` returned fitter jobs around Hubballi. Fallback: `63a3663f` got ANCHOR_NOT_FOUND and fell back to `get_jobs`, but waited a turn and asked if the caller could hear; the rule now says to call `get_jobs` at once, DEPLOYED, NOT VERIFIED (the profile became searchable after that call, so the error did not recur).
+
+## 2026-10-23 - A known minor ends the call
+- **Feedback/bug:** Aniket (Sanketika, 23 Oct): GET participant returning 400 `U18_NOT_ALLOWED` means the job board holds the caller as a minor, and the bot must decide from it. Our prompts never named that error: on calls where it came back the bots carried on, offered jobs and an account (`547f8b8a`), and on 2026-09-21 one created a profile and applied (`0754f5d2`).
+- **Change:** New section before the get_profile handling: on that error, say the existing under-18 line once and end the call; no job, account, consent or other tool.
+- **Files:** both Slim prompts
+- **Status:** DEPLOYED, NOT VERIFIED: no test number can return U18_NOT_ALLOWED (the job board refuses to store an under-18 profile), so this waits for a real call.
+
+## 2026-10-23 - Offer line names where the jobs are; "what kind of work" asked once; no English "Employer"/"Phone"/"Exact"
+- **Feedback/bug:** Ported from KKB (nightly `a0a3052a`, `0f8be040`): a missing place in the offer line let the caller's city fill it, and the kind-of-work question looped on a wrong-city caller. Slim Kannada nightly `19cc5a40` said "Employer" and "Phone" in English letters.
+- **Change:** Same as KKB 2026-10-23: `[job place]` slot in both offer lines, the ban now on the caller's city only, the kind-of-work question at most once and never after a place rejection, Path L ends with one place line and does not re-ask a place already given; "Employer"/"Phone" written in script; "Exact timing" removed.
+- **Files:** `KKB Slim Hindi Signals.md`, `KKB Slim Kannada Signals.md`.
+- **Ported from:** KKB
+- **Verified:** Slim Hindi `8ef14d9b` (Bengaluru caller): no loop, said where our jobs are when asked, closed politely. Slim Kannada `500f6f7d`: flow unchanged (its only flag is the already-applied wording, blocked on Raya).
+
 ## 2026-10-19 - Automated-message rule; false "already applied"; invented gender; PIN read with bars; under-18 line
 - **Feedback/bug:** Aryan (2026-10-19): end calls on IVR/voicemail per the shared instructions. Today's live tests and the first nightly run found: "already applied" said with no `apply_job` when the caller said "फिर से अप्लाई"; the read-back said "ಮಹಿಳೆ" for a man who never answered; the PIN read back as "दो | शून्य | …"; a city from the job rows confirmed as the caller's location; lines wrapped in quote marks; an under-18 close composed with "18" in digits (nightly call `6b7454a9`).
 - **Change (Hindi + Kannada):** top-priority automated-message rule; "What the caller says is never evidence" in the duplicate check; empty read-back slots left out; the silent PIN split uses commas; "a city in job results is never the caller's location"; no quotation marks in replies; a fixed under-18 line with the number in words.

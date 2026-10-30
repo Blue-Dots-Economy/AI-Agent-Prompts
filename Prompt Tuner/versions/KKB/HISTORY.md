@@ -809,3 +809,29 @@
 - **2026-10-19_155028** — `pre-deploy-kkb-kn-signals-2026-10-19_155027` — auto snapshot before Raya deploy of KKB/KKB Placeholder Kannada Signals.md _(10 files)_
 - **2026-10-19_155029** — `pre-deploy-kkb-hi-in-signals-2026-10-19_155029` — auto snapshot before Raya deploy of KKB/KKB Placeholder Inbound Signals.md _(10 files)_
 - **2026-10-19_155030** — `pre-deploy-kkb-kn-in-signals-2026-10-19_155030` — auto snapshot before Raya deploy of KKB/KKB Placeholder Inbound Kannada Signals.md _(10 files)_
+- **2026-10-23_130500** — `pre-job-place` — a0a3052a: offer line names no place; closing question loops on a wrong-city caller _(10 files)_
+- **2026-10-23_130647** — `pre-deploy-kkb-hi-signals-2026-10-23_130647` — auto snapshot before Raya deploy of KKB/KKB Placeholder Hindi Signals.md _(10 files)_
+- **2026-10-23_130648** — `pre-deploy-kkb-kn-signals-2026-10-23_130648` — auto snapshot before Raya deploy of KKB/KKB Placeholder Kannada Signals.md _(10 files)_
+- **2026-10-23_130649** — `pre-deploy-kkb-hi-out-2026-10-23_130649` — auto snapshot before Raya deploy of KKB/KKB Placeholder Hindi.md _(10 files)_
+- **2026-10-23_130649** — `pre-deploy-kkb-kn-out-2026-10-23_130649` — auto snapshot before Raya deploy of KKB/KKB Placeholder Kannada.md _(10 files)_
+- **2026-10-23_131009** — `pre-exact-timing` — apply-success line spoke the English word Exact _(10 files)_
+- **2026-10-23_131530** — `pre-employer-phone` — Latin Employer/Phone in the interview question _(10 files)_
+- **2026-10-23_131650** — `pre-deploy-kkb-hi-signals-2026-10-23_131649` — auto snapshot before Raya deploy of KKB/KKB Placeholder Hindi Signals.md _(10 files)_
+- **2026-10-23_131651** — `pre-deploy-kkb-kn-signals-2026-10-23_131651` — auto snapshot before Raya deploy of KKB/KKB Placeholder Kannada Signals.md _(10 files)_
+- **2026-10-23_131652** — `pre-deploy-kkb-hi-in-signals-2026-10-23_131652` — auto snapshot before Raya deploy of KKB/KKB Placeholder Inbound Signals.md _(10 files)_
+- **2026-10-23_131653** — `pre-deploy-kkb-kn-in-signals-2026-10-23_131653` — auto snapshot before Raya deploy of KKB/KKB Placeholder Inbound Kannada Signals.md _(10 files)_
+- **2026-10-23_131655** — `pre-deploy-kkb-hi-out-2026-10-23_131654` — auto snapshot before Raya deploy of KKB/KKB Placeholder Hindi.md _(10 files)_
+- **2026-10-23_131656** — `pre-deploy-kkb-hi-in-2026-10-23_131656` — auto snapshot before Raya deploy of KKB/KKB Placeholder Inbound.md _(10 files)_
+- **2026-10-23_131657** — `pre-deploy-kkb-kn-in-2026-10-23_131657` — auto snapshot before Raya deploy of KKB/KKB Placeholder Inbound Kannada.md _(10 files)_
+- **2026-10-23_131750** — `pre-deploy-kkb-hi-signals-2026-10-23_131750` — auto snapshot before Raya deploy of KKB/KKB Placeholder Hindi Signals.md _(10 files)_
+- **2026-10-23_131751** — `pre-deploy-kkb-hi-out-2026-10-23_131751` — auto snapshot before Raya deploy of KKB/KKB Placeholder Hindi.md _(10 files)_
+- **2026-10-23_131752** — `pre-deploy-kkb-kn-signals-2026-10-23_131752` — auto snapshot before Raya deploy of KKB/KKB Placeholder Kannada Signals.md _(10 files)_
+- **2026-10-23_131753** — `pre-deploy-kkb-kn-out-2026-10-23_131753` — auto snapshot before Raya deploy of KKB/KKB Placeholder Kannada.md _(10 files)_
+- **2026-10-23_135026** — `pre-company-script` — company read in Latin letters _(10 files)_
+- **2026-10-23_135027** — `pre-deploy-kkb-hi-signals-2026-10-23_135027` — auto snapshot before Raya deploy of KKB/KKB Placeholder Hindi Signals.md _(10 files)_
+- **2026-10-23_135028** — `pre-deploy-kkb-hi-in-signals-2026-10-23_135028` — auto snapshot before Raya deploy of KKB/KKB Placeholder Inbound Signals.md _(10 files)_
+- **2026-10-23_144917** — `pre-u18` — U18_NOT_ALLOWED ends the call (Aniket 23 Oct) _(10 files)_
+- **2026-10-23_151029** — `pre-deploy-kkb-hi-signals-2026-10-23_151029` — auto snapshot before Raya deploy of KKB/KKB Placeholder Hindi Signals.md _(10 files)_
+- **2026-10-23_151030** — `pre-deploy-kkb-kn-signals-2026-10-23_151030` — auto snapshot before Raya deploy of KKB/KKB Placeholder Kannada Signals.md _(10 files)_
+- **2026-10-23_151031** — `pre-deploy-kkb-hi-in-signals-2026-10-23_151030` — auto snapshot before Raya deploy of KKB/KKB Placeholder Inbound Signals.md _(10 files)_
+- **2026-10-23_151031** — `pre-deploy-kkb-kn-in-signals-2026-10-23_151031` — auto snapshot before Raya deploy of KKB/KKB Placeholder Inbound Kannada Signals.md _(10 files)_

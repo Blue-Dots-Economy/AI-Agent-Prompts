@@ -29,7 +29,7 @@ Output:
   raya/overnight/sweep-<date>/pass-<n>.txt     detector output for that pass
   raya/overnight/sweep-<date>/REPORT.md        rolling summary, rewritten after every pass
 """
-import argparse, json, os, re, subprocess, sys, time, urllib.request
+import argparse, json, os, re, socket, subprocess, sys, time, urllib.request
 
 REPO = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 TESTER_UUID = "f60e0899-aa3a-4be7-9b4f-0296bd28ef48"
@@ -103,6 +103,8 @@ QUEUE = [
     ("dkb-hi-signals",    "hi", "hi-employer-cooperative",      "dkb-new-provider",           "DKB new provider: no expiry claim, nothing invented"),
     ("dkb-hi-signals",    "hi", "hi-employer-probe",            "dkb-new-provider",           "DKB: identity probing, never government"),
     ("dkb-kn-signals",    "kn", "kn-employer-cooperative",      "dkb-kn-new-provider",        "DKB Kannada new provider"),
+    ("dkb-hi-signals",    "hi", "hi-oct26-dkb-inbound-new",     "oct26/dkb-inbound-new",      "DKB both directions: a new employer calls in, no campaign arguments"),
+    ("dkb-kn-signals",    "kn", "kn-oct26-dkb-inbound-new",     "oct26/dkb-kn-inbound-new",   "DKB Kannada both directions: a new employer calls in"),
     ("trrain-hi-out",     "hi", "hi-trrain-accepts",            "trrain-hi",                  "TRRAIN Hindi on Signals get_profile"),
     ("trrain-hi-out",     "hi", "hi-trrain-wrong-person",       "trrain-hi",                  "TRRAIN Hindi: no offer to the wrong person"),
     ("kkb-hi-out",        "hi", "hi-force-apply",               "gzb-validated-12",           "legacy Hindi outbound still healthy"),
@@ -182,6 +184,26 @@ def wait_tester_idle(max_wait=900):
     return False
 
 
+def backend_down(uuid):
+    """The hosts this bot's tools call, if NONE of them accepts a connection; else ''. A bot whose backend
+    is gone can only fail every case (the older Dhiway/ONEST hosts stopped answering in Oct 2026 and the
+    bots on them invented successes after timeouts), so it is reported as skipped, not as a failing bot.
+    The probe runs every night: if the backend comes back, the bot is called again."""
+    try:
+        tools = (raya_get("/api/agent/" + uuid).get("tools") or {}).get("llm_tools") or []
+    except Exception:
+        return ""
+    hosts = sorted({(t.get("api_details") or {}).get("url", "").split("/")[2] for t in tools
+                    if "://" in (t.get("api_details") or {}).get("url", "")})
+    for h in hosts:
+        try:
+            socket.create_connection((h, 443), timeout=8).close()
+            return ""
+        except OSError:
+            continue
+    return ", ".join(hosts)
+
+
 def run_case(case, outdir, tsv):
     bot_id, lang, persona, argsf, why = case
     uuid = uuid_for(bot_id)
@@ -203,6 +225,10 @@ def run_case(case, outdir, tsv):
                 tsv.write("\t".join(row) + "\n"); tsv.flush(); return "SKIP"
         except Exception:
             pass
+    down = backend_down(uuid)
+    if down:
+        row = [bot_id, lang, persona, argsf, "SKIP", "backend unreachable: " + down, why]
+        tsv.write("\t".join(row) + "\n"); tsv.flush(); return "SKIP"
     wait_tester_idle()
     # The tester is ONE agent: its persona and language are per-call state, so they must be set
     # immediately before each dial and never assumed to have survived the previous case.

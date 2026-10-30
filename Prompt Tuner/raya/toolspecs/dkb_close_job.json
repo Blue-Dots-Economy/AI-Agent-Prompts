@@ -13,7 +13,8 @@
   "properties": {
    "job_id": {
     "type": "string",
-    "description": "The existing posting's job_posting item_id (${job_id}); a real UUID, never 'Not Available'."
+    "description": "The existing posting's job_posting item_id (${job_id}); a real UUID, never 'Not Available'. Exactly the item_id from get_employer or create_job, nothing added before or after it (no comma, no space).",
+    "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"
    }
   }
  },

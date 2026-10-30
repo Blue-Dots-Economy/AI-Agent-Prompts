@@ -1,7 +1,7 @@
 {
  "_note": "2026-10-19: aligned to the live blue_dot job_posting_1.0 schema (bluedots-schemas up-gzb/network.json). hiringManagerPhoneNumber is REQUIRED to go live: without it every DKB post stayed a hidden draft. Verified on gzb with a test post (live, then retired). 2026-10-19 (later): hiringManagerPhoneNumber now comes from a hiringManagerPhone parameter (the dialled number by default, or another number the owner gives), per Aryan.",
  "name": "create_job",
- "description": "Post a new job to Signals (provider job_posting_1.0). Company name goes to top-level name; work location to jobProviderLocation. Salary/qualification/experience are NOT persisted. Writing about posting does not post: if you told the owner you are posting or updating the job you MUST invoke this tool in that same turn, and never say it is posted until this tool returns a result. Never emit a stage direction such as \"(calling create_job)\" into your reply — the owner hears it and nothing was posted. WHEN: only in a turn AFTER the owner answered yes to \"ನಾನು ಇದನ್ನ post ಮಾಡಲಾ?\"; never in the same turn as that question, and a yes to the phone-number question is not consent.",
+ "description": "Post a new job to Signals (provider job_posting_1.0). Company name goes to top-level name; work location to jobProviderLocation. Salary, education, experience, hours and benefits are sent in their own fields. Writing about posting does not post: if you told the owner you are posting or updating the job you MUST invoke this tool in that same turn, and never say it is posted until this tool returns a result. Never emit a stage direction such as \"(calling create_job)\" into your reply — the owner hears it and nothing was posted. WHEN: only in a turn AFTER the owner answered yes to \"ನಾನು ಇದನ್ನ post ಮಾಡಲಾ?\"; never in the same turn as that question, and a yes to the phone-number question is not consent.",
  "clone_api_from": "create_job",
  "method": "POST",
  "parameters": {
@@ -17,11 +17,11 @@
   "properties": {
    "role": {
     "type": "string",
-    "description": "job role"
+    "description": "job role. English / Latin letters only."
    },
    "title": {
     "type": "string",
-    "description": "job title"
+    "description": "job title. English / Latin letters only."
    },
    "positions": {
     "type": "integer",
@@ -29,7 +29,7 @@
    },
    "companyName": {
     "type": "string",
-    "description": "employer/company name (goes to top-level name)"
+    "description": "employer/company name (goes to top-level name). In English / Latin letters only, never Devanagari or Kannada script: \"ट्यूनर मोबाइल शॉप\" is \"Tuner Mobile Shop\" (8178a26e posted it in Devanagari)."
    },
    "natureOfJob": {
     "type": "string",
@@ -56,7 +56,7 @@
    },
    "jobProviderLocation": {
     "type": "string",
-    "description": "work city or location, in English"
+    "description": "work city or location, in English. English / Latin letters only."
    },
    "salaryMin": {
     "type": "number",
@@ -127,7 +127,7 @@
    },
    "hiringManagerPhone": {
     "type": "string",
-    "description": "The 10-digit number candidates should call, digits only, no +91. REQUIRED by the job board for the post to go live. Use ${phoneNumber} unchanged when the owner said yes to \"ಕ್ಯಾಂಡಿಡೇಟ್‌ಗಳು ಇದೇ ನಂಬರ್‌ಗೆ ನಿಮ್ಮನ್ನ ಸಂಪರ್ಕಿಸಬಹುದಾ?\"; only when they gave a different number, send that number (exactly the ten digits they said, confirmed back once)."
+    "description": "The 10-digit number candidates should call, digits only, no +91. REQUIRED by the job board for the post to go live. Use the caller's ten digits unchanged when the owner said yes to \"ಕ್ಯಾಂಡಿಡೇಟ್‌ಗಳು ಇದೇ ನಂಬರ್‌ಗೆ ನಿಮ್ಮನ್ನ ಸಂಪರ್ಕಿಸಬಹುದಾ?\"; only when they gave a different number, send that number (exactly the ten digits they said, confirmed back once)."
    }
   }
  },

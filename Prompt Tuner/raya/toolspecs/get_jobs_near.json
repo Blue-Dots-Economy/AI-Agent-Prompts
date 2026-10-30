@@ -1,0 +1,54 @@
+{
+  "_note": "Jobs of the kind the caller named, near the caller: signals-search anchored on the caller's own seeker profile, narrowed by their words (with an anchor, each word must appear in the job), within 20 km of the profile's stored place. Added 2026-10-23 after Sanketika (Aniket) confirmed search uses location only through the anchor or a geometry; get_jobs (text only) has no location at all. Probe on gzb, tester profile: 'tele sales' -> 10 Tele Salesperson rows, 'electrician' -> 30, all within 20 km. An empty textSearch is a 400, which is why this is its own tool and not an optional parameter.",
+  "name": "get_jobs_near",
+  "description": "Jobs of the kind the caller asked for, near them. Use it when get_profile returned a seeker profile and the caller named a role or interest (or the profile's role is unusable). profile_id = that profile's item_id; query = the kind of work in English words, no place names. Only jobs within 20 km of the caller's stored place come back. If it returns an error (ANCHOR_NOT_FOUND or ANCHOR_HAS_NO_LOCATION), call get_jobs with the same query instead, in the same turn. Returns message.items[] like get_recommended_jobs. Never invent a job that is not in the result.",
+  "clone_api_from": "get_profile",
+  "method": "POST",
+  "path_override": "/signals-search/v1/search",
+  "drop_headers": [
+    "x-acting-org-id"
+  ],
+  "parameters": {
+    "type": "object",
+    "required": [
+      "profile_id",
+      "query"
+    ],
+    "properties": {
+      "profile_id": {
+        "type": "string",
+        "description": "The caller's seeker profile item_id (a UUID) from get_profile - the item whose item_type is \"profile_1.0\" and item_domain is \"seeker\". Never a job id, never a user_id."
+      },
+      "query": {
+        "type": "string",
+        "description": "The kind of work the caller asked for, in English words (\"data entry operator\", \"electrician\"). No place name, no salary, no punctuation. Never empty."
+      }
+    }
+  },
+  "payload_template": {
+    "context": {
+      "messageId": "voice-near",
+      "networkId": "blue_dot",
+      "domain": "provider",
+      "itemType": "job_posting_1.0"
+    },
+    "message": {
+      "intent": {
+        "item": {
+          "id": "{{profile_id}}"
+        },
+        "spatial": [
+          {
+            "op": "s_dwithin",
+            "distanceMeters": 20000
+          }
+        ],
+        "textSearch": "{{query}}"
+      },
+      "pagination": {
+        "limit": 10,
+        "offset": 0
+      }
+    }
+  }
+}

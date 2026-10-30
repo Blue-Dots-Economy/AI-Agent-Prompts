@@ -197,6 +197,19 @@
    "what": "Every test call reaches the bot from the same test number, which already holds seeker records and applications on most test jobs. 'New caller' scenarios therefore run as returning callers, and apply tests can come back as 'already applied'.",
    "why": "It can produce false passes and false failures in the nightly calls.",
    "next": "Have the backend team retire the extra records on the test number, or give the tester a second number."
+  },
+  {
+   "id": "raya-memory-not-carried",
+   "bots": [
+    "orange-dots",
+    "all memory-enabled bots"
+   ],
+   "priority": "high",
+   "since": "2026-10-28",
+   "title": "Raya is not passing a caller's memory into their next call",
+   "what": "With memory switched on, a writer prompt deployed and the memory block in the prompt, a second call from the same number gets an empty memory. Orange Dots asked the same tester for her name (Aisha) again on four calls over two days (bd7eca88, c3d02514, 67655196, 8d59393b); the memory probe read back nothing on four calls, with and without a call report prompt (bd332b65, 63ce32c9, 51359f4b, 8d872d33). 29 Oct: Orange's prompts match KKB exactly (same memory block, same writer variables ${old_memory}/${conversation}); sending caller details did not help (89236747, ced31fa6); and a contact_memory value sent with the call now reaches the bot unchanged (ad458bb1), whereas in August memory_enabled made Raya replace it with the stored memory. Raya's memory switch currently behaves as if it were off.",
+   "why": "Every bot that relies on memory (Orange Dots has no traveller profiles at all) treats every caller as new.",
+   "next": "Report to LitWiz with the probe call ids; re-run `python3 scripts/raya_memory_test.py platform` after their fix, then the Orange Dots memory test."
   }
  ]
 }

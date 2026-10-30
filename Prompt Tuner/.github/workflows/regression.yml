@@ -102,6 +102,10 @@ jobs:
           python3 raya/overnight/overnight_sweep.py "${ARGS[@]}" || echo "::warning::sweep exited non-zero"
           echo "---- calls.tsv"; cut -f1,5,6 "$SWEEP/calls.tsv" || true
 
+      - name: Retire job posts made by tonight's test calls
+        if: ${{ always() }}
+        run: python3 raya/regression/retire_test_postings.py || echo "::warning::could not retire test postings"
+
       - name: Transcript detectors on tonight's calls
         if: ${{ always() }}
         run: |

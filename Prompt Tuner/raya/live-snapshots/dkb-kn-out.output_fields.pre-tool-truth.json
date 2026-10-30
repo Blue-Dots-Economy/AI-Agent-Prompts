@@ -1,0 +1,154 @@
+[
+ {
+  "key": "talent_insights_shown",
+  "description": "Whether the bot shared seeker demand insights with the employer. Values: Yes / No"
+ },
+ {
+  "key": "new_job_posted",
+  "description": "Whether the bot successfully posted the new job to the platform. Values: Yes / No"
+ },
+ {
+  "key": "new_job_qualification",
+  "description": "Qualification requirement for the new job"
+ },
+ {
+  "key": "new_job_location",
+  "description": "Location for the new job"
+ },
+ {
+  "key": "new_job_salary",
+  "description": "Salary for the new job"
+ },
+ {
+  "key": "new_job_vacancies",
+  "description": "Number of vacancies for the new job"
+ },
+ {
+  "key": "new_job_role",
+  "description": "Role for the new job mentioned by the employer"
+ },
+ {
+  "key": "new_job_mentioned",
+  "description": "Whether the employer mentioned a new job opening not in our records. Values: Yes / No"
+ },
+ {
+  "key": "fields_updated",
+  "description": "Count of how many fields the employer updated during the call (0-5)"
+ },
+ {
+  "key": "qualification_value",
+  "description": "Qualification requirement as confirmed or updated by the employer"
+ },
+ {
+  "key": "location_value",
+  "description": "Job location as confirmed or updated by the employer"
+ },
+ {
+  "key": "salary_value",
+  "description": "Salary range as confirmed or updated by the employer"
+ },
+ {
+  "key": "num_vacancies_value",
+  "description": "Number of vacancies as confirmed or updated by the employer"
+ },
+ {
+  "key": "job_role_value",
+  "description": "Job role as confirmed or corrected by the employer during the call"
+ },
+ {
+  "key": "job_status",
+  "description": "Whether the job is still open. Values: Active / Closed / Unverified / N/A"
+ },
+ {
+  "key": "final_summary",
+  "description": "2–3 sentence plain English summary of what happened on the call"
+ },
+ {
+  "key": "call_transcript",
+  "description": "Full conversation transcript"
+ },
+ {
+  "key": "phases_reached",
+  "description": "Which phase of the bot script the call reached. Values: Phase 1 / Phase 2 / Phase 3 / No"
+ },
+ {
+  "key": "contact_attempts",
+  "description": "Number of dial attempts made before the call connected or was marked No Answer"
+ },
+ {
+  "key": "call_status",
+  "description": "Whether the call was picked up. Values: Answered / Unanswered"
+ },
+ {
+  "key": "call_outcome",
+  "description": "How the call ended. Values: Completed / Early Disconnect / No Answer / Callback Requested"
+ },
+ {
+  "key": "call_recording_url",
+  "description": "URL to the call recording hosted on Raya"
+ },
+ {
+  "key": "call_datetime_ist",
+  "description": "Date and time the call was placed in IST"
+ },
+ {
+  "key": "call_duration_seconds",
+  "description": "Duration of the call in seconds"
+ },
+ {
+  "key": "call_id",
+  "description": "Unique identifier for the call assigned by Raya"
+ },
+ {
+  "key": "city_campaign",
+  "description": "City this campaign is targeting. Values: Ghaziabad / Hubli-Dharwad"
+ },
+ {
+  "key": "language",
+  "description": "Language the call was conducted in. Values: Hindi / Kannada"
+ },
+ {
+  "key": "campaign_type",
+  "description": "Which campaign this contact belongs to. Values: DKB - Existing Jobs / DKB - New Blue Dots / DKB - Not-Picked Retry / DKB - Early Hung Up Retry"
+ },
+ {
+  "key": "city_input",
+  "description": "City of the job as it exists in the platform before the call"
+ },
+ {
+  "key": "qualification_input",
+  "description": "Qualification requirement as it exists in the platform before the call"
+ },
+ {
+  "key": "location_input",
+  "description": "Job location as it exists in the platform before the call"
+ },
+ {
+  "key": "salary_input",
+  "description": "Salary range as it exists in the platform before the call"
+ },
+ {
+  "key": "num_vacancies_input",
+  "description": "Number of vacancies as it exists in the platform before the call"
+ },
+ {
+  "key": "job_role_input",
+  "description": "Job role as it exists in the platform before the call"
+ },
+ {
+  "key": "job_id",
+  "description": "Unique identifier for the job posting on the platform"
+ },
+ {
+  "key": "contact_phone",
+  "description": "Phone number of the contact"
+ },
+ {
+  "key": "contact_name",
+  "description": "Name of the person being called at the company"
+ },
+ {
+  "key": "company_name",
+  "description": "Legal name of the job provider / MSME"
+ }
+]

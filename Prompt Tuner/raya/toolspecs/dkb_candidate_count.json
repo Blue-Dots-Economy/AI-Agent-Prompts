@@ -1,0 +1,56 @@
+{
+ "_note": "How many job seekers near this posting are looking for this kind of work (Tushar, 2026-10-23: tell the employer how many matching candidates there are, never who). signals-search over seeker profiles, anchored on the employer's own job posting, narrowed by the role words, within 20 km of the posting. Only message.meta.total is used; names come back masked and are never spoken. Probes 2026-10-23: gzb machine operator 175, electrician 387, helper 8; dwd fitter 846-864. A combined role ('Electrician | Fitter') returns 0 because every word must match, so the role is ONE kind of work. Headers cloned from create_job (x-acting-org-id dropped), so no key is stored in this repo.",
+ "name": "get_candidate_count",
+ "description": "How many job seekers within 20 km of this job are looking for this kind of work. Call it right after create_job returned the posted item, before you speak. job_id = the item_id of the posting create_job returned; role = ONE kind of work in plain English (\"machine operator\", \"helper\"), never two roles and never a '|'. Read only message.meta.total. The result also carries masked profile fields: never speak a name, age, place or any other detail from it.",
+ "clone_api_from": "create_job",
+ "method": "POST",
+ "path_override": "/signals-search/v1/search",
+ "drop_headers": [
+  "x-acting-org-id"
+ ],
+ "parameters": {
+  "type": "object",
+  "required": [
+   "job_id",
+   "role"
+  ],
+  "properties": {
+   "job_id": {
+    "type": "string",
+    "description": "The item_id of the job posting create_job just returned (a UUID). Exactly the item_id from get_employer or create_job, nothing added before or after it (no comma, no space).",
+    "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"
+   },
+   "role": {
+    "type": "string",
+    "description": "ONE kind of work in plain English words, e.g. \"machine operator\". No '|', no second role, no place."
+   }
+  }
+ },
+ "payload_template": {
+  "context": {
+   "messageId": "dkb-candidates",
+   "networkId": "blue_dot",
+   "domain": "seeker",
+   "itemType": "profile_1.0"
+  },
+  "message": {
+   "intent": {
+    "item": {
+     "id": "{{job_id}}"
+    },
+    "textSearch": "{{role}}",
+    "spatial": [
+     {
+      "op": "s_dwithin",
+      "distanceMeters": 20000
+     }
+    ]
+   },
+   "pagination": {
+    "limit": 1,
+    "offset": 0
+   }
+  }
+ },
+ "speak_hold_message": false
+}

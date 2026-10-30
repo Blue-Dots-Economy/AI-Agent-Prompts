@@ -456,7 +456,7 @@
    "file": "DKB/DKB Hindi Signals.md",
    "agent": "DKB",
    "language": "hi",
-   "direction": "outbound",
+   "direction": "both",
    "kind": "conversation",
    "profile": "conversation",
    "raya_name": "DKB Hindi Signals",
@@ -474,11 +474,32 @@
    "signals": true
   },
   {
+   "id": "dkb-hi-signals-ab",
+   "file": "DKB/DKB Hindi Signals.md",
+   "agent": "DKB",
+   "language": "hi",
+   "direction": "both",
+   "kind": "conversation",
+   "profile": "conversation",
+   "raya_name": "DKB Hindi Signals - both directions (test)",
+   "raya_agent_id": {
+    "prod": "f423c1e0-f801-4e25-93ad-6eb898987b7a",
+    "staging": ""
+   },
+   "deploy": true,
+   "experimental": true,
+   "expected_name_contains": [
+    "both directions"
+   ],
+   "_note": "2026-10-26 test copy for the DKB both-directions rewrite (same prompt file as dkb-hi-signals). Proven here first; the production agent gets the file only after the live calls pass. Not in the nightly fleet.",
+   "signals": true
+  },
+  {
    "id": "dkb-kn-signals",
    "file": "DKB/DKB Kannada Signals.md",
    "agent": "DKB",
    "language": "kn",
-   "direction": "outbound",
+   "direction": "both",
    "kind": "conversation",
    "profile": "conversation",
    "raya_name": "DKB Kannada Signals",
@@ -493,6 +514,27 @@
     "Signals"
    ],
    "_note": "REPURPOSED from a combined ${call_direction} experiment into a Signals bot (2026-07-31). uuid reused; instructions+tools+name to be PATCHed to Signals. Phase per raya/signals-expansion/PLAN.md.",
+   "signals": true
+  },
+  {
+   "id": "dkb-kn-signals-ab",
+   "file": "DKB/DKB Kannada Signals.md",
+   "agent": "DKB",
+   "language": "kn",
+   "direction": "both",
+   "kind": "conversation",
+   "profile": "conversation",
+   "raya_name": "DKB Kannada Signals - both directions (test)",
+   "raya_agent_id": {
+    "prod": "4179157d-f8c7-4166-ae38-3431267af298",
+    "staging": ""
+   },
+   "deploy": true,
+   "experimental": true,
+   "expected_name_contains": [
+    "both directions"
+   ],
+   "_note": "2026-10-26 test copy for the DKB both-directions rewrite (same prompt file as dkb-kn-signals). Proven here first; the production agent gets the file only after the live calls pass. Not in the nightly fleet.",
    "signals": true
   },
   {
