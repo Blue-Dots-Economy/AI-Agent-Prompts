@@ -1,0 +1,477 @@
+{
+  "about": "Tool definitions for the Dhandhe Ki Baat voice agent, as configured on the live agent on 30 October 2026. Platform-neutral: create one HTTP tool per entry on your voice platform. Tool and parameter names must match exactly, because the prompt calls them by name. Paste each description in full: the model reads it when deciding whether to call the tool. In url, headers and body, replace {API_BASE}, {API_KEY} and {ACTING_ORG_ID} with your registry instance values; {name} in a body is filled from the parameter of that name. GET tools send their parameters as query parameters. hold_message: whether the platform plays a short hold line while the call runs.",
+  "call_inputs": [
+    "contact_phone",
+    "phoneNumber",
+    "company_name",
+    "contact_memory"
+  ],
+  "voice_settings": {
+    "allow_interruption": false,
+    "min_user_speech_to_interrupt": 0.7,
+    "required_silence_after_speech": 0.4,
+    "allowed_silence_before_nudge": 4,
+    "max_call_duration_mins": 15,
+    "say_hello": false,
+    "memory_enabled": true
+  },
+  "tools": [
+    {
+      "name": "create_job",
+      "description": "Post a new job to Signals (provider job_posting_1.0). Company name goes to top-level name; work location to jobProviderLocation. Salary, education, experience, hours and benefits are sent in their own fields. Writing about posting does not post: if you told the owner you are posting or updating the job you MUST invoke this tool in that same turn, and never say it is posted until this tool returns a result. Never emit a stage direction such as \"(calling create_job)\" into your reply — the owner hears it and nothing was posted. WHEN: only in a turn AFTER the owner answered yes to \"क्या मैं यह post कर दूँ?\"; never in the same turn as that question, and a yes to the phone-number question is not consent.",
+      "parameters": {
+        "type": "object",
+        "required": [
+          "companyName",
+          "hiringManagerName",
+          "hiringManagerPhone",
+          "phoneNumber",
+          "role",
+          "title"
+        ],
+        "properties": {
+          "role": {
+            "type": "string",
+            "description": "job role. English / Latin letters only."
+          },
+          "title": {
+            "type": "string",
+            "description": "job title. English / Latin letters only."
+          },
+          "positions": {
+            "type": "integer",
+            "description": "number of vacancies, as a string Send as a NUMBER, not a string."
+          },
+          "salaryMax": {
+            "type": "number",
+            "description": "Monthly salary in rupees, upper end, as a NUMBER. Same as salaryMin for a single figure. Omit if none given."
+          },
+          "salaryMin": {
+            "type": "number",
+            "description": "Monthly salary in rupees, lower end, as a NUMBER (12000). A single figure: send it as both salaryMin and salaryMax. Omit if the owner gave no salary."
+          },
+          "companyName": {
+            "type": "string",
+            "description": "employer/company name (goes to top-level name). In English / Latin letters only, never Devanagari or Kannada script: \"ट्यूनर मोबाइल शॉप\" is \"Tuner Mobile Shop\" (8178a26e posted it in Devanagari)."
+          },
+          "natureOfJob": {
+            "enum": [
+              "Full-time",
+              "Internship",
+              "Apprenticeship",
+              "Flexible",
+              "Gig Work"
+            ],
+            "type": "string",
+            "description": "Nature of the job, one of these values only. Part-time or shift work -> Flexible. Default Full-time."
+          },
+          "phoneNumber": {
+            "type": "string",
+            "description": "employer 10-digit phone number, no +91"
+          },
+          "workingHours": {
+            "type": "string",
+            "description": "Working hours as the owner said them, in English, e.g. '9 AM to 6 PM'. Omit if not discussed."
+          },
+          "benefitsOffered": {
+            "type": "array",
+            "items": {
+              "enum": [
+                "Food Provided",
+                "Travel / Transport Provided",
+                "Travel Allowance",
+                "PF / ESIC",
+                "Accommodation Provided",
+                "Other"
+              ],
+              "type": "string"
+            },
+            "description": "Benefits the owner named, as a JSON array of these values only. Omit if none."
+          },
+          "hiringManagerName": {
+            "type": "string",
+            "description": "The name of the person you are speaking to (the owner or the person hiring), in Latin script. REQUIRED by the job board: a post without it stays a hidden draft that seekers cannot see. Use the name they told you this call; if you do not have it, ask once \"आपका नाम क्या है?\" before posting. Never a placeholder such as Owner or Manager."
+          },
+          "hiringManagerEmail": {
+            "type": "string",
+            "description": "hiring manager email if provided"
+          },
+          "hiringManagerPhone": {
+            "type": "string",
+            "description": "The 10-digit number candidates should call, digits only, no +91. REQUIRED by the job board for the post to go live. Use the caller's ten digits unchanged when the owner said yes to \"क्या कैंडिडेट इसी नंबर पर आपसे बात कर सकते हैं?\"; only when they gave a different number, send that number (exactly the ten digits they said, confirmed back once)."
+          },
+          "jobProviderLocation": {
+            "type": "string",
+            "description": "work city or location, in English. English / Latin letters only."
+          },
+          "workExperienceYears": {
+            "enum": [
+              "< 1 Year",
+              "1 Year",
+              "2 Years",
+              "3 Years",
+              "3-5 Years",
+              "5-10 Years",
+              "10-15 Years",
+              "15+ Years"
+            ],
+            "type": "string",
+            "description": "Years of experience the owner asked for, only when they named a number. Omit otherwise."
+          },
+          "candidateExperienceType": {
+            "enum": [
+              "Fresher",
+              "Worked before",
+              "Returning after a break",
+              "No preference"
+            ],
+            "type": "string",
+            "description": "Whether the owner wants freshers, experienced people, or has no preference. Omit if not discussed."
+          },
+          "minEducationalInstitute": {
+            "enum": [
+              "School",
+              "PU College",
+              "College",
+              "ITI",
+              "Other Vocational Training",
+              "Polytechnic",
+              "Diploma",
+              "Certification",
+              "Learned Informally",
+              "None"
+            ],
+            "type": "string",
+            "description": "Minimum education the owner asked for, mapped to one value: 10th/12th/school -> School; graduate/BA/BCom -> College; ITI -> ITI; polytechnic/diploma -> Diploma; no requirement -> None. Omit if not discussed."
+          }
+        }
+      },
+      "http": {
+        "method": "POST",
+        "url": "{{API_BASE}}/api/v1/admin/participant",
+        "headers": {
+          "x-api-key": "{{API_KEY}}",
+          "Content-Type": "application/json",
+          "x-acting-org-id": "{{ACTING_ORG_ID}}"
+        },
+        "body": {
+          "name": "{{companyName}}",
+          "domain": "provider",
+          "channel": "voice",
+          "network": "blue_dot",
+          "item_type": "job_posting_1.0",
+          "compliance": [
+            {
+              "key": "user_terms",
+              "value": true
+            },
+            {
+              "key": "user_privacy",
+              "value": true
+            },
+            {
+              "key": "profile_creation",
+              "value": true
+            }
+          ],
+          "item_state": {
+            "role": "{{role}}",
+            "positions": "{{positions}}",
+            "salaryMax": "{{salaryMax}}",
+            "salaryMin": "{{salaryMin}}",
+            "natureOfJob": "{{natureOfJob}}",
+            "workingHours": "{{workingHours}}",
+            "benefitsOffered": "{{benefitsOffered}}",
+            "jobProviderName": "{{companyName}}",
+            "hiringManagerName": "{{hiringManagerName}}",
+            "hiringManagerEmail": "{{hiringManagerEmail}}",
+            "jobProviderLocation": "{{jobProviderLocation}}",
+            "workExperienceYears": "{{workExperienceYears}}",
+            "candidateExperienceType": "{{candidateExperienceType}}",
+            "minEducationalInstitute": "{{minEducationalInstitute}}",
+            "hiringManagerPhoneNumber": "+91{{hiringManagerPhone}}"
+          },
+          "phone_number": "+91{{phoneNumber}}"
+        },
+        "hold_message": false
+      }
+    },
+    {
+      "name": "update_job",
+      "description": "Update an existing Signals job posting by its item_id (job_id). Persists only Signals-allowed item_state fields. Writing about posting does not post: if you told the owner you are posting or updating the job you MUST invoke this tool in that same turn, and never say it is posted until this tool returns a result. Never emit a stage direction such as \"(calling create_job)\" into your reply — the owner hears it and nothing was posted.",
+      "parameters": {
+        "type": "object",
+        "required": [
+          "companyName",
+          "job_id",
+          "phoneNumber"
+        ],
+        "properties": {
+          "role": {
+            "type": "string",
+            "description": "updated job role. English / Latin letters only."
+          },
+          "title": {
+            "type": "string",
+            "description": "updated job title. English / Latin letters only."
+          },
+          "job_id": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+            "description": "the Signals job_posting item_id to update (a real UUID; never 'Not Available'). Exactly the item_id from get_employer or create_job, nothing added before or after it (no comma, no space)."
+          },
+          "positions": {
+            "type": "integer",
+            "description": "updated number of vacancies, as a string Send as a NUMBER, not a string."
+          },
+          "salaryMax": {
+            "type": "number",
+            "description": "Monthly salary in rupees, upper end, as a NUMBER. Same as salaryMin for a single figure. Omit if none given."
+          },
+          "salaryMin": {
+            "type": "number",
+            "description": "Monthly salary in rupees, lower end, as a NUMBER (12000). A single figure: send it as both salaryMin and salaryMax. Omit if the owner gave no salary."
+          },
+          "companyName": {
+            "type": "string",
+            "description": "employer/company name (top-level name). In English / Latin letters only, never Devanagari or Kannada script: \"ट्यूनर मोबाइल शॉप\" is \"Tuner Mobile Shop\" (8178a26e posted it in Devanagari)."
+          },
+          "natureOfJob": {
+            "enum": [
+              "Full-time",
+              "Internship",
+              "Apprenticeship",
+              "Flexible",
+              "Gig Work"
+            ],
+            "type": "string",
+            "description": "Nature of the job, one of these values only. Part-time or shift work -> Flexible. Default Full-time."
+          },
+          "phoneNumber": {
+            "type": "string",
+            "description": "The caller's ten digits (the last ten digits of their number), no +91. Always send it: without it the job board rejects the update (a3f61db8)."
+          },
+          "workingHours": {
+            "type": "string",
+            "description": "Working hours as the owner said them, in English, e.g. '9 AM to 6 PM'. Omit if not discussed."
+          },
+          "benefitsOffered": {
+            "type": "array",
+            "items": {
+              "enum": [
+                "Food Provided",
+                "Travel / Transport Provided",
+                "Travel Allowance",
+                "PF / ESIC",
+                "Accommodation Provided",
+                "Other"
+              ],
+              "type": "string"
+            },
+            "description": "Benefits the owner named, as a JSON array of these values only. Omit if none."
+          },
+          "hiringManagerName": {
+            "type": "string",
+            "description": "The name of the person you are speaking to, in Latin script; send it so the post can stay live."
+          },
+          "hiringManagerPhone": {
+            "type": "string",
+            "description": "The 10-digit number candidates should call, digits only, no +91. REQUIRED by the job board for the post to go live. Use the caller's ten digits unchanged when the owner said yes to \"क्या कैंडिडेट इसी नंबर पर आपसे बात कर सकते हैं?\"; only when they gave a different number, send that number (exactly the ten digits they said, confirmed back once)."
+          },
+          "jobProviderLocation": {
+            "type": "string",
+            "description": "updated work location, in English. English / Latin letters only."
+          },
+          "workExperienceYears": {
+            "enum": [
+              "< 1 Year",
+              "1 Year",
+              "2 Years",
+              "3 Years",
+              "3-5 Years",
+              "5-10 Years",
+              "10-15 Years",
+              "15+ Years"
+            ],
+            "type": "string",
+            "description": "Years of experience the owner asked for, only when they named a number. Omit otherwise."
+          },
+          "candidateExperienceType": {
+            "enum": [
+              "Fresher",
+              "Worked before",
+              "Returning after a break",
+              "No preference"
+            ],
+            "type": "string",
+            "description": "Whether the owner wants freshers, experienced people, or has no preference. Omit if not discussed."
+          },
+          "minEducationalInstitute": {
+            "enum": [
+              "School",
+              "PU College",
+              "College",
+              "ITI",
+              "Other Vocational Training",
+              "Polytechnic",
+              "Diploma",
+              "Certification",
+              "Learned Informally",
+              "None"
+            ],
+            "type": "string",
+            "description": "Minimum education the owner asked for, mapped to one value: 10th/12th/school -> School; graduate/BA/BCom -> College; ITI -> ITI; polytechnic/diploma -> Diploma; no requirement -> None. Omit if not discussed."
+          }
+        }
+      },
+      "http": {
+        "method": "POST",
+        "url": "{{API_BASE}}/api/v1/admin/participant",
+        "headers": {
+          "x-api-key": "{{API_KEY}}",
+          "Content-Type": "application/json",
+          "x-acting-org-id": "{{ACTING_ORG_ID}}"
+        },
+        "body": {
+          "name": "{{companyName}}",
+          "domain": "provider",
+          "channel": "voice",
+          "item_id": "{{job_id}}",
+          "network": "blue_dot",
+          "item_type": "job_posting_1.0",
+          "item_state": {
+            "role": "{{role}}",
+            "positions": "{{positions}}",
+            "salaryMax": "{{salaryMax}}",
+            "salaryMin": "{{salaryMin}}",
+            "natureOfJob": "{{natureOfJob}}",
+            "workingHours": "{{workingHours}}",
+            "benefitsOffered": "{{benefitsOffered}}",
+            "jobProviderName": "{{companyName}}",
+            "hiringManagerName": "{{hiringManagerName}}",
+            "jobProviderLocation": "{{jobProviderLocation}}",
+            "workExperienceYears": "{{workExperienceYears}}",
+            "candidateExperienceType": "{{candidateExperienceType}}",
+            "minEducationalInstitute": "{{minEducationalInstitute}}",
+            "hiringManagerPhoneNumber": "+91{{hiringManagerPhone}}"
+          },
+          "phone_number": "+91{{phoneNumber}}"
+        },
+        "hold_message": false
+      }
+    },
+    {
+      "name": "close_job",
+      "description": "Hide a job posting from seekers because the owner says it is filled or no longer needed. Call it ONLY for an existing posting with a real job_id, and only after the owner clearly said it is filled or not needed. Returns the new status; say it is removed only if the result shows lifecycle_status paused.",
+      "parameters": {
+        "type": "object",
+        "required": [
+          "job_id"
+        ],
+        "properties": {
+          "job_id": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+            "description": "The existing posting's job_posting item_id (${job_id}); a real UUID, never 'Not Available'. Exactly the item_id from get_employer or create_job, nothing added before or after it (no comma, no space)."
+          }
+        }
+      },
+      "http": {
+        "method": "POST",
+        "url": "{{API_BASE}}/api/v1/item/lifecycle",
+        "headers": {
+          "x-api-key": "{{API_KEY}}",
+          "Content-Type": "application/json",
+          "x-acting-org-id": "{{ACTING_ORG_ID}}"
+        },
+        "body": {
+          "action": "pause",
+          "item_id": "{{job_id}}"
+        },
+        "hold_message": false
+      }
+    },
+    {
+      "name": "get_candidate_count",
+      "description": "How many job seekers within 20 km of this job are looking for this kind of work. Call it right after create_job returned the posted item, before you speak. job_id = the item_id of the posting create_job returned; role = ONE kind of work in plain English (\"machine operator\", \"helper\"), never two roles and never a '|'. Read only message.meta.total. The result also carries masked profile fields: never speak a name, age, place or any other detail from it.",
+      "parameters": {
+        "type": "object",
+        "required": [
+          "job_id",
+          "role"
+        ],
+        "properties": {
+          "role": {
+            "type": "string",
+            "description": "ONE kind of work in plain English words, e.g. \"machine operator\". No '|', no second role, no place."
+          },
+          "job_id": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+            "description": "The item_id of the job posting create_job just returned (a UUID). Exactly the item_id from get_employer or create_job, nothing added before or after it (no comma, no space)."
+          }
+        }
+      },
+      "http": {
+        "method": "POST",
+        "url": "{{API_BASE}}/signals-search/v1/search",
+        "headers": {
+          "x-api-key": "{{API_KEY}}",
+          "Content-Type": "application/json"
+        },
+        "body": {
+          "context": {
+            "domain": "seeker",
+            "itemType": "profile_1.0",
+            "messageId": "dkb-candidates",
+            "networkId": "blue_dot"
+          },
+          "message": {
+            "intent": {
+              "item": {
+                "id": "{{job_id}}"
+              },
+              "spatial": [
+                {
+                  "op": "s_dwithin",
+                  "distanceMeters": 20000
+                }
+              ],
+              "textSearch": "{{role}}"
+            },
+            "pagination": {
+              "limit": 1,
+              "offset": 0
+            }
+          }
+        },
+        "hold_message": false
+      }
+    },
+    {
+      "name": "get_employer",
+      "description": "Look up the caller by phone number: returns their account and every job posting they have, each with item_id (the job_id for update_job / close_job / get_candidate_count), lifecycle_status (live = seekers can see it, draft = not yet visible, paused = closed by the owner, retired = removed) and item_state (role, positions, jobProviderName = the business name, salaryMin/salaryMax, hiringManagerName, ...). Call it ONCE, silently, at the start of every call. user_id null means a new employer with nothing posted. Never speak an id or a field name from the result.",
+      "parameters": {
+        "type": "object",
+        "required": [
+          "phone_number"
+        ],
+        "properties": {
+          "phone_number": {
+            "type": "string",
+            "description": "Always 91 followed by the LAST TEN digits of the caller's number: twelve digits, no plus sign, e.g. 919876543210. Take the last ten digits of ${contact_phone} whatever its length and put 91 in front. Never 9191... (f84a3c17 sent 9191888888985 and found nobody)."
+          }
+        }
+      },
+      "http": {
+        "method": "GET",
+        "url": "{{API_BASE}}/api/v1/admin/participant",
+        "headers": {
+          "x-api-key": "{{API_KEY}}",
+          "x-acting-org-id": "{{ACTING_ORG_ID}}"
+        },
+        "hold_message": false
+      }
+    }
+  ]
+}
