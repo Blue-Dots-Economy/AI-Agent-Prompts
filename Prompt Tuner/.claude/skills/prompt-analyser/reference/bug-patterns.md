@@ -3482,3 +3482,57 @@ returned, nothing added".
 
 **Fix direction.** As above: one recipe, one line per question, required parameters for templated fields, a pattern
 on ids. Source: DKB Signals Hindi/Kannada, 2026-10-26.
+
+## D129: a tool error with no branch in the call flow
+
+**Symptoms (KKB Hindi, KKB Kannada, Maya; campaigns 26 Oct and 4-5 Nov 2026).** The profile lookup failed on almost
+every campaign call (the job board flags numbers with no usable age as `U18_NOT_ALLOWED`). The prompt had a section for
+that error name, but the model only ever sees "get_profile request failed (HTTP 400)" (the name is in a debug block it
+is not given, D52), and the call flow said only "Profile → … Nothing → new caller". So the bot improvised: it replayed
+the greeting (39 of 72 slim calls) and saved an age nobody said, mostly the 25 of a worked example (11 of 15 saves).
+
+**Detection heuristic.** For every tool the flow calls, find the step that reads its result and list the branches.
+Is there one for an ERROR, written in the words the model actually sees ("request failed", the HTTP code), not in the
+backend's error name? A branch keyed on an error name that the platform does not pass through is unreachable (D1:
+count how often it has ever fired). Also: a section about the error that sits in the tool reference, far from the step.
+
+**Fix direction.** One line at the step that reads the result: what an error means for the call and the next spoken
+turn. Never key it on a name the model cannot see. Source: KKB Slim/Signals, Maya, 2026-11-09 (tracker r156-r159, r170).
+
+## D130: an unfilled input variable that the prompt does not call empty, next to concrete examples
+
+**Symptoms (Maya, KKB Hindi Signals, 4-5 Nov 2026).** The campaign sent no `${recommendations}`; the platform left the
+raw token in the prompt. The "empty → no-jobs" rule listed empty, null and no valid jobs, but not the raw token, so the
+model treated the prompt's worked-example jobs as the list, read them out, and applied to the example `job_id`, which
+was a real job (CY Future): students' details went to a company they never chose.
+
+**Detection heuristic.** (1) For every input variable with an "if empty" rule: does the rule also cover the raw
+dollar-brace token? (2) Grep examples for real ids (UUIDs, phone numbers, call ids used as ids) and real company names
+that also exist in the live inventory. An example id that resolves on the backend is a live wrong-target.
+
+**Fix direction.** Name the unfilled token as empty in the rule itself. Never put a real id in an example. Ask the
+campaign owner to send the variable. Source: Maya, KKB Signals, 2026-11-09 (tracker r160, r158).
+
+## D131: "nothing found" decided on the model's own filtered list
+
+**Symptoms (KKB Slim Hindi, 5 Nov 2026).** Searches returned ten rows; the model set them aside as not the caller's
+kind of work and then said the empty-list line "कोई जॉब नहीं मिल रही" (7 of 8 calls). The only alternative line
+required "all named aloud", which is never true when nothing was named.
+
+**Detection heuristic.** Any "no results" line: is its condition about the tool's raw result, or about a list the
+model has already filtered? Is there a line for "results exist but none fit" that is reachable without first naming them?
+
+**Fix direction.** Tie the empty line to the raw result count; make the "none fit" line reachable directly. Source:
+KKB Slim Hindi/Kannada, 2026-11-09 (tracker r167).
+
+## D132: the caller's line echoes the bot, and the bot answers as the caller
+
+**Symptoms (Maya, 4-5 Nov 2026).** On calls where the bot's own voice came back through the caller's phone, the
+transcript's caller turn was the bot's own question; the model then replied as the student ("जी हाँ, मैं ... की स्टूडेंट
+हूँ"), accepted the terms itself and applied with an age nobody said (4 of 13 echo calls, 0 of 371 others).
+
+**Detection heuristic.** Does the prompt say what to do when the caller's turn repeats the bot's last line? Without it,
+consent and age can be "given" by the echo. A "repeat the question" fix alone loops (47a5813a asked consent 5 times).
+
+**Fix direction.** An echoed turn is never an answer: ask once to turn the speaker off, then close. Source: Maya,
+2026-11-09 (tracker r162).

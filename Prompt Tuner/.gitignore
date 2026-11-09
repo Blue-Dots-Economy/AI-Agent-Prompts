@@ -45,3 +45,7 @@ raya/location-writeback-state.json
 # /demo — live-run outputs and presenter state (regenerated every run)
 demo/out/
 demo/.state.json
+
+# VoicERA call records carry caller transcripts and audio; live configs are pulled copies
+raya/voicera/records/
+raya/voicera/live/

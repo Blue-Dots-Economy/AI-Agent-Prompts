@@ -378,11 +378,12 @@ FIXES = [
     ("kn-failure-line-asserts-nothing", "the Kannada failure line asserts NOTHING about whether the "
                                        "application exists -- the routing between it and Row 1 is "
                                        "broken on both routes (7f2e3928, 5bbb6ca1), so the line "
-                                       "itself must be true in every case it is reached for",
+                                       "itself must be true in every case it is reached for; since "
+                                       "2026-11-09 it also promises no team update (tracker r161/r172)",
      [f for f in all_conv() if "Kannada" in os.path.basename(f)
-      and os.path.basename(f).startswith("KKB Placeholder")
+      and os.path.basename(f).startswith("KKB Placeholder") and "Signals" in os.path.basename(f)
       and "Memory" not in f and "Output" not in f],
-     ["ನಿಮ್ಮ ಆಸಕ್ತಿ ನಾವು ನೋಟ್ ಮಾಡ್ಕೊಂಡಿದೀವಿ"],
+     ["ಅಪ್ಲೈ ಸದ್ಯಕ್ಕೆ ಖಚಿತ ಆಗಲಿಲ್ಲ"],
      ["ಸಧ್ಯಕ್ಕೆ ಆಗಿಲ್ಲ", "ಮುಂದೆ ಹೋಗಿಲ್ಲ"]),
 
     ("slim-neverinvent-deep-dive", "the deep-dive template block itself says a job absent from the "

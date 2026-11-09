@@ -86,14 +86,23 @@ def city_state(stored):
     return parts[-2:] if len(parts) >= 2 else parts
 
 
-def compose(landmark, area, stored, pin=None):
+# The state each bot serves, added only when neither a stored city/state nor a PIN is known: "Vaishali, India"
+# geocoded to Bihar for a Ghaziabad caller (call 5d132ec4, 2026-11-09). A state narrows it without inventing a city.
+AGENT_STATE = {"140d13ca-c80f-47c4-9454-5edb3fd38c96": "Uttar Pradesh", "bd4dfd44-a0c5-4d37-9b49-f8c186c901c1": "Karnataka"}
+
+
+def compose(landmark, area, stored, pin=None, state_hint=None):
     """One address string, because the DPG profile has ONE location field (agreed 2026-10-13):
     '<landmark>, <area>, <City>, <State> <PIN>, India'. The PIN goes in only when it is exactly six digits."""
     out, seen = [], set()
     pieces = []
     for v in [title(landmark) if usable(landmark) else "", title(area) if usable(area) else ""]:
         pieces += [x.strip() for x in v.split(",")]           # "Loni, Ghaziabad" is two places
-    for p in [*pieces, *city_state(stored), "India"]:
+    have = {x.lower().replace(" ", "") for x in pieces}
+    cs = [p for p in city_state(stored) if p.lower().replace(" ", "") not in have]   # the area itself is not a city
+    if not cs and state_hint and len(re.sub(r"\D", "", str(pin or ""))) != 6:
+        cs = [state_hint]
+    for p in [*pieces, *cs, "India"]:
         if p and p.lower().replace(" ", "") not in seen:
             out.append(p)
             seen.add(p.lower().replace(" ", ""))
@@ -126,6 +135,9 @@ def main():
     ap.add_argument("--agent", default=SLIM)
     ap.add_argument("--limit", type=int, default=10)
     ap.add_argument("--calls", default="")
+    ap.add_argument("--since-hours", type=float, default=0,
+                    help="page back through every call this many hours old instead of the latest --limit; "
+                         "the 15-minute job uses 72 so a Mac that was off catches up (5 Nov: 264 of 284 calls missed)")
     a = ap.parse_args()
 
     T = tools_of(a.agent)
@@ -136,6 +148,20 @@ def main():
 
     if a.calls:
         uuids = [u.strip() for u in a.calls.split(",") if u.strip()]
+    elif a.since_hours:
+        import datetime, time
+        cutoff = (datetime.datetime.utcnow() - datetime.timedelta(hours=a.since_hours)).strftime("%Y-%m-%dT%H:%M:%S")
+        uuids, off = [], 0
+        while True:
+            time.sleep(1)                                   # the list endpoint rate-limits (429)
+            page = raya(f"/api/call?agent_id={a.agent}&limit=100&offset={off}").get("calls") or []
+            if not page:
+                break
+            uuids += [c["uuid"] for c in page if c.get("outcome") == "Completed"
+                      and (c.get("created_at") or "") >= cutoff and c["uuid"] not in state["processed"]]
+            if (page[-1].get("created_at") or "") < cutoff:
+                break
+            off += len(page)
     else:
         lst = raya(f"/api/call?agent_id={a.agent}&limit={a.limit}")
         uuids = [c["uuid"] for c in lst.get("calls") or [] if c.get("outcome") == "Completed"]
@@ -156,6 +182,12 @@ def main():
         # (call 6c12ef52 wrote Muradnagar for a caller who had just moved to Modinagar). Not ready ->
         # skip WITHOUT recording, so the next run picks it up.
         if "nearest_landmark" not in out:
+            import datetime
+            age_h = (datetime.datetime.utcnow() - datetime.datetime.strptime(
+                (c.get("created_at") or "2100-01-01T00:00:00")[:19], "%Y-%m-%dT%H:%M:%S")).total_seconds() / 3600
+            if age_h > 6 and a.mode == "apply":       # a report still without the field after 6 h never gets it
+                state["processed"][u] = "no-location-field"
+                print(f"{tag}  skip — call record has no location field (recorded)"); continue
             print(f"{tag}  skip — call record not ready yet (retry later)"); continue
         landmark, area = out.get("nearest_landmark"), out.get("home_area")
         precall = area_fallback(c)
@@ -185,7 +217,7 @@ def main():
             print(f"{tag}  skip — no live seeker profile for {phone}"); continue
         it = live[0]; st = it.get("item_state") or {}
         stored = st.get("location") or ""
-        new = compose(landmark, area, stored, out.get("pin_code"))
+        new = compose(landmark, area, stored, out.get("pin_code"), AGENT_STATE.get(a.agent))
         if new.lower() == stored.lower():
             print(f"{tag}  skip — already current: {stored}"); continue
         before = (it.get("item_locations") or [{}])[0]
@@ -209,6 +241,8 @@ def main():
               + (f"  (moved {moved:.2f} km)" if moved is not None else ""))
         state["processed"][u] = {"location": new, "point": after}
         json.dump(state, open(STATE, "w"), indent=1)
+    if a.mode == "apply":
+        json.dump(state, open(STATE, "w"), indent=1)   # keeps the "no location field" marks too
 
 
 def raya_point(gp, GH, phone):

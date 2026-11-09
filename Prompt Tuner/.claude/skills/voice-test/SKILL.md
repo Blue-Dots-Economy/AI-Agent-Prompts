@@ -213,7 +213,8 @@ Each was nearly reported as a bot bug by a team using the tuner (Purple Dots, Oc
    sent in `agent_args` DOES reach the model** (`e0e7bbc2`: the args carried `918888888888`, `get_profile`
    was called with it, the call was dialled to the tester). So any profile state can be built:
    1. **Pick the instance the bot reads**, from its OWN live `get_profile` `api_details.url` (e.g. the
-      Hindi slim reads `gzb-signals`, the Kannada slim `dharwad-signals`). A fixture on another host is
+      Hindi slim reads the Ghaziabad instance `jobs.rojgarmitra.org.in` (it was `gzb-signals.bluedotseconomy.org`
+      until 28 Oct 2026, now dead), the Kannada slim `dharwad-signals`). A fixture on another host is
       invisible and looks like a fetch failure.
    2. **Pick a number that cannot be a real person**: the `9188888888xx` block.
    3. **POST the state** to `/api/v1/admin/participant` with that `phone_number`: *new caller* = post
