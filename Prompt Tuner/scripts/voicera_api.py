@@ -9,11 +9,13 @@ Credentials (git-ignored raya/.env):
     VOICERA_EMAIL=...            # an account in the org (a dedicated eval account, not a person's)
     VOICERA_PASSWORD=...
   or VOICERA_TOKEN=<jwt>         # short-lived; email+password is preferred
+    VOICERA_WS_URL=wss://<host>/agent/<org_id>/<agent_id>   # the eval agent's media socket, no token
+    VOICERA_WS_TOKEN=<jwt>       # socket token from VoicERA (about 2 hours; they refresh it by hand)
     VOICERA_TEST_NUMBERS=911204404272,...   # optional: extra numbers `dial` may call
 
 Targets live in raya/voicera/targets.json by agent name and the last four digits of its number. Agent and org ids are
-resolved at run time and never committed: VoicERA's media WebSocket is unauthenticated, so an
-org id plus an agent id is enough to open a session on someone's quota.
+resolved at run time and never committed. The media WebSocket needs a signed token since
+2026-11-09 (it was open before), but the ids still stay out of git.
 
 Commands
   whoami                                  who we are logged in as, org, role
@@ -25,6 +27,8 @@ Commands
   record <call_id> [--out DIR] [--audio]  one call -> call record JSON (+ transcript, + recording)
   dial   <target> --to NUMBER [--var k=v ...] [--yes]
                                           VoicERA agent places an outbound call to a TESTER number
+  ws-check                                open the eval agent's media socket with VOICERA_WS_TOKEN:
+                                          token expiry, then OPEN or the close code (no REST login needed)
 """
 import argparse, datetime as dt, json, os, re, sys, time, urllib.error, urllib.parse, urllib.request
 
@@ -296,6 +300,55 @@ def cmd_dial(v, a):
     print(f"placed: call_id={r.get('call_id')} status={r.get('status')}")
 
 
+def _jwt_claims(tok):
+    import base64
+    try:
+        b = tok.split(".")[1]
+        return json.loads(base64.urlsafe_b64decode(b + "=" * (-len(b) % 4)))
+    except Exception:
+        return {}
+
+
+def cmd_ws_check(a):
+    e = env()
+    url, tok = e.get("VOICERA_WS_URL", "").split("?")[0], e.get("VOICERA_WS_TOKEN", "")
+    if not url:
+        sys.exit("set VOICERA_WS_URL (wss://<host>/agent/<org_id>/<agent_id>, no token) in raya/.env")
+    if not tok:
+        print("no VOICERA_WS_TOKEN set: checking that the socket refuses us")
+    else:
+        c = _jwt_claims(tok)
+        if c.get("exp"):
+            left = c["exp"] - time.time()
+            when = dt.datetime.fromtimestamp(c["exp"]).strftime("%Y-%m-%d %H:%M")
+            print(f"token: role={c.get('role')} expires {when} ({'EXPIRED' if left < 0 else f'{int(left // 60)} min left'})")
+    try:
+        import asyncio, websockets
+    except ImportError:
+        sys.exit("pip install websockets")
+
+    async def go():
+        full = url + ("?token=" + urllib.parse.quote(tok) if tok else "")
+        try:
+            async with websockets.connect(full, open_timeout=15, additional_headers={"User-Agent": "Mozilla/5.0"}) as ws:
+                try:
+                    m = await asyncio.wait_for(ws.recv(), 5)
+                    return f"OPEN (first message: {type(m).__name__}, {len(m)} bytes)"
+                except asyncio.TimeoutError:
+                    return "OPEN (no message in 5 s; the agent waits for caller audio)"
+                except websockets.ConnectionClosed as x:
+                    return f"CLOSED {x.rcvd.code if x.rcvd else '?'} {x.rcvd.reason if x.rcvd else ''}"
+        except websockets.InvalidStatus as x:
+            return f"HTTP {x.response.status_code}"
+        except Exception as x:
+            return f"{type(x).__name__}: {x}"
+    r = asyncio.run(go())
+    print("socket:", r)
+    if "1008" in r:
+        print("  1008 = token missing, invalid or expired: ask VoicERA for a fresh one")
+    return 0 if r.startswith("OPEN") else 1
+
+
 def main():
     p = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     s = p.add_subparsers(dest="cmd", required=True)
@@ -307,7 +360,10 @@ def main():
     x = s.add_parser("record"); x.add_argument("call_id"); x.add_argument("--out"); x.add_argument("--audio", action="store_true")
     x = s.add_parser("dial"); x.add_argument("target"); x.add_argument("--to", required=True)
     x.add_argument("--var", action="append"); x.add_argument("--yes", action="store_true")
+    s.add_parser("ws-check")
     a = p.parse_args()
+    if a.cmd == "ws-check":
+        sys.exit(cmd_ws_check(a))
     sys.exit(globals()["cmd_" + a.cmd](VoicERA(), a) or 0)
 
 

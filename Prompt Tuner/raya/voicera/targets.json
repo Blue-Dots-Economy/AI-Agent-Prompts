@@ -1,8 +1,9 @@
 {
-  "_note": "VoicERA agents the tuner can reach, by agent name and the last four digits of its number only. Agent and org ids are resolved at run time by scripts/voicera_api.py and never committed (the media WebSocket is unauthenticated).",
+  "_note": "VoicERA agents the tuner can reach, by agent name and the last four digits of its number only. Agent and org ids are resolved at run time by scripts/voicera_api.py and never committed. The media WebSocket is token-gated since 2026-11-09; its address and token live in raya/.env (VOICERA_WS_URL, VOICERA_WS_TOKEN).",
   "deployment": "https://bluedots-poc.tech (org: COSS BlueDots Demo)",
   "targets": {
     "vraya": {"number": "XXXXXX0649", "name": "KKB Demo Agent Raya", "llm": "bluedots (AIDPG)", "speech": "Raya STT + TTS"},
-    "ai4b":  {"number": "XXXXXX0648", "name": "KKB Demo Agent AI4B", "llm": "bluedots (AIDPG)", "speech": "Bhashini / AI4Bharat models"}
+    "ai4b":  {"number": "XXXXXX0648", "name": "KKB Demo Agent AI4B", "llm": "bluedots (AIDPG)", "speech": "Bhashini / AI4Bharat models"},
+    "evals": {"number": "", "name": "KKB BlueDots Evals Agent", "telephony": "WebSocket", "use": "the eval agent streams audio to it (VOICERA_WS_URL + VOICERA_WS_TOKEN); created 2026-11-09"}
   }
 }
